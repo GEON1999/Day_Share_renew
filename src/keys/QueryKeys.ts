@@ -1,0 +1,68 @@
+// QueryKeys.js
+
+// 사용자 정보 조회
+const GET_USER = "GET_USER";
+
+// 달력 리스트 조회
+const GET_CALENDAR_LIST = "GET_CALENDAR_LIST";
+
+// 달력 선택 리스트 조회
+const GET_CALENDAR_SELECT_LIST = "GET_CALENDAR_SELECT_LIST";
+
+// 달력 상세 정보 조회
+const GET_CALENDAR_DETAIL = "GET_CALENDAR_DETAIL";
+
+// 달력 기본 정보 조회
+const GET_CALENDAR_BASIC = "GET_CALENDAR_BASIC";
+
+// 초대 코드 조회
+const GET_INVITE_CODE = "GET_INVITE_CODE";
+
+// 달력 사용자 정보 조회
+const GET_CALENDAR_USER_INFO = "GET_CALENDAR_USER_INFO";
+
+// 달력 권한 조회
+const GET_CALENDAR_PERMISSION = "GET_CALENDAR_PERMISSION";
+
+// 달력 권한 리스트 조회
+const GET_CALENDAR_PERMISSION_LIST = "GET_CALENDAR_PERMISSION_LIST";
+
+// 일기 리스트 조회
+const GET_DIARIES = "GET_DIARIES";
+
+// 일기 상세 정보 조회
+const GET_DIARY_DETAIL = "GET_DIARY_DETAIL";
+
+// 캘린더 프로필 조회
+const GET_CALENDAR_PROFILE = "GET_CALENDAR_PROFILE";
+
+// 할 일 리스트 조회
+const GET_TODOS = "GET_TODOS";
+
+// 할 일 상세 정보 조회
+const GET_TODO_DETAIL = "GET_TODO_DETAIL";
+
+// 댓글 리스트 조회
+const GET_COMMENTS = "GET_COMMENTS";
+
+// 좋아요 수 조회
+const GET_LIKES = "GET_LIKES";
+
+export default {
+  GET_USER,
+  GET_CALENDAR_LIST,
+  GET_CALENDAR_SELECT_LIST,
+  GET_CALENDAR_DETAIL,
+  GET_CALENDAR_BASIC,
+  GET_INVITE_CODE,
+  GET_CALENDAR_USER_INFO,
+  GET_CALENDAR_PERMISSION,
+  GET_CALENDAR_PERMISSION_LIST,
+  GET_DIARIES,
+  GET_DIARY_DETAIL,
+  GET_CALENDAR_PROFILE,
+  GET_TODOS,
+  GET_TODO_DETAIL,
+  GET_COMMENTS,
+  GET_LIKES,
+};
