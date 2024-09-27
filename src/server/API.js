@@ -1,0 +1,168 @@
+// auth API
+
+// 사용자 로그인
+const LOGIN = "/api/login";
+
+// 사용자 회원가입
+const SIGNUP = "/api/signup";
+
+// user API
+
+// 사용자 정보 조회
+const GET_USER = "/api/user";
+
+// 사용자 정보 수정
+const UPDATE_USER = "/api/user";
+
+// 사용자 탈퇴
+const DELETE_USER = "/api/user";
+
+// FCM 토큰 업데이트
+const UPDATE_FCM_TOKEN = (token) => `/api/user/fcm-token?token=${token}`;
+
+// calendar API
+
+// 달력 생성
+const CREATE_CALENDAR = "/api/calendar";
+
+// 달력 삭제
+const DELETE_CALENDAR = (calendarId) => `/api/calendar/${calendarId}/del`;
+
+// 달력 리스트 조회 (페이지네이션)
+const GET_CALENDAR_LIST = (page = 1) => `/api/calendar?page=${page}`;
+
+// 달력 선택 리스트 조회
+const GET_CALENDAR_SELECT_LIST = "/api/calendars";
+
+// 달력 상세 정보 조회
+const GET_CALENDAR_DETAIL = (calendarId) => `/api/calendar/${calendarId}`;
+
+// 달력 기본 정보 조회
+const GET_CALENDAR_BASIC = (calendarId) => `/api/calendar/${calendarId}/basic`;
+
+// 달력 수정
+const UPDATE_CALENDAR = (calendarId) => `/api/calendar/${calendarId}`;
+
+// 초대 코드 생성
+const CREATE_INVITE_CODE = (calendarId) => `/api/calendar/${calendarId}/invite`;
+
+// 초대 코드 삭제
+const DELETE_INVITE_CODE = (calendarId) =>
+  `/api/calendar/${calendarId}/invite/del`;
+
+// 초대 코드 조회
+const GET_INVITE_CODE = (calendarId) => `/api/calendar/${calendarId}/invite`;
+
+// 달력에 가입
+const JOIN_CALENDAR = "/api/joinCalendar";
+
+// 달력 사용자 정보 수정
+const UPDATE_CALENDAR_USER_INFO = (calendarId) =>
+  `/api/calendar/${calendarId}/user`;
+
+// 달력 사용자 정보 조회
+const GET_CALENDAR_USER_INFO = (calendarId) =>
+  `/api/calendar/${calendarId}/user`;
+
+// 달력 권한 조회
+const GET_CALENDAR_PERMISSION = (calendarId) =>
+  `/api/calendar/${calendarId}/permission`;
+
+// 달력 권한 삭제 (특정 사용자)
+const DELETE_CALENDAR_PERMISSION = (calendarId, userId) =>
+  `/api/calendar/${calendarId}/permission/${userId}`;
+
+// 달력에서 사용자 제거 (자신)
+const LEAVE_CALENDAR = (calendarId) => `/api/calendar/${calendarId}/user`;
+
+// 달력에서 사용자 제거 (소유자가 다른 사용자 제거)
+const REMOVE_USER_FROM_CALENDAR = (calendarId, userId) =>
+  `/api/calendar/${calendarId}/del/${userId}`;
+
+// 달력 권한 리스트 조회
+const GET_CALENDAR_PERMISSION_LIST = (calendarId) =>
+  `/api/calendar/${calendarId}/permissions`;
+
+// diary API
+
+// 일기 생성
+const CREATE_DIARY = (calendarId, date) =>
+  `/api/calendar/${calendarId}/date/${date}/diary`;
+
+// 일기 리스트 조회 (특정 날짜)
+const GET_DIARIES = (calendarId, date) =>
+  `/api/calendar/${calendarId}/date/${date}/diary`;
+
+// 일기 상세 조회
+const GET_DIARY_DETAIL = (calendarId, diaryId) =>
+  `/api/calendar/${calendarId}/diaryId/${diaryId}`;
+
+// 일기 수정
+const UPDATE_DIARY = (calendarId, diaryId) =>
+  `/api/calendar/${calendarId}/diaryId/${diaryId}`;
+
+// 일기 삭제
+const DELETE_DIARY = (calendarId, diaryId) =>
+  `/api/calendar/${calendarId}/diaryId/${diaryId}/del`;
+
+// 캘린더 프로필 조회
+const GET_CALENDAR_PROFILE = (calendarId, userId) =>
+  `/api/calendar/${calendarId}/profile?userId=${userId}`;
+
+// todo API
+
+// 할 일 생성
+const CREATE_TODO = (calendarId, date) =>
+  `/api/calendar/${calendarId}/date/${date}/todo`;
+
+// 할 일 리스트 조회 (특정 날짜)
+const GET_TODOS = (calendarId, date) =>
+  `/api/calendar/${calendarId}/date/${date}/todo`;
+
+// 할 일 상세 조회
+const GET_TODO_DETAIL = (calendarId, todoId) =>
+  `/api/calendar/${calendarId}/todoId/${todoId}`;
+
+// 할 일 수정
+const UPDATE_TODO = (calendarId, todoId) =>
+  `/api/calendar/${calendarId}/todoId/${todoId}`;
+
+// 할 일 삭제
+const DELETE_TODO = (calendarId, todoId) =>
+  `/api/calendar/${calendarId}/todoId/${todoId}/del`;
+
+// 할 일 완료 상태 토글
+const TOGGLE_TODO_COMPLETE = (calendarId, todoId) =>
+  `/api/calendar/${calendarId}/todoId/${todoId}/check`;
+
+// comment API
+
+// 댓글 리스트 조회
+const GET_COMMENTS = (calendarId, contentId, contentType) =>
+  `/api/calendar/${calendarId}/comments?contentId=${contentId}&contentType=${contentType}`;
+
+// 댓글 생성
+const CREATE_COMMENT = (calendarId, contentId, contentType) =>
+  `/api/calendar/${calendarId}/comment?contentId=${contentId}&contentType=${contentType}`;
+
+// 댓글 수정
+const UPDATE_COMMENT = (calendarId, commentId) =>
+  `/api/calendar/${calendarId}/comment/${commentId}`;
+
+// 댓글 삭제
+const DELETE_COMMENT = (calendarId, commentId) =>
+  `/api/calendar/${calendarId}/comment/${commentId}/del`;
+
+// like API
+
+// 좋아요 수 조회
+const GET_LIKES = (contentId, contentType) =>
+  `/api/likes?contentId=${contentId}&contentType=${contentType}`;
+
+// 좋아요 토글
+const TOGGLE_LIKE = "/api/like";
+
+// image upload API
+
+// 이미지 업로드
+const UPLOAD_IMAGE = "/api/imageUpload";
