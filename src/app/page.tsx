@@ -1,54 +1,34 @@
-"use client";
-import styles from "./page.module.css";
-import useUserQueries from "@/queries/user/useUserQueries";
-import useUserMutations from "@/queries/user/useUserMutations";
-import { useMutation } from "@tanstack/react-query";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+  useMutation,
+} from "@tanstack/react-query";
+import ClientPage from "./clientPage";
+import QueryKeys from "@/keys/QueryKeys";
+import API from "@/server/API";
+import axios from "axios";
+import rqOption from "@/server/rqOption";
 
-export default function Home() {
-  const { data } = useUserQueries.useGetUser();
-  const { mutate } = useMutation({ mutationFn: useUserMutations.updateUser });
-  const { mutate: delUser } = useMutation({
-    mutationFn: useUserMutations.deleteUser,
+const getUser = async (accessToken: any) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}${API.GET_USER}`,
+    rqOption.apiHeader(accessToken)
+  );
+  return data;
+};
+
+export default async function Home() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: [QueryKeys.GET_USER],
+    queryFn: () => getUser(process.env.TEST_ACCESS_TOKEN),
   });
 
-  const clicked = () => {
-    mutate(
-      {
-        name: "John Doe",
-        img: "https://s3.ap-northeast-2.amazonaws.com/geon.com/1724381264948_1724381264948.png",
-      },
-      {
-        onSuccess: (result) => {
-          console.log("성공", result);
-        },
-        onError: (error) => {
-          console.log("실패", error);
-        },
-      }
-    );
-  };
-
-  const deleteUser = () => {
-    delUser(
-      {},
-      {
-        onSuccess: (result) => {
-          console.log("성공", result);
-        },
-        onError: (error) => {
-          console.log("실패", error);
-        },
-      }
-    );
-  };
-
-  console.log("data :", data);
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <button onClick={clicked}>클릭!</button>
-        <button onClick={deleteUser}>삭제!</button>
-      </main>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ClientPage />
+    </HydrationBoundary>
   );
 }
