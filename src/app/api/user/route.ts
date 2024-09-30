@@ -4,8 +4,7 @@ import API from "@/server/API";
 import rqOption from "@/server/rqOption";
 import { cookies } from "next/headers";
 
-const accessToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMCIsImV4cCI6MTcyNzc0MDkzNX0.850-gL7dTMcyTbxgSskTFwC2hwPCAsyoc-3iszF4BIc";
+const accessToken = process.env.TEST_ACCESS_TOKEN;
 
 export async function GET(req: any) {
   const encryptedAccessToken = cookies().get("AccessToken");
@@ -49,7 +48,7 @@ export async function PUT(req: any) {
   console.log("body", body);
 
   try {
-    const data = await axios.post(
+    const data = await axios.put(
       `${process.env.BASE_URL}${API.UPDATE_USER}`,
       body,
       rqOption.apiHeader(accessToken)
