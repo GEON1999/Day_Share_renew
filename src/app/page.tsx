@@ -1,95 +1,54 @@
-import Image from "next/image";
+"use client";
 import styles from "./page.module.css";
+import useUserQueries from "@/queries/user/useUserQueries";
+import useUserMutations from "@/queries/user/useUserMutations";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Home() {
+  const { data } = useUserQueries.useGetUser();
+  const { mutate } = useMutation({ mutationFn: useUserMutations.updateUser });
+  const { mutate: delUser } = useMutation({
+    mutationFn: useUserMutations.deleteUser,
+  });
+
+  const clicked = () => {
+    mutate(
+      {
+        name: "John Doe",
+        img: "https://s3.ap-northeast-2.amazonaws.com/geon.com/1724381264948_1724381264948.png",
+      },
+      {
+        onSuccess: (result) => {
+          console.log("성공", result);
+        },
+        onError: (error) => {
+          console.log("실패", error);
+        },
+      }
+    );
+  };
+
+  const deleteUser = () => {
+    delUser(
+      {},
+      {
+        onSuccess: (result) => {
+          console.log("성공", result);
+        },
+        onError: (error) => {
+          console.log("실패", error);
+        },
+      }
+    );
+  };
+
+  console.log("data :", data);
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
+        <button onClick={clicked}>클릭!</button>
+        <button onClick={deleteUser}>삭제!</button>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
