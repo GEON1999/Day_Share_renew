@@ -29,7 +29,7 @@ const CREATE_CALENDAR = "/api/calendar";
 const DELETE_CALENDAR = (calendarId) => `/api/calendar/${calendarId}/del`;
 
 // 달력 리스트 조회 (페이지네이션)
-const GET_CALENDAR_LIST = (page = 1) => `/api/calendar?page=${page}`;
+const GET_CALENDAR_LIST = (query) => `/api/calendar${query ? `?${query}` : ""}`;
 
 // 달력 선택 리스트 조회
 const GET_CALENDAR_SELECT_LIST = "/api/calendars";

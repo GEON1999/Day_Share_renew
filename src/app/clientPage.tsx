@@ -7,10 +7,13 @@ import { useMutation } from "@tanstack/react-query";
 import { signOut } from "next-auth/react";
 
 const ClientPage = () => {
-  const { data, isLoading } = useUserQueries.useGetUser();
-  const { data: data2, isLoading: isLoading2 } =
-    useCalendarQueries.useGetCalendarDetail(45);
-  console.log("data2 :", data2, isLoading2);
+  // const { data, isLoading } = useUserQueries.useGetUser();
+  // const { data: data2, isLoading: isLoading2 } =
+  //   useCalendarQueries.useGetCalendarDetail(45);
+  // console.log("data2 :", data2, isLoading2);
+  const { data: data3, isLoading: isLoading3 } =
+    useCalendarQueries.useGetCalendarList("page=1");
+  console.log("data3 :", data3, isLoading3);
   const { mutate } = useMutation({ mutationFn: useUserMutations.updateUser });
   const { mutate: delUser } = useMutation({
     mutationFn: useUserMutations.deleteUser,
@@ -50,8 +53,6 @@ const ClientPage = () => {
       }
     );
   };
-
-  console.log("data :", data, isLoading);
   return (
     <div>
       <button onClick={clicked}>클릭!</button>

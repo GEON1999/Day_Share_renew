@@ -6,17 +6,17 @@ import { useQuery } from "@tanstack/react-query";
 import QueryKeys from "@/keys/QueryKeys";
 
 // Get Calendar List
-const getCalendarList = async (page: number = 1) => {
+const getCalendarList = async (query: string) => {
   const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_LIST(page)
+    Helper.CURRENT_URL() + API.GET_CALENDAR_LIST(query)
   );
   return data;
 };
 
-const useGetCalendarList = (page: number = 1) => {
+const useGetCalendarList = (query: string) => {
   return useQuery({
-    queryKey: [QueryKeys.GET_CALENDAR_LIST, page],
-    queryFn: () => getCalendarList(page),
+    queryKey: [QueryKeys.GET_CALENDAR_LIST, query],
+    queryFn: () => getCalendarList(query),
   });
 };
 
