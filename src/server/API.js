@@ -46,7 +46,7 @@ const UPDATE_CALENDAR = (calendarId) => `/api/calendar/${calendarId}`;
 // 초대 코드 생성
 const CREATE_INVITE_CODE = (calendarId) => `/api/calendar/${calendarId}/invite`;
 
-// 초대 코드 삭제
+// 초대 코드 삭제 (삭제 예정)
 const DELETE_INVITE_CODE = (calendarId) =>
   `/api/calendar/${calendarId}/invite/del`;
 
@@ -54,7 +54,7 @@ const DELETE_INVITE_CODE = (calendarId) =>
 const GET_INVITE_CODE = (calendarId) => `/api/calendar/${calendarId}/invite`;
 
 // 달력에 가입
-const JOIN_CALENDAR = "/api/joinCalendar";
+const JOIN_CALENDAR = (query) => `/api/joinCalendar${query ? `?${query}` : ""}`;
 
 // 달력 사용자 정보 수정
 const UPDATE_CALENDAR_USER_INFO = (calendarId) =>

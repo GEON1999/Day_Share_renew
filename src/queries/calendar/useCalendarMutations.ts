@@ -46,10 +46,10 @@ const deleteInviteCode = async (calendarId: number) => {
 };
 
 // Join Calendar
-const joinCalendar = async (body: any) => {
+const joinCalendar = async (inviteCode: string) => {
   const { data } = await axios.post(
-    Helper.CURRENT_URL() + API.JOIN_CALENDAR,
-    body
+    Helper.CURRENT_URL() + API.JOIN_CALENDAR(`invite_code=${inviteCode}`),
+    {}
   );
   return data;
 };
