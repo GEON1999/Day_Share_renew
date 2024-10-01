@@ -1,10 +1,9 @@
 import axios from "axios";
 import Helper from "@/helper/Helper";
 import API from "@/server/API";
-import { useMutation } from "@tanstack/react-query";
 
 // Upload Image
-const uploadImage = async (file: File, secret: string) => {
+const uploadImage = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
 
@@ -14,7 +13,6 @@ const uploadImage = async (file: File, secret: string) => {
     {
       headers: {
         "Content-Type": "multipart/form-data",
-        secret: secret,
       },
     }
   );
