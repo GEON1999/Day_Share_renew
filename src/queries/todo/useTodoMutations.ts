@@ -2,19 +2,18 @@
 import axios from "axios";
 import Helper from "@/helper/Helper";
 import API from "@/server/API";
-import { useMutation } from "@tanstack/react-query";
 
 // Create Todo
-const createTodo = async (calendarId: number, date: number, body: any) => {
+const createTodo = async ({ calendarId, query, body }: any) => {
   const { data } = await axios.post(
-    Helper.CURRENT_URL() + API.CREATE_TODO(calendarId, date),
+    Helper.CURRENT_URL() + API.CREATE_TODO(calendarId, query),
     body
   );
   return data;
 };
 
 // Update Todo
-const updateTodo = async (calendarId: number, todoId: number, body: any) => {
+const updateTodo = async ({ calendarId, todoId, body }: any) => {
   const { data } = await axios.put(
     Helper.CURRENT_URL() + API.UPDATE_TODO(calendarId, todoId),
     body
@@ -23,7 +22,7 @@ const updateTodo = async (calendarId: number, todoId: number, body: any) => {
 };
 
 // Delete Todo
-const deleteTodo = async (calendarId: number, todoId: number) => {
+const deleteTodo = async ({ calendarId, todoId }: any) => {
   const { data } = await axios.delete(
     Helper.CURRENT_URL() + API.DELETE_TODO(calendarId, todoId)
   );
@@ -31,7 +30,7 @@ const deleteTodo = async (calendarId: number, todoId: number) => {
 };
 
 // Toggle Todo Completion
-const toggleTodoComplete = async (calendarId: number, todoId: number) => {
+const toggleTodoComplete = async ({ calendarId, todoId }: any) => {
   const { data } = await axios.post(
     Helper.CURRENT_URL() + API.TOGGLE_TODO_COMPLETE(calendarId, todoId)
   );

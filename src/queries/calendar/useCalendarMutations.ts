@@ -79,13 +79,13 @@ const leaveCalendar = async (calendarId: number) => {
   return data;
 };
 
-// Remove User from Calendar (Owner Removes Another User)
-const removeUserFromCalendar = async (calendarId: number, userId: number) => {
-  const { data } = await axios.delete(
-    Helper.CURRENT_URL() + API.REMOVE_USER_FROM_CALENDAR(calendarId, userId)
-  );
-  return data;
-};
+// // Remove User from Calendar (Owner Removes Another User)
+// const removeUserFromCalendar = async (calendarId: number, userId: number) => {
+//   const { data } = await axios.delete(
+//     Helper.CURRENT_URL() + API.REMOVE_USER_FROM_CALENDAR(calendarId, userId)
+//   );
+//   return data;
+// };
 
 export default {
   createCalendar,
@@ -97,5 +97,5 @@ export default {
   updateCalendarUserInfo,
   deleteCalendarPermission,
   leaveCalendar,
-  removeUserFromCalendar,
+  //removeUserFromCalendar,
 };
