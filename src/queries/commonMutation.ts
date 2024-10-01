@@ -6,6 +6,7 @@ import API from "@/server/API";
 const uploadImage = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
+  console.log("formData :", formData);
 
   const { data } = await axios.post(
     Helper.CURRENT_URL() + API.UPLOAD_IMAGE,

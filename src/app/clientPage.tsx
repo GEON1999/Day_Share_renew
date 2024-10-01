@@ -2,6 +2,7 @@
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useCommentQueries from "@/queries/comment/useCommentQueries";
+import commonMutation from "@/queries/commonMutation";
 import useDiaryMutations from "@/queries/diary/useDiaryMutations";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import useUserMutations from "@/queries/user/useUserMutations";
@@ -36,24 +37,38 @@ const ClientPage = () => {
   const { mutate: createDiary } = useMutation({
     mutationFn: useDiaryMutations.createDiary,
   });
+  const { mutate: uploadImage } = useMutation({
+    mutationFn: commonMutation.uploadImage,
+  });
 
   const clicked = () => {
-    const body = {
-      title: "John Doe",
-      content: "string",
-      img: "https://s3.ap-northeast-2.amazonaws.com/geon.com/1724381264948_1724381264948.png",
-    };
-    createDiary(
-      { calendarId: 45, query: `date=1727103600000`, body },
-      {
-        onSuccess: (result) => {
-          console.log("성공", result);
-        },
-        onError: (error) => {
-          console.log("실패", error);
-        },
-      }
-    );
+    const file = document.getElementById("image");
+    if (!file) return;
+    console.log("file :", file.files[0]);
+    uploadImage(file.files[0], {
+      onSuccess: (result) => {
+        console.log("성공", result);
+      },
+      onError: (error) => {
+        console.log("실패", error);
+      },
+    });
+    // const body = {
+    //   title: "John Doe",
+    //   content: "string",
+    //   img: "https://s3.ap-northeast-2.amazonaws.com/geon.com/1724381264948_1724381264948.png",
+    // };
+    // createDiary(
+    //   { calendarId: 45, query: `date=1727103600000`, body },
+    //   {
+    //     onSuccess: (result) => {
+    //       console.log("성공", result);
+    //     },
+    //     onError: (error) => {
+    //       console.log("실패", error);
+    //     },
+    //   }
+    // );
   };
 
   const deleteUser = () => {
@@ -74,6 +89,7 @@ const ClientPage = () => {
       <button onClick={clicked}>클릭!</button>
       <button onClick={deleteUser}>삭제!</button>
       <button onClick={() => signOut()}>로그아웃</button>
+      <input type="file" id="image" />
     </div>
   );
 };

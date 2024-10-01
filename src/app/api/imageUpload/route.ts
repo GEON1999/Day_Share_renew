@@ -18,6 +18,7 @@ export async function POST(req: any, response: NextApiResponse) {
 
   const formData = await req.formData();
   const file = formData.get("file");
+  console.log("file :", file);
   if (!file) {
     return NextResponse.json({ error: "No files received." }, { status: 400 });
   }
@@ -25,12 +26,14 @@ export async function POST(req: any, response: NextApiResponse) {
   try {
     const formDataToSend = new FormData();
     formDataToSend.append("file", file);
+    console.log("formData :", formDataToSend);
 
     const data = await axios.post(
       `${process.env.BASE_URL}${API.UPLOAD_IMAGE}`,
       formDataToSend,
       {
         headers: {
+          secret: process.env.IMAGE_UPLOAD_SECRET,
           accept: "application/json",
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${accessToken}`,
@@ -40,7 +43,7 @@ export async function POST(req: any, response: NextApiResponse) {
 
     return NextResponse.json(data.data, { status: 200 });
   } catch (error) {
-    console.error("API call error:", error);
+    //console.error("API call error:", error);
     return NextResponse.json(
       { error: "Failed to fetch data" },
       { status: 500 }
