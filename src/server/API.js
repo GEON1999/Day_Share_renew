@@ -83,57 +83,57 @@ const LEAVE_CALENDAR = (calendarId) => `/api/calendar/${calendarId}/user`;
 const GET_CALENDAR_PERMISSION_LIST = (calendarId) =>
   `/api/calendar/${calendarId}/permissions`;
 
-// diary API
-
-// 일기 생성
-const CREATE_DIARY = (calendarId, date) =>
-  `/api/calendar/${calendarId}/date/${date}/diary`;
-
-// 일기 리스트 조회 (특정 날짜)
-const GET_DIARIES = (calendarId, date) =>
-  `/api/calendar/${calendarId}/date/${date}/diary`;
-
-// 일기 상세 조회
-const GET_DIARY_DETAIL = (calendarId, diaryId) =>
-  `/api/calendar/${calendarId}/diaryId/${diaryId}`;
-
-// 일기 수정
-const UPDATE_DIARY = (calendarId, diaryId) =>
-  `/api/calendar/${calendarId}/diaryId/${diaryId}`;
-
-// 일기 삭제
-const DELETE_DIARY = (calendarId, diaryId) =>
-  `/api/calendar/${calendarId}/diaryId/${diaryId}/del`;
-
 // 캘린더 프로필 조회
 const GET_CALENDAR_PROFILE = (calendarId, userId) =>
   `/api/calendar/${calendarId}/profile?userId=${userId}`;
 
+// diary API
+
+// 일기 생성
+const CREATE_DIARY = (calendarId, query) =>
+  `/api/calendar/${calendarId}/diary${query ? `?${query}` : ""}`;
+
+// 일기 리스트 조회 (특정 날짜)
+const GET_DIARIES = (calendarId, query) =>
+  `/api/calendar/${calendarId}/diary${query ? `?${query}` : ""}`;
+
+// 일기 상세 조회
+const GET_DIARY_DETAIL = (calendarId, diaryId) =>
+  `/api/calendar/${calendarId}/diary/${diaryId}`;
+
+// 일기 수정
+const UPDATE_DIARY = (calendarId, diaryId) =>
+  `/api/calendar/${calendarId}/diary/${diaryId}`;
+
+// 일기 삭제
+const DELETE_DIARY = (calendarId, diaryId) =>
+  `/api/calendar/${calendarId}/diary/${diaryId}/del`;
+
 // todo API
 
 // 할 일 생성
-const CREATE_TODO = (calendarId, date) =>
-  `/api/calendar/${calendarId}/date/${date}/todo`;
+const CREATE_TODO = (calendarId, query) =>
+  `/api/calendar/${calendarId}/todo${query ? `?${query}` : ""}`;
 
 // 할 일 리스트 조회 (특정 날짜)
-const GET_TODOS = (calendarId, date) =>
-  `/api/calendar/${calendarId}/date/${date}/todo`;
+const GET_TODOS = (calendarId, query) =>
+  `/api/calendar/${calendarId}/todo${query ? `?${query}` : ""}`;
 
 // 할 일 상세 조회
 const GET_TODO_DETAIL = (calendarId, todoId) =>
-  `/api/calendar/${calendarId}/todoId/${todoId}`;
+  `/api/calendar/${calendarId}/todo/${todoId}`;
 
 // 할 일 수정
 const UPDATE_TODO = (calendarId, todoId) =>
-  `/api/calendar/${calendarId}/todoId/${todoId}`;
+  `/api/calendar/${calendarId}/todo/${todoId}`;
 
 // 할 일 삭제
 const DELETE_TODO = (calendarId, todoId) =>
-  `/api/calendar/${calendarId}/todoId/${todoId}/del`;
+  `/api/calendar/${calendarId}/todo/${todoId}/del`;
 
 // 할 일 완료 상태 토글
 const TOGGLE_TODO_COMPLETE = (calendarId, todoId) =>
-  `/api/calendar/${calendarId}/todoId/${todoId}/check`;
+  `/api/calendar/${calendarId}/todo/${todoId}/check`;
 
 // comment API
 
@@ -159,7 +159,7 @@ const DELETE_COMMENT = (calendarId, commentId) =>
 const GET_LIKES = (contentId, contentType) =>
   `/api/likes?contentId=${contentId}&contentType=${contentType}`;
 
-// 좋아요 토글
+// 좋아요 토글(query)
 const TOGGLE_LIKE = "/api/like";
 
 // image upload API

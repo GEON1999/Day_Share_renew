@@ -4,16 +4,16 @@ import Helper from "@/helper/Helper";
 import API from "@/server/API";
 
 // Create Diary
-const createDiary = async (calendarId: number, date: number, body: any) => {
+const createDiary = async ({ calendarId, query, body }: any) => {
   const { data } = await axios.post(
-    Helper.CURRENT_URL() + API.CREATE_DIARY(calendarId, date),
+    Helper.CURRENT_URL() + API.CREATE_DIARY(calendarId, query),
     body
   );
   return data;
 };
 
 // Update Diary
-const updateDiary = async (calendarId: number, diaryId: number, body: any) => {
+const updateDiary = async ({ calendarId, diaryId, body }: any) => {
   const { data } = await axios.put(
     Helper.CURRENT_URL() + API.UPDATE_DIARY(calendarId, diaryId),
     body
@@ -22,7 +22,7 @@ const updateDiary = async (calendarId: number, diaryId: number, body: any) => {
 };
 
 // Delete Diary
-const deleteDiary = async (calendarId: number, diaryId: number) => {
+const deleteDiary = async ({ calendarId, diaryId }: any) => {
   const { data } = await axios.delete(
     Helper.CURRENT_URL() + API.DELETE_DIARY(calendarId, diaryId)
   );
