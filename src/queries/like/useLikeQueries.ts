@@ -6,17 +6,15 @@ import { useQuery } from "@tanstack/react-query";
 import QueryKeys from "@/keys/QueryKeys";
 
 // Get Likes Count
-const getLikes = async (contentId: number, contentType: string) => {
-  const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_LIKES(contentId, contentType)
-  );
+const getLikes = async (query: string) => {
+  const { data } = await axios.get(Helper.CURRENT_URL() + API.GET_LIKES(query));
   return data;
 };
 
-const useGetLikes = (contentId: number, contentType: string) => {
+const useGetLikes = (query: string) => {
   return useQuery({
-    queryKey: [QueryKeys.GET_LIKES, contentId, contentType],
-    queryFn: () => getLikes(contentId, contentType),
+    queryKey: [QueryKeys.GET_LIKES, query],
+    queryFn: () => getLikes(query),
   });
 };
 

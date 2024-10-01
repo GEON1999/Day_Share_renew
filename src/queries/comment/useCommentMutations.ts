@@ -4,7 +4,7 @@ import Helper from "@/helper/Helper";
 import API from "@/server/API";
 
 // Create Comment
-const createComment = async (calendarId: number, query: string, body: any) => {
+const createComment = async ({ calendarId, query, body }: any) => {
   const { data } = await axios.post(
     Helper.CURRENT_URL() + API.CREATE_COMMENT(calendarId, query),
     body
@@ -13,11 +13,7 @@ const createComment = async (calendarId: number, query: string, body: any) => {
 };
 
 // Update Comment
-const updateComment = async (
-  calendarId: number,
-  commentId: number,
-  body: any
-) => {
+const updateComment = async ({ calendarId, commentId, body }: any) => {
   const { data } = await axios.put(
     Helper.CURRENT_URL() + API.UPDATE_COMMENT(calendarId, commentId),
     body
@@ -26,7 +22,7 @@ const updateComment = async (
 };
 
 // Delete Comment
-const deleteComment = async (calendarId: number, commentId: number) => {
+const deleteComment = async ({ calendarId, commentId }: any) => {
   const { data } = await axios.delete(
     Helper.CURRENT_URL() + API.DELETE_COMMENT(calendarId, commentId)
   );
