@@ -3,12 +3,11 @@ import { NextResponse } from "next/server";
 import API from "@/server/API";
 import rqOption from "@/server/rqOption";
 import { cookies } from "next/headers";
-
-const accessToken = process.env.TEST_ACCESS_TOKEN;
+import AesEncryption from "@/utils/AesEncryption";
 
 export async function GET(req: any) {
   const encryptedAccessToken = cookies().get("AccessToken");
-  //const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
+  const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
 
   if (accessToken === undefined) {
     return NextResponse.json(
@@ -35,7 +34,7 @@ export async function GET(req: any) {
 
 export async function PUT(req: any) {
   const encryptedAccessToken = cookies().get("AccessToken");
-  //const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
+  const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
 
   if (accessToken === undefined) {
     return NextResponse.json(
@@ -66,7 +65,7 @@ export async function PUT(req: any) {
 
 export async function DELETE(req: any) {
   const encryptedAccessToken = cookies().get("AccessToken");
-  //const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
+  const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
 
   if (accessToken === undefined) {
     return NextResponse.json(

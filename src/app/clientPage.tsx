@@ -1,8 +1,8 @@
 "use client";
-
 import useUserMutations from "@/queries/user/useUserMutations";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useMutation } from "@tanstack/react-query";
+import { signOut } from "next-auth/react";
 
 const ClientPage = () => {
   const { data, isLoading } = useUserQueries.useGetUser();
@@ -47,6 +47,7 @@ const ClientPage = () => {
     <div>
       <button onClick={clicked}>클릭!</button>
       <button onClick={deleteUser}>삭제!</button>
+      <button onClick={() => signOut()}>로그아웃</button>
     </div>
   );
 };
