@@ -21,7 +21,7 @@ const deleteCalendar = async (calendarId: number) => {
 };
 
 // Update Calendar
-const updateCalendar = async (calendarId: number, body: any) => {
+const updateCalendar = async ({ calendarId, body }: any) => {
   const { data } = await axios.put(
     Helper.CURRENT_URL() + API.UPDATE_CALENDAR(calendarId),
     body

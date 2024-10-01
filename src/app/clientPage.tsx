@@ -1,4 +1,6 @@
 "use client";
+import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
+import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useUserMutations from "@/queries/user/useUserMutations";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useMutation } from "@tanstack/react-query";
@@ -6,17 +8,24 @@ import { signOut } from "next-auth/react";
 
 const ClientPage = () => {
   const { data, isLoading } = useUserQueries.useGetUser();
+  const { data: data2, isLoading: isLoading2 } =
+    useCalendarQueries.useGetCalendarDetail(45);
+  console.log("data2 :", data2, isLoading2);
   const { mutate } = useMutation({ mutationFn: useUserMutations.updateUser });
   const { mutate: delUser } = useMutation({
     mutationFn: useUserMutations.deleteUser,
   });
+  const { mutate: updateCalendar } = useMutation({
+    mutationFn: useCalendarMutations.updateCalendar,
+  });
 
   const clicked = () => {
-    mutate(
-      {
-        name: "John Doe",
-        img: "https://s3.ap-northeast-2.amazonaws.com/geon.com/1724381264948_1724381264948.png",
-      },
+    const body = {
+      name: "John Doe",
+      img: "https://s3.ap-northeast-2.amazonaws.com/geon.com/1724381264948_1724381264948.png",
+    };
+    updateCalendar(
+      { calendarId: 45, body },
       {
         onSuccess: (result) => {
           console.log("성공", result);
