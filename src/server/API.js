@@ -84,8 +84,8 @@ const GET_CALENDAR_PERMISSION_LIST = (calendarId) =>
   `/api/calendar/${calendarId}/permissions`;
 
 // 캘린더 프로필 조회
-const GET_CALENDAR_PROFILE = (calendarId, userId) =>
-  `/api/calendar/${calendarId}/profile?userId=${userId}`;
+const GET_CALENDAR_PROFILE = (calendarId, query) =>
+  `/api/calendar/${calendarId}/profile${query ? `?${query}` : ""}`;
 
 // diary API
 
