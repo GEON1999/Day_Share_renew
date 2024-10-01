@@ -75,9 +75,9 @@ const DELETE_CALENDAR_PERMISSION = (calendarId, userId) =>
 // 달력에서 사용자 제거 (자신)
 const LEAVE_CALENDAR = (calendarId) => `/api/calendar/${calendarId}/user`;
 
-// 달력에서 사용자 제거 (소유자가 다른 사용자 제거)
-const REMOVE_USER_FROM_CALENDAR = (calendarId, userId) =>
-  `/api/calendar/${calendarId}/del/${userId}`;
+// 달력에서 사용자 제거 (소유자가 다른 사용자 제거) 달력 권한 삭제와 중복으로 보임
+// const REMOVE_USER_FROM_CALENDAR = (calendarId, userId) =>
+//   `/api/calendar/${calendarId}/del/${userId}`;
 
 // 달력 권한 리스트 조회
 const GET_CALENDAR_PERMISSION_LIST = (calendarId) =>
@@ -190,7 +190,7 @@ export default {
   GET_CALENDAR_PERMISSION,
   DELETE_CALENDAR_PERMISSION,
   LEAVE_CALENDAR,
-  REMOVE_USER_FROM_CALENDAR,
+  // REMOVE_USER_FROM_CALENDAR,
   GET_CALENDAR_PERMISSION_LIST,
   CREATE_DIARY,
   GET_DIARIES,
