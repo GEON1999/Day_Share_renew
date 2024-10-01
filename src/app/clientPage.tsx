@@ -23,10 +23,11 @@ const ClientPage = () => {
   //   `date=1727103600000`
   // );
   // console.log("data4 :", data4, isLoading4);
-  const { data: data5, isLoading: isLoading5 } =
-    useCommentQueries.useGetComments(45, "contentId=57&contentType=diary");
-  console.log("data5 :", data5, isLoading5);
-  console.log("data5 :", data5, isLoading5);
+  // const { data: data5, isLoading: isLoading5 } =
+  //   useCommentQueries.useGetComments(45, "contentId=57&contentType=diary");
+  // console.log("data5 :", data5, isLoading5);
+  const { data, isLoading } = useUserQueries.useGetUserDiaries("page=2");
+  console.log("data :", data, isLoading);
   const { mutate } = useMutation({ mutationFn: useUserMutations.updateUser });
   const { mutate: delUser } = useMutation({
     mutationFn: useUserMutations.deleteUser,

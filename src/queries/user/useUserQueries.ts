@@ -18,6 +18,38 @@ const useGetUser = () => {
   });
 };
 
+// Get User Todos
+const getUserTodos = async (query: string) => {
+  const { data } = await axios.get(
+    Helper.CURRENT_URL() + API.GET_USER_TODOS(query)
+  );
+  return data;
+};
+
+const useGetUserTodos = (query: string) => {
+  return useQuery({
+    queryKey: [QueryKeys.GET_USER_TODOS, query],
+    queryFn: () => getUserTodos(query),
+  });
+};
+
+// Get User Diaries
+const getUserDiaries = async (query: string) => {
+  const { data } = await axios.get(
+    Helper.CURRENT_URL() + API.GET_USER_DIARIES(query)
+  );
+  return data;
+};
+
+const useGetUserDiaries = (query: string) => {
+  return useQuery({
+    queryKey: [QueryKeys.GET_USER_DIARIES, query],
+    queryFn: () => getUserDiaries(query),
+  });
+};
+
 export default {
   useGetUser,
+  useGetUserTodos,
+  useGetUserDiaries,
 };

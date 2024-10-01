@@ -3,6 +3,12 @@
 // 사용자 정보 조회
 const GET_USER = "GET_USER";
 
+// 사용자 할 일 조회
+const GET_USER_TODOS = "GET_USER_TODOS";
+
+// 사용자 일기 조회
+const GET_USER_DIARIES = "GET_USER_DIARIES";
+
 // 달력 리스트 조회
 const GET_CALENDAR_LIST = "GET_CALENDAR_LIST";
 
@@ -50,6 +56,8 @@ const GET_LIKES = "GET_LIKES";
 
 export default {
   GET_USER,
+  GET_USER_TODOS,
+  GET_USER_DIARIES,
   GET_CALENDAR_LIST,
   GET_CALENDAR_SELECT_LIST,
   GET_CALENDAR_DETAIL,
