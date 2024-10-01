@@ -4,15 +4,9 @@ import Helper from "@/helper/Helper";
 import API from "@/server/API";
 
 // Create Comment
-const createComment = async (
-  calendarId: number,
-  contentId: number,
-  contentType: string,
-  body: any
-) => {
+const createComment = async (calendarId: number, query: string, body: any) => {
   const { data } = await axios.post(
-    Helper.CURRENT_URL() +
-      API.CREATE_COMMENT(calendarId, contentId, contentType),
+    Helper.CURRENT_URL() + API.CREATE_COMMENT(calendarId, query),
     body
   );
   return data;

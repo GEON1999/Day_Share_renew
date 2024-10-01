@@ -138,12 +138,12 @@ const TOGGLE_TODO_COMPLETE = (calendarId, todoId) =>
 // comment API
 
 // 댓글 리스트 조회
-const GET_COMMENTS = (calendarId, contentId, contentType) =>
-  `/api/calendar/${calendarId}/comments?contentId=${contentId}&contentType=${contentType}`;
+const GET_COMMENTS = (calendarId, query) =>
+  `/api/calendar/${calendarId}/comment${query ? `?${query}` : ""}`;
 
 // 댓글 생성
-const CREATE_COMMENT = (calendarId, contentId, contentType) =>
-  `/api/calendar/${calendarId}/comment?contentId=${contentId}&contentType=${contentType}`;
+const CREATE_COMMENT = (calendarId, query) =>
+  `/api/calendar/${calendarId}/comment${query ? `?${query}` : ""}`;
 
 // 댓글 수정
 const UPDATE_COMMENT = (calendarId, commentId) =>
@@ -156,11 +156,10 @@ const DELETE_COMMENT = (calendarId, commentId) =>
 // like API
 
 // 좋아요 수 조회
-const GET_LIKES = (contentId, contentType) =>
-  `/api/likes?contentId=${contentId}&contentType=${contentType}`;
+const GET_LIKES = (query) => `/api/like${query ? `?${query}` : ""}`;
 
 // 좋아요 토글(query)
-const TOGGLE_LIKE = "/api/like";
+const TOGGLE_LIKE = (query) => `/api/like${query ? `?${query}` : ""}`;
 
 // image upload API
 

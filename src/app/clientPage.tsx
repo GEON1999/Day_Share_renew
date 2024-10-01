@@ -1,6 +1,7 @@
 "use client";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
+import useCommentQueries from "@/queries/comment/useCommentQueries";
 import useDiaryMutations from "@/queries/diary/useDiaryMutations";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import useUserMutations from "@/queries/user/useUserMutations";
@@ -21,6 +22,10 @@ const ClientPage = () => {
   //   `date=1727103600000`
   // );
   // console.log("data4 :", data4, isLoading4);
+  const { data: data5, isLoading: isLoading5 } =
+    useCommentQueries.useGetComments(45, "contentId=57&contentType=diary");
+  console.log("data5 :", data5, isLoading5);
+  console.log("data5 :", data5, isLoading5);
   const { mutate } = useMutation({ mutationFn: useUserMutations.updateUser });
   const { mutate: delUser } = useMutation({
     mutationFn: useUserMutations.deleteUser,

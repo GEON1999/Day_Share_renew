@@ -6,25 +6,17 @@ import { useQuery } from "@tanstack/react-query";
 import QueryKeys from "@/keys/QueryKeys";
 
 // Get Comments
-const getComments = async (
-  calendarId: number,
-  contentId: number,
-  contentType: string
-) => {
+const getComments = async (calendarId: number, query: string) => {
   const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_COMMENTS(calendarId, contentId, contentType)
+    Helper.CURRENT_URL() + API.GET_COMMENTS(calendarId, query)
   );
   return data;
 };
 
-const useGetComments = (
-  calendarId: number,
-  contentId: number,
-  contentType: string
-) => {
+const useGetComments = (calendarId: number, query: string) => {
   return useQuery({
-    queryKey: [QueryKeys.GET_COMMENTS, calendarId, contentId, contentType],
-    queryFn: () => getComments(calendarId, contentId, contentType),
+    queryKey: [QueryKeys.GET_COMMENTS, calendarId, query],
+    queryFn: () => getComments(calendarId, query),
   });
 };
 
