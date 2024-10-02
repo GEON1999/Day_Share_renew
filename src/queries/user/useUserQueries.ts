@@ -4,9 +4,10 @@ import Helper from "@/helper/Helper";
 import API from "@/server/API";
 import { useQuery } from "@tanstack/react-query";
 import QueryKeys from "@/keys/QueryKeys";
+import { get } from "http";
 
 // Get User Info
-const getUser = async () => {
+const getUser = async (req: any) => {
   const { data } = await axios.get(Helper.CURRENT_URL() + API.GET_USER);
   return data;
 };
@@ -52,4 +53,7 @@ export default {
   useGetUser,
   useGetUserTodos,
   useGetUserDiaries,
+  getUser,
+  getUserTodos,
+  getUserDiaries,
 };

@@ -8,6 +8,22 @@ const CURRENT_URL = (): string => {
   return origin;
 };
 
+type Query = {
+  [key: string]: string | null | undefined;
+};
+
+const queryToString = (query: Query): string => {
+  Object.keys(query).forEach(
+    (k) =>
+      (query[k] === null || query[k] === undefined || query[k] === "") &&
+      delete query[k]
+  );
+  return Object.keys(query)
+    .map((key) => key + "=" + encodeURIComponent(query[key]!))
+    .join("&");
+};
+
 export default {
   CURRENT_URL,
+  queryToString,
 };
