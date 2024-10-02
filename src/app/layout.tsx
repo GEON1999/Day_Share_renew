@@ -1,18 +1,23 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "@/css/style.css";
 import Providers from "@/app/Providers";
 import AuthSession from "@/app/AuthSession";
+import { Noto_Sans, Hi_Melody, Gaegu } from "next/font/google";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+// Google Fonts에서 원하는 폰트를 불러옵니다.
+const notoSans = Noto_Sans({
+  subsets: ["latin"], // 원하는 서브셋 선택
+  weight: ["400", "700"], // 사용할 폰트 굵기 선택
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+
+const hiMelody = Hi_Melody({
+  subsets: ["latin"], // 원하는 서브셋 선택
+  weight: ["400"], // 사용할 폰트 굵기 선택
+});
+
+const gaegu = Gaegu({
+  subsets: ["latin"], // 원하는 서브셋 선택
+  weight: ["400", "700", "300"], // 사용할 폰트 굵기 선택
 });
 
 export const metadata: Metadata = {
@@ -27,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>
+      <body className={gaegu.className}>
         <AuthSession>
           <Providers>{children}</Providers>
         </AuthSession>
