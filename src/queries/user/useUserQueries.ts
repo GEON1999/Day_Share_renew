@@ -4,7 +4,6 @@ import Helper from "@/helper/Helper";
 import API from "@/server/API";
 import { useQuery } from "@tanstack/react-query";
 import QueryKeys from "@/keys/QueryKeys";
-import { get } from "http";
 
 // Get User Info
 const getUser = async (req: any) => {

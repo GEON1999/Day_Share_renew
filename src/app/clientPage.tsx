@@ -30,7 +30,7 @@ const ClientPage = () => {
 
   return (
     <div>
-      <button className={"p-10 bg-red mt-10"} onClick={() => signOut()}>
+      <button className="" onClick={() => signOut()}>
         로그아웃
       </button>
       <input type="file" id="image" />
