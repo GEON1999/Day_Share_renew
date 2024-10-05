@@ -8,6 +8,10 @@ const Dashboard = () => {
   const { data: diaryData, isLoading: diaryIsLoading } =
     useUserQueries.useGetUserDiaries("page=1");
   console.log("data :", diaryData, diaryIsLoading);
+  const { data: todoData, isLoading: todoIsLoading } =
+    useUserQueries.useGetUserTodos("page=1");
+  const randomTodo =
+    todoData?.todos[Math.floor(Math.random() * todoData?.todos.length)];
 
   const { data: calendarData, isLoading: calendarIsLoading } =
     useCalendarQueries.useGetCalendarList(queries ?? "");
@@ -17,10 +21,17 @@ const Dashboard = () => {
       {/* Greeting */}
       <div className="mt-10">
         <h1 className="text-[40px] font-semibold">안녕하세요, 박건님.</h1>
-        <p className="text-[40px]">
-          오늘의 주요 일정은{" "}
-          <span className="font-bold text-red-500">월급날</span>이에요!
-        </p>
+        {randomTodo?.title ? (
+          <p className="text-[40px]">
+            오늘의 주요 일정은{" "}
+            <span className="font-bold text-red-500 bg-yellow-300 p-1 rounded">
+              {randomTodo?.title}
+            </span>
+            이에요!
+          </p>
+        ) : (
+          <p className="text-[40px]">오늘은 일정이 없어요!</p>
+        )}
       </div>
 
       <div className="flex space-x-10 mt-20 w-full items-strat">

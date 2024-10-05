@@ -1,14 +1,20 @@
+import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useUserQueries from "@/queries/user/useUserQueries";
 import React, { useState, useEffect } from "react";
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos("page=1");
   console.log("todoData :", todoData, todoIsLoading);
-  const { data: userData, isLoading: userIsLoading } =
-    useUserQueries.useGetUser();
-  console.log("userData :", userData, userIsLoading);
+
+  const { data: calendarUserData, isLoading: calendarUserIsLoading } =
+    useCalendarQueries.useGetCalendarUserInfo(45);
+  console.log("calendarUserData :", calendarUserData, calendarUserIsLoading);
+
+  const { data: userList, isLoading: userListLoading } =
+    useCalendarQueries.useGetCalendarPermissionList(45);
+  console.log("userList :", userList, userListLoading);
 
   // 화면 크기 변화에 따른 사이드바 상태 업데이트
   useEffect(() => {
@@ -49,23 +55,35 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 className="w-full h-full object-cover ml-3"
               />
             </div>
-            <div className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2">
-              <img
-                src={userData.img}
-                alt="profile"
-                className="rounded-full w-full h-full object-cover"
-              />
+            <div className="flex flex-col items-start justify-start w-full space-y-3 mt-5">
+              {userList?.map((user: any) => (
+                <div key={user.id} className="flex items-center">
+                  <img
+                    className="w-12 h-12 rounded-full"
+                    src={
+                      user.img === "" ? process.env.NEXT_PUBLIC_LOGO : user.img
+                    }
+                  />
+                  <span className="ml-2">{user.name}</span>
+                </div>
+              ))}
             </div>
-            <p className="font-semibold text-lg">{userData.name}</p>
           </div>
           <nav className={`${isSidebarOpen ? "block" : "hidden"} mt-8`}>
             <ul>
-              <li className="mb-4 text-lg flex items-center">
+              <li className="mb-4 text-lg flex items-center ">
                 <img
                   className="w-12 h-12"
                   src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864922152.jpg"
                 />
-                <span className="mt-1">메인화면</span>
+                <span className="mt-1 text-[#71665f]">메인화면</span>
+              </li>
+              <li className="mb-4 text-lg flex items-center">
+                <img
+                  className="w-6 h-6 mx-3"
+                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728129889231.png"
+                />
+                <span className="mt-1">캘린더</span>
               </li>
             </ul>
           </nav>
@@ -128,4 +146,4 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default MainLayout;
+export default CalendarLayout;
