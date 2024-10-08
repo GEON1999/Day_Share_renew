@@ -1,19 +1,22 @@
+import useSearch from "@/hooks/useSearch";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useUserQueries from "@/queries/user/useUserQueries";
 import React, { useState, useEffect } from "react";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
+  const id = useSearch.useSearchId();
+  console.log("useSearch.useSearchId() :", useSearch.useSearchId());
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos("page=1");
   console.log("todoData :", todoData, todoIsLoading);
 
   const { data: calendarUserData, isLoading: calendarUserIsLoading } =
-    useCalendarQueries.useGetCalendarUserInfo(45);
+    useCalendarQueries.useGetCalendarUserInfo(id);
   console.log("calendarUserData :", calendarUserData, calendarUserIsLoading);
 
   const { data: userList, isLoading: userListLoading } =
-    useCalendarQueries.useGetCalendarPermissionList(45);
+    useCalendarQueries.useGetCalendarPermissionList(id);
   console.log("userList :", userList, userListLoading);
 
   // 화면 크기 변화에 따른 사이드바 상태 업데이트

@@ -36,14 +36,14 @@ const useGetCalendarSelectList = () => {
 };
 
 // Get Calendar Detail
-const getCalendarDetail = async (calendarId: number) => {
+const getCalendarDetail = async (calendarId: string) => {
   const { data } = await axios.get(
     Helper.CURRENT_URL() + API.GET_CALENDAR_DETAIL(calendarId)
   );
   return data;
 };
 
-const useGetCalendarDetail = (calendarId: number) => {
+const useGetCalendarDetail = (calendarId: string) => {
   return useQuery({
     queryKey: [QueryKeys.GET_CALENDAR_DETAIL, calendarId],
     queryFn: () => getCalendarDetail(calendarId),
@@ -51,14 +51,14 @@ const useGetCalendarDetail = (calendarId: number) => {
 };
 
 // Get Calendar Basic Info
-const getCalendarBasic = async (calendarId: number) => {
+const getCalendarBasic = async (calendarId: string) => {
   const { data } = await axios.get(
     Helper.CURRENT_URL() + API.GET_CALENDAR_BASIC(calendarId)
   );
   return data;
 };
 
-const useGetCalendarBasic = (calendarId: number) => {
+const useGetCalendarBasic = (calendarId: string) => {
   return useQuery({
     queryKey: [QueryKeys.GET_CALENDAR_BASIC, calendarId],
     queryFn: () => getCalendarBasic(calendarId),
@@ -66,14 +66,14 @@ const useGetCalendarBasic = (calendarId: number) => {
 };
 
 // Get Invite Code
-const getInviteCode = async (calendarId: number) => {
+const getInviteCode = async (calendarId: string) => {
   const { data } = await axios.get(
     Helper.CURRENT_URL() + API.GET_INVITE_CODE(calendarId)
   );
   return data;
 };
 
-const useGetInviteCode = (calendarId: number) => {
+const useGetInviteCode = (calendarId: string) => {
   return useQuery({
     queryKey: [QueryKeys.GET_INVITE_CODE, calendarId],
     queryFn: () => getInviteCode(calendarId),
@@ -81,14 +81,14 @@ const useGetInviteCode = (calendarId: number) => {
 };
 
 // Get Calendar User Info
-const getCalendarUserInfo = async (calendarId: number) => {
+const getCalendarUserInfo = async (calendarId: string) => {
   const { data } = await axios.get(
     Helper.CURRENT_URL() + API.GET_CALENDAR_USER_INFO(calendarId)
   );
   return data;
 };
 
-const useGetCalendarUserInfo = (calendarId: number) => {
+const useGetCalendarUserInfo = (calendarId: string) => {
   return useQuery({
     queryKey: [QueryKeys.GET_CALENDAR_USER_INFO, calendarId],
     queryFn: () => getCalendarUserInfo(calendarId),
@@ -96,14 +96,14 @@ const useGetCalendarUserInfo = (calendarId: number) => {
 };
 
 // Get Calendar Permission
-const getCalendarPermission = async (calendarId: number) => {
+const getCalendarPermission = async (calendarId: string) => {
   const { data } = await axios.get(
     Helper.CURRENT_URL() + API.GET_CALENDAR_PERMISSION(calendarId)
   );
   return data;
 };
 
-const useGetCalendarPermission = (calendarId: number) => {
+const useGetCalendarPermission = (calendarId: string) => {
   return useQuery({
     queryKey: [QueryKeys.GET_CALENDAR_PERMISSION, calendarId],
     queryFn: () => getCalendarPermission(calendarId),
@@ -111,14 +111,14 @@ const useGetCalendarPermission = (calendarId: number) => {
 };
 
 // Get Calendar Permission List
-const getCalendarPermissionList = async (calendarId: number) => {
+const getCalendarPermissionList = async (calendarId: string) => {
   const { data } = await axios.get(
     Helper.CURRENT_URL() + API.GET_CALENDAR_PERMISSION_LIST(calendarId)
   );
   return data;
 };
 
-const useGetCalendarPermissionList = (calendarId: number) => {
+const useGetCalendarPermissionList = (calendarId: string) => {
   return useQuery({
     queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, calendarId],
     queryFn: () => getCalendarPermissionList(calendarId),

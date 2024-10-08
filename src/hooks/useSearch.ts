@@ -1,4 +1,4 @@
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 const useSearchQueries = () => {
   const searchParams = useSearchParams();
@@ -17,6 +17,12 @@ const useSearchQueries = () => {
   return queryString === "" ? undefined : queryString;
 };
 
+const useSearchId = () => {
+  const params = useParams();
+  return Array.isArray(params.id) ? params.id[0] : params.id;
+};
+
 export default {
   useSearchQueries,
+  useSearchId,
 };

@@ -1,7 +1,7 @@
 "use client";
 
+import Calendar from "@/components/calendar/Calendar";
 import CalendarLayout from "@/components/calendar/CalendarLayout";
-import Dashboard from "@/components/main/Dashboard";
 import { useEffect } from "react";
 
 const ClientPage = () => {
@@ -11,7 +11,10 @@ const ClientPage = () => {
 
   return (
     <CalendarLayout>
-      <Dashboard />
+      <div className="flex w-full h-full bg-[#EFDACC]">
+        {" "}
+        <Calendar />
+      </div>
     </CalendarLayout>
   );
 };
