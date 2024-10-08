@@ -1,4 +1,6 @@
+import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useUserQueries from "@/queries/user/useUserQueries";
+import { useMutation } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -9,6 +11,24 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: userData, isLoading: userIsLoading } =
     useUserQueries.useGetUser();
   console.log("userData :", userData, userIsLoading);
+
+  const { mutate: checkTodo } = useMutation({
+    mutationFn: useTodoMutations.toggleTodoComplete,
+  });
+
+  const handleTodoClick = (calId: number, todoId: number) => {
+    checkTodo(
+      { calendarId: calId, todoId },
+      {
+        onSuccess: () => {
+          console.log("성공");
+        },
+        onError: () => {
+          console.log("실패");
+        },
+      }
+    );
+  };
 
   // 화면 크기 변화에 따른 사이드바 상태 업데이트
   useEffect(() => {
@@ -76,18 +96,15 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               <ul className="space-y-2">
                 {todoData?.todos?.map((todo: any) => (
                   <li key={todo.id} className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
+                    <input
+                      onClick={() => handleTodoClick(todo.calendarId, todo.id)}
+                      defaultChecked={todo.isCompleted}
+                      type="checkbox"
+                      className="mr-2"
+                    />
                     <span>{todo.title}</span>
                   </li>
                 ))}
-                {/* <li className="flex items-center">
-                  <input type="checkbox" className="mr-2" />
-                  <span>작고 작은 나의 아리따운 월급날</span>
-                </li>
-                <li className="flex items-center">
-                  <input type="checkbox" className="mr-2" />
-                  <span>태국 애프터 작업</span>
-                </li> */}
               </ul>
             </section>
           )}
