@@ -33,7 +33,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   // 화면 크기 변화에 따른 사이드바 상태 업데이트
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1024) {
+      if (window.innerWidth < 1600) {
         setIsSidebarOpen(false);
       } else {
         setIsSidebarOpen(true);
@@ -49,12 +49,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen min-h-[1080px]">
       {/* Sidebar */}
       <aside
         className={`${
           isSidebarOpen ? "w-[350px]" : "w-0"
-        } bg-[#EFDACC] p-8 transition-all duration-300 overflow-hidden flex flex-col justify-between side_bar`}
+        } bg-[#EFDACC] p-8 transition-all duration-300  flex flex-col justify-between side_bar`}
       >
         <div>
           <div
@@ -91,7 +91,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </nav>
           {/* 개인 일정 */}
           {isSidebarOpen && (
-            <section className="mt-8 bg-white p-4 rounded-lg shadow-4 border-2">
+            <section className="mt-8 bg-white p-4 rounded-lg shadow-4 border-2 mb-4">
               <h3 className="font-bold mb-4 text-xl">개인 일정</h3>
               <ul className="space-y-2">
                 {todoData?.todos?.map((todo: any) => (

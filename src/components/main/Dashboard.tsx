@@ -17,7 +17,7 @@ const Dashboard = () => {
     useCalendarQueries.useGetCalendarList(queries ?? "");
   console.log("calendarData :", calendarData, calendarIsLoading);
   return (
-    <div className="bg-[#F4EAE8] w-full h-full rounded-l-[100px] p-10 px-20">
+    <div className="bg-[#F4EAE8] w-full h-full rounded-l-[100px] p-10 px-20 min-h-[1080px]">
       {/* Greeting */}
       <div className="mt-10">
         <h1 className="text-[40px] font-semibold">안녕하세요, 박건님.</h1>
