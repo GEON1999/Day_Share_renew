@@ -1,9 +1,13 @@
+"use client";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useMutation } from "@tanstack/react-query";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos("page=1");
@@ -28,6 +32,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         },
       }
     );
+  };
+
+  const handleClickMain = () => {
+    router.push("/");
+  };
+
+  const handleClickSetting = () => {
+    router.push("/setting");
   };
 
   // 화면 크기 변화에 따른 사이드바 상태 업데이트
@@ -80,12 +92,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
           <nav className={`${isSidebarOpen ? "block" : "hidden"} mt-8`}>
             <ul>
-              <li className="mb-4 text-lg flex items-center">
+              <li className="mb-4 text-lg flex items-center cur">
                 <img
                   className="w-12 h-12"
                   src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864922152.jpg"
                 />
-                <span className="mt-1">메인화면</span>
+                <span className="mt-1" onClick={handleClickMain}>
+                  메인화면
+                </span>
               </li>
             </ul>
           </nav>
@@ -114,14 +128,20 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             className={`${isSidebarOpen ? "block" : "hidden"} text-[#71665f]`}
           >
             <ul>
-              <li className="mb-4 text-lg flex items-center">
+              <li
+                className="mb-4 text-lg flex items-center cur"
+                onClick={handleClickSetting}
+              >
                 <img
                   className="w-12 h-12"
                   src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864878122.jpg"
                 />
                 <span>설정</span>
               </li>
-              <li className="mb-4 text-lg flex items-center">
+              <li
+                className="mb-4 text-lg flex items-center cur"
+                onClick={() => signOut()}
+              >
                 <img
                   className="w-12 h-10"
                   src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864855419.jpg"

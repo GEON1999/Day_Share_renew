@@ -1,9 +1,13 @@
+"use client";
+
 import useSearch from "@/hooks/useSearch";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useUserQueries from "@/queries/user/useUserQueries";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const Dashboard = () => {
+  const router = useRouter();
   const queries = useSearch.useSearchQueries();
   const { data: diaryData, isLoading: diaryIsLoading } =
     useUserQueries.useGetUserDiaries("page=1");
@@ -16,6 +20,16 @@ const Dashboard = () => {
   const { data: calendarData, isLoading: calendarIsLoading } =
     useCalendarQueries.useGetCalendarList(queries ?? "");
   console.log("calendarData :", calendarData, calendarIsLoading);
+
+  const handleClickDiary = (calId: number, diaryId: number) => {
+    router.push(`/calendar/${calId}/diary/${diaryId}`);
+    console.log("calId :", calId);
+  };
+
+  const handleClickCalendar = (id: number) => {
+    router.push(`/calendar/${id}`);
+  };
+
   return (
     <div className="bg-[#F4EAE8] w-full h-full rounded-l-[100px] p-10 px-20 min-h-[1080px]">
       {/* Greeting */}
@@ -50,8 +64,11 @@ const Dashboard = () => {
           <ul className=" bg-[#F0DACC] px-4 border-[3px] rounded-xl">
             {diaryData?.diaries?.map((diary: any, idx: number) => (
               <li
+                onClick={() => {
+                  handleClickDiary(diary.calendarId, diary.id);
+                }}
                 key={diary.id}
-                className={`p-4 bg-transparent items-center border-b ${idx === 4 ? "border-b-0" : ""}`}
+                className={`p-4 bg-transparent items-center border-b cur ${idx === 4 ? "border-b-0" : ""}`}
               >
                 <span>{diary.title}</span>
                 <span className="text-sm text-gray-500">{diary.author}</span>
@@ -73,8 +90,11 @@ const Dashboard = () => {
         <div className="flex space-x-4">
           {calendarData?.calendars?.map((calendar: any) => (
             <div
+              onClick={() => {
+                handleClickCalendar(calendar.id);
+              }}
               key={calendar.id}
-              className="flex flex-col items-center justify-center"
+              className="cur flex flex-col items-center justify-center"
             >
               <img
                 className="w-[210px] h-[210px] object-cover rounded-xl border-2"
