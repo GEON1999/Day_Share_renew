@@ -7,16 +7,16 @@ export default withAuth({
   },
 
   callbacks: {
-    authorized({ token, req }) {
-      const authorization =
-        req.headers.get("Authorization") === process.env.NEXT_SSR_SECRET_KEY;
-      if (token || authorization) {
-        if (!cookies()?.get("AccessToken")) {
-          return false;
-        }
+    authorized({ token, req }: { token: any; req: any }) {
+      console.log("middleware token:", token);
+      const authorization = req.headers.get("Authorization");
+      if (authorization === process.env.NEXT_SSR_SECRET_KEY) {
         return true;
       }
-      return !!token;
+      if (token) {
+        return true;
+      }
+      return false;
     },
   },
 });
