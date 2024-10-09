@@ -6,6 +6,15 @@ const LOGIN = "/api/login";
 // 사용자 회원가입
 const SIGNUP = "/api/signup";
 
+// 소셜 로그인
+const SOCIAL_LOGIN = (social_id) => `/api/social/login/${social_id}`;
+
+// 소셜 회원 가입
+const SOCIAL_SIGNUP = "/api/social/signup";
+
+// 소셜 가입 여부 확인
+const SOCIAL_CHECK = (social_id) => `/api/social/check/${social_id}`;
+
 // user API
 
 // 사용자 정보 조회
@@ -176,6 +185,9 @@ const UPLOAD_IMAGE = "/api/imageUpload";
 export default {
   LOGIN,
   SIGNUP,
+  SOCIAL_LOGIN,
+  SOCIAL_SIGNUP,
+  SOCIAL_CHECK,
   GET_USER,
   UPDATE_USER,
   DELETE_USER,
