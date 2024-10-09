@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import AesEncryption from "@/utils/AesEncryption";
 import API from "@/server/API";
+import KakaoProvider from "next-auth/providers/kakao";
+
 export const authOptions = {
   site: process.env.NEXTAUTH_URL,
   secret: process.env.NEXTAUTH_SECRET,
@@ -14,6 +16,10 @@ export const authOptions = {
 
   // Configure one or more authentication providers
   providers: [
+    KakaoProvider({
+      clientId: process.env.KAKAO_CLIENT_ID!,
+      clientSecret: process.env.KAKAO_CLIENT_SECRET!,
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -24,7 +30,7 @@ export const authOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials: any, req) {
+      async authorize(credentials: any, req: any) {
         const formData = new URLSearchParams();
         formData.append("username", credentials?.id);
         formData.append("password", credentials?.password);
@@ -48,7 +54,6 @@ export const authOptions = {
               maxAge: 86400,
             });
 
-            const cookiesData = cookies().get("AccessToken");
             return {
               id: credentials?.id,
               email: credentials?.id,
@@ -60,4 +65,20 @@ export const authOptions = {
       },
     }),
   ],
+
+  callbacks: {
+    async jwt(token, user, account, profile, isNewUser) {
+      console.log("token:", token);
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+      }
+      return token;
+    },
+    async session(session, token) {
+      console.log("session:", session);
+      session.user = token;
+      return session;
+    },
+  },
 };
