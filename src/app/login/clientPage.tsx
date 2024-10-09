@@ -2,9 +2,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 function LoginClientPage() {
+  const { data: session } = useSession();
+  console.log("session:", session);
+
   const router = useRouter();
 
   const { handleSubmit, register } = useForm();
@@ -15,6 +18,7 @@ function LoginClientPage() {
       redirect: false,
       id: formData.id,
       password: formData.password,
+      callbackUrl: "/",
     });
     console.log("result:", result);
     if (result?.ok) {
