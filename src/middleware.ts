@@ -8,7 +8,7 @@ export default withAuth({
 
   callbacks: {
     authorized({ token, req }: { token: any; req: any }) {
-      const publicPaths = ["/signup", "/api/signup"];
+      const publicPaths = ["/signup", "/api/signup", "/api/imageUpload"];
       const pathname = req.nextUrl.pathname;
 
       if (publicPaths.includes(pathname)) {

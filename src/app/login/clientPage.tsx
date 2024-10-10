@@ -40,57 +40,55 @@ function LoginClientPage() {
 
   return (
     <div className="flex w-full h-screen bg-[#EFDACC] justify-center content-center items-center flex-col">
-      <h1 className="text-2xl font-bold mb-4">로그인</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-        <div className="space-y-3">
-          <div>
-            <div>
-              <input
-                className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
-                {...register("id")}
-                required
-                autoFocus={true}
-                placeholder={"ID"}
-              />
-            </div>
-          </div>
-          <div className="">
-            <div>
-              <input
-                className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
-                {...register("password")}
-                type="password"
-                required
-                placeholder={"password"}
-              />
-            </div>
-          </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col items-center"
+      >
+        <div>
+          <img
+            src={
+              "https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864362722.jpg"
+            }
+            alt="logo"
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-          <div>
-            <img
-              onClick={handleKakao}
-              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728563922674.png"
-              alt="kakao"
-              className="w-60 h-10 border-2 rounded-md mt-4"
-            />
-          </div>
-          <div>
-            <button
-              type={"submit"}
-              className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg-[#F4EAE8]"
-            >
-              로그인
-            </button>
-          </div>
+        <div className="space-y-3 flex flex-col">
+          <input
+            className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
+            {...register("id")}
+            required
+            autoFocus={true}
+            placeholder={"ID"}
+          />
+          <input
+            className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
+            {...register("password")}
+            type="password"
+            required
+            placeholder={"password"}
+          />
 
-          <div>
-            <button
-              onClick={handleSignUp}
-              className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg-[#F4EAE8] mt-2"
-            >
-              회원가입
-            </button>
-          </div>
+          <img
+            onClick={handleKakao}
+            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728563922674.png"
+            alt="kakao"
+            className="w-60 h-10 border-2 rounded-md mt-4"
+          />
+          <button
+            type={"submit"}
+            className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg-[#F4EAE8]"
+          >
+            로그인
+          </button>
+
+          <button
+            onClick={handleSignUp}
+            className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg-[#F4EAE8] mt-2"
+          >
+            회원가입
+          </button>
         </div>
       </form>
     </div>
