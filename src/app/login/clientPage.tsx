@@ -36,14 +36,17 @@ function LoginClientPage() {
     });
   };
 
+  const handleSignUp = () => router.push("/signup");
+
   return (
-    <div>
-      <h1>로그인</h1>
+    <div className="flex w-full h-screen bg-[#EFDACC] justify-center content-center items-center flex-col">
+      <h1 className="text-2xl font-bold mb-4">로그인</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-        <div>
+        <div className="space-y-3">
           <div>
             <div>
               <input
+                className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
                 {...register("id")}
                 required
                 autoFocus={true}
@@ -51,10 +54,10 @@ function LoginClientPage() {
               />
             </div>
           </div>
-
           <div className="">
-            <div className="-mt-[10px]">
+            <div>
               <input
+                className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
                 {...register("password")}
                 type="password"
                 required
@@ -64,14 +67,28 @@ function LoginClientPage() {
           </div>
 
           <div>
-            <button type={"submit"}>로그인</button>
+            <img
+              onClick={handleKakao}
+              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728563922674.png"
+              alt="kakao"
+              className="w-60 h-10 border-2 rounded-md mt-4"
+            />
           </div>
           <div>
             <button
-              className="w-full transform rounded-md bg-gray-700 px-4 py-2 tracking-wide text-white transition-colors duration-200 hover:bg-gray-600 focus:bg-gray-600 focus:outline-none"
-              onClick={handleKakao}
+              type={"submit"}
+              className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg-[#F4EAE8]"
             >
-              kakao login
+              로그인
+            </button>
+          </div>
+
+          <div>
+            <button
+              onClick={handleSignUp}
+              className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg-[#F4EAE8] mt-2"
+            >
+              회원가입
             </button>
           </div>
         </div>
