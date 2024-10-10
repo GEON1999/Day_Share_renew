@@ -3,10 +3,8 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import commonMutation from "@/queries/commonMutation";
-import { useRouter } from "next/navigation";
 
 const AddCalendarModal = ({ setIsOpen }: any) => {
-  const router = useRouter();
   const [formSelect, setFormSelect] = useState("create");
   const [image, setImage] = useState("");
   const { mutate: createCalendar } = useMutation({

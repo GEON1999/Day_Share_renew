@@ -9,3 +9,35 @@
 .bor {
   @apply border-2 border-black;
 }
+
+.main_container {
+  @apply bg-[#F4EAE8] w-full h-full rounded-l-[100px] p-10 px-20 min-h-[1080px];
+}
+
+li {
+  @apply cursor-pointer;
+}
+
+.loading.spinner {
+  margin: 250px auto;
+  width: 150px;
+  height: 150px;
+  border: 3px solid #eee;
+  border-bottom-color: #e0cbb7;
+  border-radius: 50%;
+  animation: rotate 1s infinite linear;
+}
+.modal.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -75px;
+  margin-top: -75px;
+  width: 150px;
+  height: 150px;
+  border: 3px solid #eee;
+  border-bottom-color: #e0cbb7;
+  border-radius: 50%;
+  animation: rotate 1s infinite linear;
+  z-index: 999;
+}

@@ -67,7 +67,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="bg-[#F4EAE8] w-full h-full rounded-l-[100px] p-10 px-20">
+    <div className="main_container">
       <div className="flex flex-col max-w-2xl mx-auto mt-40">
         <div className="flex justify-between items-center p-4">
           <button

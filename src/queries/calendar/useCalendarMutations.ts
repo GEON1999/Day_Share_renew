@@ -13,7 +13,7 @@ const createCalendar = async (body: any) => {
 };
 
 // Delete Calendar
-const deleteCalendar = async (calendarId: number) => {
+const deleteCalendar = async (calendarId: string) => {
   const { data } = await axios.delete(
     Helper.CURRENT_URL() + API.DELETE_CALENDAR(calendarId)
   );
@@ -30,7 +30,7 @@ const updateCalendar = async ({ calendarId, body }: any) => {
 };
 
 // Create Invite Code
-const createInviteCode = async (calendarId: number) => {
+const createInviteCode = async (calendarId: string) => {
   const { data } = await axios.post(
     Helper.CURRENT_URL() + API.CREATE_INVITE_CODE(calendarId)
   );
@@ -38,7 +38,7 @@ const createInviteCode = async (calendarId: number) => {
 };
 
 // Delete Invite Code
-const deleteInviteCode = async (calendarId: number) => {
+const deleteInviteCode = async (calendarId: string) => {
   const { data } = await axios.delete(
     Helper.CURRENT_URL() + API.DELETE_INVITE_CODE(calendarId)
   );
@@ -55,7 +55,7 @@ const joinCalendar = async (inviteCode: string) => {
 };
 
 // Update Calendar User Info
-const updateCalendarUserInfo = async (calendarId: number, body: any) => {
+const updateCalendarUserInfo = async ({ calendarId, body }: any) => {
   const { data } = await axios.put(
     Helper.CURRENT_URL() + API.UPDATE_CALENDAR_USER_INFO(calendarId),
     body
@@ -64,7 +64,7 @@ const updateCalendarUserInfo = async (calendarId: number, body: any) => {
 };
 
 // Delete Calendar Permission (Specific User)
-const deleteCalendarPermission = async (calendarId: number, userId: number) => {
+const deleteCalendarPermission = async (calendarId: string, userId: number) => {
   const { data } = await axios.delete(
     Helper.CURRENT_URL() + API.DELETE_CALENDAR_PERMISSION(calendarId, userId)
   );
@@ -72,7 +72,7 @@ const deleteCalendarPermission = async (calendarId: number, userId: number) => {
 };
 
 // Leave Calendar (User Removes Themselves)
-const leaveCalendar = async (calendarId: number) => {
+const leaveCalendar = async (calendarId: string) => {
   const { data } = await axios.delete(
     Helper.CURRENT_URL() + API.LEAVE_CALENDAR(calendarId)
   );

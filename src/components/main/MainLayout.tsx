@@ -12,10 +12,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos("page=1");
-  console.log("todoData :", todoData, todoIsLoading);
   const { data: userData, isLoading: userIsLoading } =
     useUserQueries.useGetUser();
-  console.log("userData :", userData, userIsLoading);
 
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,

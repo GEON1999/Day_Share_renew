@@ -3,23 +3,23 @@ import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useMutation } from "@tanstack/react-query";
+import { deleteCookie } from "cookies-next";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import ModalWrapper from "@/components/modal/ModalWrapper";
+import SettingModal from "@/components/modal/SettingModal";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
   const id = useSearch.useSearchId();
-  console.log("useSearch.useSearchId() :", useSearch.useSearchId());
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos("page=1");
-  console.log("todoData :", todoData, todoIsLoading);
-
-  const { data: calendarUserData, isLoading: calendarUserIsLoading } =
-    useCalendarQueries.useGetCalendarUserInfo(id);
-  console.log("calendarUserData :", calendarUserData, calendarUserIsLoading);
 
   const { data: userList, isLoading: userListLoading } =
     useCalendarQueries.useGetCalendarPermissionList(id);
-  console.log("userList :", userList, userListLoading);
 
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,
@@ -57,8 +57,17 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
+  const handleClickMain = () => router.push("/");
+
+  const handleClickSetting = () => setIsOpen(true);
+
+  const handleLogout = async () => {
+    deleteCookie("AccessToken");
+    await signOut();
+  };
+
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen min-h-[1080px]">
       {/* Sidebar */}
       <aside
         className={`${
@@ -94,7 +103,10 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
           <nav className={`${isSidebarOpen ? "block" : "hidden"} mt-8`}>
             <ul>
-              <li className="mb-4 text-lg flex items-center ">
+              <li
+                onClick={handleClickMain}
+                className="mb-4 text-lg flex items-center "
+              >
                 <img
                   className="w-12 h-12"
                   src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864922152.jpg"
@@ -135,14 +147,20 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
             className={`${isSidebarOpen ? "block" : "hidden"} text-[#71665f]`}
           >
             <ul>
-              <li className="mb-4 text-lg flex items-center">
+              <li
+                onClick={handleClickSetting}
+                className="mb-4 text-lg flex items-center"
+              >
                 <img
                   className="w-12 h-12"
                   src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864878122.jpg"
                 />
                 <span>설정</span>
               </li>
-              <li className="mb-4 text-lg flex items-center">
+              <li
+                onClick={handleLogout}
+                className="mb-4 text-lg flex items-center"
+              >
                 <img
                   className="w-12 h-10"
                   src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864855419.jpg"
@@ -159,6 +177,9 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
           </button>
         </div>
       </aside>
+      <ModalWrapper setIsOpen={setIsOpen} isOpen={isOpen}>
+        <SettingModal setIsOpen={setIsOpen} />
+      </ModalWrapper>
 
       {/* Main Content */}
       <main className="flex-grow bg-gray-50">{children}</main>

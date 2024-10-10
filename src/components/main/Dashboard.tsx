@@ -32,7 +32,7 @@ const Dashboard = () => {
   const handleAddBtn = () => setIsOpen(true);
 
   return (
-    <div className="bg-[#F4EAE8] w-full h-full rounded-l-[100px] p-10 px-20 min-h-[1080px]">
+    <div className="main_container">
       {/* Greeting */}
       <div className="mt-10">
         <h1 className="text-[40px] font-semibold">안녕하세요, 박건님.</h1>
