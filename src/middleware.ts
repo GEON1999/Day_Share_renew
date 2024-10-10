@@ -8,7 +8,13 @@ export default withAuth({
 
   callbacks: {
     authorized({ token, req }: { token: any; req: any }) {
-      console.log("middleware token:", token);
+      const publicPaths = ["/siginUp"];
+      const pathname = req.nextUrl.pathname;
+
+      if (publicPaths.includes(pathname)) {
+        return true;
+      }
+
       const authorization = req.headers.get("Authorization");
       if (authorization === process.env.NEXT_SSR_SECRET_KEY) {
         return true;
