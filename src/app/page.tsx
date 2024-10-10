@@ -49,9 +49,6 @@ export default async function Home(req: any) {
   const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
 
   const queries = Helper.queryToString(req.searchParams) ?? "";
-  console.log("queries :", queries);
-
-  console.log("accessToken", accessToken);
   const queryClient = new QueryClient();
 
   Promise.all([

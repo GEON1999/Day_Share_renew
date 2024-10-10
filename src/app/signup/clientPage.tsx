@@ -20,9 +20,14 @@ function SignupClientPage() {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-    const submitData = { email: formData.id, password: formData.password };
-    await mutate(submitData, {
-      onSuccess: () => {
+    const submitData = {
+      email: formData.id,
+      password: formData.password,
+      name: "test",
+      img: "https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728563922674.png",
+    };
+    mutate(submitData, {
+      onSuccess: (result: any) => {
         router.push("/login");
       },
       onError: (error) => {
