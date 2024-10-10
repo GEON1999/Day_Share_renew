@@ -58,7 +58,6 @@ function SignupClientPage() {
     const file = e.target.files[0];
     imageMutate(file, {
       onSuccess: (result: any) => {
-        console.log("result:", result);
         setUserImg(result.url);
       },
       onError: (error) => {
@@ -81,7 +80,7 @@ function SignupClientPage() {
               "https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864362722.jpg"
             }
             alt="logo"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover ml-2"
           />
         </div>
         {userImg !== "" ? (
@@ -98,7 +97,7 @@ function SignupClientPage() {
             className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2 bg-whiten"
           >
             <input
-              onChange={handleImageChange}
+              onInput={handleImageChange}
               type="file"
               className="hidden"
               id="imageUpload"

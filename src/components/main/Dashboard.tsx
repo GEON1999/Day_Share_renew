@@ -1,17 +1,18 @@
 "use client";
-
 import useSearch from "@/hooks/useSearch";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import ModalWrapper from "../modal/ModalWrapper";
+import AddCalendarModal from "../modal/AddCalendar";
 
 const Dashboard = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const queries = useSearch.useSearchQueries();
   const { data: diaryData, isLoading: diaryIsLoading } =
     useUserQueries.useGetUserDiaries("page=1");
-  console.log("data :", diaryData, diaryIsLoading);
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos("page=1");
   const randomTodo =
@@ -19,16 +20,16 @@ const Dashboard = () => {
 
   const { data: calendarData, isLoading: calendarIsLoading } =
     useCalendarQueries.useGetCalendarList(queries ?? "");
-  console.log("calendarData :", calendarData, calendarIsLoading);
 
   const handleClickDiary = (calId: number, diaryId: number) => {
     router.push(`/calendar/${calId}/diary/${diaryId}`);
-    console.log("calId :", calId);
   };
 
   const handleClickCalendar = (id: number) => {
     router.push(`/calendar/${id}`);
   };
+
+  const handleAddBtn = () => setIsOpen(true);
 
   return (
     <div className="bg-[#F4EAE8] w-full h-full rounded-l-[100px] p-10 px-20 min-h-[1080px]">
@@ -82,10 +83,18 @@ const Dashboard = () => {
       <section>
         <div className="flex justify-between w-[1120px] items-center">
           <h2 className="text-[35px] font-bold mb-2 mt-10">공유 달력</h2>
-          <img
-            className="w-12px h-8 mt-10"
-            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727869920467.jpg"
-          />
+          <div className="flex items-center mt-10 space-x-4">
+            <button
+              onClick={handleAddBtn}
+              className="text-[#E0CBB7] font-bold text-[50px] rounded-full w-8 h-8 mt-1 bg-black flex justify-center items-center"
+            >
+              <span>+</span>
+            </button>
+            <img
+              className="w-12px h-8 "
+              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727869920467.jpg"
+            />
+          </div>
         </div>
         <div className="flex space-x-4">
           {calendarData?.calendars?.map((calendar: any) => (
@@ -105,6 +114,9 @@ const Dashboard = () => {
           ))}
         </div>
       </section>
+      <ModalWrapper setIsOpen={setIsOpen} isOpen={isOpen}>
+        <AddCalendarModal setIsOpen={setIsOpen} />
+      </ModalWrapper>
     </div>
   );
 };

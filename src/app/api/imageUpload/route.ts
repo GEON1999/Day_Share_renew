@@ -8,7 +8,6 @@ import API from "@/server/API";
 export async function POST(req: any, response: NextApiResponse) {
   const formData = await req.formData();
   const file = formData.get("file");
-  console.log("server file :", file);
   if (!file) {
     return NextResponse.json({ error: "No files received." }, { status: 400 });
   }
@@ -16,7 +15,6 @@ export async function POST(req: any, response: NextApiResponse) {
   try {
     const formDataToSend = new FormData();
     formDataToSend.append("file", file);
-    console.log("server formData :", formDataToSend);
 
     const data = await axios.post(
       `${process.env.BASE_URL}${API.UPLOAD_IMAGE}`,

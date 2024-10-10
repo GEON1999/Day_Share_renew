@@ -50,7 +50,7 @@ function LoginClientPage() {
               "https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864362722.jpg"
             }
             alt="logo"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover ml-2"
           />
         </div>
 
