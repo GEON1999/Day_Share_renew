@@ -2,6 +2,7 @@
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useMutation } from "@tanstack/react-query";
+import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
@@ -40,6 +41,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   const handleClickSetting = () => {
     router.push("/setting");
+  };
+
+  const handleLogout = async () => {
+    deleteCookie("AccessToken");
+    await signOut();
   };
 
   // 화면 크기 변화에 따른 사이드바 상태 업데이트
@@ -140,7 +146,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               </li>
               <li
                 className="mb-4 text-lg flex items-center cur"
-                onClick={() => signOut()}
+                onClick={handleLogout}
               >
                 <img
                   className="w-12 h-10"
