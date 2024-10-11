@@ -1,12 +1,6 @@
-import { useState } from "react";
 import { createPortal } from "react-dom";
-import { usePathname, useRouter } from "next/navigation";
 
 const ModalWrapper = ({ children, isOpen, setIsOpen }: any) => {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const openModal = () => setIsOpen(true);
   const closeModal = () => {
     setIsOpen(false);
   };

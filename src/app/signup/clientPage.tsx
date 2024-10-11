@@ -9,7 +9,6 @@ import commonMutation from "@/queries/commonMutation";
 
 function SignupClientPage() {
   const [userImg, setUserImg] = React.useState("");
-
   const router = useRouter();
 
   const { handleSubmit, register } = useForm();
@@ -30,7 +29,7 @@ function SignupClientPage() {
     const submitData = {
       email: formData.email,
       password: formData.password,
-      name: "test",
+      name: formData.name,
       img: userImg,
     };
     mutate(submitData, {
@@ -84,7 +83,10 @@ function SignupClientPage() {
           />
         </div>
         {userImg !== "" ? (
-          <div className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2">
+          <div
+            onClick={handleImageUpload}
+            className="rounded-full bg-gray-200 w-40 h-40 mb-4 bor cur"
+          >
             <img
               src={userImg}
               alt="profile"
@@ -94,16 +96,15 @@ function SignupClientPage() {
         ) : (
           <div
             onClick={handleImageUpload}
-            className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2 bg-whiten"
-          >
-            <input
-              onInput={handleImageChange}
-              type="file"
-              className="hidden"
-              id="imageUpload"
-            />
-          </div>
+            className="rounded-full bg-gray-200 w-40 h-40 mb-4 bor cur bg-whiten"
+          ></div>
         )}
+        <input
+          onInput={handleImageChange}
+          type="file"
+          className="hidden"
+          id="imageUpload"
+        />
         <div className="space-y-3 flex flex-col">
           <input
             className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"

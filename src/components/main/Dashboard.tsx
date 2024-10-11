@@ -16,12 +16,11 @@ const Dashboard = () => {
     useUserQueries.useGetUserDiaries("page=1");
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos("page=1");
-  const randomTodo =
-    todoData?.todos[Math.floor(Math.random() * todoData?.todos.length ?? 1)];
-
   const { data: calendarData, isLoading: calendarIsLoading } =
     useCalendarQueries.useGetCalendarList(queries ?? "");
-  console.log(calendarData);
+
+  const randomTodo =
+    todoData?.todos[Math.floor(Math.random() * todoData?.todos.length ?? 1)];
 
   const handleClickDiary = (calId: number, diaryId: number) => {
     router.push(`/calendar/${calId}/diary/${diaryId}`);
