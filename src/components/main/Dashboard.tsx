@@ -13,7 +13,7 @@ const Dashboard = () => {
   const router = useRouter();
   const queries = useSearch.useSearchQueries();
   const { data: diaryData, isLoading: diaryIsLoading } =
-    useUserQueries.useGetUserDiaries("page=1");
+    useUserQueries.useGetUserDiaries();
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos("page=1");
   const { data: calendarData, isLoading: calendarIsLoading } =
@@ -74,7 +74,7 @@ const Dashboard = () => {
         <section className="w-[800px] h-[400px]">
           <h2 className="text-[35px] font-bold mb-2">공유 일기</h2>
           <ul className=" bg-[#F0DACC] px-4 border-[3px] rounded-xl">
-            {diaryData?.diaries?.map((diary: any, idx: number) => (
+            {diaryData?.map((diary: any, idx: number) => (
               <li
                 onClick={() => {
                   handleClickDiary(diary.calendarId, diary.id);

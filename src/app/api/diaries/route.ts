@@ -18,7 +18,7 @@ export async function GET(req: any) {
 
   try {
     const data = await axios.get(
-      `${process.env.BASE_URL}${API.GET_USER_DIARIES()}`,
+      `${process.env.BASE_URL}${API.GET_USER_DIARIES}`,
       rqOption.apiHeader(accessToken)
     );
 

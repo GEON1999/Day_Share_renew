@@ -28,9 +28,9 @@ const getUserTodos = async (accessToken: any, query: string) => {
   return data;
 };
 
-const getUserDiaries = async (accessToken: any, query: string) => {
+const getUserDiaries = async (accessToken: any) => {
   const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER_DIARIES(query)}`,
+    `${process.env.BASE_URL}${API.GET_USER_DIARIES}`,
     rqOption.apiHeader(accessToken)
   );
   return data;
@@ -61,8 +61,8 @@ export default async function Home(req: any) {
       queryFn: () => getUserTodos(accessToken, "page=1"),
     }),
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_USER_DIARIES, "page=1"],
-      queryFn: () => getUserDiaries(accessToken, "page=1"),
+      queryKey: [QueryKeys.GET_USER_DIARIES],
+      queryFn: () => getUserDiaries(accessToken),
     }),
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_LIST, queries],
