@@ -80,10 +80,10 @@ export default async function Home(req: any) {
       queryKey: [QueryKeys.GET_CALENDAR_LIST, queries],
       queryFn: () => getCalendarList(accessToken, queries),
     }),
-    await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CALENDAR_USER_INFO, id],
-      queryFn: () => getCalendarUserInfo(accessToken, id),
-    }),
+    // await queryClient.prefetchQuery({
+    //   queryKey: [QueryKeys.GET_CALENDAR_USER_INFO, id],
+    //   queryFn: () => getCalendarUserInfo(accessToken, id),
+    // }),
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id],
       queryFn: () => getCalendarPermissionList(accessToken, id),

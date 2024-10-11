@@ -32,18 +32,30 @@ const SettingModal = ({ setIsOpen }: any) => {
     mutationFn: commonMutation.uploadImage,
   });
 
+  const { register, handleSubmit } = useForm();
+  const {
+    register: myProfileRegister,
+    handleSubmit: myProfileSubmit,
+    reset: resetProfile,
+  } = useForm();
+
   useEffect(() => {
-    if (calendarData?.img !== "") {
+    if (calendarData?.img) {
       setImage(calendarData?.img);
     }
-    if (calendarUserData?.img !== "") {
+    if (calendarUserData?.img) {
       setMyImage(calendarUserData?.img);
     }
-  }, [calendarIsLoading, calendarUserIsLoading]);
 
-  const { register, handleSubmit } = useForm();
-  const { register: myProfileRegister, handleSubmit: myProfileSubmit } =
-    useForm();
+    resetProfile({
+      name: calendarUserData?.name,
+    });
+  }, [
+    calendarData,
+    calendarUserData,
+    calendarUserIsLoading,
+    calendarIsLoading,
+  ]);
 
   const onSubmit = (data: any) => {
     const formData = { ...data, img: image };
