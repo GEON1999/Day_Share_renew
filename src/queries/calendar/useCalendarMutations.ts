@@ -64,7 +64,7 @@ const updateCalendarUserInfo = async ({ calendarId, body }: any) => {
 };
 
 // Delete Calendar Permission (Specific User)
-const deleteCalendarPermission = async (calendarId: string, userId: number) => {
+const deleteCalendarPermission = async ({ calendarId, userId }: any) => {
   const { data } = await axios.delete(
     Helper.CURRENT_URL() + API.DELETE_CALENDAR_PERMISSION(calendarId, userId)
   );

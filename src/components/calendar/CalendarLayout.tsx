@@ -9,20 +9,28 @@ import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import SettingModal from "@/components/modal/SettingModal";
+import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [isHover, setIsHover] = useState(false);
   const id = useSearch.useSearchId();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos("page=1");
 
-  const { data: userList, isLoading: userListLoading } =
-    useCalendarQueries.useGetCalendarPermissionList(id);
+  const {
+    data: userList,
+    isLoading: userListLoading,
+    refetch,
+  } = useCalendarQueries.useGetCalendarPermissionList(id);
 
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,
+  });
+  const { mutate: deleteCalendarPermission } = useMutation({
+    mutationFn: useCalendarMutations.deleteCalendarPermission,
   });
 
   const handleTodoClick = (calId: number, todoId: number) => {
@@ -31,6 +39,25 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
       {
         onSuccess: () => {
           console.log("성공");
+        },
+        onError: () => {
+          console.log("실패");
+        },
+      }
+    );
+  };
+
+  const handleDeletePermission = (userId: number) => {
+    deleteCalendarPermission(
+      { calendarId: id, userId },
+      {
+        onSuccess: (result) => {
+          if (result) {
+            alert("유저 추방에 성공하였습니다.");
+          } else {
+            alert("유저 추방에 실패하였습니다.");
+          }
+          refetch();
         },
         onError: () => {
           console.log("실패");
@@ -66,6 +93,8 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
     await signOut();
   };
 
+  const handleUserMouse = (bool: boolean) => setIsHover(bool);
+
   return (
     <div className="flex h-screen min-h-[1080px]">
       {/* Sidebar */}
@@ -87,16 +116,37 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
                 className="w-full h-full object-cover ml-3"
               />
             </div>
-            <div className="flex flex-col items-start justify-start w-full space-y-3 mt-5">
+            <div
+              onMouseEnter={() => handleUserMouse(true)}
+              onMouseLeave={() => handleUserMouse(false)}
+              className="flex flex-col items-start justify-start w-full space-y-3 mt-5"
+            >
               {userList?.map((user: any) => (
-                <div key={user.id} className="flex items-center">
-                  <img
-                    className="w-12 h-12 rounded-full"
-                    src={
-                      user.img === "" ? process.env.NEXT_PUBLIC_LOGO : user.img
-                    }
-                  />
-                  <span className="ml-2">{user.name}</span>
+                <div
+                  key={user.id}
+                  className="flex items-center justify-between w-[300px]"
+                >
+                  <div className="flex items-center">
+                    <img
+                      className="w-11 h-11 rounded-full bor"
+                      src={
+                        user.img === ""
+                          ? process.env.NEXT_PUBLIC_LOGO
+                          : user.img
+                      }
+                    />
+                    <span className="ml-2">{user.name}</span>
+                  </div>
+                  {isHover && (
+                    <button
+                      onClick={() => {
+                        handleDeletePermission(user.userId);
+                      }}
+                      className="mr-4"
+                    >
+                      추방
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
