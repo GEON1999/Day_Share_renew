@@ -9,28 +9,24 @@ import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import SettingModal from "@/components/modal/SettingModal";
-import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
+import DeleteConfirmModal from "@/components/modal/DeleteConfirmModal";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [deleteUserId, setDeleteUserId] = useState<null | Number>(null);
   const [isHover, setIsHover] = useState(false);
   const id = useSearch.useSearchId();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos("page=1");
 
-  const {
-    data: userList,
-    isLoading: userListLoading,
-    refetch,
-  } = useCalendarQueries.useGetCalendarPermissionList(id);
+  const { data: userList, isLoading: userListLoading } =
+    useCalendarQueries.useGetCalendarPermissionList(id);
 
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,
-  });
-  const { mutate: deleteCalendarPermission } = useMutation({
-    mutationFn: useCalendarMutations.deleteCalendarPermission,
   });
 
   const handleTodoClick = (calId: number, todoId: number) => {
@@ -48,22 +44,8 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const handleDeletePermission = (userId: number) => {
-    deleteCalendarPermission(
-      { calendarId: id, userId },
-      {
-        onSuccess: (result) => {
-          if (result) {
-            alert("유저 추방에 성공하였습니다.");
-          } else {
-            alert("유저 추방에 실패하였습니다.");
-          }
-          refetch();
-        },
-        onError: () => {
-          console.log("실패");
-        },
-      }
-    );
+    setIsConfirmOpen(true);
+    setDeleteUserId(userId);
   };
 
   // 화면 크기 변화에 따른 사이드바 상태 업데이트
@@ -229,6 +211,12 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
       </aside>
       <ModalWrapper setIsOpen={setIsOpen} isOpen={isOpen}>
         <SettingModal setIsOpen={setIsOpen} />
+      </ModalWrapper>
+      <ModalWrapper setIsOpen={setIsConfirmOpen} isOpen={isConfirmOpen}>
+        <DeleteConfirmModal
+          setIsOpen={setIsConfirmOpen}
+          userId={deleteUserId}
+        />
       </ModalWrapper>
 
       {/* Main Content */}
