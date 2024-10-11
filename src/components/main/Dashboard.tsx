@@ -8,6 +8,7 @@ import ModalWrapper from "../modal/ModalWrapper";
 import AddCalendarModal from "../modal/AddCalendar";
 
 const Dashboard = () => {
+  const currentPage = useSearch.useSearchPage();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const queries = useSearch.useSearchQueries();
@@ -20,6 +21,7 @@ const Dashboard = () => {
 
   const { data: calendarData, isLoading: calendarIsLoading } =
     useCalendarQueries.useGetCalendarList(queries ?? "");
+  console.log(calendarData);
 
   const handleClickDiary = (calId: number, diaryId: number) => {
     router.push(`/calendar/${calId}/diary/${diaryId}`);
@@ -30,6 +32,16 @@ const Dashboard = () => {
   };
 
   const handleAddBtn = () => setIsOpen(true);
+
+  const handlePrevBtn = () => {
+    if (currentPage === "1") return;
+    router.push(`?page=${Number(currentPage) - 1}`);
+  };
+
+  const handleNextBtn = () => {
+    if (calendarData?.total_calendars <= Number(currentPage) * 5) return;
+    router.push(`?page=${Number(currentPage) + 1}`);
+  };
 
   return (
     <div className="main_container">
@@ -90,10 +102,18 @@ const Dashboard = () => {
             >
               <span>+</span>
             </button>
-            <img
-              className="w-12px h-8 "
-              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727869920467.jpg"
-            />
+            <div className="flex">
+              <img
+                onClick={handlePrevBtn}
+                className="w-12px h-8 cur"
+                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728627561682.jpg"
+              />
+              <img
+                onClick={handleNextBtn}
+                className="w-12px h-8 cur"
+                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728627525256.jpg"
+              />
+            </div>
           </div>
         </div>
         <div className="flex space-x-4">
