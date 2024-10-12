@@ -34,15 +34,17 @@ const useGetUserTodos = (query: string) => {
 };
 
 // Get User Diaries
-const getUserDiaries = async () => {
-  const { data } = await axios.get(Helper.CURRENT_URL() + API.GET_USER_DIARIES);
+const getUserDiaries = async (query: any) => {
+  const { data } = await axios.get(
+    Helper.CURRENT_URL() + API.GET_USER_DIARIES(query)
+  );
   return data;
 };
 
-const useGetUserDiaries = () => {
+const useGetUserDiaries = (query: any) => {
   return useQuery({
-    queryKey: [QueryKeys.GET_USER_DIARIES],
-    queryFn: () => getUserDiaries(),
+    queryKey: [QueryKeys.GET_USER_DIARIES, query],
+    queryFn: () => getUserDiaries(query),
   });
 };
 

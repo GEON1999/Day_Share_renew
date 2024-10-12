@@ -2,25 +2,26 @@
 import useSearch from "@/hooks/useSearch";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useUserQueries from "@/queries/user/useUserQueries";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import ModalWrapper from "../modal/ModalWrapper";
 import AddCalendarModal from "../modal/AddCalendar";
 
 const Dashboard = () => {
+  const params = useSearch.useParamsAll();
+  const pathName = usePathname();
   const currentPage = useSearch.useSearchPage();
+  const currentDiaryPage = useSearch.useSearchDiaryPage();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const queries = useSearch.useSearchQueries();
   const { data: diaryData, isLoading: diaryIsLoading } =
-    useUserQueries.useGetUserDiaries();
+    useUserQueries.useGetUserDiaries(`diary_page=${currentDiaryPage}`);
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos("page=1");
   const { data: calendarData, isLoading: calendarIsLoading } =
-    useCalendarQueries.useGetCalendarList(queries ?? "");
+    useCalendarQueries.useGetCalendarList(`page=${currentPage}`);
 
-  const randomTodo =
-    todoData?.todos[Math.floor(Math.random() * todoData?.todos.length ?? 1)];
+  const randomTodo = todoData?.todos?.[0];
 
   const handleClickDiary = (calId: number, diaryId: number) => {
     router.push(`/calendar/${calId}/diary/${diaryId}`);
@@ -34,12 +35,28 @@ const Dashboard = () => {
 
   const handlePrevBtn = () => {
     if (currentPage === "1") return;
-    router.push(`?page=${Number(currentPage) - 1}`);
+    params.set("page", String(Number(currentPage) - 1));
+    router.push(`${pathName}?${params.toString()}`);
   };
 
   const handleNextBtn = () => {
     if (calendarData?.total_calendars <= Number(currentPage) * 5) return;
-    router.push(`?page=${Number(currentPage) + 1}`);
+    params.set("page", String(Number(currentPage) + 1));
+    router.push(`${pathName}?${params.toString()}`);
+  };
+
+  const handleDiaryPrevBtn = () => {
+    if (currentDiaryPage === "1") return;
+    params.set("diary_page", String(Number(currentDiaryPage) - 1));
+    router.push(`${pathName}?${params.toString()}`);
+  };
+
+  const handleDiaryNextBtn = () => {
+    if (diaryData?.total_count <= Number(currentDiaryPage) * 5) return;
+    params.set("diary_page", String(Number(currentDiaryPage) + 1));
+
+    console.log("params", params.toString());
+    router.push(`${pathName}?${params.toString()}`);
   };
 
   return (
@@ -72,9 +89,23 @@ const Dashboard = () => {
 
         {/* 공유 일기 */}
         <section className="w-[800px] h-[400px]">
-          <h2 className="text-[35px] font-bold mb-2">공유 일기</h2>
+          <div className="flex justify-between">
+            <h2 className="text-[35px] font-bold mb-2">공유 일기</h2>
+            <div className="flex mt-3">
+              <img
+                onClick={handleDiaryPrevBtn}
+                className="w-12px h-8 cur"
+                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728627561682.jpg"
+              />
+              <img
+                onClick={handleDiaryNextBtn}
+                className="w-12px h-8 cur"
+                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728627525256.jpg"
+              />
+            </div>
+          </div>
           <ul className=" bg-[#F0DACC] px-4 border-[3px] rounded-xl">
-            {diaryData?.map((diary: any, idx: number) => (
+            {diaryData?.diaries?.map((diary: any, idx: number) => (
               <li
                 onClick={() => {
                   handleClickDiary(diary.calendarId, diary.id);

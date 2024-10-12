@@ -27,7 +27,7 @@ const UPDATE_USER = "/api/user";
 const DELETE_USER = "/api/user";
 
 // 사용자 diary 리스트 조회
-const GET_USER_DIARIES = "/api/diaries";
+const GET_USER_DIARIES = (query) => `/api/diaries${query ? `?${query}` : ""}`;
 
 // 사용자 todo 리스트 조회
 const GET_USER_TODOS = (query) => `/api/user/todo${query ? `?${query}` : ""}`;
