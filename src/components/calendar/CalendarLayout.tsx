@@ -5,22 +5,27 @@ import useUserQueries from "@/queries/user/useUserQueries";
 import { useMutation } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import SettingModal from "@/components/modal/SettingModal";
 import DeleteConfirmModal from "@/components/modal/DeleteConfirmModal";
+import useTodoQueries from "@/queries/todo/useTodoQueries";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
+  const params = useSearch.useParamsAll();
+  const pathName = usePathname();
+  const currentTodoPage = useSearch.useSearchTodoPage();
   const [isOpen, setIsOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [deleteUserId, setDeleteUserId] = useState<null | Number>(null);
   const [isHover, setIsHover] = useState(false);
   const id = useSearch.useSearchId();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const { data: todoData, isLoading: todoIsLoading } =
-    useUserQueries.useGetUserTodos("page=1");
+  const { data: todoData, isLoading: todoLoading } =
+    useTodoQueries.useGetTodosByCalendarId(id, `todo_page=${currentTodoPage}`);
+  console.log("todos", todoData);
 
   const { data: userList, isLoading: userListLoading } =
     useCalendarQueries.useGetCalendarPermissionList(id);
@@ -58,6 +63,20 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const handleUserMouse = (bool: boolean) => setIsHover(bool);
+
+  const handleTodoPrevBtn = () => {
+    if (currentTodoPage === "1") return;
+    params.set("todo_page", String(Number(currentTodoPage) - 1));
+    router.push(`${pathName}?${params.toString()}`);
+  };
+
+  const handleTodoNextBtn = () => {
+    if (todoData?.total_count <= Number(currentTodoPage) * 5) return;
+    params.set("todo_page", String(Number(currentTodoPage) + 1));
+
+    console.log("params", params.toString());
+    router.push(`${pathName}?${params.toString()}`);
+  };
 
   return (
     <div className="flex h-screen min-h-[1080px]">
@@ -140,7 +159,13 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
           {/* 개인 일정 */}
           {isSidebarOpen && (
             <section className="mt-8 bg-white p-4 rounded-lg shadow-4 border-2">
-              <h3 className="font-bold mb-4 text-xl">개인 일정</h3>
+              <div className="flex items-center justify-between content-center mb-4">
+                <h3 className="font-bold text-xl">캘린더 일정</h3>
+                <div className="flex space-x-3">
+                  <button onClick={handleTodoPrevBtn}>&lt;</button>
+                  <button onClick={handleTodoNextBtn}>&gt;</button>
+                </div>
+              </div>
               <ul className="space-y-2">
                 {todoData?.todos?.map((todo: any) => (
                   <li key={todo.id} className="flex items-center">

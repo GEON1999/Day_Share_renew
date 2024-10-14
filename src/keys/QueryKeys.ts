@@ -45,6 +45,9 @@ const GET_CALENDAR_PROFILE = "GET_CALENDAR_PROFILE";
 // 할 일 리스트 조회
 const GET_TODOS = "GET_TODOS";
 
+// 특정 달력 할 일 리스트 조회
+const GET_CALENDAR_TODOS = "GET_CALENDAR_TODOS";
+
 // 할 일 상세 정보 조회
 const GET_TODO_DETAIL = "GET_TODO_DETAIL";
 
@@ -70,6 +73,7 @@ export default {
   GET_DIARY_DETAIL,
   GET_CALENDAR_PROFILE,
   GET_TODOS,
+  GET_CALENDAR_TODOS,
   GET_TODO_DETAIL,
   GET_COMMENTS,
   GET_LIKES,

@@ -134,6 +134,10 @@ const CREATE_TODO = (calendarId, query) =>
 const GET_TODOS = (calendarId, query) =>
   `/api/calendar/${calendarId}/todo${query ? `?${query}` : ""}`;
 
+// 할 일 리스트 조회 (특정 달력)
+const GET_CALENDAR_TODOS = (calendarId, query) =>
+  `/api/calendar/${calendarId}/todos${query ? `?${query}` : ""}`;
+
 // 할 일 상세 조회
 const GET_TODO_DETAIL = (calendarId, todoId) =>
   `/api/calendar/${calendarId}/todo/${todoId}`;
@@ -219,6 +223,7 @@ export default {
   GET_CALENDAR_PROFILE,
   CREATE_TODO,
   GET_TODOS,
+  GET_CALENDAR_TODOS,
   GET_TODO_DETAIL,
   UPDATE_TODO,
   DELETE_TODO,

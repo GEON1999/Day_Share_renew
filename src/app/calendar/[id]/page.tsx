@@ -12,9 +12,13 @@ import rqOption from "@/server/rqOption";
 import Helper from "@/helper/Helper";
 import ClientPage from "./clientPage";
 
-const getUserTodos = async (accessToken: any, query: string) => {
+const useGetTodosByCalendarId = async (
+  accessToken: any,
+  id: string,
+  query: string
+) => {
   const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER_TODOS(query)}`,
+    `${process.env.BASE_URL}${API.GET_CALENDAR_TODOS(id, query)}`,
     rqOption.apiHeader(accessToken)
   );
   return data;
@@ -67,14 +71,15 @@ export default async function Home(req: any) {
   const queries = Helper.queryToString(req.searchParams) ?? "";
 
   const queryClient = new QueryClient();
+  const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
 
   const id = req.params.id;
   console.log("id", id);
 
   Promise.all([
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_USER_TODOS, "page=1"],
-      queryFn: () => getUserTodos(accessToken, "page=1"),
+      queryKey: [QueryKeys.GET_CALENDAR_TODOS, id, todoPage],
+      queryFn: () => useGetTodosByCalendarId(accessToken, id, todoPage),
     }),
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_LIST, queries],
