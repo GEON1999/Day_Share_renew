@@ -1,17 +1,21 @@
 "use client";
+import useSearch from "@/hooks/useSearch";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useMutation } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
+  const params = useSearch.useParamsAll();
+  const pathName = usePathname();
+  const currentTodoPage = useSearch.useSearchTodoPage();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: todoData, isLoading: todoIsLoading } =
-    useUserQueries.useGetUserTodos("page=1");
+    useUserQueries.useGetUserTodos(`todo_page=${currentTodoPage}`);
   const { data: userData, isLoading: userIsLoading } =
     useUserQueries.useGetUser();
 
@@ -46,30 +50,44 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     await signOut();
   };
 
-  // 화면 크기 변화에 따른 사이드바 상태 업데이트
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 1600) {
-        setIsSidebarOpen(false);
-      } else {
-        setIsSidebarOpen(true);
-      }
-    };
+  const handleTodoPrevBtn = () => {
+    if (currentTodoPage === "1") return;
+    params.set("todo_page", String(Number(currentTodoPage) - 1));
+    router.push(`${pathName}?${params.toString()}`);
+  };
 
-    window.addEventListener("resize", handleResize);
-    handleResize(); // 페이지 로드 시 초기 사이드바 상태 설정
+  const handleTodoNextBtn = () => {
+    if (todoData?.total_count <= Number(currentTodoPage) * 5) return;
+    params.set("todo_page", String(Number(currentTodoPage) + 1));
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+    console.log("params", params.toString());
+    router.push(`${pathName}?${params.toString()}`);
+  };
+
+  // // 화면 크기 변화에 따른 사이드바 상태 업데이트
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     if (window.innerWidth < 1600) {
+  //       setIsSidebarOpen(false);
+  //     } else {
+  //       setIsSidebarOpen(true);
+  //     }
+  //   };
+
+  //   window.addEventListener("resize", handleResize);
+  //   handleResize(); // 페이지 로드 시 초기 사이드바 상태 설정
+
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   return (
     <div className="flex h-screen min-h-[1080px]">
       {/* Sidebar */}
       <aside
         className={`${
-          isSidebarOpen ? "w-[350px]" : "w-0"
+          isSidebarOpen ? "w-[350px] min-w-[350px]" : "w-0"
         } bg-[#EFDACC] p-8 transition-all duration-300  flex flex-col justify-between side_bar`}
       >
         <div>
@@ -78,11 +96,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           >
             <div className="mb-4">
               <img
+                onClick={handleClickMain}
                 src={
                   "https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864362722.jpg"
                 }
                 alt="logo"
-                className="w-full h-full object-cover ml-3"
+                className="w-full h-full object-cover ml-3 cur"
               />
             </div>
             <div className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2">
@@ -110,19 +129,29 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           {/* 개인 일정 */}
           {isSidebarOpen && (
             <section className="mt-8 bg-white p-4 rounded-lg shadow-4 border-2 mb-4">
-              <h3 className="font-bold mb-4 text-xl">개인 일정</h3>
+              <div className="flex items-center justify-between content-center mb-4">
+                <h3 className="font-bold text-xl">공유 일정</h3>
+                <div className="flex space-x-3">
+                  <button onClick={handleTodoPrevBtn}>&lt;</button>
+                  <button onClick={handleTodoNextBtn}>&gt;</button>
+                </div>
+              </div>
               <ul className="space-y-2">
-                {todoData?.todos?.map((todo: any) => (
-                  <li key={todo.id} className="flex items-center">
-                    <input
-                      onClick={() => handleTodoClick(todo.calendarId, todo.id)}
-                      defaultChecked={todo.isCompleted}
-                      type="checkbox"
-                      className="mr-2"
-                    />
-                    <span>{todo.title}</span>
-                  </li>
-                ))}
+                {todoData?.todos?.map((todo: any) => {
+                  return (
+                    <li key={todo.id} className="flex items-center">
+                      <input
+                        onClick={() =>
+                          handleTodoClick(todo.calendarId, todo.id)
+                        }
+                        defaultChecked={todo.isCompleted}
+                        type="checkbox"
+                        className="mr-2"
+                      />
+                      <span>{todo.title}</span>
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           )}

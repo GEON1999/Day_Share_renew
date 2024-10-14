@@ -48,24 +48,6 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
     setDeleteUserId(userId);
   };
 
-  // 화면 크기 변화에 따른 사이드바 상태 업데이트
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 1600) {
-        setIsSidebarOpen(false);
-      } else {
-        setIsSidebarOpen(true);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // 페이지 로드 시 초기 사이드바 상태 설정
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   const handleClickMain = () => router.push("/");
 
   const handleClickSetting = () => setIsOpen(true);
@@ -91,11 +73,12 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
           >
             <div className="mb-4">
               <img
+                onClick={handleClickMain}
                 src={
                   "https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864362722.jpg"
                 }
                 alt="logo"
-                className="w-full h-full object-cover ml-3"
+                className="w-full h-full object-cover ml-3 cur"
               />
             </div>
             <div
