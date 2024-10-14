@@ -64,7 +64,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
       {/* Sidebar */}
       <aside
         className={`${
-          isSidebarOpen ? "w-[350px]" : "w-0"
+          isSidebarOpen ? "w-[350px] min-w-[350px]" : "w-0"
         } bg-[#EFDACC] p-8 transition-all duration-300 overflow-hidden flex flex-col justify-between side_bar`}
       >
         <div>
