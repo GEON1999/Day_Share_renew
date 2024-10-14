@@ -51,8 +51,9 @@ export default async function Home(req: any) {
   const queries = Helper.queryToString(req.searchParams) ?? "";
   const queryClient = new QueryClient();
 
-  const page = req.searchParams.page ?? "1";
-  const diaryPage = req.searchParams.diary_page ?? "1";
+  const page = `page=${req.searchParams.page ?? "1"}`;
+  const diaryPage = `diary_page=${req.searchParams.diary_page ?? "1"}`;
+  const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
 
   Promise.all([
     await queryClient.prefetchQuery({
@@ -60,16 +61,16 @@ export default async function Home(req: any) {
       queryFn: () => getUser(accessToken),
     }),
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_USER_TODOS, "page=1"],
-      queryFn: () => getUserTodos(accessToken, "page=1"),
+      queryKey: [QueryKeys.GET_USER_TODOS, todoPage],
+      queryFn: () => getUserTodos(accessToken, todoPage),
     }),
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_USER_DIARIES, `diary_page=${diaryPage}`],
-      queryFn: () => getUserDiaries(accessToken, `diary_page=${diaryPage}`),
+      queryKey: [QueryKeys.GET_USER_DIARIES, diaryPage],
+      queryFn: () => getUserDiaries(accessToken, diaryPage),
     }),
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CALENDAR_LIST, `page=${page}`],
-      queryFn: () => getCalendarList(accessToken, `page=${page}`),
+      queryKey: [QueryKeys.GET_CALENDAR_LIST, page],
+      queryFn: () => getCalendarList(accessToken, page),
     }),
   ]);
 

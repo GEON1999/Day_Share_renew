@@ -30,7 +30,7 @@ const DELETE_USER = "/api/user";
 const GET_USER_DIARIES = (query) => `/api/diaries${query ? `?${query}` : ""}`;
 
 // 사용자 todo 리스트 조회
-const GET_USER_TODOS = (query) => `/api/user/todo${query ? `?${query}` : ""}`;
+const GET_USER_TODOS = (query) => `/api/todos${query ? `?${query}` : ""}`;
 
 // FCM 토큰 업데이트
 const UPDATE_FCM_TOKEN = (token) => `/api/user/fcm-token?token=${token}`;

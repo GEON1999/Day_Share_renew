@@ -16,9 +16,12 @@ export async function GET(req: any) {
     );
   }
 
+  const queries = `${req.nextUrl.searchParams.toString()}`;
+  console.log("queries", queries);
+
   try {
     const data = await axios.get(
-      `${process.env.BASE_URL}${API.GET_USER_TODOS()}`,
+      `${process.env.BASE_URL}${API.GET_USER_TODOS(queries)}`,
       rqOption.apiHeader(accessToken)
     );
 

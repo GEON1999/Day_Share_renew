@@ -12,12 +12,13 @@ const Dashboard = () => {
   const pathName = usePathname();
   const currentPage = useSearch.useSearchPage();
   const currentDiaryPage = useSearch.useSearchDiaryPage();
+  const currentTodoPage = useSearch.useSearchTodoPage();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { data: diaryData, isLoading: diaryIsLoading } =
     useUserQueries.useGetUserDiaries(`diary_page=${currentDiaryPage}`);
   const { data: todoData, isLoading: todoIsLoading } =
-    useUserQueries.useGetUserTodos("page=1");
+    useUserQueries.useGetUserTodos(`todo_page=${currentTodoPage}`);
   const { data: calendarData, isLoading: calendarIsLoading } =
     useCalendarQueries.useGetCalendarList(`page=${currentPage}`);
 
