@@ -7,14 +7,14 @@ import QueryKeys from "@/keys/QueryKeys";
 import { use } from "react";
 
 // Get Todos by Date
-const getTodos = async (calendarId: number, query: string) => {
+const getTodos = async (calendarId: string, query: string) => {
   const { data } = await axios.get(
     Helper.CURRENT_URL() + API.GET_TODOS(calendarId, query)
   );
   return data;
 };
 
-const useGetTodos = (calendarId: number, query: string) => {
+const useGetTodos = (calendarId: string, query: string) => {
   return useQuery({
     queryKey: [QueryKeys.GET_TODOS, calendarId, query],
     queryFn: () => getTodos(calendarId, query),
@@ -22,14 +22,14 @@ const useGetTodos = (calendarId: number, query: string) => {
 };
 
 // Get Todo Detail
-const getTodoDetail = async (calendarId: number, todoId: number) => {
+const getTodoDetail = async (calendarId: string, todoId: string) => {
   const { data } = await axios.get(
     Helper.CURRENT_URL() + API.GET_TODO_DETAIL(calendarId, todoId)
   );
   return data;
 };
 
-const useGetTodoDetail = (calendarId: number, todoId: number) => {
+const useGetTodoDetail = (calendarId: string, todoId: string) => {
   return useQuery({
     queryKey: [QueryKeys.GET_TODO_DETAIL, calendarId, todoId],
     queryFn: () => getTodoDetail(calendarId, todoId),

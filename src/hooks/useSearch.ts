@@ -22,6 +22,16 @@ const useSearchId = () => {
   return Array.isArray(params.id) ? params.id[0] : params.id;
 };
 
+const useSearchTodoId = () => {
+  const params = useParams();
+  return Array.isArray(params.todoId) ? params.todoId[0] : params.todoId;
+};
+
+const useSearchDiaryId = () => {
+  const params = useParams();
+  return Array.isArray(params.diaryId) ? params.diaryId[0] : params.diaryId;
+};
+
 const useSearchPage = () => {
   const searchParams = useSearchParams();
   return searchParams.get("page") ?? "1";
@@ -45,6 +55,8 @@ const useParamsAll = () => {
 export default {
   useSearchQueries,
   useSearchId,
+  useSearchTodoId,
+  useSearchDiaryId,
   useSearchPage,
   useSearchDiaryPage,
   useParamsAll,

@@ -55,6 +55,9 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
 
   const handleClickMain = () => router.push("/");
 
+  const handleClickTodo = (calId: number, todoId: number) =>
+    router.push(`/calendar/${calId}/todo/${todoId}`);
+
   const handleClickSetting = () => setIsOpen(true);
 
   const handleLogout = async () => {
@@ -175,7 +178,11 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
                       type="checkbox"
                       className="mr-2"
                     />
-                    <span>{todo.title}</span>
+                    <span
+                      onClick={() => handleClickTodo(todo.calendarId, todo.id)}
+                    >
+                      {todo.title}
+                    </span>
                   </li>
                 ))}
               </ul>

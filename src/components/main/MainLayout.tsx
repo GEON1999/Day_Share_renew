@@ -37,13 +37,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const handleClickMain = () => {
-    router.push("/");
-  };
+  const handleClickMain = () => router.push("/");
 
-  const handleClickSetting = () => {
-    router.push("/setting");
-  };
+  const handleClickSetting = () => router.push("/setting");
+
+  const handleClickTodo = (calId: number, todoId: number) =>
+    router.push(`/calendar/${calId}/todo/${todoId}`);
 
   const handleLogout = async () => {
     deleteCookie("AccessToken");
@@ -148,7 +147,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                         type="checkbox"
                         className="mr-2"
                       />
-                      <span>{todo.title}</span>
+                      <span
+                        onClick={() =>
+                          handleClickTodo(todo.calendarId, todo.id)
+                        }
+                      >
+                        {todo.title}
+                      </span>
                     </li>
                   );
                 })}
