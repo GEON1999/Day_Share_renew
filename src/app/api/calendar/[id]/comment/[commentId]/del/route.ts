@@ -7,7 +7,7 @@ import AesEncryption from "@/utils/AesEncryption";
 
 export async function DELETE(
   req: any,
-  res: { params: { id?: string; todoId?: string } }
+  res: { params: { id?: string; commentId?: string } }
 ) {
   const encryptedAccessToken = cookies().get("AccessToken");
   const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
@@ -20,8 +20,8 @@ export async function DELETE(
   }
 
   const id = res.params.id;
-  const todoId = res.params.todoId;
-  if (!id || !todoId) {
+  const commentId = res.params.commentId;
+  if (!id || !commentId) {
     return NextResponse.json(
       { error: "Failed to fetch data" },
       { status: 500 }
@@ -30,7 +30,7 @@ export async function DELETE(
 
   try {
     const data = await axios.delete(
-      `${process.env.BASE_URL}${API.DELETE_COMMENT(id, todoId)}`,
+      `${process.env.BASE_URL}${API.DELETE_COMMENT(id, commentId)}`,
       rqOption.apiHeader(accessToken)
     );
 

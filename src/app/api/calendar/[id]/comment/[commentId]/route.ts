@@ -5,9 +5,9 @@ import rqOption from "@/server/rqOption";
 import { cookies } from "next/headers";
 import AesEncryption from "@/utils/AesEncryption";
 
-export async function POST(
+export async function PUT(
   req: any,
-  res: { params: { id?: string; todoId?: string } }
+  res: { params: { id?: string; commentId?: string } }
 ) {
   const encryptedAccessToken = cookies().get("AccessToken");
   const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
@@ -20,18 +20,19 @@ export async function POST(
   }
 
   const id = res.params.id;
-  const todoId = res.params.todoId;
-  if (!id || !todoId) {
+  const commentId = res.params.commentId;
+  if (!id || !commentId) {
     return NextResponse.json(
       { error: "Failed to fetch data" },
       { status: 500 }
     );
   }
   const body = await req.json();
+  console.log("body", body);
 
   try {
-    const data = await axios.post(
-      `${process.env.BASE_URL}${API.UPDATE_COMMENT(id, todoId)}`,
+    const data = await axios.put(
+      `${process.env.BASE_URL}${API.UPDATE_COMMENT(id, commentId)}`,
       body,
       rqOption.apiHeader(accessToken)
     );
