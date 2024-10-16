@@ -1,7 +1,6 @@
 import useSearch from "@/hooks/useSearch";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
-import useUserQueries from "@/queries/user/useUserQueries";
 import { useMutation } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
@@ -9,8 +8,9 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import SettingModal from "@/components/modal/SettingModal";
-import DeleteConfirmModal from "@/components/modal/DeleteConfirmModal";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
+import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
+import DeleteModal from "@/components/modal/DeleteModal";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -48,7 +48,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const handleDeletePermission = (userId: number) => {
+  const handleClickDeletePermission = (userId: number) => {
     setIsConfirmOpen(true);
     setDeleteUserId(userId);
   };
@@ -79,6 +79,29 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
 
     console.log("params", params.toString());
     router.push(`${pathName}?${params.toString()}`);
+  };
+
+  const { mutate: deleteCalendarPermission } = useMutation({
+    mutationFn: useCalendarMutations.deleteCalendarPermission,
+  });
+
+  const handleDeletePermission = () => {
+    deleteCalendarPermission(
+      { calendarId: id, userId: deleteUserId },
+      {
+        onSuccess: (result) => {
+          if (result) {
+            alert("유저 추방에 성공하였습니다.");
+          } else {
+            alert("유저 추방에 실패하였습니다.");
+          }
+          window.location.reload();
+        },
+        onError: () => {
+          console.log("실패");
+        },
+      }
+    );
   };
 
   return (
@@ -127,7 +150,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
                   {isHover && (
                     <button
                       onClick={() => {
-                        handleDeletePermission(user.userId);
+                        handleClickDeletePermission(user.userId);
                       }}
                       className="mr-4"
                     >
@@ -228,9 +251,10 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
         <SettingModal setIsOpen={setIsOpen} />
       </ModalWrapper>
       <ModalWrapper setIsOpen={setIsConfirmOpen} isOpen={isConfirmOpen}>
-        <DeleteConfirmModal
+        <DeleteModal
           setIsOpen={setIsConfirmOpen}
-          userId={deleteUserId}
+          mutateFn={handleDeletePermission}
+          msg=" 정말 해당 유저를 추방하시겠습니까?"
         />
       </ModalWrapper>
 

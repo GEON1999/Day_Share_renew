@@ -10,18 +10,18 @@ import useTodoQueries from "@/queries/todo/useTodoQueries";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import ModalWrapper from "../modal/ModalWrapper";
-import DeleteCommentModal from "../modal/DeleteCommentModal";
-import EditCommentModal from "../modal/EditCommentModal";
+import ModalWrapper from "@/components/modal/ModalWrapper";
+import EditCommentModal from "@/components/modal/EditCommentModal";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
-import DeleteTodoModal from "../modal/DeleteTodoModal";
+import DeleteModal from "@/components/modal/DeleteModal";
+import { useRouter } from "next/navigation";
 
 const TodoDetail = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isTodoModalOpen, setIsTodoModalOpen] = useState(false);
-
   const [currentCommentId, setCurrentCommentId] = useState("");
   const [currentEditCommentData, setCurrentEditCommentData] = useState(null);
   const [editorMode, setEditorMode] = useState(false);
@@ -58,9 +58,14 @@ const TodoDetail = () => {
   const { mutate: createComment } = useMutation({
     mutationFn: useCommentMutations.createComment,
   });
-
   const { mutate: updateTodo } = useMutation({
     mutationFn: useTodoMutations.updateTodo,
+  });
+  const { mutate: deleteTodo } = useMutation({
+    mutationFn: useTodoMutations.deleteTodo,
+  });
+  const { mutate: deleteComment } = useMutation({
+    mutationFn: useCommentMutations.deleteComment,
   });
 
   const onSubmit = (formData: any) => {
@@ -133,6 +138,40 @@ const TodoDetail = () => {
 
   const handleEditorMode = () => setEditorMode(!editorMode);
   const handleOpenComment = () => setOpenComment(!openComment);
+
+  const handleDeleteComment = () => {
+    deleteComment(
+      { calendarId: id, commentId: currentCommentId },
+      {
+        onSuccess: (result) => {
+          if (result) {
+            alert("댓글 삭제에 성공하였습니다.");
+          } else {
+            alert("댓글 삭제에 실패하였습니다.");
+          }
+          window.location.reload();
+        },
+        onError: () => {
+          console.log("실패");
+        },
+      }
+    );
+  };
+
+  const handleDeleteTodo = () => {
+    deleteTodo(
+      { calendarId: id, todoId },
+      {
+        onSuccess: () => {
+          router.push(`/calendar/${id}`);
+          console.log("success");
+        },
+        onError: () => {
+          console.log("error");
+        },
+      }
+    );
+  };
 
   return (
     <div className="main_container">
@@ -311,20 +350,26 @@ const TodoDetail = () => {
           )}
         </div>
       )}
-      <ModalWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
-        <DeleteCommentModal
-          setIsOpen={setIsOpen}
-          commentId={currentCommentId}
-        />
-      </ModalWrapper>
+
       <ModalWrapper isOpen={isEditModalOpen} setIsOpen={setIsEditModalOpen}>
         <EditCommentModal
           setIsOpen={setIsEditModalOpen}
           commentData={currentEditCommentData}
         />
       </ModalWrapper>
+      <ModalWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
+        <DeleteModal
+          setIsOpen={setIsOpen}
+          mutateFn={handleDeleteComment}
+          msg="정말 해당 댓글을 삭제하시겠습니까?"
+        />
+      </ModalWrapper>
       <ModalWrapper isOpen={isTodoModalOpen} setIsOpen={setIsTodoModalOpen}>
-        <DeleteTodoModal setIsOpen={setIsTodoModalOpen} />
+        <DeleteModal
+          setIsOpen={setIsTodoModalOpen}
+          mutateFn={handleDeleteTodo}
+          msg="정말 해당 일정을 삭제하시겠습니까?"
+        />
       </ModalWrapper>
     </div>
   );

@@ -1,31 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
-import useSearch from "@/hooks/useSearch";
-import useCommentMutations from "@/queries/comment/useCommentMutations";
-
-const DeleteCommentModal = ({ setIsOpen, commentId }: any) => {
-  const id = useSearch.useSearchId();
-
-  const { mutate: deleteComment } = useMutation({
-    mutationFn: useCommentMutations.deleteComment,
-  });
-
-  const handleDeleteComment = () => {
-    deleteComment(
-      { calendarId: id, commentId },
-      {
-        onSuccess: (result) => {
-          if (result) {
-            alert("댓글 삭제에 성공하였습니다.");
-          } else {
-            alert("댓글 삭제에 실패하였습니다.");
-          }
-          window.location.reload();
-        },
-        onError: () => {
-          console.log("실패");
-        },
-      }
-    );
+const DeleteModal = ({
+  setIsOpen,
+  mutateFn,
+  msg = "정말 삭제하시겠습니까?",
+}: any) => {
+  const handleClickDeleteTodo = () => {
+    mutateFn();
   };
 
   return (
@@ -55,7 +34,7 @@ const DeleteCommentModal = ({ setIsOpen, commentId }: any) => {
             </svg>
           </button>
         </div>
-        <h1 className="text-center">정말 해당 댓글을 삭제하시겠습니까?</h1>
+        <h1 className="text-center">{msg}</h1>
         <div className="flex items-center mt-5 space-x-5 justify-center">
           <button
             onClick={() => setIsOpen(false)}
@@ -64,10 +43,10 @@ const DeleteCommentModal = ({ setIsOpen, commentId }: any) => {
             취소
           </button>
           <button
-            onClick={handleDeleteComment}
+            onClick={handleClickDeleteTodo}
             className="bg-[#E0CBB7] bor text-black w-32 h-12 rounded-md mt-4"
           >
-            삭제하기
+            확인
           </button>
         </div>
       </div>
@@ -75,4 +54,4 @@ const DeleteCommentModal = ({ setIsOpen, commentId }: any) => {
   );
 };
 
-export default DeleteCommentModal;
+export default DeleteModal;
