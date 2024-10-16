@@ -44,7 +44,7 @@ export async function GET(
   }
 }
 
-export async function POST(
+export async function PUT(
   req: any,
   res: { params: { id?: string; diaryId?: string } }
 ) {
@@ -69,7 +69,7 @@ export async function POST(
   const body = await req.json();
 
   try {
-    const data = await axios.post(
+    const data = await axios.put(
       `${process.env.BASE_URL}${API.UPDATE_DIARY(id, diaryId)}`,
       body,
       rqOption.apiHeader(accessToken)

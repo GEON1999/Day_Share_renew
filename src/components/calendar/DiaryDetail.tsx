@@ -5,8 +5,6 @@ import useCommentMutations from "@/queries/comment/useCommentMutations";
 import useCommentQueries from "@/queries/comment/useCommentQueries";
 import useLikeMutations from "@/queries/like/useLikeMutations";
 import useLikeQueries from "@/queries/like/useLikeQueries";
-import useTodoMutations from "@/queries/todo/useTodoMutations";
-import useTodoQueries from "@/queries/todo/useTodoQueries";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -16,19 +14,23 @@ import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
 import DeleteModal from "@/components/modal/DeleteModal";
 import { useRouter } from "next/navigation";
+import useDiaryQueries from "@/queries/diary/useDiaryQueries";
+import useDiaryMutations from "@/queries/diary/useDiaryMutations";
+import parse from 'html-react-parser';
 
-const TodoDetail = () => {
+const DiaryDetail = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isTodoModalOpen, setIsTodoModalOpen] = useState(false);
+  const [isDiaryModalOpen, setIsDiaryModalOpen] = useState(false);
   const [currentCommentId, setCurrentCommentId] = useState("");
   const [currentEditCommentData, setCurrentEditCommentData] = useState(null);
   const [editorMode, setEditorMode] = useState(false);
   const [openComment, setOpenComment] = useState(true);
   const id = useSearch.useSearchId();
-  const todoId = useSearch.useSearchTodoId();
-  const query = `contentType=todo&contentId=${todoId}`;
+  const diaryId = useSearch.useSearchDiaryId();
+  const query = `contentType=diary&contentId=${diaryId}`;
+
 
   const { register, handleSubmit } = useForm();
   const { register: commentRegister, handleSubmit: commentHandleSubmit } =
@@ -37,8 +39,11 @@ const TodoDetail = () => {
   const {
     data,
     isLoading,
-    refetch: todoReFetch,
-  } = useTodoQueries.useGetTodoDetail(id, todoId);
+    refetch: diaryRefetch,
+  } = useDiaryQueries.useGetDiaryDetail(id, diaryId);
+  const diaryContent = parse(data?.content);
+  console.log("diaryContent",diaryContent);
+  console.log(data);
   const {
     data: commentData,
     isLoading: commentIsLoading,
@@ -58,36 +63,22 @@ const TodoDetail = () => {
   const { mutate: createComment } = useMutation({
     mutationFn: useCommentMutations.createComment,
   });
-  const { mutate: updateTodo } = useMutation({
-    mutationFn: useTodoMutations.updateTodo,
+  const { mutate: updateDiary } = useMutation({
+    mutationFn: useDiaryMutations.updateDiary,
   });
-  const { mutate: deleteTodo } = useMutation({
-    mutationFn: useTodoMutations.deleteTodo,
+  const { mutate: deleteDiary } = useMutation({
+    mutationFn: useDiaryMutations.deleteDiary,
   });
   const { mutate: deleteComment } = useMutation({
     mutationFn: useCommentMutations.deleteComment,
   });
 
   const onSubmit = (formData: any) => {
-    const originalStartDate = new Date(data.startAt);
-    const originalEndDate = new Date(data.endAt);
-
-    const [startHours, startMinutes] = formData.startAt.split(":");
-    const [endHours, endMinutes] = formData.endAt.split(":");
-
-    originalStartDate.setHours(startHours, startMinutes);
-    originalEndDate.setHours(endHours, endMinutes);
-
-    const updatedData = {
-      ...formData,
-      startAt: originalStartDate.toISOString(),
-      endAt: originalEndDate.toISOString(),
-    };
-    updateTodo(
-      { calendarId: id, todoId, body: updatedData },
+    updateDiary(
+      { calendarId: id, diaryId, body: formData },
       {
         onSuccess: (result: any) => {
-          todoReFetch();
+          diaryRefetch();
           setEditorMode(false);
         },
         onError: () => {
@@ -97,7 +88,7 @@ const TodoDetail = () => {
     );
   };
 
-  const handleClickDeleteTodo = () => setIsTodoModalOpen(true);
+  const handleClickdeleteDiary = () => setIsDiaryModalOpen(true);
 
   const onCommentSubmit = (data: any) => {
     createComment({ calendarId: id, query, body: data }),
@@ -158,9 +149,9 @@ const TodoDetail = () => {
     );
   };
 
-  const handleDeleteTodo = () => {
-    deleteTodo(
-      { calendarId: id, todoId },
+  const handledeleteDiary = () => {
+    deleteDiary(
+      { calendarId: id, diaryId },
       {
         onSuccess: () => {
           router.push(`/calendar/${id}`);
@@ -194,7 +185,7 @@ const TodoDetail = () => {
               <div className="flex space-x-2">
                 <button
                   type="button"
-                  onClick={handleClickDeleteTodo}
+                  onClick={handleClickdeleteDiary}
                   className="bg-[#E0CBB7] rounded px-4 py-2 bor"
                 >
                   삭제
@@ -218,30 +209,8 @@ const TodoDetail = () => {
                 {...register("content")}
                 className="border-2 border-gray-400 w-full h-40 px-4 outline-none rounded p-4"
                 placeholder="내용을 입력해주세요"
-                defaultValue={data?.content}
+                defaultValue={data.content}
               />
-              <div className="flex space-x-3 mt-10">
-                {/* 시작일 입력 필드 추가 */}
-                <label className="flex flex-col mt-4">
-                  시작일
-                  <input
-                    type="time"
-                    {...register("startAt")}
-                    defaultValue={Helper.formatTimeForInput(data?.startAt)}
-                    className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
-                  />
-                </label>
-                {/* 종료일 입력 필드 추가 */}
-                <label className="flex flex-col mt-4">
-                  종료일
-                  <input
-                    type="time"
-                    {...register("endAt")}
-                    defaultValue={Helper.formatTimeForInput(data?.endAt)}
-                    className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
-                  />
-                </label>
-              </div>
             </div>
           </form>
         </div>
@@ -266,12 +235,7 @@ const TodoDetail = () => {
           </div>
           <div className="flex flex-col space-y-4 mt-8">
             <h2 className="text-xl font-bold text-center">{data?.title}</h2>
-            <p>{data?.content}</p>
-          </div>
-          <div className="flex space-x-3 mt-10">
-            <p>시작 {Helper.formatTime(data.startAt)}</p>
-            <p> ~ </p>
-            <p>종료 {Helper.formatTime(data.endAt)}</p>
+            <p>{diaryContent}</p>
           </div>
           <div className="flex border-t-2 border-b-2 py-4 my-4 space-x-4">
             <div className="flex items-center space-x-2">
@@ -288,7 +252,7 @@ const TodoDetail = () => {
                 src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729076565076.png"
                 className="w-5 h-5 cur"
               />
-              <div>{commentData.length}</div>
+              <div>{commentData ? commentData.length : "0"}</div>
             </div>
             <div className=""> - {Helper.formatDate(data.createdAt)} - </div>
           </div>
@@ -364,15 +328,15 @@ const TodoDetail = () => {
           msg="정말 해당 댓글을 삭제하시겠습니까?"
         />
       </ModalWrapper>
-      <ModalWrapper isOpen={isTodoModalOpen} setIsOpen={setIsTodoModalOpen}>
+      <ModalWrapper isOpen={isDiaryModalOpen} setIsOpen={setIsDiaryModalOpen}>
         <DeleteModal
-          setIsOpen={setIsTodoModalOpen}
-          mutateFn={handleDeleteTodo}
-          msg="정말 해당 일정을 삭제하시겠습니까?"
+          setIsOpen={setIsDiaryModalOpen}
+          mutateFn={handledeleteDiary}
+          msg="정말 해당 기록을 삭제하시겠습니까?"
         />
       </ModalWrapper>
     </div>
   );
 };
 
-export default TodoDetail;
+export default DiaryDetail;

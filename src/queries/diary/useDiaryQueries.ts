@@ -6,14 +6,14 @@ import { useQuery } from "@tanstack/react-query";
 import QueryKeys from "@/keys/QueryKeys";
 
 // Get Diaries by Date
-const getDiaries = async (calendarId: number, query: string) => {
+const getDiaries = async (calendarId: string, query: string) => {
   const { data } = await axios.get(
     Helper.CURRENT_URL() + API.GET_DIARIES(calendarId, query)
   );
   return data;
 };
 
-const useGetDiaries = (calendarId: number, query: string) => {
+const useGetDiaries = (calendarId: string, query: string) => {
   return useQuery({
     queryKey: [QueryKeys.GET_DIARIES, calendarId, query],
     queryFn: () => getDiaries(calendarId, query),
@@ -21,14 +21,14 @@ const useGetDiaries = (calendarId: number, query: string) => {
 };
 
 // Get Diary Detail
-const getDiaryDetail = async (calendarId: number, diaryId: number) => {
+const getDiaryDetail = async (calendarId: string, diaryId: string) => {
   const { data } = await axios.get(
     Helper.CURRENT_URL() + API.GET_DIARY_DETAIL(calendarId, diaryId)
   );
   return data;
 };
 
-const useGetDiaryDetail = (calendarId: number, diaryId: number) => {
+const useGetDiaryDetail = (calendarId: string, diaryId: string) => {
   return useQuery({
     queryKey: [QueryKeys.GET_DIARY_DETAIL, calendarId, diaryId],
     queryFn: () => getDiaryDetail(calendarId, diaryId),
