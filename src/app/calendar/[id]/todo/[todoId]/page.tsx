@@ -10,7 +10,6 @@ import API from "@/server/API";
 import axios from "axios";
 import rqOption from "@/server/rqOption";
 import ClientPage from "./clientPage";
-import Helper from "@/helper/Helper";
 
 const useGetTodosByCalendarId = async (
   accessToken: any,
@@ -48,6 +47,26 @@ const getLikes = async (accessToken: any, query: string) => {
   return data;
 };
 
+const getCalendarProfile = async (
+  accessToken: any,
+  id: string,
+  userId: string
+) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}${API.GET_CALENDAR_PROFILE(id, userId)}`,
+    rqOption.apiHeader(accessToken)
+  );
+  return data;
+};
+
+const getCalendarPermissionList = async (accessToken: any, id: string) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id)}`,
+    rqOption.apiHeader(accessToken)
+  );
+  return data;
+};
+
 export default async function Home(req: any) {
   const encryptedAccessToken = cookies().get("AccessToken");
   const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
@@ -78,7 +97,23 @@ export default async function Home(req: any) {
       queryKey: [QueryKeys.GET_LIKES, query],
       queryFn: () => getLikes(accessToken, query),
     }),
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id],
+      queryFn: () => getCalendarPermissionList(accessToken, id),
+    }),
   ]);
+
+  const todoDetail = queryClient.getQueryData([
+    QueryKeys.GET_TODO_DETAIL,
+    id,
+    todoId,
+  ]);
+
+  const userId = `userId=${todoDetail.userId}`;
+  await queryClient.prefetchQuery({
+    queryKey: [QueryKeys.GET_CALENDAR_PROFILE, id, userId],
+    queryFn: () => getCalendarProfile(accessToken, id, userId),
+  });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

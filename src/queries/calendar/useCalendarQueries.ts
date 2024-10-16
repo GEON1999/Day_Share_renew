@@ -125,6 +125,21 @@ const useGetCalendarPermissionList = (calendarId: string) => {
   });
 };
 
+// Get Calendar Profile
+const getCalendarProfile = async (calendarId: string, qeury: string) => {
+  const { data } = await axios.get(
+    Helper.CURRENT_URL() + API.GET_CALENDAR_PROFILE(calendarId, qeury)
+  );
+  return data;
+};
+
+const useGetCalendarProfile = (calendarId: string, qeury: string) => {
+  return useQuery({
+    queryKey: [QueryKeys.GET_CALENDAR_PROFILE, calendarId, qeury],
+    queryFn: () => getCalendarProfile(calendarId, qeury),
+  });
+};
+
 export default {
   useGetCalendarList,
   useGetCalendarSelectList,
@@ -134,4 +149,5 @@ export default {
   useGetCalendarUserInfo,
   useGetCalendarPermission,
   useGetCalendarPermissionList,
+  useGetCalendarProfile,
 };

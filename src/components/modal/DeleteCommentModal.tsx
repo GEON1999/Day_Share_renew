@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import useSearch from "@/hooks/useSearch";
 import useCommentMutations from "@/queries/comment/useCommentMutations";
 

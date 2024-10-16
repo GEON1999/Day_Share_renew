@@ -3,7 +3,7 @@ import useSearch from "@/hooks/useSearch";
 import useCommentMutations from "@/queries/comment/useCommentMutations";
 import { useForm } from "react-hook-form";
 
-const EditCommentModal = ({ setIsOpen, commentId, content }: any) => {
+const EditCommentModal = ({ setIsOpen, commentData }: any) => {
   const id = useSearch.useSearchId();
 
   const { register, handleSubmit } = useForm();
@@ -14,13 +14,13 @@ const EditCommentModal = ({ setIsOpen, commentId, content }: any) => {
 
   const onSubmut = (data: any) => {
     updateComment(
-      { calendarId: id, commentId, body: data },
+      { calendarId: id, commentId: commentData.id, body: data },
       {
         onSuccess: (result) => {
           if (result) {
-            alert("댓글 삭제에 성공하였습니다.");
+            alert("댓글 수정에 성공하였습니다.");
           } else {
-            alert("댓글 삭제에 실패하였습니다.");
+            alert("댓글 수정에 실패하였습니다.");
           }
           window.location.reload();
         },
@@ -63,7 +63,7 @@ const EditCommentModal = ({ setIsOpen, commentId, content }: any) => {
         </div>
         <input
           type="text"
-          defaultValue={content}
+          defaultValue={commentData.content}
           {...register("content")}
           className="w-full h-12 border-2 border-gray-300 rounded-md p-2"
         />
