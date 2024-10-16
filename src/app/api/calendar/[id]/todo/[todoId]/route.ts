@@ -46,7 +46,7 @@ export async function GET(
   }
 }
 
-export async function POST(
+export async function PUT(
   req: any,
   res: { params: { id?: string; todoId?: string } }
 ) {
@@ -71,7 +71,7 @@ export async function POST(
   const body = await req.json();
 
   try {
-    const data = await axios.post(
+    const data = await axios.put(
       `${process.env.BASE_URL}${API.UPDATE_TODO(id, todoId)}`,
       body,
       rqOption.apiHeader(accessToken)

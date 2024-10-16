@@ -14,10 +14,14 @@ import ModalWrapper from "../modal/ModalWrapper";
 import DeleteCommentModal from "../modal/DeleteCommentModal";
 import EditCommentModal from "../modal/EditCommentModal";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
+import Helper from "@/helper/Helper";
+import DeleteTodoModal from "../modal/DeleteTodoModal";
 
 const TodoDetail = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isTodoModalOpen, setIsTodoModalOpen] = useState(false);
+
   const [currentCommentId, setCurrentCommentId] = useState("");
   const [currentEditCommentData, setCurrentEditCommentData] = useState(null);
   const [editorMode, setEditorMode] = useState(false);
@@ -30,7 +34,11 @@ const TodoDetail = () => {
   const { register: commentRegister, handleSubmit: commentHandleSubmit } =
     useForm();
 
-  const { data, isLoading } = useTodoQueries.useGetTodoDetail(id, todoId);
+  const {
+    data,
+    isLoading,
+    refetch: todoReFetch,
+  } = useTodoQueries.useGetTodoDetail(id, todoId);
   const {
     data: commentData,
     isLoading: commentIsLoading,
@@ -43,7 +51,6 @@ const TodoDetail = () => {
   } = useLikeQueries.useGetLikes(query);
   const { data: calendarProfile, isLoading: calendarProfileIsLoading } =
     useCalendarQueries.useGetCalendarProfile(id, `userId=${data?.userId}`);
-  console.log("data :", data);
 
   const { mutate: toggleLike } = useMutation({
     mutationFn: useLikeMutations.toggleLike,
@@ -51,12 +58,41 @@ const TodoDetail = () => {
   const { mutate: createComment } = useMutation({
     mutationFn: useCommentMutations.createComment,
   });
-  const { mutate: deleteTodo } = useMutation({
-    mutationFn: useTodoMutations.deleteTodo,
-  });
+
   const { mutate: updateTodo } = useMutation({
     mutationFn: useTodoMutations.updateTodo,
   });
+
+  const onSubmit = (formData: any) => {
+    const originalStartDate = new Date(data.startAt);
+    const originalEndDate = new Date(data.endAt);
+
+    const [startHours, startMinutes] = formData.startAt.split(":");
+    const [endHours, endMinutes] = formData.endAt.split(":");
+
+    originalStartDate.setHours(startHours, startMinutes);
+    originalEndDate.setHours(endHours, endMinutes);
+
+    const updatedData = {
+      ...formData,
+      startAt: originalStartDate.toISOString(),
+      endAt: originalEndDate.toISOString(),
+    };
+    updateTodo(
+      { calendarId: id, todoId, body: updatedData },
+      {
+        onSuccess: (result: any) => {
+          todoReFetch();
+          setEditorMode(false);
+        },
+        onError: () => {
+          console.log("error");
+        },
+      }
+    );
+  };
+
+  const handleClickDeleteTodo = () => setIsTodoModalOpen(true);
 
   const onCommentSubmit = (data: any) => {
     createComment({ calendarId: id, query, body: data }),
@@ -101,7 +137,75 @@ const TodoDetail = () => {
   return (
     <div className="main_container">
       {editorMode ? (
-        <div></div>
+        <div className="max-w-[1000px] min-w-[600px] px-20 mt-20">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col space-y-4"
+          >
+            <div className="flex justify-between items-center mb-6">
+              <div className="flex items-center">
+                <img
+                  className="w-10 h-10 rounded-full bor"
+                  src={calendarProfile?.img}
+                />
+                <h1 className="font-bold text-xl ml-2">
+                  {calendarProfile?.name}
+                </h1>
+              </div>
+              <div className="flex space-x-2">
+                <button
+                  type="button"
+                  onClick={handleClickDeleteTodo}
+                  className="bg-[#E0CBB7] rounded px-4 py-2 bor"
+                >
+                  삭제
+                </button>
+                <button
+                  type="submit"
+                  className="bg-[#E0CBB7] rounded px-4 py-2 bor"
+                >
+                  저장
+                </button>
+              </div>
+            </div>
+            <div className="flex flex-col space-y-4">
+              <input
+                {...register("title")}
+                className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
+                placeholder="제목을 입력해주세요"
+                defaultValue={data?.title}
+              />
+              <textarea
+                {...register("content")}
+                className="border-2 border-gray-400 w-full h-40 px-4 outline-none rounded p-4"
+                placeholder="내용을 입력해주세요"
+                defaultValue={data?.content}
+              />
+              <div className="flex space-x-3 mt-10">
+                {/* 시작일 입력 필드 추가 */}
+                <label className="flex flex-col mt-4">
+                  시작일
+                  <input
+                    type="time"
+                    {...register("startAt")}
+                    defaultValue={Helper.formatTimeForInput(data?.startAt)}
+                    className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
+                  />
+                </label>
+                {/* 종료일 입력 필드 추가 */}
+                <label className="flex flex-col mt-4">
+                  종료일
+                  <input
+                    type="time"
+                    {...register("endAt")}
+                    defaultValue={Helper.formatTimeForInput(data?.endAt)}
+                    className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
+                  />
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
       ) : (
         <div className="max-w-[1000px] min-w-[600px] px-20 mt-20">
           <div className="flex justify-between items-center">
@@ -125,7 +229,12 @@ const TodoDetail = () => {
             <h2 className="text-xl font-bold text-center">{data?.title}</h2>
             <p>{data?.content}</p>
           </div>
-          <div className="flex border-t-2 border-b-2 py-4 my-4 mt-10 space-x-4">
+          <div className="flex space-x-3 mt-10">
+            <p>시작 {Helper.formatTime(data.startAt)}</p>
+            <p> ~ </p>
+            <p>종료 {Helper.formatTime(data.endAt)}</p>
+          </div>
+          <div className="flex border-t-2 border-b-2 py-4 my-4 space-x-4">
             <div className="flex items-center space-x-2">
               <img
                 onClick={handleToggleLike}
@@ -142,6 +251,7 @@ const TodoDetail = () => {
               />
               <div>{commentData.length}</div>
             </div>
+            <div className=""> - {Helper.formatDate(data.createdAt)} - </div>
           </div>
           {openComment && (
             <div>
@@ -212,6 +322,9 @@ const TodoDetail = () => {
           setIsOpen={setIsEditModalOpen}
           commentData={currentEditCommentData}
         />
+      </ModalWrapper>
+      <ModalWrapper isOpen={isTodoModalOpen} setIsOpen={setIsTodoModalOpen}>
+        <DeleteTodoModal setIsOpen={setIsTodoModalOpen} />
       </ModalWrapper>
     </div>
   );
