@@ -59,6 +59,12 @@ const formatTimeForInput = (timeString: string): string => {
   return `${hours}:${minutes}`;
 };
 
+const cleanContent = (content: any) => {
+  return content
+    .replace(/<p>/g, "") // <p> 태그 제거
+    .replace(/<\/p>/g, ""); // </p> 태그 제거
+};
+
 export default {
   CURRENT_URL,
   queryToString,
@@ -66,4 +72,5 @@ export default {
   formatDate,
   formatDateTimeLocal,
   formatTimeForInput,
+  cleanContent,
 };

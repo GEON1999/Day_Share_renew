@@ -25,7 +25,6 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: todoData, isLoading: todoLoading } =
     useTodoQueries.useGetTodosByCalendarId(id, `todo_page=${currentTodoPage}`);
-  console.log("todos", todoData);
 
   const { data: userList, isLoading: userListLoading } =
     useCalendarQueries.useGetCalendarPermissionList(id);
@@ -114,7 +113,9 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
       >
         <div>
           <div
-            className={`${isSidebarOpen ? "block" : "hidden"} flex flex-col items-center`}
+            className={`${
+              isSidebarOpen ? "block" : "hidden"
+            } flex flex-col items-center`}
           >
             <div className="mb-4">
               <img

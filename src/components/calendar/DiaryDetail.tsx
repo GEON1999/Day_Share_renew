@@ -16,7 +16,10 @@ import DeleteModal from "@/components/modal/DeleteModal";
 import { useRouter } from "next/navigation";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import useDiaryMutations from "@/queries/diary/useDiaryMutations";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
+import { EditorContent, useEditor } from "@tiptap/react";
+import Image from '@tiptap/extension-image';
+import StarterKit from '@tiptap/starter-kit';
 
 const DiaryDetail = () => {
   const router = useRouter();
@@ -31,7 +34,6 @@ const DiaryDetail = () => {
   const diaryId = useSearch.useSearchDiaryId();
   const query = `contentType=diary&contentId=${diaryId}`;
 
-
   const { register, handleSubmit } = useForm();
   const { register: commentRegister, handleSubmit: commentHandleSubmit } =
     useForm();
@@ -41,8 +43,33 @@ const DiaryDetail = () => {
     isLoading,
     refetch: diaryRefetch,
   } = useDiaryQueries.useGetDiaryDetail(id, diaryId);
-  const diaryContent = parse(data?.content);
-  console.log("diaryContent",diaryContent);
+  const options = {
+    replace: (node: any) => {
+      if (node.type === "tag" && node.name === "img") {
+        return (
+          <img {...node.attribs} className="max-w-[400px] h-auto rounded-lg" />
+        );
+      }
+    },
+  };
+  const diaryContent = parse(data?.content, options);
+
+  
+  const defaultContent = Helper.cleanContent(data?.content);
+
+ const editor = useEditor({
+    extensions: [StarterKit,Image],
+    content: defaultContent,
+  })
+
+  const addImage = () => {
+    const url = window.prompt("URL");
+
+    if (url) {
+      editor?.chain().focus().setImage({ src: url }).run();
+    }
+  }
+
   console.log(data);
   const {
     data: commentData,
@@ -74,8 +101,9 @@ const DiaryDetail = () => {
   });
 
   const onSubmit = (formData: any) => {
+    const submitData = {...formData, content: editor?.getHTML()};
     updateDiary(
-      { calendarId: id, diaryId, body: formData },
+      { calendarId: id, diaryId, body: submitData },
       {
         onSuccess: (result: any) => {
           diaryRefetch();
@@ -183,14 +211,14 @@ const DiaryDetail = () => {
                 </h1>
               </div>
               <div className="flex space-x-2">
-                <button
+              <button
+              onClick={() => setEditorMode(false)}
                   type="button"
-                  onClick={handleClickdeleteDiary}
                   className="bg-[#E0CBB7] rounded px-4 py-2 bor"
                 >
-                  삭제
+                  취소
                 </button>
-                <button
+              <button
                   type="submit"
                   className="bg-[#E0CBB7] rounded px-4 py-2 bor"
                 >
@@ -205,12 +233,25 @@ const DiaryDetail = () => {
                 placeholder="제목을 입력해주세요"
                 defaultValue={data?.title}
               />
-              <textarea
-                {...register("content")}
-                className="border-2 border-gray-400 w-full h-40 px-4 outline-none rounded p-4"
-                placeholder="내용을 입력해주세요"
-                defaultValue={data.content}
-              />
+              <div className="flex space-x-4">
+                <button
+              type="button"
+                onClick={() => {
+                  editor?.chain().focus().toggleBold().run();
+                }}
+              >
+                Bold
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  editor?.chain().focus().undo().run();
+                }}
+              >
+                Undo
+              </button>
+              <button type="button" onClick={addImage}>Add Image</button></div>
+                <EditorContent className="outline-none" editor={editor} />
             </div>
           </form>
         </div>
@@ -226,16 +267,29 @@ const DiaryDetail = () => {
                 {calendarProfile?.name ?? "탈퇴한 유저"}
               </h1>
             </div>
+            <div className="flex space-x-2">
+            <button
+                  type="button"
+                  onClick={handleClickdeleteDiary}
+                  className="bg-[#E0CBB7] rounded px-4 py-2 bor"
+                >
+                  삭제
+                </button>
             <button
               onClick={handleEditorMode}
               className="bg-[#E0CBB7] rounded px-4 py-2 bor"
             >
               수정
             </button>
+              </div>
           </div>
           <div className="flex flex-col space-y-4 mt-8">
             <h2 className="text-xl font-bold text-center">{data?.title}</h2>
-            <p>{diaryContent}</p>
+            <div className="flex justify-center">
+              <div>
+                {diaryContent}
+              </div>
+            </div>
           </div>
           <div className="flex border-t-2 border-b-2 py-4 my-4 space-x-4">
             <div className="flex items-center space-x-2">

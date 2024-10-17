@@ -41,3 +41,20 @@ li {
   animation: rotate 1s infinite linear;
   z-index: 999;
 }
+
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.ProseMirror {
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 20px 0;
+  max-width: 100%;
+  overflow-x: auto;
+  outline: none;
+}
