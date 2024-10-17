@@ -26,19 +26,12 @@ const TodoEditMode = ({ setEditorMode }: any) => {
   });
 
   const onSubmit = (formData: any) => {
-    const originalStartDate = new Date(data.startAt);
-    const originalEndDate = new Date(data.endAt);
-
-    const [startHours, startMinutes] = formData.startAt.split(":");
-    const [endHours, endMinutes] = formData.endAt.split(":");
-
-    originalStartDate.setHours(startHours, startMinutes);
-    originalEndDate.setHours(endHours, endMinutes);
+    const { startAt, endAt } = Helper.setAt({ data, formData });
 
     const updatedData = {
       ...formData,
-      startAt: originalStartDate.toISOString(),
-      endAt: originalEndDate.toISOString(),
+      startAt: startAt,
+      endAt: endAt,
     };
     updateTodo(
       { calendarId: id, todoId, body: updatedData },

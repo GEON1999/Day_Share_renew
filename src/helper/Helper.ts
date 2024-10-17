@@ -65,6 +65,26 @@ const cleanContent = (content: any) => {
     .replace(/<\/p>/g, ""); // </p> 태그 제거
 };
 
+const setAt = ({ data, formData }: any) => {
+  const originalStartDate = new Date();
+  const originalEndDate = new Date();
+
+  if (data) {
+    originalStartDate.setTime(Date.parse(data.startAt));
+    originalEndDate.setTime(Date.parse(data.endAt));
+  }
+  const [startHours, startMinutes] = formData.startAt.split(":");
+  const [endHours, endMinutes] = formData.endAt.split(":");
+
+  originalStartDate.setUTCHours(startHours, startMinutes);
+  originalEndDate.setUTCHours(endHours, endMinutes);
+
+  return {
+    startAt: originalStartDate.toISOString(),
+    endAt: originalEndDate.toISOString(),
+  };
+};
+
 export default {
   CURRENT_URL,
   queryToString,
@@ -73,4 +93,5 @@ export default {
   formatDateTimeLocal,
   formatTimeForInput,
   cleanContent,
+  setAt,
 };
