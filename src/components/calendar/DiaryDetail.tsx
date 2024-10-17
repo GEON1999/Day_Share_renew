@@ -18,8 +18,9 @@ import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import useDiaryMutations from "@/queries/diary/useDiaryMutations";
 import parse from "html-react-parser";
 import { EditorContent, useEditor } from "@tiptap/react";
-import Image from '@tiptap/extension-image';
-import StarterKit from '@tiptap/starter-kit';
+import Image from "@tiptap/extension-image";
+import StarterKit from "@tiptap/starter-kit";
+import commonMutation from "@/queries/commonMutation";
 
 const DiaryDetail = () => {
   const router = useRouter();
@@ -47,30 +48,21 @@ const DiaryDetail = () => {
     replace: (node: any) => {
       if (node.type === "tag" && node.name === "img") {
         return (
-          <img {...node.attribs} className="max-w-[400px] h-auto rounded-lg" />
+          <img
+            {...node.attribs}
+            className="max-w-[800px] max-h-[800px] rounded-lg"
+          />
         );
       }
     },
   };
   const diaryContent = parse(data?.content, options);
-
-  
   const defaultContent = Helper.cleanContent(data?.content);
 
- const editor = useEditor({
-    extensions: [StarterKit,Image],
+  const editor = useEditor({
+    extensions: [StarterKit, Image],
     content: defaultContent,
-  })
-
-  const addImage = () => {
-    const url = window.prompt("URL");
-
-    if (url) {
-      editor?.chain().focus().setImage({ src: url }).run();
-    }
-  }
-
-  console.log(data);
+  });
   const {
     data: commentData,
     isLoading: commentIsLoading,
@@ -99,9 +91,53 @@ const DiaryDetail = () => {
   const { mutate: deleteComment } = useMutation({
     mutationFn: useCommentMutations.deleteComment,
   });
+  const { mutate: uploadImage } = useMutation({
+    mutationFn: commonMutation.uploadImage,
+  });
+
+  const addImage = async () => {
+    // 파일 입력 요소 가져오기
+    const input = document.getElementById("imageUpload");
+
+    // 파일 선택 창 열기
+    input?.click();
+
+    try {
+      // 파일 선택 및 업로드가 완료될 때까지 대기
+      const url = await new Promise((resolve, reject) => {
+        const handler = async (event: any) => {
+          const file = event.target.files[0];
+          if (file) {
+            uploadImage(file, {
+              onSuccess: (result) => {
+                resolve(result.url);
+              },
+              onError: (error) => {
+                reject(error);
+              },
+            });
+          } else {
+            reject(new Error("파일이 선택되지 않았습니다."));
+          }
+
+          // 이벤트 리스너 제거
+          input?.removeEventListener("change", handler);
+        };
+
+        input?.addEventListener("change", handler);
+      });
+
+      // 이미지 URL이 있으면 에디터에 이미지 추가
+      if (url) {
+        editor?.chain().focus().setImage({ src: url }).run();
+      }
+    } catch (error) {
+      console.error("이미지 업로드 중 오류 발생:", error);
+    }
+  };
 
   const onSubmit = (formData: any) => {
-    const submitData = {...formData, content: editor?.getHTML()};
+    const submitData = { ...formData, content: editor?.getHTML() };
     updateDiary(
       { calendarId: id, diaryId, body: submitData },
       {
@@ -119,7 +155,8 @@ const DiaryDetail = () => {
   const handleClickdeleteDiary = () => setIsDiaryModalOpen(true);
 
   const onCommentSubmit = (data: any) => {
-    createComment({ calendarId: id, query, body: data }),
+    createComment(
+      { calendarId: id, query, body: data },
       {
         onSuccess: () => {
           refetch();
@@ -129,7 +166,8 @@ const DiaryDetail = () => {
         onError: () => {
           console.log("error");
         },
-      };
+      }
+    );
     console.log(data);
   };
 
@@ -195,10 +233,10 @@ const DiaryDetail = () => {
   return (
     <div className="main_container">
       {editorMode ? (
-        <div className="max-w-[1000px] min-w-[600px] px-20 mt-20">
+        <div className="max-w-[1000px] min-w-[600px] px-20 mt-10">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col space-y-4"
+            className="flex flex-col space-y-2"
           >
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center">
@@ -211,14 +249,14 @@ const DiaryDetail = () => {
                 </h1>
               </div>
               <div className="flex space-x-2">
-              <button
-              onClick={() => setEditorMode(false)}
+                <button
+                  onClick={() => setEditorMode(false)}
                   type="button"
                   className="bg-[#E0CBB7] rounded px-4 py-2 bor"
                 >
                   취소
                 </button>
-              <button
+                <button
                   type="submit"
                   className="bg-[#E0CBB7] rounded px-4 py-2 bor"
                 >
@@ -226,37 +264,66 @@ const DiaryDetail = () => {
                 </button>
               </div>
             </div>
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col">
               <input
                 {...register("title")}
-                className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
+                className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded mb-5"
                 placeholder="제목을 입력해주세요"
                 defaultValue={data?.title}
               />
               <div className="flex space-x-4">
                 <button
-              type="button"
-                onClick={() => {
-                  editor?.chain().focus().toggleBold().run();
-                }}
-              >
-                Bold
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  editor?.chain().focus().undo().run();
-                }}
-              >
-                Undo
-              </button>
-              <button type="button" onClick={addImage}>Add Image</button></div>
-                <EditorContent className="outline-none" editor={editor} />
+                  type="button"
+                  onClick={() => {
+                    editor?.chain().focus().toggleBold().run();
+                  }}
+                >
+                  <img
+                    className="w-6 h-6"
+                    src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241018021810_641ba864004b4f5f88d451edef7506dc.png"
+                  />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    editor?.chain().focus().undo().run();
+                  }}
+                >
+                  <img
+                    className="w-6 h-6"
+                    src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241018021855_6898cca959b8456684aebd46d5b8efd5.png"
+                  />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    editor?.chain().focus().redo().run();
+                  }}
+                >
+                  <img
+                    className="w-6 h-6"
+                    src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241018021932_ad337c3d1cba4088adeea831b417ffc9.png"
+                  />
+                </button>
+                <input
+                  id="imageUpload"
+                  className="hidden"
+                  accept=".jpg, .png, .bmp, .gif, .svg, .webp"
+                  type="file"
+                />
+                <button type="button" onClick={addImage}>
+                  <img
+                    className="w-6 h-6"
+                    src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241018021654_ecb0a0f3df30450d9e44b54e266eb87d.png"
+                  />
+                </button>
+              </div>
+              <EditorContent className="outline-none" editor={editor} />
             </div>
           </form>
         </div>
       ) : (
-        <div className="max-w-[1000px] min-w-[600px] px-20 mt-20">
+        <div className="max-w-[1000px] min-w-[600px] px-20 mt-10">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <img
@@ -268,27 +335,25 @@ const DiaryDetail = () => {
               </h1>
             </div>
             <div className="flex space-x-2">
-            <button
-                  type="button"
-                  onClick={handleClickdeleteDiary}
-                  className="bg-[#E0CBB7] rounded px-4 py-2 bor"
-                >
-                  삭제
-                </button>
-            <button
-              onClick={handleEditorMode}
-              className="bg-[#E0CBB7] rounded px-4 py-2 bor"
-            >
-              수정
-            </button>
-              </div>
+              <button
+                type="button"
+                onClick={handleClickdeleteDiary}
+                className="bg-[#E0CBB7] rounded px-4 py-2 bor"
+              >
+                삭제
+              </button>
+              <button
+                onClick={handleEditorMode}
+                className="bg-[#E0CBB7] rounded px-4 py-2 bor"
+              >
+                수정
+              </button>
+            </div>
           </div>
-          <div className="flex flex-col space-y-4 mt-8">
+          <div className="flex flex-col space-y-2 mt-4">
             <h2 className="text-xl font-bold text-center">{data?.title}</h2>
-            <div className="flex justify-center">
-              <div>
-                {diaryContent}
-              </div>
+            <div className="flex justify-center max-h-[500px] overflow-auto">
+              <div>{diaryContent}</div>
             </div>
           </div>
           <div className="flex border-t-2 border-b-2 py-4 my-4 space-x-4">
@@ -313,41 +378,43 @@ const DiaryDetail = () => {
           {openComment && (
             <div>
               <h1 className="font-bold text-xl mb-5">댓글</h1>
-              {commentData?.map((comment: any) => (
-                <div
-                  key={comment.comment.id}
-                  className="flex justify-between items-center"
-                >
-                  <div className="flex items-center space-x-2 space-y-2">
-                    <div>
+              <div className="max-h-[180px] overflow-auto">
+                {commentData?.map((comment: any) => (
+                  <div
+                    key={comment.comment.id}
+                    className="flex justify-between items-center"
+                  >
+                    <div className="flex items-center space-x-2 space-y-2">
+                      <div>
+                        <img
+                          className="w-10 h-10 rounded-full bor"
+                          src={comment.profile.img}
+                        />
+                      </div>
+                      <div>
+                        <h1 className="font-bold">{comment.profile.name}</h1>
+                        <p>{comment.comment.content}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
                       <img
-                        className="w-10 h-10 rounded-full bor"
-                        src={comment.profile.img}
+                        onClick={() => {
+                          handleClickEditComment(comment.comment);
+                        }}
+                        src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729079582327.png"
+                        className="w-5 h-5 cur"
+                      />
+                      <img
+                        onClick={() =>
+                          handleClickDeleteComment(comment.comment.id)
+                        }
+                        src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729079615050.png"
+                        className="w-5 h-5 cur"
                       />
                     </div>
-                    <div>
-                      <h1 className="font-bold">{comment.profile.name}</h1>
-                      <p>{comment.comment.content}</p>
-                    </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <img
-                      onClick={() => {
-                        handleClickEditComment(comment.comment);
-                      }}
-                      src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729079582327.png"
-                      className="w-5 h-5 cur"
-                    />
-                    <img
-                      onClick={() =>
-                        handleClickDeleteComment(comment.comment.id)
-                      }
-                      src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729079615050.png"
-                      className="w-5 h-5 cur"
-                    />
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
               <form
                 onSubmit={commentHandleSubmit(onCommentSubmit)}
                 className="flex items-center mt-5 space-x-2"
