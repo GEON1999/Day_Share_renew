@@ -10,7 +10,7 @@ const DiaryDetail = () => {
   return (
     <div className="main_container">
       {editorMode ? (
-        <DiaryEditMode setEditorMode={setEditorMode} editorMode={editorMode} />
+        <DiaryEditMode setEditorMode={setEditorMode} />
       ) : (
         <DiaryViewMode setEditorMode={setEditorMode} editorMode={editorMode} />
       )}

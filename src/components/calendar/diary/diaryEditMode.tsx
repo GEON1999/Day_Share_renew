@@ -9,10 +9,9 @@ import useDiaryMutations from "@/queries/diary/useDiaryMutations";
 import { EditorContent, useEditor } from "@tiptap/react";
 import Image from "@tiptap/extension-image";
 import StarterKit from "@tiptap/starter-kit";
-import commonMutation from "@/queries/commonMutation";
 import Toolbar from "@/components/common/toolbar";
 
-const DiaryEditMode = ({ setEditorMode, editorMode }: any) => {
+const DiaryEditMode = ({ setEditorMode }: any) => {
   const id = useSearch.useSearchId();
   const diaryId = useSearch.useSearchDiaryId();
 

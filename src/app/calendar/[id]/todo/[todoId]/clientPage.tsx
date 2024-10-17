@@ -1,7 +1,7 @@
 "use client";
 
 import CalendarLayout from "@/components/calendar/CalendarLayout";
-import TodoDetail from "@/components/calendar/TodoDetail";
+import TodoDetail from "@/components/calendar/todo/TodoDetail";
 
 const ClientPage = () => {
   return (
