@@ -1,7 +1,7 @@
 "use client";
 
 import CalendarLayout from "@/components/calendar/CalendarLayout";
-import DiaryDetail from "@/components/calendar/DiaryDetail";
+import DiaryDetail from "@/components/calendar/diary/DiaryDetail";
 
 const ClientPage = () => {
   return (
