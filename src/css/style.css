@@ -82,3 +82,27 @@ li {
 .center {
   @apply flex justify-center content-center;
 }
+
+/* 전체 스크롤바 너비 조정 */
+::-webkit-scrollbar {
+  width: 12px; /* 세로 스크롤바 너비 */
+  height: 12px; /* 가로 스크롤바 높이 */
+}
+
+/* 스크롤바 핸들 (이동 가능한 부분) */
+::-webkit-scrollbar-thumb {
+  background-color: #d9c6c1; /* 스크롤바 색상 */
+  border-radius: 10px; /* 모서리 둥글게 */
+}
+
+/* 스크롤바 핸들에 마우스를 올렸을 때 */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* 스크롤바 트랙에 여백 추가 */
+div::-webkit-scrollbar-track {
+  background-color: transparent;
+  margin-top: 10px; /* 상단 여백 */
+  margin-bottom: 10px; /* 하단 여백 */
+}
