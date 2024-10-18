@@ -152,14 +152,14 @@ const TodoViewMode = ({ setEditorMode }: any) => {
           <button
             type="button"
             onClick={handleClickDeleteTodo}
-            className="bg-[#E0CBB7] rounded px-4 py-2 bor"
+            className="bg_deeper rounded px-4 py-2 bor"
           >
             삭제
           </button>
           <button
             type="button"
             onClick={handleEditorMode}
-            className="bg-[#E0CBB7] rounded px-4 py-2 bor"
+            className="bg_deeper rounded px-4 py-2 bor"
           >
             수정
           </button>
@@ -238,10 +238,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
               className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
               placeholder="댓글을 입력해주세요"
             />
-            <button
-              type="submit"
-              className="w-20 bg-[#E0CBB7] bor h-10 rounded"
-            >
+            <button type="submit" className="w-20 bg_deeper bor h-10 rounded">
               저장
             </button>
           </form>

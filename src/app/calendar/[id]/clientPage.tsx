@@ -6,13 +6,12 @@ import { useEffect } from "react";
 
 const ClientPage = () => {
   useEffect(() => {
-    document.querySelector("body")?.classList.add("bg-[#EFDACC]");
+    document.querySelector("body")?.classList.add("bg_depp");
   }, []);
 
   return (
     <CalendarLayout>
-      <div className="flex w-full h-full bg-[#EFDACC]">
-        {" "}
+      <div className="flex w-full h-full bg_depp">
         <Calendar />
       </div>
     </CalendarLayout>

@@ -39,7 +39,7 @@ function LoginClientPage() {
   const handleSignUp = () => router.push("/signup");
 
   return (
-    <div className="flex w-full h-screen bg-[#EFDACC] justify-center content-center items-center flex-col">
+    <div className="flex w-full h-screen bg_depp justify-center content-center items-center flex-col">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center"
@@ -78,14 +78,14 @@ function LoginClientPage() {
           />
           <button
             type={"submit"}
-            className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg-[#F4EAE8]"
+            className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg_ligth"
           >
             로그인
           </button>
 
           <button
             onClick={handleSignUp}
-            className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg-[#F4EAE8] mt-2"
+            className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg_ligth mt-2"
           >
             회원가입
           </button>

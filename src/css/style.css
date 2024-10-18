@@ -19,7 +19,11 @@ li {
 }
 
 .loading.spinner {
-  margin: 250px auto;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-left: -75px;
+  margin-top: -75px;
   width: 150px;
   height: 150px;
   border: 3px solid #eee;
@@ -57,4 +61,20 @@ li {
   overflow-x: auto;
   outline: none;
   max-height: 700px;
+}
+
+.gray {
+  @apply text-[#71665f];
+}
+
+.bg_depp {
+  @apply bg-[#EFDACC];
+}
+
+.bg_deeper {
+  @apply bg-[#E0CBB7];
+}
+
+.bg_ligth {
+  @apply bg-[#F4EAE8];
 }

@@ -112,7 +112,7 @@ const Dashboard = () => {
 
             <button
               type={"submit"}
-              className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg-[#F4EAE8]"
+              className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg_ligth"
             >
               저장
             </button>

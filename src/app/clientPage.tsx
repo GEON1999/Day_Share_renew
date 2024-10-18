@@ -5,11 +5,11 @@ import { useEffect } from "react";
 
 const ClientPage = () => {
   useEffect(() => {
-    document.querySelector("body")?.classList.add("bg-[#EFDACC]");
+    document.querySelector("body")?.classList.add("bg_depp");
   }, []);
   return (
     <MainLayout>
-      <div className="flex w-full h-full bg-[#EFDACC]">
+      <div className="flex w-full h-full bg_depp">
         {/* 메인 컨텐츠 */}
         <Dashboard />
       </div>

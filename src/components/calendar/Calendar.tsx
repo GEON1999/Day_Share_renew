@@ -1,152 +1,134 @@
-"use client";
+import { useEffect, useState } from "react";
+import useSearch from "@/hooks/useSearch";
+import { useRouter } from "next/navigation";
+import ModalWrapper from "../modal/ModalWrapper";
+import CalendarDateModal from "./CalendarDateModal";
 
-import React, { useState } from "react";
+const generateCalendar = (year: number, month: number) => {
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
 
-const Calendar = () => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [events, setEvents] = useState({});
-  const [showModal, setShowModal] = useState(false);
-  const [selectedDay, setSelectedDay] = useState(null);
-  const [eventDetails, setEventDetails] = useState({ title: "", time: "" });
+  const daysInMonth = lastDay.getDate();
+  const startingDay = firstDay.getDay();
 
-  // Get days in current month
-  const daysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
+  let day = 1;
+  const calendar: (number | null)[][] = [];
 
-  const handleDayClick = (day) => {
-    setSelectedDay(day);
-    setShowModal(true);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEventDetails({ ...eventDetails, [name]: value });
-  };
-
-  const handleSubmitEvent = () => {
-    setEvents({
-      ...events,
-      [selectedDay]: { title: eventDetails.title, time: eventDetails.time },
-    });
-    setShowModal(false);
-    setEventDetails({ title: "", time: "" });
-  };
-
-  const renderDays = () => {
-    const year = currentMonth.getFullYear();
-    const month = currentMonth.getMonth();
-    const totalDays = daysInMonth(month, year);
-    const firstDayIndex = new Date(year, month, 1).getDay();
-
-    const days = [];
-
-    // Create empty slots for days of the week before the 1st of the month
-    for (let i = 0; i < firstDayIndex; i++) {
-      days.push(<div key={`empty-${i}`} className="invisible"></div>);
+  for (let i = 0; i < 6; i++) {
+    const week = [];
+    for (let j = 0; j < 7; j++) {
+      if (i === 0 && j < startingDay) {
+        week.push(null);
+      } else if (day <= daysInMonth) {
+        week.push(day);
+        day++;
+      } else {
+        week.push(null);
+      }
     }
+    calendar.push(week);
+  }
 
-    // Create day cells for the current month
-    for (let day = 1; day <= totalDays; day++) {
-      days.push(
-        <div
-          key={day}
-          className="bg-white shadow-md rounded-lg p-4 text-center cursor-pointer hover:bg-gray-100"
-          onClick={() => handleDayClick(day)}
-        >
-          <span className="text-2xl font-bold">{day}</span>
-          {/* Display event for this day */}
-          {events[day] && (
-            <div className="bg-yellow-500 text-white rounded mt-2 p-1">
-              {events[day].title} - {events[day].time}
-            </div>
-          )}
-        </div>
-      );
-    }
+  return calendar;
+};
 
-    return days;
+const Calendar = ({}) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const router = useRouter();
+  const date = useSearch.useSearchDate();
+  const calendarId = useSearch.useSearchId();
+
+  const clickedDate = date ? new Date(parseInt(date)) : null;
+  const clickedDay = clickedDate ? clickedDate.getDate() : null;
+  const today = new Date();
+  const [year, setYear] = useState(today.getFullYear());
+  const [month, setMonth] = useState(today.getMonth());
+  const calendar = generateCalendar(year, month);
+
+  useEffect(() => {
+    document.title = `Calendar - ${year}-${month + 1}`;
+  }, [year, month]);
+
+  const handleClickDate = (day: number | null) => {
+    if (day === null) return;
+    setIsOpen(true);
+    const ms = new Date(year, month, day).getTime();
+    router.push(`/calendar/${calendarId}/?date=${ms}`);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
   };
 
   return (
-    <div className="main_container">
-      <div className="flex flex-col max-w-2xl mx-auto mt-40">
-        <div className="flex justify-between items-center p-4">
-          <button
-            className="bg-[#EFDACC] text-white px-4 py-2 rounded"
-            onClick={() =>
-              setCurrentMonth(
-                new Date(currentMonth.setMonth(currentMonth.getMonth() - 1))
-              )
-            }
+    <div className="flex items-center main_container">
+      <div
+        className={`flex flex-col w-[740px] h-[700px] justify-center items-center content-center relative z-10 bg_depp bg-opacity-70 rounded-2xl mr-24 bor`}
+      >
+        <div className="flex my-2 mt-20">
+          <input
+            type="number"
+            value={year}
+            onChange={(e) => setYear(parseInt(e.target.value))}
+            min="1900"
+            max="2100"
+            className="w-24 h-10 rounded-lg bg_ligth outline-none pl-2 text-gray-700 text-sm md:text-xs border border-[#E0CBB7]"
+          />
+          <select
+            value={month}
+            onChange={(e) => setMonth(parseInt(e.target.value))}
+            className="w-24 h-10 rounded-lg bg_ligth outline-none pl-2 text-gray-700 ml-2 text-sm md:text-xs border border-[#E0CBB7]"
           >
-            Previous
-          </button>
-          <h2 className="text-xl font-bold">
-            {currentMonth.toLocaleString("default", { month: "long" })}{" "}
-            {currentMonth.getFullYear()}
-          </h2>
-          <button
-            className="bg-[#EFDACC] text-white px-4 py-2 rounded"
-            onClick={() =>
-              setCurrentMonth(
-                new Date(currentMonth.setMonth(currentMonth.getMonth() + 1))
-              )
-            }
-          >
-            Next
-          </button>
+            {Array.from({ length: 12 }, (_, i) => (
+              <option key={i} value={i}>
+                {i + 1}월
+              </option>
+            ))}
+          </select>
         </div>
-
-        <div className="grid grid-cols-7 bg-gray-200 p-2 font-bold">
-          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-            <div key={day} className="text-center">
-              {day}
-            </div>
-          ))}
+        <div>
+          <table className="w-[600px] h-[500px] text-center">
+            <thead>
+              <tr className="text-black text-md font-bold">
+                <th className="p-2">일</th>
+                <th className="p-2">월</th>
+                <th className="p-2">화</th>
+                <th className="p-2">수</th>
+                <th className="p-2">목</th>
+                <th className="p-2">금</th>
+                <th className="p-2">토</th>
+              </tr>
+            </thead>
+            <tbody>
+              {calendar.map((week, index) => (
+                <tr key={index}>
+                  {week.map((day, dayIndex) => {
+                    const isHighlighted = clickedDay === day;
+                    return (
+                      <td
+                        key={dayIndex}
+                        onClick={() => handleClickDate(day)}
+                        className={`w-[100px] h-[100px] text-center transition-all duration-300 ease-in-out rounded-full cursor-pointer border border-transparent ${
+                          isHighlighted
+                            ? "bg_deeper text-white"
+                            : "bg-transparent text-gray-700"
+                        } hover:bg_ligth hover:text-gray-900 `}
+                      >
+                        {day || ""}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-
-        <div className="grid grid-cols-7 gap-2 p-4">{renderDays()}</div>
-
-        {/* Modal for Adding Event */}
-        {showModal && (
-          <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg flex flex-col items-center">
-              <h3 className="text-lg font-bold mb-4">
-                Add Event for Day {selectedDay}
-              </h3>
-              <input
-                type="text"
-                name="title"
-                placeholder="Event Title"
-                className="border p-2 rounded w-full mb-2"
-                value={eventDetails.title}
-                onChange={handleInputChange}
-              />
-              <input
-                type="time"
-                name="time"
-                placeholder="Event Time"
-                className="border p-2 rounded w-full mb-4"
-                value={eventDetails.time}
-                onChange={handleInputChange}
-              />
-              <div className="flex space-x-4">
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
-                  onClick={handleSubmitEvent}
-                >
-                  Save Event
-                </button>
-                <button
-                  className="bg-gray-300 text-black px-4 py-2 rounded"
-                  onClick={() => setShowModal(false)}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
+      <div>
+        <CalendarDateModal setIsOpen={setIsOpen} />
+      </div>
+
+      {/* {modal && <CalendarDateModal onClose={handleCloseModal} />} */}
     </div>
   );
 };

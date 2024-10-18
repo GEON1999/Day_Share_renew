@@ -66,14 +66,11 @@ const TodoEditMode = ({ setEditorMode }: any) => {
             <button
               type="button"
               onClick={() => setEditorMode(false)}
-              className="bg-[#E0CBB7] rounded px-4 py-2 bor"
+              className="bg_deeper rounded px-4 py-2 bor"
             >
               취소
             </button>
-            <button
-              type="submit"
-              className="bg-[#E0CBB7] rounded px-4 py-2 bor"
-            >
+            <button type="submit" className="bg_deeper rounded px-4 py-2 bor">
               저장
             </button>
           </div>

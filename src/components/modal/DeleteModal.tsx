@@ -9,13 +9,13 @@ const DeleteModal = ({
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bor  relative flex flex-col w-[400px] h-[300px] bg-[#EFDACC] rounded-xl p-8">
+      <div className="bor  relative flex flex-col w-[400px] h-[300px] bg_depp rounded-xl p-8">
         <div className="flex justify-between p-4 items-center">
           <div></div>
           <button
             onClick={() => setIsOpen(false)}
             type="button"
-            className="bg-[#E0CBB7] bor rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+            className="bg_deeper bor rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100"
           >
             <svg
               className="h-6 w-6"
@@ -38,13 +38,13 @@ const DeleteModal = ({
         <div className="flex items-center mt-5 space-x-5 justify-center">
           <button
             onClick={() => setIsOpen(false)}
-            className="bg-[#E0CBB7] bor text-black w-32 h-12 rounded-md mt-4"
+            className="bg_deeper bor text-black w-32 h-12 rounded-md mt-4"
           >
             취소
           </button>
           <button
             onClick={handleClickDeleteTodo}
-            className="bg-[#E0CBB7] bor text-black w-32 h-12 rounded-md mt-4"
+            className="bg_deeper bor text-black w-32 h-12 rounded-md mt-4"
           >
             확인
           </button>

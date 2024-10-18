@@ -68,7 +68,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bor  relative flex flex-col w-[600px] h-[550px] bg-[#EFDACC] rounded-xl p-8">
+      <div className="bor  relative flex flex-col w-[600px] h-[550px] bg_depp rounded-xl p-8">
         <div className="flex justify-between p-4 items-center">
           <nav className="flex">
             <div
@@ -95,7 +95,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
           <button
             onClick={() => setIsOpen(false)}
             type="button"
-            className="bg-[#E0CBB7] bor rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+            className="bg_deeper bor rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100"
           >
             <svg
               className="h-6 w-6"
@@ -152,7 +152,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
             />
             <button
               type="submit"
-              className="bg-[#E0CBB7] bor text-black w-32 h-12 rounded-md mt-4 "
+              className="bg_deeper bor text-black w-32 h-12 rounded-md mt-4 "
             >
               생성
             </button>
@@ -170,7 +170,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
             />
             <button
               type="submit"
-              className="bg-[#E0CBB7] bor text-black w-32 h-12 rounded-md mt-4"
+              className="bg_deeper bor text-black w-32 h-12 rounded-md mt-4"
             >
               참가하기
             </button>

@@ -87,11 +87,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <aside
         className={`${
           isSidebarOpen ? "w-[350px] min-w-[350px]" : "w-0"
-        } bg-[#EFDACC] p-8 transition-all duration-300  flex flex-col justify-between side_bar`}
+        } bg_depp p-8 transition-all duration-300  flex flex-col justify-between side_bar`}
       >
         <div>
           <div
-            className={`${isSidebarOpen ? "block" : "hidden"} flex flex-col items-center`}
+            className={`${
+              isSidebarOpen ? "block" : "hidden"
+            } flex flex-col items-center`}
           >
             <div className="mb-4">
               <img
