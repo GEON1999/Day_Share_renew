@@ -57,11 +57,27 @@ const CalendarDateModal = ({ setIsOpen }: any) => {
     router.push(`/calendar/${calendarId}/todo/${id}`);
   };
 
+  const handleClickCreateDiary = () =>
+    router.push(`/calendar/${calendarId}/diary/create?date=${date}`);
+
+  const handleClickCreateTodo = () =>
+    router.push(`/calendar/${calendarId}/todo/create?date=${date}`);
+
   return (
     <div className="flex flex-col bg_depp w-[600px] h-[700px] rounded-2xl p-4 bor overflow-auto">
       <div className="flex space-x-2 justify-center mt-5">
-        <button className="bg_deeper rounded px-4 py-2 bor">일기 생성</button>
-        <button className="bg_deeper rounded px-4 py-2 bor">일정 생성</button>
+        <button
+          onClick={handleClickCreateDiary}
+          className="bg_deeper rounded px-4 py-2 bor"
+        >
+          일기 생성
+        </button>
+        <button
+          onClick={handleClickCreateTodo}
+          className="bg_deeper rounded px-4 py-2 bor"
+        >
+          일정 생성
+        </button>
       </div>
       {diaryIsLoading || isLoading ? (
         <div className="loading spinner"></div>
