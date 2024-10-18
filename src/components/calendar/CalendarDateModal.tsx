@@ -5,8 +5,10 @@ import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
 import { useMutation } from "@tanstack/react-query";
 import parse from "html-react-parser";
+import { useRouter } from "next/navigation";
 
 const CalendarDateModal = ({ setIsOpen }: any) => {
+  const router = useRouter();
   const calendarId = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
   const { data: todoData, isLoading } = useTodoQueries.useGetTodos(
@@ -22,15 +24,12 @@ const CalendarDateModal = ({ setIsOpen }: any) => {
         return (
           <img
             {...node.attribs}
-            className="max-w-[400px] max-h-[400px] rounded-lg"
+            className="max-w-[500px] max-h-[300px] rounded-lg"
           />
         );
       }
     },
   };
-
-  console.log("todoData :", todoData);
-  console.log("diaryData :", diaryData);
 
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,
@@ -48,6 +47,14 @@ const CalendarDateModal = ({ setIsOpen }: any) => {
         },
       }
     );
+  };
+
+  const handleClickDiary = (id: number) => {
+    router.push(`/calendar/${calendarId}/diary/${id}`);
+  };
+
+  const handleClickTodo = (id: number) => {
+    router.push(`/calendar/${calendarId}/todo/${id}`);
   };
 
   return (
@@ -68,8 +75,9 @@ const CalendarDateModal = ({ setIsOpen }: any) => {
               todoData?.map((todo: any) => {
                 return (
                   <div
+                    onClick={() => handleClickTodo(todo.id)}
                     key={todo.id}
-                    className="flex justify-between items-center p-5 bg_ligth rounded-lg bor"
+                    className="cur flex justify-between items-center p-5 bg_ligth rounded-lg bor"
                   >
                     <div className="">
                       <div className="flex items-center space-x-2">
@@ -130,8 +138,9 @@ const CalendarDateModal = ({ setIsOpen }: any) => {
               diaryData?.map((diary: any) => {
                 return (
                   <div
+                    onClick={() => handleClickDiary(diary.id)}
                     key={diary.id}
-                    className="flex justify-between items-center p-5 bg_ligth rounded-lg bor"
+                    className="cur flex justify-between items-center p-5 bg_ligth rounded-lg bor"
                   >
                     <div className="">
                       <div className="flex items-center space-x-2">
@@ -147,7 +156,10 @@ const CalendarDateModal = ({ setIsOpen }: any) => {
                           </p>
                         </div>
                       </div>
-                      <div className="my-4"> {parse(diary.content)} </div>
+                      <div className="my-4">
+                        {" "}
+                        {parse(diary.content, options)}{" "}
+                      </div>
                       <div className="flex space-x-3">
                         <div className="flex items-center space-x-2">
                           <img

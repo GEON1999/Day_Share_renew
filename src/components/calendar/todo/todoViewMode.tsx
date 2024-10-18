@@ -137,7 +137,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   };
 
   return (
-    <div className="max-w-[1000px] min-w-[600px] px-20 mt-20">
+    <div className="max-w-[1500px] min-w-[600px] px-20 mt-20">
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <img

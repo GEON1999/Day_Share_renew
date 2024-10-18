@@ -113,7 +113,7 @@ export default async function Home(req: any) {
     diaryId,
   ]);
 
-  const userId = `userId=${diaryDetail.userId}`;
+  const userId = `userId=${diaryDetail?.userId ?? 0}`;
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.GET_CALENDAR_PROFILE, id, userId],
     queryFn: () => getCalendarProfile(accessToken, id, userId),

@@ -78,3 +78,7 @@ li {
 .bg_ligth {
   @apply bg-[#F4EAE8];
 }
+
+.center {
+  @apply flex justify-center content-center;
+}

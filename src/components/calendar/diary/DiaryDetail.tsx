@@ -8,12 +8,17 @@ const DiaryDetail = () => {
   const [editorMode, setEditorMode] = useState(false);
 
   return (
-    <div className="main_container">
-      {editorMode ? (
-        <DiaryEditMode setEditorMode={setEditorMode} />
-      ) : (
-        <DiaryViewMode setEditorMode={setEditorMode} editorMode={editorMode} />
-      )}
+    <div className="main_container center">
+      <div className="w-[1400px]">
+        {editorMode ? (
+          <DiaryEditMode setEditorMode={setEditorMode} />
+        ) : (
+          <DiaryViewMode
+            setEditorMode={setEditorMode}
+            editorMode={editorMode}
+          />
+        )}
+      </div>
     </div>
   );
 };

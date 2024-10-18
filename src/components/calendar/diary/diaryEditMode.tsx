@@ -53,7 +53,7 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
     );
   };
   return (
-    <div className="max-w-[1000px] min-w-[600px] px-20 mt-10">
+    <div className="max-w-[1500px] min-w-[600px] px-20 mt-10">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col space-y-2"

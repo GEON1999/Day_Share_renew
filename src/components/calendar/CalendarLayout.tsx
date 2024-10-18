@@ -53,6 +53,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const handleClickMain = () => router.push("/");
+  const handleCLickCalendar = () => router.push(`/calendar/${id}`);
 
   const handleClickTodo = (calId: number, todoId: number) =>
     router.push(`/calendar/${calId}/todo/${todoId}`);
@@ -174,7 +175,10 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
                 />
                 <span className="mt-1 text-[#71665f]">메인화면</span>
               </li>
-              <li className="mb-4 text-lg flex items-center">
+              <li
+                onClick={handleCLickCalendar}
+                className="mb-4 text-lg flex items-center"
+              >
                 <img
                   className="w-6 h-6 mx-3"
                   src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728129889231.png"

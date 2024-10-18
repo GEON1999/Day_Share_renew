@@ -48,7 +48,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       }
     },
   };
-  const diaryContent = parse(data?.content, options);
+  const diaryContent = parse(data ? data?.content : "", options);
 
   const {
     data: commentData,
@@ -154,7 +154,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     );
   };
   return (
-    <div className="max-w-[1000px] min-w-[600px] px-20 mt-10">
+    <div className="max-w-[1500px] min-w-[600px] px-20 mt-10">
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <img
@@ -204,7 +204,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
           />
           <div>{commentData ? commentData.length : "0"}</div>
         </div>
-        <div className=""> - {Helper.formatDate(data.createdAt)} - </div>
+        <div className=""> - {Helper.formatDate(data?.createdAt)} - </div>
       </div>
       {openComment && (
         <div>
