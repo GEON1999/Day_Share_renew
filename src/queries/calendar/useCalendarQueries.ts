@@ -50,6 +50,21 @@ const useGetCalendarDetail = (calendarId: string) => {
   });
 };
 
+// Get Calendar Dates
+const getCalendarDates = async (calendarId: string) => {
+  const { data } = await axios.get(
+    Helper.CURRENT_URL() + API.GET_CALENDAR_DATES(calendarId)
+  );
+  return data;
+};
+
+const useGetCalendarDates = (calendarId: string) => {
+  return useQuery({
+    queryKey: [QueryKeys.GET_CALENDAR_DATES, calendarId],
+    queryFn: () => getCalendarDates(calendarId),
+  });
+};
+
 // Get Calendar Basic Info
 const getCalendarBasic = async (calendarId: string) => {
   const { data } = await axios.get(
@@ -144,6 +159,7 @@ export default {
   useGetCalendarList,
   useGetCalendarSelectList,
   useGetCalendarDetail,
+  useGetCalendarDates,
   useGetCalendarBasic,
   useGetInviteCode,
   useGetCalendarUserInfo,

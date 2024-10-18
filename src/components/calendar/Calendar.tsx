@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import useSearch from "@/hooks/useSearch";
 import { useRouter } from "next/navigation";
-import ModalWrapper from "../modal/ModalWrapper";
 import CalendarDateModal from "./CalendarDateModal";
+import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 
 const generateCalendar = (year: number, month: number) => {
   const firstDay = new Date(year, month, 1);
@@ -45,6 +45,9 @@ const Calendar = ({}) => {
   const [month, setMonth] = useState(today.getMonth());
   const calendar = generateCalendar(year, month);
 
+  const { data: calendarDate, isLoading } =
+    useCalendarQueries.useGetCalendarDates(calendarId);
+
   useEffect(() => {
     document.title = `Calendar - ${year}-${month + 1}`;
   }, [year, month]);
@@ -59,6 +62,13 @@ const Calendar = ({}) => {
   const handleCloseModal = () => {
     setIsOpen(false);
   };
+
+  const dateSet = new Set(
+    calendarDate?.map((timestamp: any) => {
+      const date = new Date(Number(timestamp));
+      return date.toISOString().split("T")[0];
+    }) || []
+  );
 
   return (
     <div className="flex items-center main_container">
@@ -103,16 +113,32 @@ const Calendar = ({}) => {
               {calendar.map((week, index) => (
                 <tr key={index}>
                   {week.map((day, dayIndex) => {
-                    const isHighlighted = clickedDay === day;
+                    const isDayCell = day !== null;
+                    let isHighlighted = false;
+
+                    if (isDayCell) {
+                      // 날짜 객체 생성 (월은 0부터 시작하므로 -1 해줍니다)
+                      const date = new Date(year, month, day);
+                      const dateString = date.toISOString().split("T")[0];
+                      // 날짜가 dateSet에 있는지 확인
+                      isHighlighted = dateSet.has(dateString);
+                    }
+
+                    const isClicked = clickedDay === day;
+
                     return (
                       <td
                         key={dayIndex}
-                        onClick={() => handleClickDate(day)}
+                        onClick={() => isDayCell && handleClickDate(day)}
                         className={`w-[100px] h-[100px] text-center transition-all duration-300 ease-in-out rounded-full cursor-pointer border border-transparent ${
-                          isHighlighted
-                            ? "bg_deeper text-white"
-                            : "bg-transparent text-gray-700"
-                        } hover:bg_ligth hover:text-gray-900 `}
+                          isDayCell
+                            ? isClicked
+                              ? "bg_deeper text-white"
+                              : isHighlighted
+                              ? "bg-[#d9c6c1] text-white" // 하이라이트 스타일 적용
+                              : "bg-transparent text-gray-700 hover:bg_ligth hover:text-gray-900"
+                            : ""
+                        }`}
                       >
                         {day || ""}
                       </td>

@@ -52,6 +52,9 @@ const GET_CALENDAR_SELECT_LIST = "/api/calendars";
 // 달력 상세 정보 조회
 const GET_CALENDAR_DETAIL = (calendarId) => `/api/calendar/${calendarId}`;
 
+// 달력에 작성된 글이 있는 dates 조회
+const GET_CALENDAR_DATES = (calendarId) => `/api/calendar/${calendarId}/dates`;
+
 // 달력 기본 정보 조회
 const GET_CALENDAR_BASIC = (calendarId) => `/api/calendar/${calendarId}/basic`;
 
@@ -202,6 +205,7 @@ export default {
   GET_CALENDAR_LIST,
   GET_CALENDAR_SELECT_LIST,
   GET_CALENDAR_DETAIL,
+  GET_CALENDAR_DATES,
   GET_CALENDAR_BASIC,
   UPDATE_CALENDAR,
   CREATE_INVITE_CODE,
