@@ -17,10 +17,12 @@ const Dashboard = () => {
   const router = useRouter();
   const { data: diaryData, isLoading: diaryIsLoading } =
     useUserQueries.useGetUserDiaries(`diary_page=${currentDiaryPage}`);
+  console.log("diaryData", diaryData);
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos(`todo_page=${currentTodoPage}`);
   const { data: calendarData, isLoading: calendarIsLoading } =
     useCalendarQueries.useGetCalendarList(`page=${currentPage}`);
+  console.log("calendarData", calendarData);
 
   const randomTodo = todoData?.todos?.[0];
 
@@ -112,7 +114,9 @@ const Dashboard = () => {
                   handleClickDiary(diary.calendarId, diary.id);
                 }}
                 key={diary.id}
-                className={`p-4 bg-transparent items-center border-b cur ${idx === 4 ? "border-b-0" : ""}`}
+                className={`p-4 bg-transparent items-center border-b cur ${
+                  idx === 4 ? "border-b-0" : ""
+                }`}
               >
                 <span>{diary.title}</span>
                 <span className="text-sm text-gray-500">{diary.author}</span>
@@ -160,7 +164,14 @@ const Dashboard = () => {
                 className="w-[210px] h-[210px] object-cover rounded-xl border-2"
                 src={calendar.img}
               />
-              <h3 className="mt-2">{calendar.name}</h3>
+              <div className="flex items-center space-x-1 mt-2">
+                <h3 className="">{calendar.name}</h3>
+                {calendar.isRead ? null : (
+                  <div className="w-6 h-6 bg-[#EF6565] rounded-full text-white text-3xl flex items-center justify-center overflow-hidden">
+                    <span className="transform scale-75 leading-none">N</span>
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>

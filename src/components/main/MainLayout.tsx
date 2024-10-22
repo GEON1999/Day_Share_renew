@@ -16,6 +16,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: todoData, isLoading: todoIsLoading } =
     useUserQueries.useGetUserTodos(`todo_page=${currentTodoPage}`);
+  console.log("todoData", todoData);
   const { data: userData, isLoading: userIsLoading } =
     useUserQueries.useGetUser();
 
@@ -146,16 +147,17 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                             key={todo.id}
                             className="flex items-center justify-between p-1 rounded-md  cursor-pointer"
                             onClick={() =>
-                              handleClickTodo(todo_group.id, todo.id)
+                              handleClickTodo(todo.calendarId, todo.id)
                             }
                           >
                             <div className="flex items-center">
                               <input
                                 type="checkbox"
-                                checked={todo.is_complete}
+                                defaultChecked={todo.isCompleted}
                                 onChange={() =>
-                                  handleTodoClick(todo_group.id, todo.id)
+                                  handleTodoClick(todo.calendarId, todo.id)
                                 }
+                                onClick={(e) => e.stopPropagation()}
                               />
                               <span className="ml-2">{todo.title}</span>
                             </div>
