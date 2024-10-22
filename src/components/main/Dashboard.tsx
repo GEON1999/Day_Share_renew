@@ -109,22 +109,24 @@ const Dashboard = () => {
               />
             </div>
           </div>
-          <ul className=" bg-[#F0DACC] px-4 border-[3px] rounded-xl">
-            {diaryData?.diaries?.map((diary: any, idx: number) => (
-              <li
-                onClick={() => {
-                  handleClickDiary(diary.calendarId, diary.id);
-                }}
-                key={diary.id}
-                className={`p-4 bg-transparent items-center border-b cur ${
-                  idx === 4 ? "border-b-0" : ""
-                }`}
-              >
-                <span>{diary.title}</span>
-                <span className="text-sm text-gray-500">{diary.author}</span>
-              </li>
-            ))}
-          </ul>
+          {diaryData && (
+            <ul className=" bg-[#F0DACC] px-4 border-[3px] rounded-xl">
+              {diaryData?.diaries?.map((diary: any, idx: number) => (
+                <li
+                  onClick={() => {
+                    handleClickDiary(diary.calendarId, diary.id);
+                  }}
+                  key={diary.id}
+                  className={`p-4 bg-transparent items-center border-b cur ${
+                    idx === 4 ? "border-b-0" : ""
+                  }`}
+                >
+                  <span>{diary.title}</span>
+                  <span className="text-sm text-gray-500">{diary.author}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
       </div>
 

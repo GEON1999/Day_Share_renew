@@ -101,7 +101,7 @@ li {
 
 /* 스크롤바 핸들에 마우스를 올렸을 때 */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
+  background-color: #bfa9a4fc; /* 스크롤바 색상 */
 }
 
 /* 스크롤바 트랙에 여백 추가 */
