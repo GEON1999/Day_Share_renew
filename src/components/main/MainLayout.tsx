@@ -1,6 +1,7 @@
 "use client";
 import useSearch from "@/hooks/useSearch";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
+import useUserMutations from "@/queries/user/useUserMutations";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useMutation } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
@@ -14,14 +15,22 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const pathName = usePathname();
   const currentTodoPage = useSearch.useSearchTodoPage();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const { data: todoData, isLoading: todoIsLoading } =
-    useUserQueries.useGetUserTodos(`todo_page=${currentTodoPage}`);
-  console.log("todoData", todoData);
+  const {
+    data: todoData,
+    isLoading: todoIsLoading,
+    refetch,
+  } = useUserQueries.useGetUserTodos(`todo_page=${currentTodoPage}`);
   const { data: userData, isLoading: userIsLoading } =
     useUserQueries.useGetUser();
 
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,
+  });
+  const { mutate: postUserFavoriteTodos } = useMutation({
+    mutationFn: useUserMutations.postUserFavoriteTodos,
+  });
+  const { mutate: deleteUserFavoriteTodos } = useMutation({
+    mutationFn: useUserMutations.deleteUserFavoriteTodos,
   });
 
   const handleTodoClick = (calId: number, todoId: number) => {
@@ -30,6 +39,38 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       {
         onSuccess: () => {
           console.log("성공");
+        },
+        onError: () => {
+          console.log("실패");
+        },
+      }
+    );
+  };
+
+  const handleTodoFavorite = (e: any, todoId: number) => {
+    e.stopPropagation();
+    postUserFavoriteTodos(
+      { todoId },
+      {
+        onSuccess: () => {
+          console.log("성공");
+          refetch();
+        },
+        onError: () => {
+          console.log("실패");
+        },
+      }
+    );
+  };
+
+  const handleTodoUnFavorite = (e: any) => {
+    e.stopPropagation();
+    deleteUserFavoriteTodos(
+      {},
+      {
+        onSuccess: () => {
+          console.log("성공");
+          refetch();
         },
         onError: () => {
           console.log("실패");
@@ -150,7 +191,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                               handleClickTodo(todo.calendarId, todo.id)
                             }
                           >
-                            <div className="flex items-center">
+                            <div className="flex items-center ">
                               <input
                                 type="checkbox"
                                 defaultChecked={todo.isCompleted}
@@ -161,7 +202,19 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                               />
                               <span className="ml-2">{todo.title}</span>
                             </div>
-                            <span>{todo.due_date}</span>
+                            {todo.favorited_by_users[0] ? (
+                              <img
+                                onClick={(e) => handleTodoUnFavorite(e)}
+                                className="cur"
+                                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241023004137_23b6d0dbee044271ba9a23c5cc8ee66a.png"
+                              />
+                            ) : (
+                              <img
+                                onClick={(e) => handleTodoFavorite(e, todo.id)}
+                                className="cur"
+                                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241023004110_282a2f2a084f41df87961c10542a9850.png"
+                              />
+                            )}
                           </li>
                         );
                       })}

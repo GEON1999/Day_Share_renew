@@ -48,6 +48,21 @@ const useGetUserDiaries = (query: any) => {
   });
 };
 
+// Get User favorite todos
+const getUserFavoriteTodos = async () => {
+  const { data } = await axios.get(
+    Helper.CURRENT_URL() + API.GET_USER_FAVORITE_TODOS
+  );
+  return data;
+};
+
+const useGetUserFavoriteTodos = () => {
+  return useQuery({
+    queryKey: [QueryKeys.GET_USER_FAVORITE_TODOS],
+    queryFn: getUserFavoriteTodos,
+  });
+};
+
 export default {
   useGetUser,
   useGetUserTodos,
@@ -55,4 +70,5 @@ export default {
   getUser,
   getUserTodos,
   getUserDiaries,
+  useGetUserFavoriteTodos,
 };
