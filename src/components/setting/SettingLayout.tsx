@@ -55,11 +55,12 @@ const SettingLayout = ({ children }: { children: React.ReactNode }) => {
           >
             <div className="mb-4">
               <img
+                onClick={handleClickMain}
                 src={
                   "https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864362722.jpg"
                 }
                 alt="logo"
-                className="w-full h-full object-cover ml-3"
+                className="w-full h-full object-cover ml-3 cur"
               />
             </div>
             <div className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2">

@@ -131,34 +131,46 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           {isSidebarOpen && (
             <section className="mt-8 bg-white p-4 rounded-lg shadow-4 border-2 mb-4">
               <div className="flex items-center justify-between content-center mb-4">
-                <h3 className="font-bold text-xl">공유 일정</h3>
-                <div className="flex space-x-3">
-                  <button onClick={handleTodoPrevBtn}>&lt;</button>
-                  <button onClick={handleTodoNextBtn}>&gt;</button>
-                </div>
+                <h3 className="font-bold text-xl">전체 일정</h3>
               </div>
               <ul className="space-y-2">
-                {todoData?.todos?.map((todo: any) => {
+                {todoData?.todos?.map((todo_group: any) => {
                   return (
-                    <li key={todo.id} className="flex items-center">
-                      <input
-                        onClick={() =>
-                          handleTodoClick(todo.calendarId, todo.id)
-                        }
-                        defaultChecked={todo.isCompleted}
-                        type="checkbox"
-                        className="mr-2"
-                      />
-                      <span
-                        onClick={() =>
-                          handleClickTodo(todo.calendarId, todo.id)
-                        }
-                      >
-                        {todo.title}
-                      </span>
-                    </li>
+                    <div key={todo_group.date}>
+                      <h4 className="bg-[#F6BEBE80] inline-block">
+                        {todo_group.date}
+                      </h4>
+                      {todo_group.todos.map((todo: any) => {
+                        return (
+                          <li
+                            key={todo.id}
+                            className="flex items-center justify-between p-1 rounded-md  cursor-pointer"
+                            onClick={() =>
+                              handleClickTodo(todo_group.id, todo.id)
+                            }
+                          >
+                            <div className="flex items-center">
+                              <input
+                                type="checkbox"
+                                checked={todo.is_complete}
+                                onChange={() =>
+                                  handleTodoClick(todo_group.id, todo.id)
+                                }
+                              />
+                              <span className="ml-2">{todo.title}</span>
+                            </div>
+                            <span>{todo.due_date}</span>
+                          </li>
+                        );
+                      })}
+                    </div>
                   );
                 })}
+                <div className="flex space-x-3 justify-center">
+                  <button onClick={handleTodoPrevBtn}>&lt;</button>
+                  <p>{currentTodoPage}</p>
+                  <button onClick={handleTodoNextBtn}>&gt;</button>
+                </div>
               </ul>
             </section>
           )}

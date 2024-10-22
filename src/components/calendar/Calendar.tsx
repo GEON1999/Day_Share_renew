@@ -151,7 +151,7 @@ const Calendar = ({}) => {
         </div>
       </div>
       <div>
-        <CalendarDateModal setIsOpen={setIsOpen} />
+        <CalendarDateModal />
       </div>
 
       {/* {modal && <CalendarDateModal onClose={handleCloseModal} />} */}
