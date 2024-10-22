@@ -23,6 +23,8 @@ const Dashboard = () => {
   const { data: calendarData, isLoading: calendarIsLoading } =
     useCalendarQueries.useGetCalendarList(`page=${currentPage}`);
   console.log("calendarData", calendarData);
+  const { data: favoriteTodoData, isLoading: favoriteTodoIsLoading } =
+    useUserQueries.useGetUserFavoriteTodo();
 
   const randomTodo = todoData?.todos?.[0];
 
@@ -67,16 +69,16 @@ const Dashboard = () => {
       {/* Greeting */}
       <div className="mt-10">
         <h1 className="text-[40px] font-semibold">안녕하세요, 박건님.</h1>
-        {randomTodo?.title ? (
+        {favoriteTodoData ? (
           <p className="text-[40px]">
-            오늘의 주요 일정은{" "}
-            <span className="font-bold text-red-500 bg-yellow-300 p-1 rounded">
-              {randomTodo?.title}
+            주요 일정은{" "}
+            <span className="font-bold text-red-500 bg_hilight p-1">
+              {favoriteTodoData}
             </span>
-            이에요!
+            입니다.
           </p>
         ) : (
-          <p className="text-[40px]">오늘은 일정이 없어요!</p>
+          <p className="text-[40px]">주요 일정을 설정해 보세요!</p>
         )}
       </div>
 

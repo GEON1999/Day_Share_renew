@@ -27,19 +27,19 @@ const updateFcmToken = async (token: string) => {
 };
 
 // post user favorite todos
-const postUserFavoriteTodos = async (todoId: any) => {
+const postUserFavoriteTodo = async (todoId: any) => {
   const { data } = await axios.post(
     Helper.CURRENT_URL() +
-      API.ADD_USER_FAVORITE_TODOS(`todo_id=${todoId.todoId}`),
+      API.ADD_USER_FAVORITE_TODO(`todo_id=${todoId.todoId}`),
     {}
   );
   return data;
 };
 
 // delete user favorite todos
-const deleteUserFavoriteTodos = async () => {
+const deleteUserFavoriteTodo = async () => {
   const { data } = await axios.delete(
-    Helper.CURRENT_URL() + API.DELETE_USER_FAVORITE_TODOS
+    Helper.CURRENT_URL() + API.DELETE_USER_FAVORITE_TODO
   );
   return data;
 };
@@ -48,6 +48,6 @@ export default {
   updateUser,
   deleteUser,
   updateFcmToken,
-  postUserFavoriteTodos,
-  deleteUserFavoriteTodos,
+  postUserFavoriteTodo,
+  deleteUserFavoriteTodo,
 };

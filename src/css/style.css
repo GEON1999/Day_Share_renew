@@ -79,6 +79,10 @@ li {
   @apply bg-[#F4EAE8];
 }
 
+.bg_hilight {
+  @apply bg-[#F6BEBE80];
+}
+
 .center {
   @apply flex justify-center content-center;
 }

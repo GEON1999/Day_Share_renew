@@ -44,6 +44,14 @@ const getCalendarList = async (accessToken: any, query: string) => {
   return data;
 };
 
+const getUserFavoriteTodo = async (accessToken: any) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}${API.GET_USER_FAVORITE_TODO}`,
+    rqOption.apiHeader(accessToken)
+  );
+  return data;
+};
+
 export default async function Home(req: any) {
   const encryptedAccessToken = cookies().get("AccessToken");
   const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
@@ -71,6 +79,10 @@ export default async function Home(req: any) {
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_LIST, page],
       queryFn: () => getCalendarList(accessToken, page),
+    }),
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_USER_FAVORITE_TODO],
+      queryFn: () => getUserFavoriteTodo(accessToken),
     }),
   ]);
 

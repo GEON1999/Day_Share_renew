@@ -27,13 +27,13 @@ const UPDATE_USER = "/api/user";
 const DELETE_USER = "/api/user";
 
 // 사용자 즐겨찾기 일정 조회
-const GET_USER_FAVORITE_TODOS = "/api/user/favorite-todo";
+const GET_USER_FAVORITE_TODO = "/api/user/favorite-todo";
 
 // 사용자 즐겨찾기 일정 추가
-const ADD_USER_FAVORITE_TODOS = (query) => `/api/user/favorite-todo?${query}`;
+const ADD_USER_FAVORITE_TODO = (query) => `/api/user/favorite-todo?${query}`;
 
 // 사용자 즐겨찾기 일정 삭제
-const DELETE_USER_FAVORITE_TODOS = "/api/user/favorite-todo";
+const DELETE_USER_FAVORITE_TODO = "/api/user/favorite-todo";
 
 // 사용자 diary 리스트 조회
 const GET_USER_DIARIES = (query) => `/api/diaries${query ? `?${query}` : ""}`;
@@ -206,9 +206,9 @@ export default {
   GET_USER,
   UPDATE_USER,
   DELETE_USER,
-  GET_USER_FAVORITE_TODOS,
-  ADD_USER_FAVORITE_TODOS,
-  DELETE_USER_FAVORITE_TODOS,
+  GET_USER_FAVORITE_TODO,
+  ADD_USER_FAVORITE_TODO,
+  DELETE_USER_FAVORITE_TODO,
   GET_USER_DIARIES,
   GET_USER_TODOS,
   UPDATE_FCM_TOKEN,

@@ -49,17 +49,17 @@ const useGetUserDiaries = (query: any) => {
 };
 
 // Get User favorite todos
-const getUserFavoriteTodos = async () => {
+const getUserFavoriteTodo = async () => {
   const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_USER_FAVORITE_TODOS
+    Helper.CURRENT_URL() + API.GET_USER_FAVORITE_TODO
   );
   return data;
 };
 
-const useGetUserFavoriteTodos = () => {
+const useGetUserFavoriteTodo = () => {
   return useQuery({
-    queryKey: [QueryKeys.GET_USER_FAVORITE_TODOS],
-    queryFn: getUserFavoriteTodos,
+    queryKey: [QueryKeys.GET_USER_FAVORITE_TODO],
+    queryFn: getUserFavoriteTodo,
   });
 };
 
@@ -70,5 +70,5 @@ export default {
   getUser,
   getUserTodos,
   getUserDiaries,
-  useGetUserFavoriteTodos,
+  useGetUserFavoriteTodo,
 };

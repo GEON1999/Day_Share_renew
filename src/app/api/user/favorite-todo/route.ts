@@ -18,7 +18,7 @@ export async function GET(req: any) {
 
   try {
     const data = await axios.get(
-      `${process.env.BASE_URL}${API.GET_USER_FAVORITE_TODOS}`,
+      `${process.env.BASE_URL}${API.GET_USER_FAVORITE_TODO}`,
       rqOption.apiHeader(accessToken)
     );
 
@@ -48,7 +48,7 @@ export async function POST(req: any) {
 
   try {
     const data = await axios.post(
-      `${process.env.BASE_URL}${API.ADD_USER_FAVORITE_TODOS(queries)}`,
+      `${process.env.BASE_URL}${API.ADD_USER_FAVORITE_TODO(queries)}`,
       {},
       rqOption.apiHeader(accessToken)
     );
@@ -76,7 +76,7 @@ export async function DELETE(req: any) {
 
   try {
     const data = await axios.delete(
-      `${process.env.BASE_URL}${API.DELETE_USER_FAVORITE_TODOS}`,
+      `${process.env.BASE_URL}${API.DELETE_USER_FAVORITE_TODO}`,
       rqOption.apiHeader(accessToken)
     );
 

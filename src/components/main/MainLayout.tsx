@@ -27,10 +27,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     mutationFn: useTodoMutations.toggleTodoComplete,
   });
   const { mutate: postUserFavoriteTodos } = useMutation({
-    mutationFn: useUserMutations.postUserFavoriteTodos,
+    mutationFn: useUserMutations.postUserFavoriteTodo,
   });
   const { mutate: deleteUserFavoriteTodos } = useMutation({
-    mutationFn: useUserMutations.deleteUserFavoriteTodos,
+    mutationFn: useUserMutations.deleteUserFavoriteTodo,
   });
 
   const handleTodoClick = (calId: number, todoId: number) => {
@@ -156,19 +156,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
             <p className="font-semibold text-lg">{userData.name}</p>
           </div>
-          <nav className={`${isSidebarOpen ? "block" : "hidden"} mt-8`}>
-            <ul>
-              <li className="mb-4 text-lg flex items-center cur">
-                <img
-                  className="w-12 h-12"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864922152.jpg"
-                />
-                <span className="mt-1" onClick={handleClickMain}>
-                  메인화면
-                </span>
-              </li>
-            </ul>
-          </nav>
           {/* 개인 일정 */}
           {isSidebarOpen && (
             <section className="mt-8 bg-white p-4 rounded-lg shadow-4 border-2 mb-4">
@@ -179,7 +166,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 {todoData?.todos?.map((todo_group: any) => {
                   return (
                     <div key={todo_group.date}>
-                      <h4 className="bg-[#F6BEBE80] inline-block">
+                      <h4 className="bg_hilight inline-block">
                         {todo_group.date}
                       </h4>
                       {todo_group.todos.map((todo: any) => {
