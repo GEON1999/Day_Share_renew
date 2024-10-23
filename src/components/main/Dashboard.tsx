@@ -97,6 +97,7 @@ const Dashboard = () => {
   );
 
   const { data: favoriteTodoData } = useUserQueries.useGetUserFavoriteTodo();
+  console.log("favoriteTodoData", favoriteTodoData);
 
   const { mutate: updateUserCalendarOrder } = useMutation({
     mutationFn: useUserMutations.updateUserCalendarOrder,
@@ -178,11 +179,11 @@ const Dashboard = () => {
       {/* 인사말 */}
       <div className="mt-10">
         <h1 className="text-[40px] font-semibold">안녕하세요, 박건님.</h1>
-        {favoriteTodoData ? (
+        {favoriteTodoData?.title ? (
           <p className="text-[40px]">
             주요 일정은{" "}
             <span className="font-bold text-red-500 bg_hilight p-1">
-              {favoriteTodoData}
+              {favoriteTodoData?.title}
             </span>
             입니다.
           </p>
