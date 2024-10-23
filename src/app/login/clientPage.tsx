@@ -84,6 +84,7 @@ function LoginClientPage() {
           </button>
 
           <button
+            type="button"
             onClick={handleSignUp}
             className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg_ligth mt-2"
           >

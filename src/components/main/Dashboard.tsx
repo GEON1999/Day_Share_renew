@@ -92,10 +92,6 @@ const Dashboard = () => {
   const { data: diaryData } = useUserQueries.useGetUserDiaries(
     `diary_page=${currentDiaryPage}`
   );
-  const { data: todoData } = useUserQueries.useGetUserTodos(
-    `todo_page=${currentTodoPage}`
-  );
-
   const { data: calendarData } = useCalendarQueries.useGetCalendarList(
     isEditMode ? `isAll=true` : `page=${currentPage}`
   );

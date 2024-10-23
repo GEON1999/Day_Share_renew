@@ -189,7 +189,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                               />
                               <span className="ml-2">{todo.title}</span>
                             </div>
-                            {todo.favorited_by_users[0] ? (
+                            {todo.isFavorite ? (
                               <img
                                 onClick={(e) => handleTodoUnFavorite(e)}
                                 className="cur"
