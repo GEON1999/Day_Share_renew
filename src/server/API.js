@@ -41,6 +41,9 @@ const GET_USER_DIARIES = (query) => `/api/diaries${query ? `?${query}` : ""}`;
 // 사용자 todo 리스트 조회
 const GET_USER_TODOS = (query) => `/api/todos${query ? `?${query}` : ""}`;
 
+// 사용자 달력 리스트 순서 변경
+const UPDATE_USER_CALENDAR_ORDER = "/api/user/calendar-order";
+
 // FCM 토큰 업데이트
 const UPDATE_FCM_TOKEN = (token) => `/api/user/fcm-token?token=${token}`;
 
@@ -211,6 +214,7 @@ export default {
   DELETE_USER_FAVORITE_TODO,
   GET_USER_DIARIES,
   GET_USER_TODOS,
+  UPDATE_USER_CALENDAR_ORDER,
   UPDATE_FCM_TOKEN,
   CREATE_CALENDAR,
   DELETE_CALENDAR,

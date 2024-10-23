@@ -44,10 +44,21 @@ const deleteUserFavoriteTodo = async () => {
   return data;
 };
 
+// update user calendar order
+const updateUserCalendarOrder = async (orders: any) => {
+  console.log("orders :", orders);
+  const { data } = await axios.put(
+    Helper.CURRENT_URL() + API.UPDATE_USER_CALENDAR_ORDER,
+    orders
+  );
+  return data;
+};
+
 export default {
   updateUser,
   deleteUser,
   updateFcmToken,
   postUserFavoriteTodo,
   deleteUserFavoriteTodo,
+  updateUserCalendarOrder,
 };
