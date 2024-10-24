@@ -7,11 +7,11 @@
 }
 
 .bor {
-  @apply border-2 border-black;
+  border: 1.5px solid black;
 }
 
 .main_container {
-  @apply bg-[#F4EAE8] w-full h-full rounded-l-[100px] p-10 px-20 min-h-[1080px];
+  @apply bg-[#FFFCF0] w-full h-full p-10 px-20 min-h-[1080px];
 }
 
 li {
@@ -61,6 +61,15 @@ li {
   overflow-x: auto;
   outline: none;
   max-height: 700px;
+}
+
+.shadow_box {
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard_title {
+  font-size: 30px;
+  margin-bottom: 20px;
 }
 
 .gray {

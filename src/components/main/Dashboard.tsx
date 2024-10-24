@@ -59,14 +59,16 @@ const CalendarItem = ({
       style={{ opacity: isEditMode && isDragging ? 0.5 : 1 }}
       onClick={() => !isEditMode && handleClickCalendar(calendar.id)}
     >
-      <img
-        className={` object-cover rounded-xl border-2 ${
-          isEditMode
-            ? "cursor-move w-20 h-20"
-            : "cursor-pointer w-[210px] h-[210px]"
-        }`}
-        src={calendar.img}
-      />
+      <div className="shadow_box rounded-md">
+        <img
+          className={`object-cover rounded-md bor ${
+            isEditMode
+              ? "cursor-move w-20 h-20"
+              : "cursor-pointer w-[300px] h-[200px]"
+          }`}
+          src={calendar.img}
+        />
+      </div>
       <div className="flex items-center space-x-1 mt-2">
         <h3 className="">{calendar.name}</h3>
         {calendar.isRead ? null : (
@@ -84,7 +86,6 @@ const Dashboard = () => {
   const pathName = usePathname();
   const currentPage = useSearch.useSearchPage();
   const currentDiaryPage = useSearch.useSearchDiaryPage();
-  const currentTodoPage = useSearch.useSearchTodoPage();
   const [isOpen, setIsOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const router = useRouter();
@@ -95,9 +96,7 @@ const Dashboard = () => {
   const { data: calendarData } = useCalendarQueries.useGetCalendarList(
     isEditMode ? `isAll=true` : `page=${currentPage}`
   );
-
   const { data: favoriteTodoData } = useUserQueries.useGetUserFavoriteTodo();
-  console.log("favoriteTodoData", favoriteTodoData);
 
   const { mutate: updateUserCalendarOrder } = useMutation({
     mutationFn: useUserMutations.updateUserCalendarOrder,
@@ -177,12 +176,12 @@ const Dashboard = () => {
   return (
     <div className="main_container">
       {/* 인사말 */}
-      <div className="mt-10">
-        <h1 className="text-[40px] font-semibold">안녕하세요, 박건님.</h1>
+      <div className="mt-[33px]">
+        <h1 className="text-[50px]">안녕하세요, 박건님.</h1>
         {favoriteTodoData?.title ? (
-          <p className="text-[40px]">
+          <p className="text-[50px]">
             주요 일정은{" "}
-            <span className="font-bold text-red-500 bg_hilight p-1">
+            <span className="text-red-500 bg_hilight p-1">
               {favoriteTodoData?.title}
             </span>
             입니다.
@@ -192,85 +191,95 @@ const Dashboard = () => {
         )}
       </div>
 
-      <div className="flex space-x-10 mt-20 w-full items-strat">
+      <div className="flex space-x-10 mt-[111px] w-full items-strat">
         {/* 오늘 감정 */}
-        <section className="w-[250px] h-[400px]">
-          <h2 className="text-[35px] font-bold mb-2">오늘 감정</h2>
+        <section className="flex flex-col items-center w-[256px]">
+          <h2 className="dashboard_title">오늘 감정</h2>
+          {/* <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024173250_29c9e08c355745e29901c4dcfa2e96e4.png"></img> */}
+
           <img
-            className="h-[300px]"
-            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727867614611.jpg"
+            className=""
+            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024173625_b47e0565a38843718014a15c2691f1b0.png"
           />
         </section>
 
         {/* 공유 일기 */}
-        <section className="w-[800px] h-[400px]">
+        <section className="">
           <div className="flex justify-between">
-            <h2 className="text-[35px] font-bold mb-2">공유 일기</h2>
-            <div className="flex mt-3">
+            <h2 className="dashboard_title">공유 일기</h2>
+            <div className="flex items-center space-x-[13px]">
               <img
                 onClick={handleDiaryPrevBtn}
-                className="w-12px h-8 cur"
-                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728627561682.jpg"
+                className="cur"
+                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183639_6d61ad5c8f084ca5a0987267645d79c2.png"
               />
               <img
                 onClick={handleDiaryNextBtn}
-                className="w-12px h-8 cur"
-                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728627525256.jpg"
+                className=" cur"
+                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183650_8d7f7c4e14fc4108b91642bf37dde397.png"
               />
             </div>
           </div>
-          {diaryData && (
-            <ul className="bg-[#F0DACC] px-4 border-[3px] rounded-xl">
+          {diaryData ? (
+            <ul className="bg-[#F9F4CF] px-[10px] bor rounded-md w-[950px] h-[270px] shadow_box">
               {diaryData?.diaries?.map((diary: any, idx: number) => (
                 <li
                   onClick={() => {
                     handleClickDiary(diary.calendarId, diary.id);
                   }}
                   key={diary.id}
-                  className={`p-4 bg-transparent items-center border-b cur ${
-                    idx === 4 ? "border-b-0" : ""
+                  className={`px-[6px] bg-transparent items-center flex justify-between h-[67.5px] text-[23px] cur ${
+                    idx === 4 || idx === 3
+                      ? "border-b-[0px]"
+                      : "border-b-[1.5px] border-[#494949]"
                   }`}
                 >
                   <span>{diary.title}</span>
-                  <span className="text-sm text-gray-500">{diary.author}</span>
+                  <span className="text-sm text-gray-500">박건</span>
                 </li>
               ))}
             </ul>
+          ) : (
+            <img
+              className="bor rounded-md bg-[#F9F4CF] shadow_box "
+              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024150301_23db0106b82f4323b8f03cef66282fe7.png"
+            />
           )}
         </section>
       </div>
 
       {/* 공유 달력 */}
       <section>
-        <div className="flex justify-between w-[1120px] items-center">
-          <h2 className="text-[35px] font-bold mb-2 mt-10">공유 달력</h2>
-          <div className="flex items-center mt-10 space-x-4">
-            <button
+        <div className="flex justify-between w-[1260px] items-center mt-[47px]">
+          <div className="flex items-center mb-[17px] space-x-1">
+            <h2 className="text-[30px]">공유 달력</h2>
+            <img
               onClick={handleAddBtn}
-              className="text-[#E0CBB7] font-bold text-[50px] rounded-full w-8 h-8 mt-1 bg-black flex justify-center items-center"
-            >
-              <span>+</span>
-            </button>
-            {!isEditMode && (
-              <div className="flex items-center">
-                <img
-                  onClick={handlePrevBtn}
-                  className="w-12px h-8 cur"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728627561682.jpg"
-                />
-                <img
-                  onClick={handleNextBtn}
-                  className="w-12px h-8 cur"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728627525256.jpg"
-                />
-              </div>
-            )}
+              className="cur"
+              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183542_8e6784334f79491988810457d2b5eb6a.png"
+            />
+          </div>
+          <div className="flex items-center justify-between space-x-4">
             <button
               onClick={handleSaveOrder}
-              className="p-2 bg_deeper bor text-white rounded"
+              className="p-2 bg_hilight bor rounded"
             >
               {isEditMode ? "수정 완료" : "순서 변경"}
             </button>
+            {!isEditMode && (
+              <div className="flex items-center space-x-[13px]">
+                <img
+                  onClick={handlePrevBtn}
+                  className="cur"
+                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183639_6d61ad5c8f084ca5a0987267645d79c2.png"
+                />
+                <img
+                  onClick={handleNextBtn}
+                  className=" cur"
+                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183650_8d7f7c4e14fc4108b91642bf37dde397.png"
+                />
+              </div>
+            )}
           </div>
         </div>
 
