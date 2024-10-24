@@ -126,47 +126,41 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex h-screen min-h-[1080px]">
       {/* Sidebar */}
-      <aside
-        className={`${
-          isSidebarOpen ? "w-[350px] min-w-[350px]" : "w-0"
-        } bg_depp p-8 transition-all duration-300  flex flex-col justify-between side_bar`}
-      >
+      <aside className={"slide_container"}>
         <div>
           <div
             className={`${
               isSidebarOpen ? "block" : "hidden"
             } flex flex-col items-center`}
           >
-            <div className="mb-4">
+            <div className="mt-[74px]">
               <img
                 onClick={handleClickMain}
-                src={
-                  "https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864362722.jpg"
-                }
+                src={process.env.TEXT_LOGO}
                 alt="logo"
                 className="w-full h-full object-cover ml-3 cur"
               />
             </div>
-            <div className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2">
+            <div className="rounded-full bg-gray-200 w-[176px] h-[176px] bor mt-[58px] shadow_box">
               <img
                 src={userData.img}
                 alt="profile"
                 className="rounded-full w-full h-full object-cover"
               />
             </div>
-            <p className="font-semibold text-lg">{userData.name}</p>
+            <p className="text-[30px] mt-[20px]">{userData.name}</p>
           </div>
           {/* 개인 일정 */}
           {isSidebarOpen && (
-            <section className="mt-8 bg-white p-4 rounded-lg shadow-4 border-2 mb-4">
-              <div className="flex items-center justify-between content-center mb-4">
-                <h3 className="font-bold text-xl">전체 일정</h3>
-              </div>
+            <section className="mt-[44px] px-[17px] bg-white w-[300px] h-[350px] bor shadow_box rounded-md flex flex-col justify-between">
               <ul className="space-y-2">
+                <div className="flex items-center justify-between content-center my-[20px] ml-[6px]">
+                  <h3 className="text-[25px]">전체 일정</h3>
+                </div>
                 {todoData?.todos?.map((todo_group: any) => {
                   return (
                     <div key={todo_group.date}>
-                      <h4 className="bg_hilight inline-block">
+                      <h4 className="bg_hilight inline-block mb-[16px] text-[18px] font-medium px-1">
                         {todo_group.date}
                       </h4>
                       {todo_group.todos.map((todo: any) => {
@@ -208,48 +202,56 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     </div>
                   );
                 })}
-                <div className="flex space-x-3 justify-center">
-                  <button onClick={handleTodoPrevBtn}>&lt;</button>
-                  <p>{currentTodoPage}</p>
-                  <button onClick={handleTodoNextBtn}>&gt;</button>
-                </div>
               </ul>
+              <div className="flex space-x-3 justify-center mb-[15px] text-[18px] font-medium">
+                <div className="flex items-center space-x-[13px]">
+                  <img
+                    onClick={handleTodoPrevBtn}
+                    className="cur"
+                    src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183639_6d61ad5c8f084ca5a0987267645d79c2.png"
+                  />
+                  <p>{currentTodoPage}</p>
+                  <img
+                    onClick={handleTodoNextBtn}
+                    className=" cur"
+                    src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183650_8d7f7c4e14fc4108b91642bf37dde397.png"
+                  />
+                </div>
+              </div>
             </section>
           )}
         </div>
         <div>
-          <nav
-            className={`${isSidebarOpen ? "block" : "hidden"} text-[#71665f]`}
-          >
+          <nav className="mb-[73px] tet-[20px]">
             <ul>
               <li
-                className="mb-4 text-lg flex items-center cur"
+                className="flex items-center cur"
                 onClick={handleClickSetting}
               >
                 <img
-                  className="w-12 h-12"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864878122.jpg"
+                  className=""
+                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024191437_8c13f80fd31146aaaa1a97fd4a0a2fd0.png"
                 />
-                <span>설정</span>
+                <span className="ml-[16px]">설정</span>
               </li>
               <li
-                className="mb-4 text-lg flex items-center cur"
+                className="flex items-center cur mt-[20px]"
                 onClick={handleLogout}
               >
                 <img
-                  className="w-12 h-10"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864855419.jpg"
+                  className=""
+                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024191335_4ecd9c6c9e5047278733a8146035b70d.png"
                 />
-                <span>나가기</span>
+                <span className="ml-[17px]">나가기</span>
               </li>
             </ul>
           </nav>
-          <button
+          {/* <button
             className="p-2 bg-gray-200 rounded-md mb-4 "
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
             {isSidebarOpen ? "사이드바 닫기" : "사이드바 열기"}
-          </button>
+          </button> */}
         </div>
       </aside>
 

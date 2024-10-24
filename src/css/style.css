@@ -14,6 +14,10 @@
   @apply bg-[#FFFCF0] w-full h-full p-10 px-20 min-h-[1080px];
 }
 
+.slide_container {
+  @apply w-[420px] min-w-[120px] bg_depp px-[60px] transition-all duration-300 flex flex-col justify-between;
+}
+
 li {
   @apply cursor-pointer;
 }
@@ -77,7 +81,7 @@ li {
 }
 
 .bg_depp {
-  @apply bg-[#EFDACC];
+  @apply bg-[#F8F3CE];
 }
 
 .bg_deeper {
