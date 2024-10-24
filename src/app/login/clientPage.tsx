@@ -47,14 +47,14 @@ function LoginClientPage() {
         <div>
           <img
             src={
-              "https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864362722.jpg"
+              "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024185055_5c68aca703554836aff212384ba69795.png"
             }
             alt="logo"
             className="w-full h-full object-cover ml-2"
           />
         </div>
 
-        <div className="space-y-3 flex flex-col">
+        <div className="space-y-3 flex flex-col mt-10">
           <input
             className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
             {...register("id")}

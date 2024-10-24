@@ -136,7 +136,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="mt-[74px]">
               <img
                 onClick={handleClickMain}
-                src={process.env.TEXT_LOGO}
+                src={
+                  "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024185055_5c68aca703554836aff212384ba69795.png"
+                }
                 alt="logo"
                 className="w-full h-full object-cover ml-3 cur"
               />

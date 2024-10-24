@@ -122,7 +122,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
               <img
                 onClick={handleClickMain}
                 src={
-                  "https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864362722.jpg"
+                  "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024185055_5c68aca703554836aff212384ba69795.png"
                 }
                 alt="logo"
                 className="w-full h-full object-cover ml-3 cur"
