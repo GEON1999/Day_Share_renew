@@ -20,7 +20,7 @@ const TodoPagination = ({ total_count }: any) => {
     router.push(`${pathName}?${params.toString()}`);
   };
   return (
-    <div className="flex items-center space-x-[13px]">
+    <div className="flex items-center justify-center space-x-[13px] mb-[13px]">
       <img
         onClick={handleTodoPrevBtn}
         className="cur"
