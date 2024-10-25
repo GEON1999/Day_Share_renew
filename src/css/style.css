@@ -15,7 +15,7 @@
 }
 
 .slide_container {
-  @apply w-[420px] min-w-[120px] bg_depp px-[60px] transition-all duration-300 flex flex-col justify-between;
+  @apply w-[420px] min-w-[400px] bg_depp px-[60px] transition-all duration-300 flex flex-col justify-between;
 }
 
 li {

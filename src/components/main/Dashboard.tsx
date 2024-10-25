@@ -12,6 +12,8 @@ import { usePathname, useRouter } from "next/navigation";
 import ModalWrapper from "../modal/ModalWrapper";
 import AddCalendarModal from "../modal/AddCalendar";
 import { useMutation } from "@tanstack/react-query";
+import DiaryPagination from "../pagination/diaryPagination";
+import CalendarPagination from "../pagination/calendarPagination";
 
 const ITEM_TYPE = "CALENDAR";
 
@@ -161,18 +163,6 @@ const Dashboard = () => {
     router.push(`${pathName}?${params.toString()}`);
   };
 
-  const handleDiaryPrevBtn = () => {
-    if (currentDiaryPage === "1") return;
-    params.set("diary_page", String(Number(currentDiaryPage) - 1));
-    router.push(`${pathName}?${params.toString()}`);
-  };
-
-  const handleDiaryNextBtn = () => {
-    if (diaryData?.total_count <= Number(currentDiaryPage) * 5) return;
-    params.set("diary_page", String(Number(currentDiaryPage) + 1));
-    router.push(`${pathName}?${params.toString()}`);
-  };
-
   return (
     <div className="main_container">
       {/* 인사말 */}
@@ -207,18 +197,7 @@ const Dashboard = () => {
         <section className="">
           <div className="flex justify-between">
             <h2 className="dashboard_title">공유 일기</h2>
-            <div className="flex items-center space-x-[13px]">
-              <img
-                onClick={handleDiaryPrevBtn}
-                className="cur"
-                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183639_6d61ad5c8f084ca5a0987267645d79c2.png"
-              />
-              <img
-                onClick={handleDiaryNextBtn}
-                className=" cur"
-                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183650_8d7f7c4e14fc4108b91642bf37dde397.png"
-              />
-            </div>
+            <DiaryPagination total_count={diaryData?.total_count} />
           </div>
           {diaryData ? (
             <ul className="bg-[#F9F4CF] px-[10px] bor rounded-md w-[950px] h-[270px] shadow_box">
@@ -267,18 +246,7 @@ const Dashboard = () => {
               {isEditMode ? "수정 완료" : "순서 변경"}
             </button>
             {!isEditMode && (
-              <div className="flex items-center space-x-[13px]">
-                <img
-                  onClick={handlePrevBtn}
-                  className="cur"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183639_6d61ad5c8f084ca5a0987267645d79c2.png"
-                />
-                <img
-                  onClick={handleNextBtn}
-                  className=" cur"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183650_8d7f7c4e14fc4108b91642bf37dde397.png"
-                />
-              </div>
+              <CalendarPagination total_count={calendarData?.total_calendars} />
             )}
           </div>
         </div>
