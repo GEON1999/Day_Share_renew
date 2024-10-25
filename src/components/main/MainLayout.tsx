@@ -21,9 +21,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="flex h-screen min-h-[1080px] ">
+    <div className="flex h-screen min-h-[1080px]">
       {/* Sidebar */}
-      <aside className={"slide_container"}>
+      <aside
+        className={
+          "side_container shadow-side border-r-[1.5px] border-[#494949] z-999"
+        }
+      >
         <div>
           <div className={`flex flex-col items-center`}>
             <div className="mt-[74px]">

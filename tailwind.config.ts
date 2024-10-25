@@ -259,6 +259,8 @@ const config: Config = {
         12: "12px",
       },
       boxShadow: {
+        side: "4px 0px 0px rgba(0, 0, 0, 0.15)",
+        custom: "4px 4px 0px rgba(0, 0, 0, 0.15)",
         default: "0px 8px 13px -3px rgba(0, 0, 0, 0.07)",
         card: "0px 1px 3px rgba(0, 0, 0, 0.12)",
         "card-2": "0px 1px 2px rgba(0, 0, 0, 0.05)",

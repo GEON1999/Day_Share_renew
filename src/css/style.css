@@ -7,14 +7,14 @@
 }
 
 .bor {
-  border: 1.5px solid black;
+  border: 1.5px solid #494949;
 }
 
 .main_container {
   @apply bg-[#FFFCF0] w-full h-full p-10 px-20 min-h-[1080px];
 }
 
-.slide_container {
+.side_container {
   @apply w-[420px] min-w-[400px] bg_depp px-[60px] transition-all duration-300 flex flex-col justify-between;
 }
 
@@ -68,7 +68,7 @@ li {
 }
 
 .shadow_box {
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.15) !important;
 }
 
 .dashboard_title {
