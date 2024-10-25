@@ -1,3 +1,4 @@
+import { dodum } from "@/app/fonts";
 import DiaryPagination from "@/components/pagination/diaryPagination";
 import useSearch from "@/hooks/useSearch";
 import useUserQueries from "@/queries/user/useUserQueries";
@@ -18,7 +19,7 @@ const DiarySection = () => {
   return (
     <section className="">
       <div className="flex justify-between">
-        <h2 className="dashboard_title">공유 일기</h2>
+        <h2 className={`dashboard_title ${dodum.className}`}>공유 일기</h2>
         <DiaryPagination total_count={diaryData?.total_count} />
       </div>
       {diaryData ? (

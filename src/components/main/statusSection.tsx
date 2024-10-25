@@ -1,7 +1,9 @@
+import { dodum } from "@/app/fonts";
+
 const StatusSection = () => {
   return (
     <section className="flex flex-col items-center w-[256px]">
-      <h2 className="dashboard_title">오늘 감정</h2>
+      <h2 className={`dashboard_title ${dodum.className}`}>오늘 감정</h2>
       {/* <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024173250_29c9e08c355745e29901c4dcfa2e96e4.png"></img> */}
 
       <img

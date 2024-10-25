@@ -1,3 +1,4 @@
+import { dodum } from "@/app/fonts";
 import { useState, useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -72,7 +73,7 @@ const CalendarListSection = () => {
     <section>
       <div className="flex justify-between w-[1260px] items-center mt-[47px]">
         <div className="flex items-center mb-[17px] space-x-1">
-          <h2 className="text-[30px]">공유 달력</h2>
+          <h2 className={`text-[30px] ${dodum.className}`}>공유 달력</h2>
           <img
             onClick={handleAddBtn}
             className="cur"

@@ -1,4 +1,5 @@
 const ITEM_TYPE = "CALENDAR";
+import { dodum } from "@/app/fonts";
 import { useDrag, useDrop } from "react-dnd";
 import React, { useEffect, useRef } from "react";
 
@@ -57,7 +58,7 @@ const CalendarItem = ({
         />
       </div>
       <div className="flex items-center space-x-1 mt-2">
-        <h3 className="">{calendar.name}</h3>
+        <h3 className={`${dodum.className}`}>{calendar.name}</h3>
         {calendar.isRead ? null : (
           <div className="w-6 h-6 bg-[#EF6565] rounded-full text-white text-3xl flex items-center justify-center overflow-hidden">
             <span className="transform scale-75 leading-none">N</span>

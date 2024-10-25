@@ -1,3 +1,4 @@
+import { dodum } from "@/app/fonts";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useUserMutations from "@/queries/user/useUserMutations";
 import { useMutation } from "@tanstack/react-query";
@@ -79,9 +80,11 @@ const TodoSection = () => {
     router.push(`/calendar/${calId}/todo/${todoId}`);
 
   return (
-    <section className="mt-[44px] px-[17px] bg-white w-[300px] bor shadow_box rounded-md flex flex-col justify-between">
+    <section className="mt-[37px] px-[17px] bg-white w-[300px] bor shadow_box rounded-md flex flex-col justify-between">
       <ul className="space-y-2">
-        <div className="flex items-center justify-between content-center my-[20px] text-[25px]">
+        <div
+          className={`flex items-center justify-between content-center my-[20px] text-[25px] ${dodum.className}`}
+        >
           전체 일정
         </div>
         {todoData?.todos ? (

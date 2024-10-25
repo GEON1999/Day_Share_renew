@@ -1,5 +1,5 @@
 "use client";
-
+import { dodum } from "@/app/fonts";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
@@ -47,12 +47,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 className="rounded-full w-full h-full object-cover"
               />
             </div>
-            <p className="text-[30px] mt-[20px]">{userData.name}</p>
+            <p className={`text-[30px] mt-[20px]  ${dodum.className}`}>
+              {userData.name}
+            </p>
           </div>
           <TodoSection />
         </div>
         <div>
-          <nav className="mb-[73px] tet-[20px]">
+          <nav className="mt-2 mb-[73px] tet-[20px]">
             <ul>
               <li
                 className="flex items-center cur"
@@ -62,7 +64,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                   className=""
                   src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024191437_8c13f80fd31146aaaa1a97fd4a0a2fd0.png"
                 />
-                <span className="ml-[16px]">설정</span>
+                <span className={`ml-[16px] ${dodum.className}`}>설정</span>
               </li>
               <li
                 className="flex items-center cur mt-[20px]"
@@ -72,7 +74,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                   className=""
                   src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024191335_4ecd9c6c9e5047278733a8146035b70d.png"
                 />
-                <span className="ml-[17px]">나가기</span>
+                <span className={`ml-[17px] ${dodum.className}`}>나가기</span>
               </li>
             </ul>
           </nav>
