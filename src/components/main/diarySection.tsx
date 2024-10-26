@@ -31,7 +31,7 @@ const DiarySection = () => {
               }}
               key={diary.id}
               className={`px-[6px] bg-transparent items-center flex justify-between h-[67.5px] text-[23px] cur ${
-                idx === 4 || idx === 3
+                idx === 3
                   ? "border-b-[0px]"
                   : "border-b-[1.5px] border-[#494949]"
               }`}

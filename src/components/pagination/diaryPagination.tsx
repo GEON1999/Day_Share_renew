@@ -13,7 +13,7 @@ const DiaryPagination = ({ total_count }: any) => {
   };
 
   const handleDiaryNextBtn = () => {
-    if (total_count <= Number(currentDiaryPage) * 4) return;
+    if (total_count <= Number(currentDiaryPage) * 4 || !total_count) return;
     params.set("diary_page", String(Number(currentDiaryPage) + 1));
     router.push(`${pathName}?${params.toString()}`);
   };
@@ -32,7 +32,7 @@ const DiaryPagination = ({ total_count }: any) => {
         onClick={handleDiaryNextBtn}
         className=" cur"
         src={
-          total_count <= Number(currentDiaryPage) * 4
+          total_count <= Number(currentDiaryPage) * 4 || !total_count
             ? "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241025133818_3e927a99d2cb4586ad9aa6d026a72a7a.png"
             : "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183650_8d7f7c4e14fc4108b91642bf37dde397.png"
         }

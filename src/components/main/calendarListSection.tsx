@@ -37,6 +37,16 @@ const CalendarListSection = () => {
     }
   }, [calendarData]);
 
+  let combineData = [...calendars];
+
+  for (let i = 4; i > calendars.length; i--) {
+    if (!isEditMode) {
+      combineData.push({
+        isEmpty: true,
+      });
+    }
+  }
+
   const moveCalendar = (fromIndex: number, toIndex: number) => {
     const updatedCalendars = [...calendars];
     const [movedCalendar] = updatedCalendars.splice(fromIndex, 1);
@@ -81,12 +91,14 @@ const CalendarListSection = () => {
           />
         </div>
         <div className="flex items-center justify-between space-x-4">
-          <button
-            onClick={handleSaveOrder}
-            className="p-2 bg_hilight bor rounded"
-          >
-            {isEditMode ? "수정 완료" : "순서 변경"}
-          </button>
+          {!calendarData || calendarData?.total_calendars === 0 ? null : (
+            <button
+              onClick={handleSaveOrder}
+              className="p-2  bor rounded shadow_box"
+            >
+              {isEditMode ? "저장" : "순서 조정"}
+            </button>
+          )}
           {!isEditMode && (
             <CalendarPagination total_count={calendarData?.total_calendars} />
           )}
@@ -95,7 +107,7 @@ const CalendarListSection = () => {
 
       <DndProvider backend={HTML5Backend}>
         <div className="flex space-x-4">
-          {(isEditMode ? calendars : calendars.slice(0, 5)).map(
+          {(isEditMode ? calendars : combineData.slice(0, 5)).map(
             (calendar, index) => (
               <CalendarItem
                 key={calendar.id}

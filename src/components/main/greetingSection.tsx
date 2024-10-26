@@ -3,7 +3,6 @@ import useUserQueries from "@/queries/user/useUserQueries";
 
 const GreetingSection = () => {
   const { data: favoriteTodoData } = useUserQueries.useGetUserFavoriteTodo();
-  console.log("favoriteTodoData:", favoriteTodoData);
 
   return (
     <section className={`mt-[33px] text-[50px] ${dodum.className}`}>

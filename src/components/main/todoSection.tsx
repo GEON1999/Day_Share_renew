@@ -16,7 +16,6 @@ const TodoSection = () => {
     isLoading: todoIsLoading,
     refetch,
   } = useUserQueries.useGetUserTodos(`todo_page=${currentTodoPage}`);
-  console.log("todoData:", todoData);
 
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,
