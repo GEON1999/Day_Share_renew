@@ -123,3 +123,16 @@ div::-webkit-scrollbar-track {
   margin-top: 10px; /* 상단 여백 */
   margin-bottom: 10px; /* 하단 여백 */
 }
+
+.status_box {
+  width: 255.86px; /* 원하는 너비 */
+  height: 268.51px; /* 원하는 높이 */
+  background-color: #ffdcdc; /* 박스의 배경색 */
+  border-radius: 50% 50% 6px 6px; /* 위쪽만 둥글게 처리 */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.15) !important;
+}

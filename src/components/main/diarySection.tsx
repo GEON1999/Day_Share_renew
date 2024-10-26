@@ -42,10 +42,17 @@ const DiarySection = () => {
           ))}
         </ul>
       ) : (
-        <img
-          className="bor rounded-md bg-[#F9F4CF] shadow_box "
-          src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024150301_23db0106b82f4323b8f03cef66282fe7.png"
-        />
+        <div>
+          <img
+            className="bor rounded-md bg-[#F9F4CF] shadow_box "
+            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024150301_23db0106b82f4323b8f03cef66282fe7.png"
+          />
+          <p
+            className={`text-center text-[30px] ${dodum.className} absolute top-[502px] left-[1300px]`}
+          >
+            일기가 없어......................
+          </p>
+        </div>
       )}
     </section>
   );
