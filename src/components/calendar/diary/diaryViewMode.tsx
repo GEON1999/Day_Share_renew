@@ -154,7 +154,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     );
   };
   return (
-    <div className="max-w-[1500px] min-w-[600px] px-20 mt-10">
+    <div className="min-w-[600px] px-20 mt-10">
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <img
@@ -209,21 +209,19 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       {openComment && (
         <div>
           <h1 className="font-bold text-xl mb-5">댓글</h1>
-          <div className="max-h-[180px] overflow-auto">
+          <div className="max-h-[180px]">
             {commentData?.map((comment: any) => (
               <div
                 key={comment.comment.id}
                 className="flex justify-between items-center"
               >
-                <div className="flex items-center space-x-2 space-y-2">
-                  <div>
-                    <img
-                      className="w-10 h-10 rounded-full bor"
-                      src={comment.profile.img}
-                    />
-                  </div>
-                  <div>
-                    <h1 className="font-bold">{comment.profile.name}</h1>
+                <div className="flex items-center space-x-3 space-y-2">
+                  <img
+                    className="w-10 h-10 rounded-full bor"
+                    src={comment?.profile?.img ?? ""}
+                  />
+                  <div className="max-w-[1000px]">
+                    <h1 className="font-bold">{comment?.profile?.name}</h1>
                     <p>{comment.comment.content}</p>
                   </div>
                 </div>
