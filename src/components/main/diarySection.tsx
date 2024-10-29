@@ -1,5 +1,6 @@
 import { dodum } from "@/app/fonts";
 import DiaryPagination from "@/components/pagination/diaryPagination";
+import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useRouter } from "next/navigation";
@@ -11,7 +12,6 @@ const DiarySection = () => {
   const { data: diaryData } = useUserQueries.useGetUserDiaries(
     `diary_page=${currentDiaryPage}`
   );
-  console.log("diaryData", diaryData);
 
   const handleClickDiary = (calId: number, diaryId: number) => {
     router.push(`/calendar/${calId}/diary/${diaryId}`);
@@ -26,7 +26,6 @@ const DiarySection = () => {
       {diaryData ? (
         <ul className="bg-[#F9F4CF] px-[10px] bor rounded-md w-[950px] h-[270px] shadow_box">
           {diaryData?.diaries?.map((diary: any, idx: number) => {
-            console.log("diary", diary);
             return (
               <li
                 onClick={() => {
@@ -39,8 +38,17 @@ const DiarySection = () => {
                     : "border-b-[1.5px] border-[#494949]"
                 }`}
               >
-                <span>{diary.title}</span>
-                <div className="text-[23px] text-[#2D2D2E] text-opacity-80 flex space-x-2">
+                <div className="flex space-x-2 items-center">
+                  <span>{diary.title}</span>
+                  {Helper.isDateOlderThanOneDay(diary.createdAt) ? null : (
+                    <img
+                      className="h-[23.6px] w-[23.6px]"
+                      src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241029163920_430d6b2ba39e4a05819e9c943b8b3461.png"
+                      alt="new"
+                    />
+                  )}
+                </div>
+                <div className="text-[23px] text-[#2D2D2E] text-opacity-80 flex space-x-2 items-center">
                   <span>{diary.userName}</span>
                   <span>|</span>
                   <span className="font-semibold">{diary.calendarName}</span>

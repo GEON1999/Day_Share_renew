@@ -85,6 +85,17 @@ const setAt = ({ data, formData }: any) => {
   };
 };
 
+const isDateOlderThanOneDay = (date: string) => {
+  const createdDate = new Date(date);
+  const today = new Date();
+
+  const oneDayAgo = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+
+  return createdDate < oneDayAgo;
+};
+
+const getTodayMs = () => new Date().setHours(0, 0, 0, 0);
+
 export default {
   CURRENT_URL,
   queryToString,
@@ -94,4 +105,6 @@ export default {
   formatTimeForInput,
   cleanContent,
   setAt,
+  isDateOlderThanOneDay,
+  getTodayMs,
 };

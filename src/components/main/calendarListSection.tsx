@@ -11,6 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import useSearch from "@/hooks/useSearch";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import AddCalendarModal from "@/components/modal/AddCalendar";
+import Helper from "@/helper/Helper";
 
 const CalendarListSection = () => {
   const router = useRouter();
@@ -75,7 +76,7 @@ const CalendarListSection = () => {
   };
 
   const handleClickCalendar = (id: number) => {
-    router.push(`/calendar/${id}`);
+    router.push(`/calendar/${id}?date=${Helper.getTodayMs()}`);
   };
 
   const handleAddBtn = () => setIsOpen(true);

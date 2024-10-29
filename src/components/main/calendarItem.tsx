@@ -77,9 +77,11 @@ const CalendarItem = ({
           <div className="flex items-center space-x-1 mt-2">
             <h3 className={`${dodum.className}`}>{calendar.name}</h3>
             {calendar.isRead ? null : (
-              <div className="w-6 h-6 bg-[#EF6565] rounded-full text-white text-3xl flex items-center justify-center overflow-hidden">
-                <span className="transform scale-75 leading-none">N</span>
-              </div>
+              <img
+                className="h-[23.6px] w-[23.6px]"
+                src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241029163920_430d6b2ba39e4a05819e9c943b8b3461.png"
+                alt="new"
+              />
             )}
           </div>
         </div>
