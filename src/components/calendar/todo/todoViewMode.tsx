@@ -14,6 +14,8 @@ import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
 import DeleteModal from "@/components/modal/DeleteModal";
 import { useRouter } from "next/navigation";
+import { debounce } from "lodash";
+import StaticKeys from "@/keys/StaticKeys";
 
 const TodoViewMode = ({ setEditorMode }: any) => {
   const router = useRouter();
@@ -63,7 +65,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
 
   const handleClickDeleteTodo = () => setIsTodoModalOpen(true);
 
-  const onCommentSubmit = (data: any) => {
+  const onCommentSubmit = debounce((data: any) => {
     createComment({ calendarId: id, query, body: data }),
       {
         onSuccess: () => {
@@ -75,7 +77,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
           console.log("error");
         },
       };
-  };
+  }, StaticKeys.DEBOUNCE_TIME);
 
   const handleToggleLike = () => {
     toggleLike(query, {

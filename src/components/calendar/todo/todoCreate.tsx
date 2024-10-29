@@ -5,6 +5,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Helper from "@/helper/Helper";
 import { useRouter } from "next/navigation";
+import { debounce } from "lodash";
+import StaticKeys from "@/keys/StaticKeys";
 
 const TodoCreate = ({ setEditorMode }: any) => {
   const router = useRouter();
@@ -17,7 +19,7 @@ const TodoCreate = ({ setEditorMode }: any) => {
     mutationFn: useTodoMutations.createTodo,
   });
 
-  const onSubmit = (formData: any) => {
+  const onSubmit = debounce((formData: any) => {
     const { startAt, endAt } = Helper.setAt({ formData });
 
     const updatedData = {
@@ -36,7 +38,8 @@ const TodoCreate = ({ setEditorMode }: any) => {
         },
       }
     );
-  };
+  }, StaticKeys.DEBOUNCE_TIME);
+
   return (
     <div className="main_container">
       <div className="max-w-[1500px] min-w-[600px] px-20 mt-20">

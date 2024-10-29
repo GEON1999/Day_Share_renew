@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import commonMutation from "@/queries/commonMutation";
+import { debounce } from "lodash";
+import StaticKeys from "@/keys/StaticKeys";
 
 const AddCalendarModal = ({ setIsOpen }: any) => {
   const [formSelect, setFormSelect] = useState("create");
@@ -21,7 +23,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
   const { register: inviteRegister, handleSubmit: inviteHandleSubmit } =
     useForm();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = debounce((data: any) => {
     const formData = { ...data, img: image };
     createCalendar(formData, {
       onSuccess: (result) => {
@@ -34,7 +36,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
         }
       },
     });
-  };
+  }, StaticKeys.DEBOUNCE_TIME);
 
   const onInviteSubmit = (data: any) => {
     getInvtedCalendar(data.code, {

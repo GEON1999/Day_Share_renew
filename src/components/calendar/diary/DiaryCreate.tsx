@@ -9,6 +9,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "@/components/common/toolbar";
 import { useRouter } from "next/navigation";
 import { debounce } from "lodash";
+import StaticKeys from "@/keys/StaticKeys";
 
 const DiaryCreate = () => {
   const router = useRouter();
@@ -39,7 +40,7 @@ const DiaryCreate = () => {
         },
       }
     );
-  }, 1000);
+  }, StaticKeys.DEBOUNCE_TIME);
 
   return (
     <div className="main_container">

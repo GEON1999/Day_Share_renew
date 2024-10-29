@@ -6,6 +6,8 @@ import { signIn } from "next-auth/react";
 import useAuthMutations from "@/queries/auth/useAuthMutations";
 import { useMutation } from "@tanstack/react-query";
 import commonMutation from "@/queries/commonMutation";
+import { debounce } from "lodash";
+import StaticKeys from "@/keys/StaticKeys";
 
 function SignupClientPage() {
   const [userImg, setUserImg] = React.useState("");
@@ -21,7 +23,7 @@ function SignupClientPage() {
     mutationFn: commonMutation.uploadImage,
   });
 
-  const onSubmit = async (formData: any) => {
+  const onSubmit = debounce((formData: any) => {
     if (formData.password !== formData.password_check) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
@@ -40,7 +42,7 @@ function SignupClientPage() {
         alert("회원가입에 실패했습니다.");
       },
     });
-  };
+  }, StaticKeys.DEBOUNCE_TIME);
 
   const handleKakao = async () => {
     await signIn("kakao", {

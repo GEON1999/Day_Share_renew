@@ -5,6 +5,8 @@ import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import commonMutation from "@/queries/commonMutation";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useSearch from "@/hooks/useSearch";
+import { debounce } from "lodash";
+import StaticKeys from "@/keys/StaticKeys";
 
 const SettingModal = ({ setIsOpen }: any) => {
   const [formSelect, setFormSelect] = useState("profile");
@@ -138,7 +140,7 @@ const SettingModal = ({ setIsOpen }: any) => {
     alert("초대코드가 복사되었습니다.");
   };
 
-  const handleInviteCode = () => {
+  const handleInviteCode = debounce(() => {
     createInviteCode(id, {
       onSuccess: (result) => {
         if (result) {
@@ -149,7 +151,7 @@ const SettingModal = ({ setIsOpen }: any) => {
         }
       },
     });
-  };
+  }, StaticKeys.DEBOUNCE_TIME);
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
