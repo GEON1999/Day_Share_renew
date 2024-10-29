@@ -64,6 +64,22 @@ const getCalendarDates = async (accessToken: any, id: string) => {
   return data;
 };
 
+const getTodoDetail = async (accessToken: any, id: string, query: string) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}${API.GET_TODOS(id, query)}`,
+    rqOption.apiHeader(accessToken)
+  );
+  return data;
+};
+
+const getDiaryDetail = async (accessToken: any, id: string, query: string) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}${API.GET_DIARIES(id, query)}`,
+    rqOption.apiHeader(accessToken)
+  );
+  return data;
+};
+
 export default async function Home(req: any) {
   const encryptedAccessToken = cookies().get("AccessToken");
   const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
@@ -74,7 +90,6 @@ export default async function Home(req: any) {
   const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
 
   const id = req.params.id;
-  console.log("id", id);
 
   Promise.all([
     await queryClient.prefetchQuery({
@@ -100,6 +115,14 @@ export default async function Home(req: any) {
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_DATES, id],
       queryFn: () => getCalendarDates(accessToken, id),
+    }),
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_TODOS, id, queries],
+      queryFn: () => getTodoDetail(accessToken, id, queries),
+    }),
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_DIARIES, id, queries],
+      queryFn: () => getDiaryDetail(accessToken, id, queries),
     }),
   ]);
 

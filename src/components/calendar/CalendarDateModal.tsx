@@ -1,6 +1,4 @@
 import useSearch from "@/hooks/useSearch";
-import useDiaryQueries from "@/queries/diary/useDiaryQueries";
-import useTodoQueries from "@/queries/todo/useTodoQueries";
 import { useRouter } from "next/navigation";
 import TodoList from "@/components/calendar/todo/todoList";
 import DiaryList from "@/components/calendar/diary/diaryList";
@@ -9,12 +7,14 @@ const CalendarDateModal = () => {
   const router = useRouter();
   const calendarId = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
-  const { data: todoData, isLoading } = useTodoQueries.useGetTodos(
-    calendarId,
-    `date=${date}`
-  );
-  const { data: diaryData, isLoading: diaryIsLoading } =
-    useDiaryQueries.useGetDiaries(calendarId, `date=${date}`);
+  // const { data: todoData, isLoading } = useTodoQueries.useGetTodos(
+  //   calendarId,
+  //   `date=${date}`
+  // );
+  // const { data: diaryData, isLoading: diaryIsLoading } =
+  //   useDiaryQueries.useGetDiaries(calendarId, `date=${date}`);
+
+  // console.log("diaryLoading", diaryIsLoading, "todoLoading", isLoading);
 
   const handleClickCreateDiary = () =>
     router.push(`/calendar/${calendarId}/diary/create?date=${date}`);
@@ -38,14 +38,19 @@ const CalendarDateModal = () => {
           일정 생성
         </button>
       </div>
-      {diaryIsLoading || isLoading ? (
+      {/* ssr 미사용 시 다시 사용 
+       {diaryIsLoading || isLoading ? (
         <div className="loading spinner"></div>
       ) : (
         <div>
           <TodoList />
           <DiaryList />
         </div>
-      )}
+      )} */}
+      <div>
+        <TodoList />
+        <DiaryList />
+      </div>
     </div>
   );
 };
