@@ -11,6 +11,7 @@ const DiarySection = () => {
   const { data: diaryData } = useUserQueries.useGetUserDiaries(
     `diary_page=${currentDiaryPage}`
   );
+  console.log("diaryData", diaryData);
 
   const handleClickDiary = (calId: number, diaryId: number) => {
     router.push(`/calendar/${calId}/diary/${diaryId}`);
@@ -24,22 +25,29 @@ const DiarySection = () => {
       </div>
       {diaryData ? (
         <ul className="bg-[#F9F4CF] px-[10px] bor rounded-md w-[950px] h-[270px] shadow_box">
-          {diaryData?.diaries?.map((diary: any, idx: number) => (
-            <li
-              onClick={() => {
-                handleClickDiary(diary.calendarId, diary.id);
-              }}
-              key={diary.id}
-              className={`px-[6px] bg-transparent items-center flex justify-between h-[67.5px] text-[23px] cur ${
-                idx === 3
-                  ? "border-b-[0px]"
-                  : "border-b-[1.5px] border-[#494949]"
-              }`}
-            >
-              <span>{diary.title}</span>
-              <span className="text-sm text-gray-500">박건</span>
-            </li>
-          ))}
+          {diaryData?.diaries?.map((diary: any, idx: number) => {
+            console.log("diary", diary);
+            return (
+              <li
+                onClick={() => {
+                  handleClickDiary(diary.calendarId, diary.id);
+                }}
+                key={diary.id}
+                className={`px-[6px] bg-transparent items-center flex justify-between h-[67.5px] text-[23px] cur ${
+                  idx === 3
+                    ? "border-b-[0px]"
+                    : "border-b-[1.5px] border-[#494949]"
+                }`}
+              >
+                <span>{diary.title}</span>
+                <div className="text-[23px] text-[#2D2D2E] text-opacity-80 flex space-x-2">
+                  <span>{diary.userName}</span>
+                  <span>|</span>
+                  <span className="font-semibold">{diary.calendarName}</span>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       ) : (
         <div>
