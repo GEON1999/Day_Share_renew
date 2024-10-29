@@ -8,6 +8,7 @@ import Image from "@tiptap/extension-image";
 import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "@/components/common/toolbar";
 import { useRouter } from "next/navigation";
+import { debounce } from "lodash";
 
 const DiaryCreate = () => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const DiaryCreate = () => {
     mutationFn: useDiaryMutations.createDiary,
   });
 
-  const onSubmit = (formData: any) => {
+  const onSubmit = debounce((formData: any) => {
     const submitData = { ...formData, content: editor?.getHTML() };
     createDiary(
       { calendarId: id, query: `date=${date}`, body: submitData },
@@ -38,7 +39,8 @@ const DiaryCreate = () => {
         },
       }
     );
-  };
+  }, 1000);
+
   return (
     <div className="main_container">
       <div className="max-w-[1500px] min-w-[600px] px-20 mt-10">

@@ -54,13 +54,13 @@ const TodoList = () => {
                 <div className="">
                   <div className="flex items-center space-x-2">
                     <img
-                      src={todo.userProfile.img}
+                      src={todo.userProfile?.img}
                       alt="profile"
                       className="w-12 h-12 rounded-full bor"
                     />
                     <div className="flex flex-col">
                       <p className="text-lg">{todo.title}</p>
-                      <p className="gray text-sm">{todo.userProfile.name}</p>
+                      <p className="gray text-sm">{todo.userProfile?.name}</p>
                     </div>
                   </div>
                   <div className="my-4"> {todo.content} </div>

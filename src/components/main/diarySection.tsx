@@ -23,7 +23,7 @@ const DiarySection = () => {
         <h2 className={`dashboard_title ${dodum.className}`}>공유 일기</h2>
         <DiaryPagination total_count={diaryData?.total_count} />
       </div>
-      {diaryData ? (
+      {diaryData.diaries && diaryData.diaries.length > 0 ? (
         <ul className="bg-[#F9F4CF] px-[10px] bor rounded-md w-[950px] h-[270px] shadow_box">
           {diaryData?.diaries?.map((diary: any, idx: number) => {
             return (

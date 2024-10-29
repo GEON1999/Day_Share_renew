@@ -46,13 +46,13 @@ const DiaryList = () => {
                 <div className="">
                   <div className="flex items-center space-x-2">
                     <img
-                      src={diary.userProfile.img}
+                      src={diary.userProfile?.img}
                       alt="profile"
                       className="w-12 h-12 rounded-full bor"
                     />
                     <div className="flex flex-col">
                       <p className="text-lg">{diary.title}</p>
-                      <p className="gray text-sm">{diary.userProfile.name}</p>
+                      <p className="gray text-sm">{diary.userProfile?.name}</p>
                     </div>
                   </div>
                   <div className="my-4"> {parse(diary.content, options)} </div>

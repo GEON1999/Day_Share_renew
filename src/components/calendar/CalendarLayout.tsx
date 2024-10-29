@@ -11,6 +11,7 @@ import SettingModal from "@/components/modal/SettingModal";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import DeleteModal from "@/components/modal/DeleteModal";
+import Helper from "@/helper/Helper";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -53,7 +54,8 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const handleClickMain = () => router.push("/");
-  const handleCLickCalendar = () => router.push(`/calendar/${id}`);
+  const handleCLickCalendar = () =>
+    router.push(`/calendar/${id}?date=${Helper.getTodayMs()}`);
 
   const handleClickTodo = (calId: number, todoId: number) =>
     router.push(`/calendar/${calId}/todo/${todoId}`);

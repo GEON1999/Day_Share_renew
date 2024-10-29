@@ -86,7 +86,7 @@ const TodoSection = () => {
         >
           전체 일정
         </div>
-        {todoData?.todos ? (
+        {todoData?.todos && todoData.todos.length > 0 ? (
           todoData?.todos?.map((todo_group: any) => {
             return (
               <div key={todo_group.date}>
