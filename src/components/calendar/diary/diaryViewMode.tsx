@@ -211,7 +211,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       {openComment && (
         <div>
           <h1 className="font-bold text-xl mb-5">댓글</h1>
-          <div className="max-h-[180px]">
+          <div className="max-h-[180px] overflow-y-auto">
             {commentData?.map((comment: any) => (
               <div
                 key={comment.comment.id}

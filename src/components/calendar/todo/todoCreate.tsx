@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
 
-const TodoCreate = ({ setEditorMode }: any) => {
+const TodoCreate = () => {
   const router = useRouter();
   const id = useSearch.useSearchId();
   const date = useSearch.useSearchDate();

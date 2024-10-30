@@ -86,16 +86,16 @@ export default async function Home(req: any) {
 
   Promise.all([
     await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_DIARY_DETAIL, id, diaryId],
+      queryFn: () => getDiaryDetail(accessToken, id, diaryId),
+    }),
+    await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_TODOS, id, todoPage],
       queryFn: () => useGetTodosByCalendarId(accessToken, id, todoPage),
     }),
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id],
       queryFn: () => getCalendarPermissionList(accessToken, id),
-    }),
-    await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_DIARY_DETAIL, id, diaryId],
-      queryFn: () => getDiaryDetail(accessToken, id, diaryId),
     }),
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_COMMENTS, id, query],
