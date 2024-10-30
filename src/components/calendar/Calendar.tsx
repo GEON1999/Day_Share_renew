@@ -1,3 +1,4 @@
+import { dodum } from "@/app/fonts";
 import { useEffect, useState } from "react";
 import useSearch from "@/hooks/useSearch";
 import { useRouter } from "next/navigation";
@@ -11,22 +12,31 @@ const generateCalendar = (year: number, month: number) => {
   const daysInMonth = lastDay.getDate();
   const startingDay = firstDay.getDay();
 
+  // 이전 달의 마지막 날짜 구하기
+  const prevLastDay = new Date(year, month, 0).getDate();
+
   let day = 1;
-  const calendar: (number | null)[][] = [];
+  const calendar = [];
 
   for (let i = 0; i < 6; i++) {
     const week = [];
     for (let j = 0; j < 7; j++) {
       if (i === 0 && j < startingDay) {
-        week.push(null);
+        week.push({
+          day: prevLastDay - startingDay + j + 1,
+          currentMonth: false,
+        });
       } else if (day <= daysInMonth) {
-        week.push(day);
+        week.push({ day: day, currentMonth: true });
         day++;
       } else {
-        week.push(null);
+        week.push({ day: day - daysInMonth, currentMonth: false });
+        day++;
       }
     }
     calendar.push(week);
+
+    if (day > daysInMonth) break;
   }
 
   return calendar;
@@ -71,76 +81,93 @@ const Calendar = ({}) => {
   );
 
   return (
-    <div className="flex items-center main_container">
-      <div
-        className={`flex flex-col w-[740px] h-[700px] justify-center items-center content-center relative z-10 bg_depp bg-opacity-70 rounded-2xl mr-24 bor`}
-      >
-        <div className="flex my-2 mt-20">
-          <input
-            type="number"
-            value={year}
-            onChange={(e) => setYear(parseInt(e.target.value))}
-            min="1900"
-            max="2100"
-            className="w-24 h-10 rounded-lg bg_ligth outline-none pl-2 text-gray-700 text-sm md:text-xs border border-[#E0CBB7]"
-          />
-          <select
-            value={month}
-            onChange={(e) => setMonth(parseInt(e.target.value))}
-            className="w-24 h-10 rounded-lg bg_ligth outline-none pl-2 text-gray-700 ml-2 text-sm md:text-xs border border-[#E0CBB7]"
-          >
-            {Array.from({ length: 12 }, (_, i) => (
-              <option key={i} value={i}>
-                {i + 1}월
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <table className="w-[600px] h-[500px] text-center">
-            <thead>
+    <div className={`main_container ${dodum.className}`}>
+      <div className="flex my-2 mt-20">
+        <input
+          type="number"
+          value={year}
+          onChange={(e) => setYear(parseInt(e.target.value))}
+          min="1900"
+          max="2100"
+          className="w-24 h-10 rounded-lg bg_ligth outline-none pl-2 text-gray-700 text-sm md:text-xs border border-[#E0CBB7]"
+        />
+        <select
+          value={month}
+          onChange={(e) => setMonth(parseInt(e.target.value))}
+          className="w-24 h-10 rounded-lg bg_ligth outline-none pl-2 text-gray-700 ml-2 text-sm md:text-xs border border-[#E0CBB7]"
+        >
+          {Array.from({ length: 12 }, (_, i) => (
+            <option key={i} value={i}>
+              {i + 1}월
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="flex items-center">
+        <div className="w-[610px] h-[715px] rounded-2xl overflow-hidden mr-24 bor shadow_box">
+          <table className="w-full h-full text-center">
+            <thead className="bg_hilight h-[80px] w-full">
               <tr className="text-black text-md font-bold">
-                <th className="p-2">일</th>
-                <th className="p-2">월</th>
-                <th className="p-2">화</th>
-                <th className="p-2">수</th>
-                <th className="p-2">목</th>
-                <th className="p-2">금</th>
-                <th className="p-2">토</th>
+                <th className="text_red">일</th>
+                <th>월</th>
+                <th>화</th>
+                <th>수</th>
+                <th>목</th>
+                <th>금</th>
+                <th>토</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="w-full">
               {calendar.map((week, index) => (
-                <tr key={index}>
-                  {week.map((day, dayIndex) => {
-                    const isDayCell = day !== null;
+                <tr key={index} className="">
+                  {week.map((dateObj, dayIndex) => {
+                    if (!dateObj) {
+                      return <td key={dayIndex} className="p-0"></td>;
+                    }
+
+                    const { day, currentMonth } = dateObj;
+                    const isDayCell = currentMonth;
                     let isHighlighted = false;
 
                     if (isDayCell) {
-                      // 날짜 객체 생성 (월은 0부터 시작하므로 -1 해줍니다)
                       const date = new Date(year, month, day);
                       const dateString = date.toISOString().split("T")[0];
-                      // 날짜가 dateSet에 있는지 확인
                       isHighlighted = dateSet.has(dateString);
                     }
 
-                    const isClicked = clickedDay === day;
+                    const isClicked = clickedDay === day && currentMonth;
 
                     return (
                       <td
                         key={dayIndex}
                         onClick={() => isDayCell && handleClickDate(day)}
-                        className={`w-[100px] h-[100px] text-center transition-all duration-300 ease-in-out rounded-full cursor-pointer border border-transparent ${
-                          isDayCell
-                            ? isClicked
-                              ? "bg_deeper text-white"
-                              : isHighlighted
-                              ? "bg-[#d9c6c1] text-white" // 하이라이트 스타일 적용
-                              : "bg-transparent text-gray-700 hover:bg_ligth hover:text-gray-900"
-                            : ""
-                        }`}
+                        className="p-0"
                       >
-                        {day || ""}
+                        <div
+                          className={`mx-auto w-[70px] h-[70px] rounded-full flex items-center justify-center transition-all duration-300 ease-in-out ${
+                            currentMonth
+                              ? isClicked
+                                ? "bg_hilight cursor-pointer"
+                                : isHighlighted
+                                  ? "bg-[#E6E6E6] opacity-40 cursor-pointer"
+                                  : "bg-transparent text-gray-700 cursor-pointer hover:bg_ligth hover:text-gray-900"
+                              : "cursor-default"
+                          }`}
+                        >
+                          <span
+                            className={
+                              currentMonth && dayIndex === 0
+                                ? "text_red"
+                                : !currentMonth && dayIndex === 0
+                                  ? "text_red opacity-40"
+                                  : !currentMonth && dayIndex !== 0
+                                    ? "opacity-40"
+                                    : ""
+                            }
+                          >
+                            {day}
+                          </span>
+                        </div>
                       </td>
                     );
                   })}
@@ -149,9 +176,10 @@ const Calendar = ({}) => {
             </tbody>
           </table>
         </div>
-      </div>
-      <div>
-        <CalendarDateModal />
+
+        <div>
+          <CalendarDateModal />
+        </div>
       </div>
 
       {/* {modal && <CalendarDateModal onClose={handleCloseModal} />} */}

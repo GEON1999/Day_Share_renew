@@ -96,6 +96,10 @@ li {
   @apply bg-[#F6BEBE80];
 }
 
+.text_red {
+  @apply text-[#FF0000];
+}
+
 .center {
   @apply flex justify-center content-center;
 }
