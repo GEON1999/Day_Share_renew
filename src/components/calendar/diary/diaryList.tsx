@@ -29,19 +29,21 @@ const DiaryList = () => {
   };
 
   return (
-    <>
-      <h1 className="text-2xl font-bold text-start mb-5 mt-10">일기</h1>
+    <div className="small_container shadow_box">
+      <div className="h-[60px] bg_hilight flex items-center justify-center">
+        <h1 className=" text-2xl">공유 일기</h1>
+      </div>
 
-      <div className="space-y-3">
+      <div className="space-y-3 overflow-y-auto px-2">
         {diaryData?.length === 0 || !diaryData ? (
           <p className="p-5">일기가 없습니다</p>
         ) : (
-          diaryData?.map((diary: any) => {
+          diaryData?.map((diary: any, index: number) => {
             return (
               <div
                 onClick={() => handleClickDiary(diary.id)}
                 key={diary.id}
-                className="cur flex justify-between items-center p-5 bg_ligth rounded-lg bor"
+                className={`${index === 0 ? "" : "border-t"} cur flex justify-between items-center p-5  `}
               >
                 <div className="">
                   <div className="flex items-center space-x-2">
@@ -78,7 +80,7 @@ const DiaryList = () => {
           })
         )}
       </div>
-    </>
+    </div>
   );
 };
 

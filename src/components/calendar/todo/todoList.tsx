@@ -10,10 +10,11 @@ const TodoList = () => {
   const calendarId = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
 
-  const { data: todoData, isLoading } = useTodoQueries.useGetTodos(
-    calendarId,
-    `date=${date}`
-  );
+  const {
+    data: todoData,
+    isLoading,
+    refetch,
+  } = useTodoQueries.useGetTodos(calendarId, `date=${date}`);
 
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,
@@ -23,12 +24,14 @@ const TodoList = () => {
     router.push(`/calendar/${calendarId}/todo/${id}`);
   };
 
-  const handleTodoClick = (calId: number, todoId: number) => {
+  const handleTodoClick = (calId: number, todoId: number, e: any) => {
+    e.stopPropagation();
     checkTodo(
       { calendarId: calId, todoId },
       {
         onSuccess: () => {
           console.log("성공");
+          refetch();
         },
         onError: () => {
           console.log("실패");
@@ -38,18 +41,20 @@ const TodoList = () => {
   };
 
   return (
-    <>
-      <h1 className="text-2xl font-bold mt-4 text-start mb-5">일정</h1>
-      <div className="space-y-3">
+    <div className="small_container shadow_box">
+      <div className="h-[60px] bg_hilight flex items-center justify-center">
+        <h1 className=" text-2xl">공유 일정</h1>
+      </div>
+      <div className="space-y-3 px-2">
         {todoData?.length === 0 || !todoData ? (
           <p className="p-5">일정이 없습니다</p>
         ) : (
-          todoData?.map((todo: any) => {
+          todoData?.map((todo: any, index: number) => {
             return (
               <div
                 onClick={() => handleClickTodo(todo.id)}
                 key={todo.id}
-                className="cur flex justify-between items-center p-5 bg_ligth rounded-lg bor"
+                className={`${index === 0 ? "" : "border-t"} cur flex justify-between items-center p-5  `}
               >
                 <div className="">
                   <div className="flex items-center space-x-2">
@@ -87,10 +92,16 @@ const TodoList = () => {
                   </div>
                 </div>
                 <div>
-                  <input
-                    onClick={() => handleTodoClick(todo.calendarId, todo.id)}
-                    type="checkbox"
-                    defaultChecked={todo.isCompleted}
+                  <img
+                    onClick={(e) =>
+                      handleTodoClick(todo.calendarId, todo.id, e)
+                    }
+                    src={
+                      todo.isCompleted
+                        ? "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241025231003_6b3276a2396647f3be3b1a82cf31eeaa.png"
+                        : "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241025230857_daae548a18e1488b9344e6194cd23bb5.png"
+                    }
+                    alt="check"
                   />
                 </div>
               </div>
@@ -98,7 +109,7 @@ const TodoList = () => {
           })
         )}
       </div>
-    </>
+    </div>
   );
 };
 

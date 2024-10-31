@@ -98,9 +98,15 @@ const Calendar = ({}) => {
   const handleClickToday = () =>
     router.push(`/calendar/${calendarId}?date=${Helper.getTodayMs()}`);
 
+  const handleClickCreateDiary = () =>
+    router.push(`/calendar/${calendarId}/diary/create?date=${date}`);
+
+  const handleClickCreateTodo = () =>
+    router.push(`/calendar/${calendarId}/todo/create?date=${date}`);
+
   return (
     <div className={`main_container ${dodum.className}`}>
-      <div className="flex items-center space-x-10">
+      <div className="flex items-center space-x-10 mt-[30px]">
         <div className="w-[150px] h-[100px] bor shadow_box rounded-md">
           <img
             className="object-cover w-full h-full rounded-md"
@@ -109,30 +115,46 @@ const Calendar = ({}) => {
         </div>
         <h1 className="text-[40px]">{calendarDate?.calendar?.name ?? ""}</h1>
       </div>
-      <div className="flex my-2 mt-14 space-x-4">
-        <span className="text-2xl font-bold">
-          {year}년 {month + 1}월
-        </span>
-        <div className="flex items-center space-x-[13px]">
-          <img
-            onClick={handlePrevBtn}
-            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183639_6d61ad5c8f084ca5a0987267645d79c2.png"
-            alt="prev"
-            className="cur"
-          />
-          <img
-            onClick={handleNextBtn}
-            className="cur"
-            alt="next"
-            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183650_8d7f7c4e14fc4108b91642bf37dde397.png"
-          />
+      <div className="flex justify-between w-[1255px] items-center">
+        <div className="flex my-2 mt-14 space-x-4">
+          <span className="text-2xl font-bold">
+            {year}년 {month + 1}월
+          </span>
+          <div className="flex items-center space-x-[13px]">
+            <img
+              onClick={handlePrevBtn}
+              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183639_6d61ad5c8f084ca5a0987267645d79c2.png"
+              alt="prev"
+              className="cur"
+            />
+            <img
+              onClick={handleNextBtn}
+              className="cur"
+              alt="next"
+              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183650_8d7f7c4e14fc4108b91642bf37dde397.png"
+            />
+          </div>
+          <button onClick={handleClickToday} className="p-1 bor rounded">
+            오늘
+          </button>
         </div>
-        <button onClick={handleClickToday} className="p-1 bor rounded">
-          오늘
-        </button>
+        <div className="flex space-x-2 justify-center mt-5">
+          <button
+            onClick={handleClickCreateDiary}
+            className="bg_hilight w-[150px] h-[40px] rounded  bor"
+          >
+            일정 생성
+          </button>
+          <button
+            onClick={handleClickCreateTodo}
+            className="bg_hilight w-[150px] h-[40px] rounded bor"
+          >
+            일기 생성
+          </button>
+        </div>
       </div>
       <div className="flex items-center">
-        <div className="w-[610px] h-[715px] rounded-2xl overflow-hidden mr-24 bor shadow_box">
+        <div className="w-[610px] h-[715px] rounded-md overflow-hidden mr-[38px] bor shadow_box">
           <table className="w-full h-full text-center">
             <thead className="bg_hilight h-[80px] w-full">
               <tr className="text-black text-md font-bold">

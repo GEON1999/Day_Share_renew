@@ -16,29 +16,10 @@ const CalendarDateModal = () => {
 
   // console.log("diaryLoading", diaryIsLoading, "todoLoading", isLoading);
 
-  const handleClickCreateDiary = () =>
-    router.push(`/calendar/${calendarId}/diary/create?date=${date}`);
-
-  const handleClickCreateTodo = () =>
-    router.push(`/calendar/${calendarId}/todo/create?date=${date}`);
-
   return (
-    <div className="flex flex-col bg_depp w-[600px] h-[700px] rounded-2xl p-4 bor overflow-auto">
-      <div className="flex space-x-2 justify-center mt-5">
-        <button
-          onClick={handleClickCreateDiary}
-          className="bg_deeper rounded px-4 py-2 bor"
-        >
-          일기 생성
-        </button>
-        <button
-          onClick={handleClickCreateTodo}
-          className="bg_deeper rounded px-4 py-2 bor"
-        >
-          일정 생성
-        </button>
-      </div>
-      {/* ssr 미사용 시 다시 사용 
+    <div>
+      <div className="flex flex-col w-[610px] h-[715px] text-[#2D2D2E]">
+        {/* ssr 미사용 시 다시 사용 
        {diaryIsLoading || isLoading ? (
         <div className="loading spinner"></div>
       ) : (
@@ -47,9 +28,10 @@ const CalendarDateModal = () => {
           <DiaryList />
         </div>
       )} */}
-      <div>
-        <TodoList />
-        <DiaryList />
+        <div className="space-y-[38px]">
+          <TodoList />
+          <DiaryList />
+        </div>
       </div>
     </div>
   );
