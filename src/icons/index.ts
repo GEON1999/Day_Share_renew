@@ -1,0 +1,13 @@
+export { default as IconAdd } from "./add.svg";
+export { default as IconAlert } from "./alert.svg";
+export { default as IconCheck_o } from "./check_o.svg";
+export { default as IconCheck_x } from "./check_x.svg";
+export { default as IconExit } from "./exit.svg";
+export { default as IconNext_disabled } from "./next_disabled.svg";
+export { default as IconNext } from "./next.svg";
+export { default as IconPrev_disabled } from "./prev_disabled.svg";
+export { default as IconPrev } from "./prev.svg";
+export { default as IconSearch } from "./search.svg";
+export { default as IconSetting } from "./setting.svg";
+export { default as IconStar_o } from "./star_o.svg";
+export { default as IconStar_x } from "./star_x.svg";

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import CalendarDateModal from "./CalendarDateModal";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
+import { IconNext, IconPrev } from "@/icons";
 
 const generateCalendar = (year: number, month: number) => {
   const firstDay = new Date(year, month, 1);
@@ -120,19 +121,9 @@ const Calendar = ({}) => {
           <span className="text-2xl font-bold">
             {year}년 {month + 1}월
           </span>
-          <div className="flex items-center space-x-[13px]">
-            <img
-              onClick={handlePrevBtn}
-              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183639_6d61ad5c8f084ca5a0987267645d79c2.png"
-              alt="prev"
-              className="cur"
-            />
-            <img
-              onClick={handleNextBtn}
-              className="cur"
-              alt="next"
-              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183650_8d7f7c4e14fc4108b91642bf37dde397.png"
-            />
+          <div className="flex items-center space-x-[13px] cur">
+            <IconPrev onClick={handlePrevBtn} className="w-5 h-5"/>
+            <IconNext onClick={handleNextBtn} className="w-5 h-5"/>
           </div>
           <button onClick={handleClickToday} className="p-1 bor rounded">
             오늘

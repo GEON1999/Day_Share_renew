@@ -1,5 +1,6 @@
 import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
+import { IconCheck_o, IconCheck_x } from "@/icons";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
 import { useMutation } from "@tanstack/react-query";
@@ -92,17 +93,19 @@ const TodoList = () => {
                   </div>
                 </div>
                 <div>
-                  <img
-                    onClick={(e) =>
+                  
+                <div  
+                className="w-5 h-5"
+                onClick={(e) =>
                       handleTodoClick(todo.calendarId, todo.id, e)
-                    }
-                    src={
+                    }>
+                {
                       todo.isCompleted
-                        ? "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241025231003_6b3276a2396647f3be3b1a82cf31eeaa.png"
-                        : "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241025230857_daae548a18e1488b9344e6194cd23bb5.png"
+                        ?<IconCheck_o />
+                        : <IconCheck_x/>
                     }
-                    alt="check"
-                  />
+                    </div>
+                
                 </div>
               </div>
             );
