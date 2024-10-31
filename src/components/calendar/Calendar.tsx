@@ -4,6 +4,7 @@ import useSearch from "@/hooks/useSearch";
 import { useRouter } from "next/navigation";
 import CalendarDateModal from "./CalendarDateModal";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
+import Helper from "@/helper/Helper";
 
 const generateCalendar = (year: number, month: number) => {
   const firstDay = new Date(year, month, 1);
@@ -43,7 +44,6 @@ const generateCalendar = (year: number, month: number) => {
 };
 
 const Calendar = ({}) => {
-  const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
   const date = useSearch.useSearchDate();
   const calendarId = useSearch.useSearchId();
@@ -55,53 +55,81 @@ const Calendar = ({}) => {
   const [month, setMonth] = useState(today.getMonth());
   const calendar = generateCalendar(year, month);
 
+  // calendarDetail을 가져오는 것 보다 100 ~ 200ms 빠른 LCP
   const { data: calendarDate, isLoading } =
     useCalendarQueries.useGetCalendarDates(calendarId);
+  console.log("calendarDate", calendarDate);
 
   useEffect(() => {
     document.title = `Calendar - ${year}-${month + 1}`;
   }, [year, month]);
 
-  const handleClickDate = (day: number | null) => {
-    if (day === null) return;
-    setIsOpen(true);
-    const ms = new Date(year, month, day).getTime();
-    router.push(`/calendar/${calendarId}/?date=${ms}`);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpen(false);
-  };
-
   const dateSet = new Set(
-    calendarDate?.map((timestamp: any) => {
+    calendarDate?.dates.map((timestamp: any) => {
       const date = new Date(Number(timestamp));
       return date.toISOString().split("T")[0];
     }) || []
   );
 
+  const handleClickDate = (day: number | null) => {
+    if (day === null) return;
+    const ms = new Date(year, month, day).getTime();
+    router.push(`/calendar/${calendarId}/?date=${ms}`);
+  };
+
+  const handlePrevBtn = () => {
+    if (month === 0) {
+      setYear(year - 1);
+      setMonth(11);
+    } else {
+      setMonth(month - 1);
+    }
+  };
+
+  const handleNextBtn = () => {
+    if (month === 11) {
+      setYear(year + 1);
+      setMonth(0);
+    } else {
+      setMonth(month + 1);
+    }
+  };
+
+  const handleClickToday = () =>
+    router.push(`/calendar/${calendarId}?date=${Helper.getTodayMs()}`);
+
   return (
     <div className={`main_container ${dodum.className}`}>
-      <div className="flex my-2 mt-20">
-        <input
-          type="number"
-          value={year}
-          onChange={(e) => setYear(parseInt(e.target.value))}
-          min="1900"
-          max="2100"
-          className="w-24 h-10 rounded-lg bg_ligth outline-none pl-2 text-gray-700 text-sm md:text-xs border border-[#E0CBB7]"
-        />
-        <select
-          value={month}
-          onChange={(e) => setMonth(parseInt(e.target.value))}
-          className="w-24 h-10 rounded-lg bg_ligth outline-none pl-2 text-gray-700 ml-2 text-sm md:text-xs border border-[#E0CBB7]"
-        >
-          {Array.from({ length: 12 }, (_, i) => (
-            <option key={i} value={i}>
-              {i + 1}월
-            </option>
-          ))}
-        </select>
+      <div className="flex items-center space-x-10">
+        <div className="w-[150px] h-[100px] bor shadow_box rounded-md">
+          <img
+            className="object-cover w-full h-full rounded-md"
+            src={calendarDate?.calendar?.img ?? process.env.NEXT_PUBLIC_LOGO}
+          />
+        </div>
+        <h1 className="text-[40px]">{calendarDate?.calendar?.name ?? ""}</h1>
+      </div>
+      <div className="flex my-2 mt-14 space-x-4">
+        <span className="text-2xl font-bold">
+          {year}년 {month + 1}월
+        </span>
+        <div className="flex items-center space-x-[13px]">
+          <img
+            onClick={handlePrevBtn}
+            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183639_6d61ad5c8f084ca5a0987267645d79c2.png"
+            alt="prev"
+            className="cur"
+          />
+          <img
+            onClick={handleNextBtn}
+            className="cur"
+            alt="next"
+            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183650_8d7f7c4e14fc4108b91642bf37dde397.png"
+          />
+        </div>
+        <button onClick={handleClickToday} className="p-1 bor rounded">
+          오늘
+        </button>
       </div>
       <div className="flex items-center">
         <div className="w-[610px] h-[715px] rounded-2xl overflow-hidden mr-24 bor shadow_box">
@@ -176,13 +204,10 @@ const Calendar = ({}) => {
             </tbody>
           </table>
         </div>
-
         <div>
           <CalendarDateModal />
         </div>
       </div>
-
-      {/* {modal && <CalendarDateModal onClose={handleCloseModal} />} */}
     </div>
   );
 };

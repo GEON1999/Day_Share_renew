@@ -108,10 +108,10 @@ export default async function Home(req: any) {
       queryKey: [QueryKeys.GET_INVITE_CODE, id],
       queryFn: () => getInviteCode(accessToken, id),
     }),
-    await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CALENDAR_DETAIL, id],
-      queryFn: () => getCalendarDetail(accessToken, id),
-    }),
+    // await queryClient.prefetchQuery({
+    //   queryKey: [QueryKeys.GET_CALENDAR_DETAIL, id],
+    //   queryFn: () => getCalendarDetail(accessToken, id),
+    // }),
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_DATES, id],
       queryFn: () => getCalendarDates(accessToken, id),
