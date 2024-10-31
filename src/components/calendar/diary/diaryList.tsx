@@ -30,11 +30,11 @@ const DiaryList = () => {
 
   return (
     <div className="small_container shadow_box">
-      <div className="h-[60px] bg_hilight flex items-center justify-center">
+      <div className="h-[60px] bg_hilight flex items-center justify-center flex-shrink-0">
         <h1 className=" text-2xl">공유 일기</h1>
       </div>
 
-      <div className="space-y-3 overflow-y-auto px-2">
+      <div className="overflow-y-auto space-y-3 px-2">
         {diaryData?.length === 0 || !diaryData ? (
           <p className="p-5">일기가 없습니다</p>
         ) : (

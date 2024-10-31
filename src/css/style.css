@@ -15,7 +15,7 @@
 }
 
 .small_container {
-  @apply w-[610px] h-[340px] bor rounded-md overflow-hidden;
+  @apply w-[610px] h-[340px] bor rounded-md overflow-hidden  flex flex-col;
 }
 
 .side_container {
@@ -128,8 +128,8 @@ li {
 /* 스크롤바 트랙에 여백 추가 */
 div::-webkit-scrollbar-track {
   background-color: transparent;
-  margin-top: 10px; /* 상단 여백 */
-  margin-bottom: 10px; /* 하단 여백 */
+  margin-top: 5px; /* 상단 여백 */
+  margin-bottom: 5px; /* 하단 여백 */
 }
 
 .status_box {

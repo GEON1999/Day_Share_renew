@@ -42,10 +42,10 @@ const TodoList = () => {
 
   return (
     <div className="small_container shadow_box">
-      <div className="h-[60px] bg_hilight flex items-center justify-center">
-        <h1 className=" text-2xl">공유 일정</h1>
+      <div className="h-[60px] bg_hilight flex items-center justify-center flex-shrink-0">
+        <h1 className="text-2xl">공유 일정</h1>
       </div>
-      <div className="space-y-3 px-2">
+      <div className="flex-grow overflow-y-auto space-y-3 px-2">
         {todoData?.length === 0 || !todoData ? (
           <p className="p-5">일정이 없습니다</p>
         ) : (
@@ -54,7 +54,7 @@ const TodoList = () => {
               <div
                 onClick={() => handleClickTodo(todo.id)}
                 key={todo.id}
-                className={`${index === 0 ? "" : "border-t"} cur flex justify-between items-center p-5  `}
+                className={`${index === 0 ? "" : "border-t"} cur flex justify-between items-center p-5`}
               >
                 <div className="">
                   <div className="flex items-center space-x-2">
@@ -68,7 +68,7 @@ const TodoList = () => {
                       <p className="gray text-sm">{todo.userProfile?.name}</p>
                     </div>
                   </div>
-                  <div className="my-4"> {todo.content} </div>
+                  <div className="my-4">{todo.content}</div>
                   <div className="flex space-x-2 text-xs gray">
                     <p>{Helper.formatTime(todo.startAt)}</p>
                     <p>~</p>
