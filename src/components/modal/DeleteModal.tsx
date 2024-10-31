@@ -3,7 +3,7 @@ const DeleteModal = ({
   mutateFn,
   msg = "정말 삭제하시겠습니까?",
 }: any) => {
-  const handleClickDeleteTodo = () => {
+  const handleDelete = () => {
     mutateFn();
   };
 
@@ -43,7 +43,7 @@ const DeleteModal = ({
             취소
           </button>
           <button
-            onClick={handleClickDeleteTodo}
+            onClick={handleDelete}
             className="bg_deeper bor text-black w-32 h-12 rounded-md mt-4"
           >
             확인

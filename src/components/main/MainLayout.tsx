@@ -25,7 +25,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       {/* Sidebar */}
       <aside
         className={
-          "side_container shadow-side border-r-[1.5px] border-[#494949] z-999"
+          "side_container shadow-side border-r-[1.5px] border-[#494949] z-10"
         }
       >
         <div>

@@ -146,7 +146,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       { calendarId: id, diaryId },
       {
         onSuccess: () => {
-          router.push(`/calendar/${id}`);
+          router.push(`/calendar/${id}?date=${Helper.getTodayMs()}`);
           console.log("success");
         },
         onError: () => {

@@ -149,7 +149,7 @@ const Calendar = ({}) => {
                               ? isClicked
                                 ? "bg_hilight cursor-pointer"
                                 : isHighlighted
-                                  ? "bg-[#E6E6E6] opacity-40 cursor-pointer"
+                                  ? "bg-[#E6E6E650]  cursor-pointer"
                                   : "bg-transparent text-gray-700 cursor-pointer hover:bg_ligth hover:text-gray-900"
                               : "cursor-default"
                           }`}

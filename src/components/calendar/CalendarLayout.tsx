@@ -110,9 +110,9 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="flex h-screen min-h-[1080px]">
       {/* Sidebar */}
       <aside
-        className={`${
-          isSidebarOpen ? "w-[350px] min-w-[350px]" : "w-0"
-        } bg_depp p-8 transition-all duration-300 overflow-hidden flex flex-col justify-between side_bar`}
+        className={
+          "side_container shadow-side border-r-[1.5px] border-[#494949] z-10"
+        }
       >
         <div>
           <div
@@ -120,7 +120,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
               isSidebarOpen ? "block" : "hidden"
             } flex flex-col items-center`}
           >
-            <div className="mb-4">
+            <div className="mt-[74px]">
               <img
                 onClick={handleClickMain}
                 src={
