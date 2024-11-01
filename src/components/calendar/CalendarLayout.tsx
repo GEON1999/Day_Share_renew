@@ -38,7 +38,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
       >
         <div>
           <div className={`flex flex-col items-center`}>
-            <div className="mt-[74px]">
+            <div className="mt-[74px] mb-14">
               <img
                 onClick={handleClickMain}
                 src={

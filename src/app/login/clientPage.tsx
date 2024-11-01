@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
+import { IconKakao } from "@/icons";
 
 function LoginClientPage() {
   const { data: session } = useSession();
@@ -54,42 +55,47 @@ function LoginClientPage() {
           />
         </div>
 
-        <div className="space-y-3 flex flex-col mt-10">
-          <input
-            className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
-            {...register("id")}
-            required
-            autoFocus={true}
-            placeholder={"ID"}
-          />
-          <input
-            className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
-            {...register("password")}
-            type="password"
-            required
-            placeholder={"password"}
-          />
-
-          <img
+        <div className="flex flex-col mt-18">
+          <div className="w-[385px] h-[130px] text-[18px]">
+            <input
+              className="border-[1.5px] border-[#7A7A7A] rounded-xl rounded-b-none  w-[385px] h-[65px] px-4 outline-none placeholder-[#D6B18D]"
+              {...register("id")}
+              required
+              autoFocus={true}
+              placeholder={"아이디"}
+            />
+            <input
+              className="border-[1.5px] border-[#7A7A7A] border-t-0 rounded-xl rounded-t-none w-[385px] h-[65px] px-4 outline-none placeholder-[#D6B18D]"
+              {...register("password")}
+              type="password"
+              required
+              placeholder={"비밀번호"}
+            />
+          </div>
+          <div className="mt-9 flex flex-col justify-center">
+            <button
+              type={"submit"}
+              className="border-[1.5px] border-[#7A7A7A] text-white rounded-xl w-[385px] h-[50px] outline-none bg-[#F6BEBE] font-black"
+            >
+              로그인
+            </button>
+            <button
+              type="button"
+              onClick={handleSignUp}
+              className="border-[1.5px] border-[#7A7A7A] text-[#F6BEBE] rounded-xl w-[385px] h-[50px] outline-none bg-white mt-2 font-black"
+            >
+              회원가입
+            </button>
+          </div>
+          <div
             onClick={handleKakao}
-            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728563922674.png"
-            alt="kakao"
-            className="w-60 h-10 border-2 rounded-md mt-4"
-          />
-          <button
-            type={"submit"}
-            className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg_ligth"
+            className="flex items-center space-x-4 justify-center mt-4"
           >
-            로그인
-          </button>
-
-          <button
-            type="button"
-            onClick={handleSignUp}
-            className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg_ligth mt-2"
-          >
-            회원가입
-          </button>
+            <IconKakao className="w-8 h-8" />
+            <span className="text-[13px] text-[#7A7A7A] font-semibold">
+              카카오 계정으로 로그인하기
+            </span>
+          </div>
         </div>
       </form>
     </div>

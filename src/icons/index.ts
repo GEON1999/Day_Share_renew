@@ -11,3 +11,5 @@ export { default as IconSearch } from "./search.svg";
 export { default as IconSetting } from "./setting.svg";
 export { default as IconStar_o } from "./star_o.svg";
 export { default as IconStar_x } from "./star_x.svg";
+export { default as IconCamera } from "./camera.svg";
+export { default as IconKakao } from "./kakao.svg";
