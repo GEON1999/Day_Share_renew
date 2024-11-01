@@ -67,7 +67,7 @@ const Dashboard = () => {
 
   return (
     <div className="main_container">
-      <div className="flex w-full h-full justify-center content-center items-center flex-col">
+      <div className="flex w-full h-screen  justify-center content-center items-center flex-col">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center"
