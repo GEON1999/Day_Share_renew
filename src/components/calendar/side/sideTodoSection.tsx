@@ -7,26 +7,32 @@ import useSearch from "@/hooks/useSearch";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useRouter } from "next/navigation";
 import { IconCheck_o, IconCheck_x, IconStar_o, IconStar_x } from "@/icons";
+import useTodoQueries from "@/queries/todo/useTodoQueries";
 
-const TodoSection = () => {
+const SideTodoSection = () => {
   const router = useRouter();
   const currentTodoPage = useSearch.useSearchTodoPage();
+  const id = useSearch.useSearchId();
 
   const {
     data: todoData,
-    isLoading: todoIsLoading,
+    isLoading: todoLoading,
     refetch,
-  } = useUserQueries.useGetUserTodos(`todo_page=${currentTodoPage}`);
+  } = useTodoQueries.useGetTodosByCalendarId(
+    id,
+    `todo_page=${currentTodoPage}`
+  );
+  console.log("todoData", todoData);
 
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,
   });
-  const { mutate: postUserFavoriteTodos } = useMutation({
-    mutationFn: useUserMutations.postUserFavoriteTodo,
-  });
-  const { mutate: deleteUserFavoriteTodos } = useMutation({
-    mutationFn: useUserMutations.deleteUserFavoriteTodo,
-  });
+  //   const { mutate: postUserFavoriteTodos } = useMutation({
+  //     mutationFn: useUserMutations.postUserFavoriteTodo,
+  //   });
+  //   const { mutate: deleteUserFavoriteTodos } = useMutation({
+  //     mutationFn: useUserMutations.deleteUserFavoriteTodo,
+  //   });
 
   const handleTodoClick = (calId: number, todoId: number, e: any) => {
     e.stopPropagation();
@@ -44,37 +50,37 @@ const TodoSection = () => {
     );
   };
 
-  const handleTodoFavorite = (e: any, todoId: number) => {
-    e.stopPropagation();
-    postUserFavoriteTodos(
-      { todoId },
-      {
-        onSuccess: () => {
-          console.log("성공");
-          refetch();
-        },
-        onError: () => {
-          console.log("실패");
-        },
-      }
-    );
-  };
+  //   const handleTodoFavorite = (e: any, todoId: number) => {
+  //     e.stopPropagation();
+  //     postUserFavoriteTodos(
+  //       { todoId },
+  //       {
+  //         onSuccess: () => {
+  //           console.log("성공");
+  //           refetch();
+  //         },
+  //         onError: () => {
+  //           console.log("실패");
+  //         },
+  //       }
+  //     );
+  //   };
 
-  const handleTodoUnFavorite = (e: any) => {
-    e.stopPropagation();
-    deleteUserFavoriteTodos(
-      {},
-      {
-        onSuccess: () => {
-          console.log("성공");
-          refetch();
-        },
-        onError: () => {
-          console.log("실패");
-        },
-      }
-    );
-  };
+  //   const handleTodoUnFavorite = (e: any) => {
+  //     e.stopPropagation();
+  //     deleteUserFavoriteTodos(
+  //       {},
+  //       {
+  //         onSuccess: () => {
+  //           console.log("성공");
+  //           refetch();
+  //         },
+  //         onError: () => {
+  //           console.log("실패");
+  //         },
+  //       }
+  //     );
+  //   };
 
   const handleClickTodo = (calId: number, todoId: number) =>
     router.push(`/calendar/${calId}/todo/${todoId}`);
@@ -119,17 +125,17 @@ const TodoSection = () => {
                         )}
                         <span className="ml-2">{todo.title}</span>
                       </div>
-                      {todo.isFavorite ? (
+                      {/* {todo.isFavorite ? (
                         <IconStar_o
                           onClick={(e: any) => handleTodoUnFavorite(e)}
                           className="w-5 h-5 cur"
                         />
                       ) : (
                         <IconStar_x
-                          onClick={(e: any) => handleTodoFavorite(e, todo.id)}
+                          onClick={(e : any) => handleTodoFavorite(e, todo.id)}
                           className="w-5 h-5 cur"
                         />
-                      )}
+                      )} */}
                     </li>
                   );
                 })}
@@ -150,4 +156,4 @@ const TodoSection = () => {
   );
 };
 
-export default TodoSection;
+export default SideTodoSection;
