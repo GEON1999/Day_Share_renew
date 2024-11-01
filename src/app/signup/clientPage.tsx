@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import commonMutation from "@/queries/commonMutation";
 import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
+import { IconCamera, IconKakao_icon } from "@/icons";
 
 function SignupClientPage() {
   const [userImg, setUserImg] = React.useState("");
@@ -87,7 +88,7 @@ function SignupClientPage() {
         {userImg !== "" ? (
           <div
             onClick={handleImageUpload}
-            className="rounded-full bg-gray-200 w-40 h-40 mb-4 bor cur mt-10"
+            className="rounded-full bg-gray-200 w-60 h-60 mb-4 bor cur mt-10"
           >
             <img
               src={userImg}
@@ -98,8 +99,10 @@ function SignupClientPage() {
         ) : (
           <div
             onClick={handleImageUpload}
-            className="rounded-full bg-gray-200 w-40 h-40 mb-4 bor cur bg-whiten mt-10"
-          ></div>
+            className="rounded-full bg-gray-200 w-60 h-60 mb-4 bor cur bg-whiten mt-10 flex justify-center items-center"
+          >
+            <IconCamera className="w-45 h-45 mb-5" />
+          </div>
         )}
         <input
           onInput={handleImageChange}
@@ -109,55 +112,51 @@ function SignupClientPage() {
         />
         <div className="space-y-3 flex flex-col">
           <input
-            className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
+            className="border-[1.5px] border-[#7A7A7A] text-[#F6BEBE] rounded-xl w-[385px] h-[50px] outline-none bg-white mt-2 placeholder-[#D6B18D] px-4"
             {...register("name")}
             required
             autoFocus={true}
-            placeholder={"name"}
+            placeholder={"이름"}
           />
           <input
-            className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
+            className="border-[1.5px] border-[#7A7A7A] text-[#F6BEBE] rounded-xl w-[385px] h-[50px] outline-none bg-white mt-2 placeholder-[#D6B18D] px-4"
             {...register("email")}
             required
             autoFocus={true}
-            placeholder={"id"}
+            placeholder={"아이디"}
           />
           <input
-            className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
+            className="border-[1.5px] border-[#7A7A7A] text-[#F6BEBE] rounded-xl w-[385px] h-[50px] outline-none bg-white mt-2 placeholder-[#D6B18D] px-4"
             {...register("password")}
             type="password"
             required
-            placeholder={"password"}
+            placeholder={"비밀번호"}
           />
           <input
-            className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
+            className="border-[1.5px] border-[#7A7A7A] text-[#F6BEBE] rounded-xl w-[385px] h-[50px] outline-none bg-white mt-2 placeholder-[#D6B18D] px-4"
             {...register("password_check")}
             type="password"
             required
-            placeholder={"password check"}
+            placeholder={"비밀번호 확인"}
           />
-
-          <img
-            onClick={handleKakao}
-            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728563922674.png"
-            alt="kakao"
-            className="w-60 h-10 border-2 rounded-md mt-4"
-          />
-          <button
-            type={"submit"}
-            className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg_ligth"
-          >
-            회원가입 완료
-          </button>
-
           <div>
             <button
-              onClick={handleLogin}
-              className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg_ligth mt-2"
+              type={"submit"}
+              className="border-[1.5px] border-[#7A7A7A] text-white rounded-xl w-[385px] h-[50px] outline-none bg-[#F6BEBE] font-black mt-6"
             >
-              로그인 페이지로
+              회원가입 완료
+            </button>
+            <button
+              onClick={handleKakao}
+              className="flex w-[385px] h-[50px] bg-[#FEE500] justify-center items-center border-[1.5px] border-[#7A7A7A] rounded-xl space-x-5 font-black mt-2"
+            >
+              <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241101154434_d6b143c9f54b4c45bee72babe3fbb067.png" />
+              <span>카카오 계정으로 간편 로그인</span>
             </button>
           </div>
+          <button onClick={handleLogin} className="text-[13px] text-[#7A7A7A]">
+            로그인 페이지로
+          </button>
         </div>
       </form>
     </div>

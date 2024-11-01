@@ -89,7 +89,7 @@ function LoginClientPage() {
           </div>
           <div
             onClick={handleKakao}
-            className="flex items-center space-x-4 justify-center mt-4"
+            className="flex items-center space-x-4 justify-center mt-4 cur"
           >
             <IconKakao className="w-8 h-8" />
             <span className="text-[13px] text-[#7A7A7A] font-semibold">
