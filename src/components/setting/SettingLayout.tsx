@@ -6,6 +6,7 @@ import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import TodoSection from "../main/todoSection";
 
 const SettingLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -42,20 +43,16 @@ const SettingLayout = ({ children }: { children: React.ReactNode }) => {
   // }, []);
 
   return (
-    <div className="flex h-screen min-h-[1080px]">
+    <div className="flex min-h-[1080px]">
       {/* Sidebar */}
-      <aside
-        className={`${
-          isSidebarOpen ? "w-[350px]" : "w-0"
-        } bg_depp p-8 transition-all duration-300  flex flex-col justify-between side_bar`}
-      >
+      <aside className="side_container shadow-side border-r-[1.5px] border-[#494949] z-10">
         <div>
           <div
             className={`${
               isSidebarOpen ? "block" : "hidden"
             } flex flex-col items-center`}
           >
-            <div className="mb-4">
+            <div className="mt-[74px]">
               <img
                 onClick={handleClickMain}
                 src={
@@ -65,7 +62,7 @@ const SettingLayout = ({ children }: { children: React.ReactNode }) => {
                 className="w-full h-full object-cover ml-3 cur"
               />
             </div>
-            <div className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2">
+            <div className="rounded-full bg-gray-200 w-[176px] h-[176px] bor mt-[58px] shadow_box">
               <img
                 src={userData.img}
                 alt="profile"
@@ -84,7 +81,9 @@ const SettingLayout = ({ children }: { children: React.ReactNode }) => {
               </li>
             </ul>
           </nav>
+          <TodoSection />
         </div>
+
         <div>
           <nav className="mt-2 mb-[73px] tet-[20px]">
             <ul>
