@@ -1,34 +1,21 @@
 import { dodum } from "@/app/fonts";
 import useSearch from "@/hooks/useSearch";
-import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
-import { useMutation } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import SettingModal from "@/components/modal/SettingModal";
-import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
-import DeleteModal from "@/components/modal/DeleteModal";
 import Helper from "@/helper/Helper";
 import { IconExit, IconSetting } from "@/icons";
 import SideTodoSection from "./side/sideTodoSection";
+import SideUserList from "./side/sideUserList";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [deleteUserId, setDeleteUserId] = useState<null | Number>(null);
-  const [isHover, setIsHover] = useState(false);
+
   const id = useSearch.useSearchId();
-
-  const { data: userList, isLoading: userListLoading } =
-    useCalendarQueries.useGetCalendarPermissionList(id);
-
-  const handleClickDeletePermission = (userId: number) => {
-    setIsConfirmOpen(true);
-    setDeleteUserId(userId);
-  };
 
   const handleClickMain = () => router.push("/");
   const handleCLickCalendar = () =>
@@ -39,31 +26,6 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const handleLogout = async () => {
     deleteCookie("AccessToken");
     await signOut();
-  };
-
-  const handleUserMouse = (bool: boolean) => setIsHover(bool);
-
-  const { mutate: deleteCalendarPermission } = useMutation({
-    mutationFn: useCalendarMutations.deleteCalendarPermission,
-  });
-
-  const handleDeletePermission = () => {
-    deleteCalendarPermission(
-      { calendarId: id, userId: deleteUserId },
-      {
-        onSuccess: (result) => {
-          if (result) {
-            alert("유저 추방에 성공하였습니다.");
-          } else {
-            alert("유저 추방에 실패하였습니다.");
-          }
-          window.location.reload();
-        },
-        onError: () => {
-          console.log("실패");
-        },
-      }
-    );
   };
 
   return (
@@ -86,40 +48,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
                 className="w-full h-full object-cover ml-3 cur"
               />
             </div>
-            <div
-              onMouseEnter={() => handleUserMouse(true)}
-              onMouseLeave={() => handleUserMouse(false)}
-              className="flex flex-col items-start justify-start w-full space-y-3 mt-5"
-            >
-              {userList?.map((user: any) => (
-                <div
-                  key={user.id}
-                  className="flex items-center justify-between w-[300px]"
-                >
-                  <div className="flex items-center">
-                    <img
-                      className="w-11 h-11 rounded-full bor"
-                      src={
-                        user.img === ""
-                          ? process.env.NEXT_PUBLIC_LOGO
-                          : user.img
-                      }
-                    />
-                    <span className="ml-2">{user.name}</span>
-                  </div>
-                  {isHover && (
-                    <button
-                      onClick={() => {
-                        handleClickDeletePermission(user.userId);
-                      }}
-                      className="mr-4"
-                    >
-                      추방
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
+            <SideUserList />
           </div>
           <nav className={` mt-8`}>
             <ul>
@@ -171,13 +100,6 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
       </aside>
       <ModalWrapper setIsOpen={setIsOpen} isOpen={isOpen}>
         <SettingModal setIsOpen={setIsOpen} />
-      </ModalWrapper>
-      <ModalWrapper setIsOpen={setIsConfirmOpen} isOpen={isConfirmOpen}>
-        <DeleteModal
-          setIsOpen={setIsConfirmOpen}
-          mutateFn={handleDeletePermission}
-          msg=" 정말 해당 유저를 추방하시겠습니까?"
-        />
       </ModalWrapper>
 
       {/* Main Content */}
