@@ -2,13 +2,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { IconKakao } from "@/icons";
 
 function LoginClientPage() {
-  const { data: session } = useSession();
-  console.log("session:", session);
-
   const router = useRouter();
 
   const { handleSubmit, register } = useForm();
@@ -58,14 +55,14 @@ function LoginClientPage() {
         <div className="flex flex-col mt-18">
           <div className="w-[385px] h-[130px] text-[18px]">
             <input
-              className="border-[1.5px] border-[#7A7A7A] rounded-xl rounded-b-none  w-[385px] h-[65px] px-4 outline-none placeholder-[#D6B18D]"
+              className="auth login_input rounded-xl rounded-b-none"
               {...register("id")}
               required
               autoFocus={true}
               placeholder={"아이디"}
             />
             <input
-              className="border-[1.5px] border-[#7A7A7A] border-t-0 rounded-xl rounded-t-none w-[385px] h-[65px] px-4 outline-none placeholder-[#D6B18D]"
+              className="auth login_input border-t-0 rounded-xl rounded-t-none"
               {...register("password")}
               type="password"
               required
@@ -73,16 +70,13 @@ function LoginClientPage() {
             />
           </div>
           <div className="mt-9 flex flex-col justify-center">
-            <button
-              type={"submit"}
-              className="border-[1.5px] border-[#7A7A7A] text-white rounded-xl w-[385px] h-[50px] outline-none bg-[#F6BEBE] font-black"
-            >
+            <button type={"submit"} className="auth submit_btn">
               로그인
             </button>
             <button
               type="button"
               onClick={handleSignUp}
-              className="border-[1.5px] border-[#7A7A7A] text-[#F6BEBE] rounded-xl w-[385px] h-[50px] outline-none bg-white mt-2 font-black"
+              className="auth sub_btn mt-2"
             >
               회원가입
             </button>
@@ -92,7 +86,7 @@ function LoginClientPage() {
             className="flex items-center space-x-4 justify-center mt-4 cur"
           >
             <IconKakao className="w-8 h-8" />
-            <span className="text-[13px] text-[#7A7A7A] font-semibold">
+            <span className="sub_text font-semibold">
               카카오 계정으로 로그인하기
             </span>
           </div>

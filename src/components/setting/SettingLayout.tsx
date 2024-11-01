@@ -1,6 +1,6 @@
 "use client";
 import { dodum } from "@/app/fonts";
-import { IconExit, IconSetting } from "@/icons";
+import { IconExit, IconHome, IconSetting } from "@/icons";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
@@ -74,14 +74,11 @@ const SettingLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
             <p className="font-semibold text-lg">{userData.name}</p>
           </div>
-          <nav className={`${isSidebarOpen ? "block" : "hidden"} mt-8`}>
+          <nav className={`${isSidebarOpen ? "block" : "hidden"} mt-8 ml-2`}>
             <ul>
               <li className="mb-4 text-lg flex items-center cur">
-                <img
-                  className="w-12 h-12"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864922152.jpg"
-                />
-                <span className="mt-1" onClick={handleClickMain}>
+                <IconHome className="w-8 h-8" />
+                <span className="text-[#666666]" onClick={handleClickMain}>
                   메인화면
                 </span>
               </li>

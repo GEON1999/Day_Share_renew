@@ -112,49 +112,46 @@ function SignupClientPage() {
         />
         <div className="space-y-3 flex flex-col">
           <input
-            className="border-[1.5px] border-[#7A7A7A] text-[#F6BEBE] rounded-xl w-[385px] h-[50px] outline-none bg-white mt-2 placeholder-[#D6B18D] px-4"
+            className="auth regular_input"
             {...register("name")}
             required
             autoFocus={true}
             placeholder={"이름"}
           />
           <input
-            className="border-[1.5px] border-[#7A7A7A] text-[#F6BEBE] rounded-xl w-[385px] h-[50px] outline-none bg-white mt-2 placeholder-[#D6B18D] px-4"
+            className="auth regular_input"
             {...register("email")}
             required
             autoFocus={true}
             placeholder={"아이디"}
           />
           <input
-            className="border-[1.5px] border-[#7A7A7A] text-[#F6BEBE] rounded-xl w-[385px] h-[50px] outline-none bg-white mt-2 placeholder-[#D6B18D] px-4"
+            className="auth regular_input"
             {...register("password")}
             type="password"
             required
             placeholder={"비밀번호"}
           />
           <input
-            className="border-[1.5px] border-[#7A7A7A] text-[#F6BEBE] rounded-xl w-[385px] h-[50px] outline-none bg-white mt-2 placeholder-[#D6B18D] px-4"
+            className="auth regular_input"
             {...register("password_check")}
             type="password"
             required
             placeholder={"비밀번호 확인"}
           />
           <div>
-            <button
-              type={"submit"}
-              className="border-[1.5px] border-[#7A7A7A] text-white rounded-xl w-[385px] h-[50px] outline-none bg-[#F6BEBE] font-black mt-6"
-            >
+            <button type={"submit"} className="auth submit_btn mt-6">
               회원가입 완료
             </button>
             <button
               onClick={handleKakao}
-              className="flex w-[385px] h-[50px] bg-[#FEE500] justify-center items-center border-[1.5px] border-[#7A7A7A] rounded-xl space-x-5 font-black mt-2"
+              className="auth flex bg-[#FEE500] justify-center items-center rounded-xl space-x-5 font-black mt-2"
             >
               <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241101154434_d6b143c9f54b4c45bee72babe3fbb067.png" />
               <span>카카오 계정으로 간편 로그인</span>
             </button>
           </div>
-          <button onClick={handleLogin} className="text-[13px] text-[#7A7A7A]">
+          <button onClick={handleLogin} className="sub_text">
             로그인 페이지로
           </button>
         </div>

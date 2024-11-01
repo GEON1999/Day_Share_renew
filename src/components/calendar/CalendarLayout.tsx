@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import SettingModal from "@/components/modal/SettingModal";
 import Helper from "@/helper/Helper";
-import { IconExit, IconSetting } from "@/icons";
+import { IconExit, IconHome, IconSetting } from "@/icons";
 import SideTodoSection from "./side/sideTodoSection";
 import SideUserList from "./side/sideUserList";
 
@@ -54,13 +54,10 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
             <ul>
               <li
                 onClick={handleClickMain}
-                className="mb-4 text-lg flex items-center "
+                className="mb-4 text-lg flex items-center ml-2"
               >
-                <img
-                  className="w-12 h-12"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864922152.jpg"
-                />
-                <span className="mt-1 text-[#71665f]">메인화면</span>
+                <IconHome className="w-8 h-8" />
+                <span className=" text-[#666666]">메인화면</span>
               </li>
               <li
                 onClick={handleCLickCalendar}

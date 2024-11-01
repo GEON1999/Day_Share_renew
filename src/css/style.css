@@ -26,6 +26,30 @@ li {
   @apply cursor-pointer;
 }
 
+.auth {
+  @apply border-[1.5px] border-[#7A7A7A] w-[385px] h-[50px] outline-none;
+}
+
+.auth.login_input {
+  @apply h-[65px] px-4 placeholder-[#D6B18D];
+}
+
+.auth.regular_input {
+  @apply text-[#F6BEBE] rounded-xl bg-white mt-2 placeholder-[#D6B18D] px-4;
+}
+
+.auth.submit_btn {
+  @apply text-white rounded-xl bg-[#F6BEBE] font-black;
+}
+
+.auth.sub_btn {
+  @apply text-[#F6BEBE] rounded-xl bg-white  font-black;
+}
+
+.sub_text {
+  @apply text-[13px] text-[#7A7A7A];
+}
+
 .loading.spinner {
   position: relative;
   top: 50%;
