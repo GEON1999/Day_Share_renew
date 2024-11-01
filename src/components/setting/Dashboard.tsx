@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import commonMutation from "@/queries/commonMutation";
 import useUserMutations from "@/queries/user/useUserMutations";
 import SecessionConfirmModal from "@/components/modal/SecessionConfirmModal";
+import { IconCamera } from "@/icons";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -74,7 +75,7 @@ const Dashboard = () => {
           {userImg !== "" ? (
             <div
               onClick={handleImageUpload}
-              className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2 cur"
+              className="rounded-full bg-gray-200 w-60 h-60 mb-4 bor cur mt-10"
             >
               <img
                 src={userImg}
@@ -85,8 +86,10 @@ const Dashboard = () => {
           ) : (
             <div
               onClick={handleImageUpload}
-              className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2 bg-whiten cur"
-            ></div>
+              className="rounded-full bg-gray-200 w-60 h-60 mb-4 bor cur bg-whiten mt-10 flex justify-center items-center"
+            >
+              <IconCamera className="w-45 h-45 mb-5" />
+            </div>
           )}
           <input
             onInput={handleImageChange}
@@ -94,15 +97,14 @@ const Dashboard = () => {
             className="hidden"
             id="imageUpload"
           />
-          <div className="space-y-3 flex flex-col">
+          <div className="flex flex-col mt-6">
             <input
               disabled
-              className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
-              autoFocus={true}
+              className="auth rounded-xl px-4 bg-slate-300 bg-opacity-20 text-slate-500"
               defaultValue={userData?.email}
             />
             <input
-              className="border-2 border-gray-300 rounded-md w-60 h-10 px-4 py-2 outline-none"
+              className="auth regular_input mt-3"
               {...register("name")}
               required
               autoFocus={true}
@@ -110,15 +112,12 @@ const Dashboard = () => {
               defaultValue={userData?.name}
             />
 
-            <button
-              type={"submit"}
-              className="border-2 rounded-md w-60 h-10 px-4 py-2 outline-none bg_ligth"
-            >
+            <button type={"submit"} className="auth submit_btn mt-9">
               저장
             </button>
           </div>
         </form>
-        <button className="relative top-80" onClick={handleDeleteUser}>
+        <button className="sub_text mt-3" onClick={handleDeleteUser}>
           탈퇴하기
         </button>
       </div>

@@ -35,7 +35,7 @@ li {
 }
 
 .auth.regular_input {
-  @apply text-[#F6BEBE] rounded-xl bg-white mt-2 placeholder-[#D6B18D] px-4;
+  @apply rounded-xl bg-white mt-2 placeholder-[#D6B18D] px-4;
 }
 
 .auth.submit_btn {
