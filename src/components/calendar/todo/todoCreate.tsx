@@ -48,7 +48,7 @@ const TodoCreate = () => {
           className="flex flex-col space-y-4"
         >
           <div className="flex justify-between items-center mb-10">
-            <h1 className="text-3xl font-bold ">일기 작성</h1>
+            <h1 className="text-3xl font-bold ">일정 작성</h1>
             <button
               type="submit"
               className="bg_deeper rounded px-4 py-2 bor mb-5"

@@ -6,6 +6,7 @@ import TodoPagination from "@/components/pagination/todoPagination";
 import useSearch from "@/hooks/useSearch";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useRouter } from "next/navigation";
+import { IconCheck_o, IconCheck_x, IconStar_o, IconStar_x } from "@/icons";
 
 const TodoSection = () => {
   const router = useRouter();
@@ -101,38 +102,32 @@ const TodoSection = () => {
                       onClick={() => handleClickTodo(todo.calendarId, todo.id)}
                     >
                       <div className="flex items-center ">
-                        {/* <input
-                          type="checkbox"
-                          defaultChecked={todo.isCompleted}
-                          onChange={() =>
-                            handleTodoClick(todo.calendarId, todo.id)
-                          }
-                          onClick={(e) => e.stopPropagation()}
-                        /> */}
-                        <img
-                          onClick={(e) =>
-                            handleTodoClick(todo.calendarId, todo.id, e)
-                          }
-                          src={
-                            todo.isCompleted
-                              ? "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241025231003_6b3276a2396647f3be3b1a82cf31eeaa.png"
-                              : "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241025230857_daae548a18e1488b9344e6194cd23bb5.png"
-                          }
-                          alt="check"
-                        />
+                        {todo.isCompleted ? (
+                          <IconCheck_o
+                            onClick={(e: any) =>
+                              handleTodoClick(todo.calendarId, todo.id, e)
+                            }
+                            className="w-5 h-5"
+                          />
+                        ) : (
+                          <IconCheck_x
+                            onClick={(e: any) =>
+                              handleTodoClick(todo.calendarId, todo.id, e)
+                            }
+                            className="w-5 h-5"
+                          />
+                        )}
                         <span className="ml-2">{todo.title}</span>
                       </div>
                       {todo.isFavorite ? (
-                        <img
-                          onClick={(e) => handleTodoUnFavorite(e)}
-                          className="cur"
-                          src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241023004137_23b6d0dbee044271ba9a23c5cc8ee66a.png"
+                        <IconStar_o
+                          onClick={(e: any) => handleTodoUnFavorite(e)}
+                          className="w-5 h-5 cur"
                         />
                       ) : (
-                        <img
+                        <IconStar_x
                           onClick={(e) => handleTodoFavorite(e, todo.id)}
-                          className="cur"
-                          src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241023004110_282a2f2a084f41df87961c10542a9850.png"
+                          className="w-5 h-5 cur"
                         />
                       )}
                     </li>

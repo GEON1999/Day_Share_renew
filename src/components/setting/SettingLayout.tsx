@@ -1,4 +1,6 @@
 "use client";
+import { dodum } from "@/app/fonts";
+import { IconExit, IconSetting } from "@/icons";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
@@ -21,23 +23,23 @@ const SettingLayout = ({ children }: { children: React.ReactNode }) => {
     await signOut();
   };
 
-  // 화면 크기 변화에 따른 사이드바 상태 업데이트
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 1600) {
-        setIsSidebarOpen(false);
-      } else {
-        setIsSidebarOpen(true);
-      }
-    };
+  // // 화면 크기 변화에 따른 사이드바 상태 업데이트
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     if (window.innerWidth < 1600) {
+  //       setIsSidebarOpen(false);
+  //     } else {
+  //       setIsSidebarOpen(true);
+  //     }
+  //   };
 
-    window.addEventListener("resize", handleResize);
-    handleResize(); // 페이지 로드 시 초기 사이드바 상태 설정
+  //   window.addEventListener("resize", handleResize);
+  //   handleResize(); // 페이지 로드 시 초기 사이드바 상태 설정
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   return (
     <div className="flex h-screen min-h-[1080px]">
@@ -87,38 +89,30 @@ const SettingLayout = ({ children }: { children: React.ReactNode }) => {
           </nav>
         </div>
         <div>
-          <nav
-            className={`${isSidebarOpen ? "block" : "hidden"} text-[#71665f]`}
-          >
+          <nav className="mt-2 mb-[73px] tet-[20px]">
             <ul>
               <li
-                className="mb-4 text-lg flex items-center cur"
+                className="flex items-center cur"
                 onClick={handleClickSetting}
               >
-                <img
-                  className="w-12 h-12"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864878122.jpg"
-                />
-                <span>설정</span>
+                <IconSetting className="w-8 h-8" />
+                <span className={`ml-[16px] ${dodum.className}`}>설정</span>
               </li>
               <li
-                className="mb-4 text-lg flex items-center cur"
+                className="flex items-center cur mt-[20px]"
                 onClick={handleLogout}
               >
-                <img
-                  className="w-12 h-10"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864855419.jpg"
-                />
-                <span>나가기</span>
+                <IconExit className="w-8 h-8" />
+                <span className={`ml-[17px] ${dodum.className}`}>나가기</span>
               </li>
             </ul>
           </nav>
-          <button
+          {/* <button
             className="p-2 bg-gray-200 rounded-md mb-4 "
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
             {isSidebarOpen ? "사이드바 닫기" : "사이드바 열기"}
-          </button>
+          </button> */}
         </div>
       </aside>
 

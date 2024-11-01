@@ -1,3 +1,4 @@
+import { dodum } from "@/app/fonts";
 import useSearch from "@/hooks/useSearch";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
@@ -5,13 +6,15 @@ import { useMutation } from "@tanstack/react-query";
 import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import SettingModal from "@/components/modal/SettingModal";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import DeleteModal from "@/components/modal/DeleteModal";
 import Helper from "@/helper/Helper";
+import { IconCheck_o, IconCheck_x, IconExit, IconSetting } from "@/icons";
+import TodoPagination from "../pagination/todoPagination";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -23,9 +26,9 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const [deleteUserId, setDeleteUserId] = useState<null | Number>(null);
   const [isHover, setIsHover] = useState(false);
   const id = useSearch.useSearchId();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: todoData, isLoading: todoLoading } =
     useTodoQueries.useGetTodosByCalendarId(id, `todo_page=${currentTodoPage}`);
+  console.log("todoData", todoData);
 
   const { data: userList, isLoading: userListLoading } =
     useCalendarQueries.useGetCalendarPermissionList(id);
@@ -34,7 +37,8 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
     mutationFn: useTodoMutations.toggleTodoComplete,
   });
 
-  const handleTodoClick = (calId: number, todoId: number) => {
+  const handleTodoClick = (calId: number, todoId: number, e: any) => {
+    e.stopPropagation();
     checkTodo(
       { calendarId: calId, todoId },
       {
@@ -115,11 +119,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
         }
       >
         <div>
-          <div
-            className={`${
-              isSidebarOpen ? "block" : "hidden"
-            } flex flex-col items-center`}
-          >
+          <div className={`flex flex-col items-center`}>
             <div className="mt-[74px]">
               <img
                 onClick={handleClickMain}
@@ -165,7 +165,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
               ))}
             </div>
           </div>
-          <nav className={`${isSidebarOpen ? "block" : "hidden"} mt-8`}>
+          <nav className={` mt-8`}>
             <ul>
               <li
                 onClick={handleClickMain}
@@ -190,68 +190,85 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
             </ul>
           </nav>
           {/* 개인 일정 */}
-          {isSidebarOpen && (
-            <section className="mt-8 bg-white p-4 rounded-lg shadow-4 border-2">
-              <div className="flex items-center justify-between content-center mb-4">
-                <h3 className="font-bold text-xl">캘린더 일정</h3>
-                <div className="flex space-x-3">
-                  <button onClick={handleTodoPrevBtn}>&lt;</button>
-                  <button onClick={handleTodoNextBtn}>&gt;</button>
-                </div>
+          <section className="mt-[37px] px-[17px] bg-white w-[300px] bor shadow_box rounded-md flex flex-col justify-between">
+            <ul className="space-y-2">
+              <div
+                className={`flex items-center justify-between content-center my-[20px] text-[25px] ${dodum.className}`}
+              >
+                캘린더 일정
               </div>
-              <ul className="space-y-2">
-                {todoData?.todos?.map((todo: any) => (
-                  <li key={todo.id} className="flex items-center">
-                    <input
-                      onClick={() => handleTodoClick(todo.calendarId, todo.id)}
-                      defaultChecked={todo.isCompleted}
-                      type="checkbox"
-                      className="mr-2"
-                    />
-                    <span
-                      onClick={() => handleClickTodo(todo.calendarId, todo.id)}
-                    >
-                      {todo.title}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
+              {todoData?.todos && todoData.todos.length > 0 ? (
+                todoData?.todos?.map((todo_group: any) => {
+                  return (
+                    <div key={todo_group.date}>
+                      <h4 className="bg_hilight inline-block mb-[16px] text-[18px] font-medium px-1">
+                        {todo_group.date}
+                      </h4>
+                      {todo_group.todos.map((todo: any) => {
+                        return (
+                          <li
+                            key={todo.id}
+                            className="flex items-center justify-between p-1 rounded-md  cursor-pointer"
+                            onClick={() =>
+                              handleClickTodo(todo.calendarId, todo.id)
+                            }
+                          >
+                            <div className="flex items-center ">
+                              {todo.isCompleted ? (
+                                <IconCheck_o
+                                  onClick={(e: any) =>
+                                    handleTodoClick(todo.calendarId, todo.id, e)
+                                  }
+                                  className="w-5 h-5"
+                                />
+                              ) : (
+                                <IconCheck_x
+                                  onClick={(e: any) =>
+                                    handleTodoClick(todo.calendarId, todo.id, e)
+                                  }
+                                  className="w-5 h-5"
+                                />
+                              )}
+
+                              <span className="ml-2">{todo.title}</span>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="flex flex-col justify-center items-center space-y-3 text-[18px]">
+                  <p>일정이 없어요. 추가해 볼까요?</p>
+                  <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241025225527_364fa9372c964ae5a25b055171d97dd5.png" />
+                </div>
+              )}
+            </ul>
+            {todoData?.todos && (
+              <TodoPagination total_count={todoData?.total_count} />
+            )}
+          </section>
         </div>
         <div>
-          <nav
-            className={`${isSidebarOpen ? "block" : "hidden"} text-[#71665f]`}
-          >
+          <nav className="mt-2 mb-[73px] tet-[20px]">
             <ul>
               <li
+                className="flex items-center cur"
                 onClick={handleClickSetting}
-                className="mb-4 text-lg flex items-center"
               >
-                <img
-                  className="w-12 h-12"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864878122.jpg"
-                />
-                <span>설정</span>
+                <IconSetting className="w-8 h-8" />
+                <span className={`ml-[16px] ${dodum.className}`}>설정</span>
               </li>
               <li
+                className="flex items-center cur mt-[20px]"
                 onClick={handleLogout}
-                className="mb-4 text-lg flex items-center"
               >
-                <img
-                  className="w-12 h-10"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1727864855419.jpg"
-                />
-                <span>나가기</span>
+                <IconExit className="w-8 h-8" />
+                <span className={`ml-[17px] ${dodum.className}`}>나가기</span>
               </li>
             </ul>
           </nav>
-          <button
-            className="p-2 bg-gray-200 rounded-md mb-4 "
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          >
-            {isSidebarOpen ? "사이드바 닫기" : "사이드바 열기"}
-          </button>
         </div>
       </aside>
       <ModalWrapper setIsOpen={setIsOpen} isOpen={isOpen}>

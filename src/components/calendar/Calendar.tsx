@@ -131,13 +131,13 @@ const Calendar = ({}) => {
         </div>
         <div className="flex space-x-2 justify-center mt-5">
           <button
-            onClick={handleClickCreateDiary}
+            onClick={handleClickCreateTodo}
             className="bg_hilight w-[150px] h-[40px] rounded  bor"
           >
             일정 생성
           </button>
           <button
-            onClick={handleClickCreateTodo}
+            onClick={handleClickCreateDiary}
             className="bg_hilight w-[150px] h-[40px] rounded bor"
           >
             일기 생성

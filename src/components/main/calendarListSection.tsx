@@ -12,6 +12,7 @@ import useSearch from "@/hooks/useSearch";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import AddCalendarModal from "@/components/modal/AddCalendar";
 import Helper from "@/helper/Helper";
+import { IconAdd } from "@/icons";
 
 const CalendarListSection = () => {
   const router = useRouter();
@@ -85,11 +86,7 @@ const CalendarListSection = () => {
       <div className="flex justify-between w-[1260px] items-center mt-[47px]">
         <div className="flex items-center mb-[17px] space-x-1">
           <h2 className={`text-[30px] ${dodum.className}`}>공유 달력</h2>
-          <img
-            onClick={handleAddBtn}
-            className="cur"
-            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024183542_8e6784334f79491988810457d2b5eb6a.png"
-          />
+          <IconAdd onClick={handleAddBtn} className="w-6 h-6 cur" />
         </div>
         <div className="flex items-center justify-between space-x-4">
           {!calendarData || calendarData?.total_calendars === 0 ? null : (

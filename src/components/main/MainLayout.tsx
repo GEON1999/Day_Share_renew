@@ -6,6 +6,7 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import TodoSection from "@/components/main/todoSection";
+import { IconExit, IconSetting } from "@/icons";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -60,20 +61,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 className="flex items-center cur"
                 onClick={handleClickSetting}
               >
-                <img
-                  className=""
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024191437_8c13f80fd31146aaaa1a97fd4a0a2fd0.png"
-                />
+                <IconSetting className="w-8 h-8" />
                 <span className={`ml-[16px] ${dodum.className}`}>설정</span>
               </li>
               <li
                 className="flex items-center cur mt-[20px]"
                 onClick={handleLogout}
               >
-                <img
-                  className=""
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024191335_4ecd9c6c9e5047278733a8146035b70d.png"
-                />
+                <IconExit className="w-8 h-8" />
                 <span className={`ml-[17px] ${dodum.className}`}>나가기</span>
               </li>
             </ul>
