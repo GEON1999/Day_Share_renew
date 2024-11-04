@@ -101,7 +101,7 @@ function SignupClientPage() {
               <span>카카오 계정으로 간편 로그인</span>
             </button>
           </div>
-          <button onClick={handleLogin} className="sub_text">
+          <button type="button" onClick={handleLogin} className="sub_text">
             로그인 페이지로
           </button>
         </div>

@@ -132,7 +132,7 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
             circularCrop={true}
           >
             <img
-              src={src}
+              src={src ?? ""}
               onLoad={onImageLoad}
               alt="Source"
               style={{

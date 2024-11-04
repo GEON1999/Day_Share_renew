@@ -9,6 +9,7 @@ import commonMutation from "@/queries/commonMutation";
 import useUserMutations from "@/queries/user/useUserMutations";
 import SecessionConfirmModal from "@/components/modal/SecessionConfirmModal";
 import { IconCamera } from "@/icons";
+import ImageCropComponent from "../ImageCropComponent";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -72,7 +73,7 @@ const Dashboard = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center"
         >
-          {userImg !== "" ? (
+          {/* {userImg !== "" ? (
             <div
               onClick={handleImageUpload}
               className="rounded-full bg-gray-200 w-60 h-60 mb-4 bor cur mt-10"
@@ -96,7 +97,8 @@ const Dashboard = () => {
             type="file"
             className="hidden"
             id="imageUpload"
-          />
+          /> */}
+          <ImageCropComponent userImg={userImg} setUserImg={setUserImg} />
           <div className="flex flex-col mt-6">
             <input
               disabled

@@ -7,6 +7,7 @@ import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useSearch from "@/hooks/useSearch";
 import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
+import ImageCropComponent from "../ImageCropComponent";
 
 const SettingModal = ({ setIsOpen }: any) => {
   const [formSelect, setFormSelect] = useState("profile");
@@ -155,7 +156,7 @@ const SettingModal = ({ setIsOpen }: any) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bor  relative flex flex-col w-[600px] h-[550px] bg_depp rounded-xl p-8">
+      <div className="bor  relative flex flex-col w-[900px] h-[850px] bg_depp rounded-xl p-8">
         <div className="flex justify-between p-4 items-center">
           <nav className="flex">
             <div
@@ -283,26 +284,10 @@ const SettingModal = ({ setIsOpen }: any) => {
                 className="flex flex-col items-center mt-10 space-y-5"
               >
                 <div className="flex flex-col items-center">
-                  <input
-                    id="myProfileImageUpload"
-                    className="hidden"
-                    onInput={handleMyProfileImage}
-                    accept=".jpg, .png, .bmp, .gif, .svg, .webp"
-                    type="file"
+                  <ImageCropComponent
+                    userImg={myImage}
+                    setUserImg={setMyImage}
                   />
-                  {myImage === "" ? (
-                    <div
-                      onClick={handleMyProfileImageBtn}
-                      className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2 bg-whiten"
-                    />
-                  ) : (
-                    <img
-                      src={myImage ?? ""}
-                      onClick={handleMyProfileImageBtn}
-                      className="bg-white  w-40 h-40 rounded-full cur bor"
-                      alt="Calendar"
-                    />
-                  )}
                   <label htmlFor="imageUpload" className="mt-4">
                     프로필 이미지
                   </label>
