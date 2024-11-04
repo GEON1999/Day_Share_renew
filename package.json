@@ -34,6 +34,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18",
     "react-hook-form": "^7.51.0",
+    "react-image-crop": "^11.0.7",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1"
   },

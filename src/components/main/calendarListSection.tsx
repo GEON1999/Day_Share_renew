@@ -108,7 +108,7 @@ const CalendarListSection = () => {
           {(isEditMode ? calendars : combineData.slice(0, 5)).map(
             (calendar, index) => (
               <CalendarItem
-                key={calendar.id}
+                key={calendar.id ?? index}
                 calendar={calendar}
                 index={index}
                 moveCalendar={moveCalendar}

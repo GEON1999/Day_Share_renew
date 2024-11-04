@@ -121,9 +121,9 @@ const Calendar = ({}) => {
           <span className="text-2xl font-bold">
             {year}년 {month + 1}월
           </span>
-          <div className="flex items-center space-x-[13px] cur">
-            <IconPrev onClick={handlePrevBtn} className="w-5 h-5"/>
-            <IconNext onClick={handleNextBtn} className="w-5 h-5"/>
+          <div className="flex items-center space-x-[13px]">
+            <IconPrev onClick={handlePrevBtn} className="w-5 h-5 cur" />
+            <IconNext onClick={handleNextBtn} className="w-5 h-5 cur" />
           </div>
           <button onClick={handleClickToday} className="p-1 bor rounded">
             오늘
@@ -190,8 +190,8 @@ const Calendar = ({}) => {
                               ? isClicked
                                 ? "bg_hilight cursor-pointer"
                                 : isHighlighted
-                                  ? "bg-[#E6E6E650]  cursor-pointer"
-                                  : "bg-transparent text-gray-700 cursor-pointer hover:bg_ligth hover:text-gray-900"
+                                ? "bg-[#E6E6E650]  cursor-pointer"
+                                : "bg-transparent text-gray-700 cursor-pointer hover:bg_ligth hover:text-gray-900"
                               : "cursor-default"
                           }`}
                         >
@@ -200,10 +200,10 @@ const Calendar = ({}) => {
                               currentMonth && dayIndex === 0
                                 ? "text_red"
                                 : !currentMonth && dayIndex === 0
-                                  ? "text_red opacity-40"
-                                  : !currentMonth && dayIndex !== 0
-                                    ? "opacity-40"
-                                    : ""
+                                ? "text_red opacity-40"
+                                : !currentMonth && dayIndex !== 0
+                                ? "opacity-40"
+                                : ""
                             }
                           >
                             {day}
