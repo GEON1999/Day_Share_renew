@@ -8,6 +8,7 @@ import useUserQueries from "@/queries/user/useUserQueries";
 import { useRouter } from "next/navigation";
 import { IconCheck_o, IconCheck_x, IconStar_o, IconStar_x } from "@/icons";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
+import Helper from "@/helper/Helper";
 
 const SideTodoSection = () => {
   const router = useRouter();
@@ -27,12 +28,6 @@ const SideTodoSection = () => {
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,
   });
-  //   const { mutate: postUserFavoriteTodos } = useMutation({
-  //     mutationFn: useUserMutations.postUserFavoriteTodo,
-  //   });
-  //   const { mutate: deleteUserFavoriteTodos } = useMutation({
-  //     mutationFn: useUserMutations.deleteUserFavoriteTodo,
-  //   });
 
   const handleTodoClick = (calId: number, todoId: number, e: any) => {
     e.stopPropagation();
@@ -50,38 +45,6 @@ const SideTodoSection = () => {
     );
   };
 
-  //   const handleTodoFavorite = (e: any, todoId: number) => {
-  //     e.stopPropagation();
-  //     postUserFavoriteTodos(
-  //       { todoId },
-  //       {
-  //         onSuccess: () => {
-  //           console.log("성공");
-  //           refetch();
-  //         },
-  //         onError: () => {
-  //           console.log("실패");
-  //         },
-  //       }
-  //     );
-  //   };
-
-  //   const handleTodoUnFavorite = (e: any) => {
-  //     e.stopPropagation();
-  //     deleteUserFavoriteTodos(
-  //       {},
-  //       {
-  //         onSuccess: () => {
-  //           console.log("성공");
-  //           refetch();
-  //         },
-  //         onError: () => {
-  //           console.log("실패");
-  //         },
-  //       }
-  //     );
-  //   };
-
   const handleClickTodo = (calId: number, todoId: number) =>
     router.push(`/calendar/${calId}/todo/${todoId}`);
 
@@ -98,7 +61,7 @@ const SideTodoSection = () => {
             return (
               <div key={todo_group.date}>
                 <h4 className="bg_hilight inline-block mb-[16px] text-[18px] font-medium px-1">
-                  {todo_group.date}
+                  {Helper.formatWithoutYear(todo_group.date)}
                 </h4>
                 {todo_group.todos.map((todo: any) => {
                   return (
@@ -125,17 +88,6 @@ const SideTodoSection = () => {
                         )}
                         <span className="ml-2">{todo.title}</span>
                       </div>
-                      {/* {todo.isFavorite ? (
-                        <IconStar_o
-                          onClick={(e: any) => handleTodoUnFavorite(e)}
-                          className="w-5 h-5 cur"
-                        />
-                      ) : (
-                        <IconStar_x
-                          onClick={(e : any) => handleTodoFavorite(e, todo.id)}
-                          className="w-5 h-5 cur"
-                        />
-                      )} */}
                     </li>
                   );
                 })}

@@ -7,6 +7,7 @@ import useSearch from "@/hooks/useSearch";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useRouter } from "next/navigation";
 import { IconCheck_o, IconCheck_x, IconStar_o, IconStar_x } from "@/icons";
+import Helper from "@/helper/Helper";
 
 const TodoSection = () => {
   const router = useRouter();
@@ -92,7 +93,7 @@ const TodoSection = () => {
             return (
               <div key={todo_group.date}>
                 <h4 className="bg_hilight inline-block mb-[16px] text-[18px] font-medium px-1">
-                  {todo_group.date}
+                  {Helper.formatWithoutYear(todo_group.date)}
                 </h4>
                 {todo_group.todos.map((todo: any) => {
                   return (
