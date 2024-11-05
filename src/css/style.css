@@ -59,10 +59,27 @@ li {
   width: 150px;
   height: 150px;
   border: 3px solid #eee;
-  border-bottom-color: #e0cbb7;
+  border-bottom-color: #f6bebe;
   border-radius: 50%;
   animation: rotate 1s infinite linear;
 }
+
+.loading.spinner.small {
+  width: 100px;
+  height: 100px;
+  border-width: 1px;
+  margin-top: 0px;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .modal.loading {
   position: absolute;
   top: 50%;

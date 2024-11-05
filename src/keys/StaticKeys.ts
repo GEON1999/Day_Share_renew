@@ -1,9 +1,11 @@
 const DEBOUNCE_TIME = 3000;
 const MAX_WIDTH = 500;
 const MAX_HEIGHT = 500;
+const CALENDAR_TYPE = "CALENDAR_TYPE";
 
 export default {
   DEBOUNCE_TIME,
   MAX_WIDTH,
   MAX_HEIGHT,
+  CALENDAR_TYPE,
 };
