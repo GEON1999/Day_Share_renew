@@ -1,10 +1,8 @@
 import { dodum } from "@/app/fonts";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
-import useUserMutations from "@/queries/user/useUserMutations";
 import { useMutation } from "@tanstack/react-query";
 import TodoPagination from "@/components/pagination/todoPagination";
 import useSearch from "@/hooks/useSearch";
-import useUserQueries from "@/queries/user/useUserQueries";
 import { useRouter } from "next/navigation";
 import { IconCheck_o, IconCheck_x, IconStar_o, IconStar_x } from "@/icons";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
@@ -23,7 +21,6 @@ const SideTodoSection = () => {
     id,
     `todo_page=${currentTodoPage}`
   );
-  console.log("todoData", todoData);
 
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,

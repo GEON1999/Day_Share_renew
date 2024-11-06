@@ -35,7 +35,16 @@ const Toolbar = ({ editor }: any) => {
       });
 
       if (url) {
-        editor?.chain().focus().setImage({ src: url }).run();
+        if (editor.isEmpty) {
+          editor.chain().focus().insertContent("<p></p>").run();
+        }
+        editor
+          ?.chain()
+          .focus()
+          .setTextSelection(editor.state.doc.content.size - 1)
+          .insertContent("<p></p>")
+          .setImage({ src: url })
+          .run();
       }
     } catch (error) {
       console.error("이미지 업로드 중 오류 발생:", error);

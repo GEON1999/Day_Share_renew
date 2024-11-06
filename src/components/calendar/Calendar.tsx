@@ -59,7 +59,6 @@ const Calendar = ({}) => {
   // calendarDetail을 가져오는 것 보다 100 ~ 200ms 빠른 LCP
   const { data: calendarDate, isLoading } =
     useCalendarQueries.useGetCalendarDates(calendarId);
-  console.log("calendarDate", calendarDate);
 
   useEffect(() => {
     document.title = `Calendar - ${year}-${month + 1}`;
