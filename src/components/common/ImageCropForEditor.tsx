@@ -98,14 +98,11 @@ function ImageCropForEditor({ editor }: any) {
             onSuccess: (result: any) => {
               if (result.url) {
                 const img = result.url;
-                console.log("img", img);
-                if (editor.isEmpty) {
-                  editor.chain().focus().insertContent("<p></p>").run();
-                }
+
                 editor
                   ?.chain()
                   .focus()
-                  .setTextSelection(editor.state.doc.content.size - 1)
+                  .setTextSelection(editor.state.doc.content.size)
                   .insertContent("<p></p>")
                   .setImage({ src: img })
                   .run();

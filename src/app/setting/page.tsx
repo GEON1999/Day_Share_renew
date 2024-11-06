@@ -19,6 +19,13 @@ const getUser = async (accessToken: any) => {
   );
   return data;
 };
+const getUserTodos = async (accessToken: any, query: string) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}${API.GET_USER_TODOS(query)}`,
+    rqOption.apiHeader(accessToken)
+  );
+  return data;
+};
 
 export default async function Home(req: any) {
   const encryptedAccessToken = cookies().get("AccessToken");
@@ -26,10 +33,16 @@ export default async function Home(req: any) {
 
   const queryClient = new QueryClient();
 
+  const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
+
   Promise.all([
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],
       queryFn: () => getUser(accessToken),
+    }),
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_USER_TODOS, todoPage],
+      queryFn: () => getUserTodos(accessToken, todoPage),
     }),
   ]);
 
