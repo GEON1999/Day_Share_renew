@@ -6,7 +6,7 @@ import useAuthMutations from "@/queries/auth/useAuthMutations";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import "react-image-crop/dist/ReactCrop.css";
-import ImageCropComponent from "@/components/ImageCropComponent";
+import ImageCropComponent from "@/components/common/ImageCropComponent";
 
 function SignupClientPage() {
   const [userImg, setUserImg] = useState("");

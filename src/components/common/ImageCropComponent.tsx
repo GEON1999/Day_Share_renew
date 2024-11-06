@@ -123,7 +123,7 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
         id="imageUpload"
       />
       <ModalWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
-        <div className="flex flex-col items-center space-y-4">
+        <div className="flex flex-col items-center bg-[#FFFCF0] py-15 px-40 rounded-md bor">
           <ReactCrop
             crop={crop}
             onChange={(c) => setCrop({ ...c, aspect: 1 })}
@@ -144,7 +144,7 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
             />
           </ReactCrop>
           <button
-            className="bg-[#F6BEBE] w-14 h-10 bor rounded-md text-white"
+            className="bg-[#F6BEBE] w-20 h-12 bor rounded-md text-white mt-15"
             onClick={handleCropUpload}
           >
             다음

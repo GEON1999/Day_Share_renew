@@ -15,3 +15,7 @@ export { default as IconCamera } from "./camera.svg";
 export { default as IconKakao } from "./kakao.svg";
 export { default as IconKakao_icon } from "./kakao_only.svg";
 export { default as IconHome } from "./home.svg";
+export { default as IconUndo } from "./undo.svg";
+export { default as IconRedo } from "./redo.svg";
+export { default as IconBold } from "./bold.svg";
+export { default as IconAddPhoto } from "./add_photo.svg";

@@ -7,7 +7,7 @@ import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useSearch from "@/hooks/useSearch";
 import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
-import ImageCropComponent from "../ImageCropComponent";
+import ImageCropComponent from "../common/ImageCropComponent";
 
 const SettingModal = ({ setIsOpen }: any) => {
   const [formSelect, setFormSelect] = useState("profile");

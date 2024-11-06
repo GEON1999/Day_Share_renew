@@ -1,18 +1,14 @@
 "use client";
 import useUserQueries from "@/queries/user/useUserQueries";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import commonMutation from "@/queries/commonMutation";
 import useUserMutations from "@/queries/user/useUserMutations";
 import SecessionConfirmModal from "@/components/modal/SecessionConfirmModal";
-import { IconCamera } from "@/icons";
-import ImageCropComponent from "../ImageCropComponent";
+import ImageCropComponent from "../common/ImageCropComponent";
 
 const Dashboard = () => {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const { data: userData, isLoading: userIsLoading } =
     useUserQueries.useGetUser();
@@ -24,10 +20,6 @@ const Dashboard = () => {
 
   const { mutate: updateUser } = useMutation({
     mutationFn: useUserMutations.updateUser,
-  });
-
-  const { mutate: imageMutate } = useMutation({
-    mutationFn: commonMutation.uploadImage,
   });
 
   const onSubmit = async (formData: any) => {
@@ -50,22 +42,6 @@ const Dashboard = () => {
 
   const handleDeleteUser = () => setIsOpen(true);
 
-  const handleImageUpload = () => {
-    document.getElementById("imageUpload")?.click();
-  };
-
-  const handleImageChange = (e: any) => {
-    const file = e.target.files[0];
-    imageMutate(file, {
-      onSuccess: (result: any) => {
-        setUserImg(result.url);
-      },
-      onError: (error) => {
-        alert("이미지 업로드에 실패했습니다.");
-      },
-    });
-  };
-
   return (
     <div className="main_container">
       <div className="flex w-full h-screen  justify-center content-center items-center flex-col">
@@ -73,31 +49,6 @@ const Dashboard = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center"
         >
-          {/* {userImg !== "" ? (
-            <div
-              onClick={handleImageUpload}
-              className="rounded-full bg-gray-200 w-60 h-60 mb-4 bor cur mt-10"
-            >
-              <img
-                src={userImg}
-                alt="profile"
-                className="rounded-full w-full h-full object-cover"
-              />
-            </div>
-          ) : (
-            <div
-              onClick={handleImageUpload}
-              className="rounded-full bg-gray-200 w-60 h-60 mb-4 bor cur bg-whiten mt-10 flex justify-center items-center"
-            >
-              <IconCamera className="w-45 h-45 mb-5" />
-            </div>
-          )}
-          <input
-            onInput={handleImageChange}
-            type="file"
-            className="hidden"
-            id="imageUpload"
-          /> */}
           <ImageCropComponent userImg={userImg} setUserImg={setUserImg} />
           <div className="flex flex-col mt-6">
             <input
