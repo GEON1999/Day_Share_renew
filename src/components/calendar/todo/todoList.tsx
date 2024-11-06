@@ -22,7 +22,7 @@ const TodoList = () => {
   });
 
   const handleClickTodo = (id: number) => {
-    router.push(`/calendar/${calendarId}/todo/${id}`);
+    router.push(`/calendar/${calendarId}/todo/${id}?date=${date}`);
   };
 
   const handleTodoClick = (calId: number, todoId: number, e: any) => {
@@ -55,7 +55,9 @@ const TodoList = () => {
               <div
                 onClick={() => handleClickTodo(todo.id)}
                 key={todo.id}
-                className={`${index === 0 ? "" : "border-t"} cur flex justify-between items-center p-5`}
+                className={`${
+                  index === 0 ? "" : "border-t"
+                } cur flex justify-between items-center p-5`}
               >
                 <div className="">
                   <div className="flex items-center space-x-2">
@@ -93,19 +95,14 @@ const TodoList = () => {
                   </div>
                 </div>
                 <div>
-                  
-                <div  
-                className="w-5 h-5"
-                onClick={(e) =>
+                  <div
+                    className="w-5 h-5"
+                    onClick={(e) =>
                       handleTodoClick(todo.calendarId, todo.id, e)
-                    }>
-                {
-                      todo.isCompleted
-                        ?<IconCheck_o />
-                        : <IconCheck_x/>
                     }
-                    </div>
-                
+                  >
+                    {todo.isCompleted ? <IconCheck_o /> : <IconCheck_x />}
+                  </div>
                 </div>
               </div>
             );

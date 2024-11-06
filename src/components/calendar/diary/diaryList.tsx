@@ -25,7 +25,7 @@ const DiaryList = () => {
   };
 
   const handleClickDiary = (id: number) => {
-    router.push(`/calendar/${calendarId}/diary/${id}`);
+    router.push(`/calendar/${calendarId}/diary/${id}?date=${date}`);
   };
 
   return (
@@ -43,7 +43,9 @@ const DiaryList = () => {
               <div
                 onClick={() => handleClickDiary(diary.id)}
                 key={diary.id}
-                className={`${index === 0 ? "" : "border-t"} cur flex justify-between items-center p-5  `}
+                className={`${
+                  index === 0 ? "" : "border-t"
+                } cur flex justify-between items-center p-5  `}
               >
                 <div className="">
                   <div className="flex items-center space-x-2">

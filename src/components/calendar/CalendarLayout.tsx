@@ -14,12 +14,11 @@ import SideUserList from "./side/sideUserList";
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-
+  const date = useSearch.useSearchDate();
   const id = useSearch.useSearchId();
 
   const handleClickMain = () => router.push("/");
-  const handleCLickCalendar = () =>
-    router.push(`/calendar/${id}?date=${Helper.getTodayMs()}`);
+  const handleCLickCalendar = () => router.push(`/calendar/${id}?date=${date}`);
 
   const handleClickSetting = () => setIsOpen(true);
 
