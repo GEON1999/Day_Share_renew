@@ -42,14 +42,19 @@ function ImageCropForEditor({ editor }: any) {
     imageRef.current = e.currentTarget;
     const { width, height } = e.currentTarget;
     const size = Math.min(width, height) * 0.8;
-    setCrop({
+    const initialCrop: PixelCrop = {
       unit: "px",
       width: size,
       height: size,
       x: (width - size) / 2,
       y: (height - size) / 2,
+    };
+
+    setCrop({
+      ...initialCrop,
       aspect: 1,
     });
+    setCompletedCrop(initialCrop);
   };
 
   const onCropComplete = (crop: PixelCrop) => {
@@ -92,7 +97,8 @@ function ImageCropForEditor({ editor }: any) {
           imageMutate(file, {
             onSuccess: (result: any) => {
               if (result.url) {
-                console.log("result.url", result.url);
+                const img = result.url;
+                console.log("img", img);
                 if (editor.isEmpty) {
                   editor.chain().focus().insertContent("<p></p>").run();
                 }
@@ -101,7 +107,7 @@ function ImageCropForEditor({ editor }: any) {
                   .focus()
                   .setTextSelection(editor.state.doc.content.size - 1)
                   .insertContent("<p></p>")
-                  .setImage({ src: result.url })
+                  .setImage({ src: img })
                   .run();
               }
             },
