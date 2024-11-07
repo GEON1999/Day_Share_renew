@@ -12,7 +12,6 @@ const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: userData, isLoading: userIsLoading } =
     useUserQueries.useGetUser();
-  console.log("userData :", userData);
 
   const [userImg, setUserImg] = useState(userData?.img ?? "");
 

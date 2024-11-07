@@ -43,13 +43,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
             <div className="rounded-full bg-gray-200 w-[176px] h-[176px] bor mt-[58px] shadow_box">
               <img
-                src={userData.img}
+                src={userData?.img}
                 alt="profile"
                 className="rounded-full w-full h-full object-cover"
               />
             </div>
             <p className={`text-[30px] mt-[20px]  ${dodum.className}`}>
-              {userData.name}
+              {userData?.name}
             </p>
           </div>
           <TodoSection />

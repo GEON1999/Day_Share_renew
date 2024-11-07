@@ -44,22 +44,28 @@ export const authOptions = {
               },
             }
           );
-          console.log("data:", data);
 
-          if (!data?.access_token) {
-            console.log("failed");
-            return NextResponse.redirect("/login");
-          } else {
-            const accessToken = AesEncryption.aes_encrypt(data?.access_token);
+          if (data?.access_token && data?.refresh_token) {
+            const accessToken = AesEncryption.aes_encrypt(data.access_token);
+            const refreshToken = AesEncryption.aes_encrypt(data.refresh_token);
+
             await cookies().set("AccessToken", accessToken, {
-              maxAge: 86400,
+              maxAge: 60, // 테스트를 위해 1분으로 설정
             });
 
-            console.log("success");
+            await cookies().set("RefreshToken", refreshToken, {
+              maxAge: 60 * 60 * 24 * 7, // 7일
+            });
             return {
               id: credentials?.id,
               email: credentials?.id,
+              accessToken: data.access_token,
+              refreshToken: data.refresh_token,
+              expires_in: 60, // 테스트를 위해 1분으로 설정
+              accessTokenExpires: Date.now() + 60 * 1000,
             };
+          } else {
+            return null;
           }
         } catch (e) {
           console.log("error:", e);
@@ -71,66 +77,110 @@ export const authOptions = {
 
   callbacks: {
     async jwt({ token, user, account }: any) {
-      // 첫 로그인 시 사용자 정보가 존재할 때 token에 추가
-      if (account && user) {
-        token.id = user.id || user.sub || null;
-        token.email = user.email || null;
-        token.provider = account.provider;
-      }
-
-      // Kakao 로그인 시 token 쿠키 저장 로직 유지
-      if (account?.provider === "kakao" && user) {
-        const social_id = user.id;
-        const img = user.image;
-        const name = user.name;
-        console.log("social_id:", social_id, "img:", img, "name:", name);
-        const { data } = await axios.get(
-          `${process.env.BASE_URL}${API.SOCIAL_CHECK(social_id)}`
-        );
-        console.log("isNew?:", data);
-
-        if (data?.isNew) {
-          const { data: signupData } = await axios.post(
-            `${process.env.BASE_URL}${API.SOCIAL_SIGNUP}`,
+      console.log("now:", Date.now() > token.accessTokenExpires);
+      console.log("now", Date.now(), "expires:", token.accessTokenExpires);
+      async function refreshAccessToken(token: any) {
+        try {
+          const response = await axios.post(
+            `${process.env.BASE_URL}/api/refresh`,
             {
-              social_id: social_id,
-              img: img,
-              name: name,
+              refresh_token: token.refreshToken,
             }
           );
-          if (signupData?.access_token) {
-            const accessToken = AesEncryption.aes_encrypt(
-              signupData.access_token
-            );
-            await cookies().set("AccessToken", accessToken, {
-              maxAge: 86400,
-            });
-          }
-        } else if (data?.isNew === false) {
-          const { data: loginData } = await axios.get(
-            `${process.env.BASE_URL}${API.SOCIAL_LOGIN(social_id)}`
+
+          const refreshedTokens = response.data;
+          const accessToken = AesEncryption.aes_encrypt(
+            response.data.access_token
           );
-          if (loginData?.access_token) {
-            const accessToken = AesEncryption.aes_encrypt(
-              loginData.access_token
-            );
-            await cookies().set("AccessToken", accessToken, {
-              maxAge: 86400,
-            });
-          }
+          console.log("refreshedTokens:", refreshedTokens);
+          await cookies().set("AccessToken", accessToken, {
+            maxAge: 60, // 테스트를 위해 1분으로 설정
+          });
+
+          return {
+            ...token,
+            accessToken: refreshedTokens.access_token,
+            accessTokenExpires: Date.now() + 60 * 1000,
+            refreshToken: refreshedTokens.refresh_token || token.refreshToken, // 리프레시 토큰이 갱신되면 업데이트
+          };
+        } catch (error) {
+          console.error("액세스 토큰 갱신 오류:", error);
+
+          return {
+            ...token,
+            error: "RefreshAccessTokenError",
+          };
         }
       }
 
-      // 이후 토큰 호출 시에도 정보를 유지
-      return token;
+      if (account && user) {
+        token.accessToken = user.accessToken || token.accessToken;
+        token.refreshToken = user.refreshToken || token.refreshToken;
+        (token.accessTokenExpires = Date.now() + 60 * 1000), // 테스트를 위해 1분으로 설정
+          (token.user = user);
+        token.provider = account.provider;
+
+        // Kakao 로그인 시 추가 처리
+        if (account.provider === "kakao") {
+          const social_id = user.id;
+          const img = user.image;
+          const name = user.name;
+          console.log("social_id:", social_id, "img:", img, "name:", name);
+          const { data } = await axios.get(
+            `${process.env.BASE_URL}${API.SOCIAL_CHECK(social_id)}`
+          );
+          console.log("isNew?:", data);
+
+          if (data?.isNew) {
+            const { data: signupData } = await axios.post(
+              `${process.env.BASE_URL}${API.SOCIAL_SIGNUP}`,
+              {
+                social_id: social_id,
+                img: img,
+                name: name,
+              }
+            );
+            if (signupData?.access_token) {
+              const accessToken = AesEncryption.aes_encrypt(
+                signupData.access_token
+              );
+              await cookies().set("AccessToken", accessToken, {
+                maxAge: 86400,
+              });
+            }
+          } else if (data?.isNew === false) {
+            const { data: loginData } = await axios.get(
+              `${process.env.BASE_URL}${API.SOCIAL_LOGIN(social_id)}`
+            );
+            if (loginData?.access_token) {
+              const accessToken = AesEncryption.aes_encrypt(
+                loginData.access_token
+              );
+              await cookies().set("AccessToken", accessToken, {
+                maxAge: 86400,
+              });
+            }
+          }
+        }
+
+        return token;
+      }
+      const timeNow = Date.now();
+      const shouldRefreshTime = token.accessTokenExpires - 30 * 1000; // 만료 30초 전 (테스트용)
+
+      if (timeNow < shouldRefreshTime) {
+        return token;
+      }
+
+      // 액세스 토큰이 만료된 경우 갱신
+      return await refreshAccessToken(token);
     },
 
     async session({ session, token }: any) {
-      // 세션 콜백에서 token의 정보를 세션에 추가
-      session.user.id = token.id;
-      session.user.email = token.email;
+      session.user = token.user;
+      session.accessToken = token.accessToken;
+      session.error = token.error;
       session.provider = token.provider;
-
       return session;
     },
   },

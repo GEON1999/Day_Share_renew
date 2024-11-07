@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import SettingModal from "@/components/modal/SettingModal";
-import Helper from "@/helper/Helper";
 import { IconExit, IconHome, IconSetting } from "@/icons";
 import SideTodoSection from "./side/sideTodoSection";
 import SideUserList from "./side/sideUserList";
