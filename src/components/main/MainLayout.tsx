@@ -18,6 +18,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const handleClickSetting = () => router.push("/setting");
   const handleLogout = async () => {
     deleteCookie("AccessToken");
+    deleteCookie("RefreshToken");
     await signOut();
   };
 

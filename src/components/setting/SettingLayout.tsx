@@ -21,6 +21,7 @@ const SettingLayout = ({ children }: { children: React.ReactNode }) => {
 
   const handleLogout = async () => {
     deleteCookie("AccessToken");
+    deleteCookie("RefreshToken");
     await signOut();
   };
 

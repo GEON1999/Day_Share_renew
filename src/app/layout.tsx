@@ -3,6 +3,7 @@ import "@/css/style.css";
 import Providers from "@/app/Providers";
 import AuthSession from "@/app/AuthSession";
 import { Noto_Serif_KR } from "next/font/google";
+import SessionCheck from "./SessionCheck";
 
 // Google Fonts에서 원하는 폰트를 불러옵니다.
 
@@ -25,7 +26,10 @@ export default function RootLayout({
     <html lang="ko">
       <body className={`${notoSerif.className} font-[300]`}>
         <AuthSession>
-          <Providers>{children}</Providers>
+          <Providers>
+            <SessionCheck />
+            {children}
+          </Providers>
         </AuthSession>
       </body>
     </html>

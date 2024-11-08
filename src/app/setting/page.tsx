@@ -44,8 +44,6 @@ export default async function Home(req: any) {
   const queryClient = new QueryClient();
 
   const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
-  const session = await getServerSession(authOptions);
-  console.log("session", session);
 
   Promise.all([
     await queryClient.prefetchQuery({

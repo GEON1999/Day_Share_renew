@@ -3,9 +3,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { IconKakao } from "@/icons";
+import { IconCheck_o, IconCheck_x, IconKakao } from "@/icons";
 
 function LoginClientPage() {
+  const [isAutoLogin, setIsAutoLogin] = React.useState(false);
   const router = useRouter();
 
   const { handleSubmit, register } = useForm();
@@ -17,6 +18,7 @@ function LoginClientPage() {
       id: formData.id,
       password: formData.password,
       callbackUrl: "/",
+      auto: isAutoLogin,
     });
     console.log("result:", result);
     if (result?.ok) {
@@ -68,6 +70,20 @@ function LoginClientPage() {
               required
               placeholder={"비밀번호"}
             />
+          </div>
+          <div className="flex items-center mt-4 space-x-2">
+            <label className="sub_text">자동 로그인</label>
+            {isAutoLogin ? (
+              <IconCheck_o
+                onClick={() => setIsAutoLogin(false)}
+                className="w-4 h-4"
+              />
+            ) : (
+              <IconCheck_x
+                onClick={() => setIsAutoLogin(true)}
+                className="w-4 h-4"
+              />
+            )}
           </div>
           <div className="mt-9 flex flex-col justify-center">
             <button type={"submit"} className="auth submit_btn">

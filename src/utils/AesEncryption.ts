@@ -29,7 +29,7 @@ const aes_encrypt = (plainText: string): string => {
 const aes_decrypt = (cipherText: any): string => {
   if (!cipherText) {
     if (typeof window === "undefined") {
-      redirect(LOGIN_REDIRECT_URL);
+      //redirect(LOGIN_REDIRECT_URL);
     } else if (typeof window !== "undefined") {
       window.location.href = LOGIN_REDIRECT_URL;
     }
@@ -47,7 +47,7 @@ const aes_decrypt = (cipherText: any): string => {
     ]);
     return decrypted.toString("utf8");
   } catch (e) {
-    redirect(LOGIN_REDIRECT_URL);
+    //redirect(LOGIN_REDIRECT_URL);
   }
 };
 

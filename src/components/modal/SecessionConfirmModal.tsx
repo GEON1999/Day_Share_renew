@@ -22,6 +22,7 @@ const SecessionConfirmModal = ({ setIsOpen }: any) => {
             alert("탈퇴에 실패하였습니다.");
           }
           deleteCookie("AccessToken");
+          deleteCookie("RefreshToken");
           signOut();
         },
         onError: () => {
