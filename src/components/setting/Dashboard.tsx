@@ -7,9 +7,11 @@ import { useMutation } from "@tanstack/react-query";
 import useUserMutations from "@/queries/user/useUserMutations";
 import SecessionConfirmModal from "@/components/modal/SecessionConfirmModal";
 import ImageCropComponent from "../common/ImageCropComponent";
+import ChangePasswordModal from "../modal/ChangePasswordModal";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isChangeOpen, setIsChangeOpen] = useState(false);
   const { data: userData, isLoading: userIsLoading } =
     useUserQueries.useGetUser();
 
@@ -39,6 +41,7 @@ const Dashboard = () => {
     });
   };
 
+  const handleChangePassword = () => setIsChangeOpen(true);
   const handleDeleteUser = () => setIsOpen(true);
 
   return (
@@ -69,12 +72,18 @@ const Dashboard = () => {
             </button>
           </div>
         </form>
+        <button className="sub_text mt-3" onClick={handleChangePassword}>
+          비밀번호 변경
+        </button>
         <button className="sub_text mt-3" onClick={handleDeleteUser}>
           탈퇴하기
         </button>
       </div>
       <ModalWrapper setIsOpen={setIsOpen} isOpen={isOpen}>
         <SecessionConfirmModal setIsOpen={setIsOpen} />
+      </ModalWrapper>
+      <ModalWrapper setIsOpen={setIsChangeOpen} isOpen={isChangeOpen}>
+        <ChangePasswordModal setIsOpen={setIsChangeOpen} />
       </ModalWrapper>
     </div>
   );

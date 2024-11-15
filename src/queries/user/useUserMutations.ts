@@ -54,6 +54,15 @@ const updateUserCalendarOrder = async (orders: any) => {
   return data;
 };
 
+// update user password
+const updateUserPassword = async (body: any) => {
+  const { data } = await axios.put(
+    Helper.CURRENT_URL() + API.UPDATE_USER_PASSWORD,
+    body
+  );
+  return data;
+};
+
 export default {
   updateUser,
   deleteUser,
@@ -61,4 +70,5 @@ export default {
   postUserFavoriteTodo,
   deleteUserFavoriteTodo,
   updateUserCalendarOrder,
+  updateUserPassword,
 };

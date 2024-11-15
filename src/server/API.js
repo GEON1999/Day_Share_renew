@@ -23,6 +23,9 @@ const GET_USER = "/api/user";
 // 사용자 정보 수정
 const UPDATE_USER = "/api/user";
 
+// 사용자 비밀번호 변경
+const UPDATE_USER_PASSWORD = "/api/user/password";
+
 // 사용자 탈퇴
 const DELETE_USER = "/api/user";
 
@@ -208,6 +211,7 @@ export default {
   SOCIAL_CHECK,
   GET_USER,
   UPDATE_USER,
+  UPDATE_USER_PASSWORD,
   DELETE_USER,
   GET_USER_FAVORITE_TODO,
   ADD_USER_FAVORITE_TODO,

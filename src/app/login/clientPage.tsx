@@ -71,17 +71,17 @@ function LoginClientPage() {
               placeholder={"비밀번호"}
             />
           </div>
-          <div className="flex items-center mt-4 space-x-2">
+          <div className="flex items-center mt-2 space-x-2">
             <label className="sub_text">자동 로그인</label>
             {isAutoLogin ? (
               <IconCheck_o
                 onClick={() => setIsAutoLogin(false)}
-                className="w-4 h-4"
+                className="w-3 h-3"
               />
             ) : (
               <IconCheck_x
                 onClick={() => setIsAutoLogin(true)}
-                className="w-4 h-4"
+                className="w-3 h-3"
               />
             )}
           </div>
