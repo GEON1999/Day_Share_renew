@@ -52,24 +52,24 @@ export const authOptions = {
             const refreshToken = AesEncryption.aes_encrypt(data.refresh_token);
 
             await cookies().set("AccessToken", accessToken, {
-              maxAge: 86400,
+              maxAge: 30, // test를 위해 30초로 설정
             });
 
             await cookies().set("RefreshToken", refreshToken, {
-              maxAge: 604800,
+              maxAge: 60 * 60, // test를 위해 60분으로 설정
             });
             return {
               id: credentials?.id,
               email: credentials?.id,
               accessToken: data.access_token,
               refreshToken: data.refresh_token,
-              expires_in: 86400,
+              expires_in: 30, // test를 위해 30초로 설정
               isAuto: credentials?.auto,
             };
           } else if (data?.access_token && !data?.refresh_token) {
             const accessToken = AesEncryption.aes_encrypt(data.access_token);
             await cookies().set("AccessToken", accessToken, {
-              maxAge: 86400,
+              maxAge: 30, // test를 위해 30초로 설정
             });
             await cookies().set("RefreshToken", "", {
               maxAge: 0,
@@ -78,7 +78,7 @@ export const authOptions = {
               id: credentials?.id,
               email: credentials?.id,
               accessToken: data.access_token,
-              expires_in: 86400,
+              expires_in: 30, // test를 위해 30초로 설정
               isAuto: credentials?.auto,
             };
           } else {
@@ -113,13 +113,13 @@ export const authOptions = {
             response.data.access_token
           );
           await cookies().set("AccessToken", accessToken, {
-            maxAge: 86400,
+            maxAge: 30, // test를 위해 30초로 설정
           });
 
           return {
             ...token,
             accessToken: refreshedTokens.access_token,
-            accessTokenExpires: Date.now() + 86400 * 1000,
+            accessTokenExpires: Date.now() + 30 * 1000, // test를 위해 30초로 설정
             refreshToken: refreshedTokens.refresh_token || token.refreshToken,
           };
         } catch (error) {
@@ -134,7 +134,7 @@ export const authOptions = {
       if (account && user) {
         token.accessToken = user.accessToken || token.accessToken;
         token.refreshToken = user.refreshToken || token.refreshToken;
-        (token.accessTokenExpires = Date.now() + 86400 * 1000),
+        (token.accessTokenExpires = Date.now() + 30 * 1000), // test를 위해 30초로 설정
           (token.user = user);
         token.provider = account.provider;
         token.isAuto = user.isAuto;
@@ -183,7 +183,7 @@ export const authOptions = {
         return token;
       }
       const timeNow = Date.now();
-      const shouldRefreshTime = token.accessTokenExpires - 43200 * 1000;
+      const shouldRefreshTime = token.accessTokenExpires - 15 * 1000; // test를 위해 15초로 설정
 
       if (timeNow < shouldRefreshTime) {
         return token;
