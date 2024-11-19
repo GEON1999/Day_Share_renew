@@ -2,12 +2,12 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 import API from "@/server/API";
 import rqOption from "@/server/rqOption";
-import { cookies } from "next/headers";
-import AesEncryption from "@/utils/AesEncryption";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 
 export async function PUT(req: any) {
-  const encryptedAccessToken = cookies().get("AccessToken");
-  const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
+  const session = await getServerSession(authOptions);
+  const accessToken = session?.accessToken;
 
   if (accessToken === undefined) {
     return NextResponse.json(

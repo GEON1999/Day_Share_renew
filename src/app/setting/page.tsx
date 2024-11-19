@@ -38,8 +38,8 @@ const getCalendarList = async (accessToken: any, query: string) => {
 };
 
 export default async function Home(req: any) {
-  const encryptedAccessToken = cookies().get("AccessToken");
-  const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
+  const session = await getServerSession(authOptions);
+  const accessToken = session?.accessToken;
 
   const queryClient = new QueryClient();
 

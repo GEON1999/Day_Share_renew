@@ -10,6 +10,8 @@ import API from "@/server/API";
 import axios from "axios";
 import rqOption from "@/server/rqOption";
 import ClientPage from "./clientPage";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 
 const useGetTodosByCalendarId = async (
   accessToken: any,
@@ -68,8 +70,8 @@ const getCalendarPermissionList = async (accessToken: any, id: string) => {
 };
 
 export default async function Home(req: any) {
-  const encryptedAccessToken = cookies().get("AccessToken");
-  const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
+  const session = await getServerSession(authOptions);
+  const accessToken = session?.accessToken;
 
   const queryClient = new QueryClient();
 

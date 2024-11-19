@@ -11,6 +11,8 @@ import API from "@/server/API";
 import axios from "axios";
 import rqOption from "@/server/rqOption";
 import Helper from "@/helper/Helper";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 
 const getUser = async (accessToken: any) => {
   const { data } = await axios.get(
@@ -53,8 +55,8 @@ const getUserFavoriteTodo = async (accessToken: any) => {
 };
 
 export default async function Home(req: any) {
-  const encryptedAccessToken = cookies().get("AccessToken");
-  const accessToken = AesEncryption.aes_decrypt(encryptedAccessToken);
+  const session = await getServerSession(authOptions);
+  const accessToken = session?.accessToken;
 
   const queries = Helper.queryToString(req.searchParams) ?? "";
   const queryClient = new QueryClient();
