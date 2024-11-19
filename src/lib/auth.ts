@@ -189,9 +189,18 @@ export const authOptions = {
           error: "AccessTokenExpired",
         };
       }
+
+      return token;
     },
 
     async session({ session, token }: any) {
+      if (!token) {
+        return {
+          ...session,
+          error: "TokenNotFound",
+        };
+      }
+
       session.user = token.user;
       session.accessToken = token.accessToken;
       session.error = token.error;

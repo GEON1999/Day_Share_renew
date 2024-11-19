@@ -11,6 +11,7 @@ import rqOption from "@/server/rqOption";
 import Helper from "@/helper/Helper";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 const getUser = async (accessToken: any) => {
   const { data } = await axios.get(
@@ -56,7 +57,10 @@ export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
   const accessToken = session?.accessToken;
 
-  const queries = Helper.queryToString(req.searchParams) ?? "";
+  if (!accessToken && !session?.user?.isAuto) {
+    return redirect("/login");
+  }
+
   const queryClient = new QueryClient();
 
   const page = `page=${req.searchParams.page ?? "1"}`;

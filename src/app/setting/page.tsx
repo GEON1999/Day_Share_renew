@@ -39,7 +39,7 @@ export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
   const accessToken = session?.accessToken;
 
-  if (!accessToken) {
+  if (!accessToken && !session?.user?.isAuto) {
     return redirect("/login");
   }
 
