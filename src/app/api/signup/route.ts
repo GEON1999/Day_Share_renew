@@ -1,9 +1,6 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
 import API from "@/server/API";
-import rqOption from "@/server/rqOption";
-import { cookies } from "next/headers";
-import AesEncryption from "@/utils/AesEncryption";
 
 export async function POST(req: any) {
   const body = await req.json();

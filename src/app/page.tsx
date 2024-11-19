@@ -3,8 +3,6 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { cookies } from "next/headers";
-import AesEncryption from "@/utils/AesEncryption";
 import ClientPage from "./clientPage";
 import QueryKeys from "@/keys/QueryKeys";
 import API from "@/server/API";

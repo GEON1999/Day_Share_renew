@@ -13,10 +13,7 @@ export default withAuth({
 
       if (token?.error === "RefreshAccessTokenError") {
         if (!publicPaths.includes(pathname)) {
-          const response = NextResponse.redirect(new URL("/login", req.url));
-          response.cookies.delete("next-auth.session-token");
-          response.cookies.delete("AccessToken");
-          response.cookies.delete("RefreshToken");
+          NextResponse.redirect(new URL("/login", req.url));
           return false;
         }
       }
@@ -26,10 +23,7 @@ export default withAuth({
         token?.user?.isAuto === "false"
       ) {
         if (!publicPaths.includes(pathname)) {
-          const response = NextResponse.redirect(new URL("/login", req.url));
-          response.cookies.delete("next-auth.session-token");
-          response.cookies.delete("AccessToken");
-          response.cookies.delete("RefreshToken");
+          NextResponse.redirect(new URL("/login", req.url));
           return false;
         }
       }

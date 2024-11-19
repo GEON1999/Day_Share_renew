@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import AesEncryption from "@/utils/AesEncryption";
 import { NextApiResponse } from "next";
 import axios from "axios";
 import API from "@/server/API";

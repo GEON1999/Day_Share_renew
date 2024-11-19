@@ -1,8 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import AesEncryption from "@/utils/AesEncryption";
 import API from "@/server/API";
 import KakaoProvider from "next-auth/providers/kakao";
 import StaticKeys from "@/keys/StaticKeys";
@@ -16,7 +14,6 @@ export const authOptions = {
     signOut: "/login",
   },
 
-  // Configure one or more authentication providers
   providers: [
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID!,
@@ -25,11 +22,7 @@ export const authOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: {
-          label: "Username",
-          type: "text",
-          placeholder: "jsmith",
-        },
+        username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any) {
@@ -37,6 +30,7 @@ export const authOptions = {
         formData.append("username", credentials?.id);
         formData.append("password", credentials?.password);
         formData.append("auto", credentials.auto);
+
         try {
           const { data } = await axios.post(
             `${process.env.BASE_URL}${API.LOGIN}`,
@@ -49,16 +43,6 @@ export const authOptions = {
           );
 
           if (data?.access_token && data?.refresh_token) {
-            const accessToken = AesEncryption.aes_encrypt(data.access_token);
-            const refreshToken = AesEncryption.aes_encrypt(data.refresh_token);
-
-            await cookies().set("AccessToken", accessToken, {
-              maxAge: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
-            });
-
-            await cookies().set("RefreshToken", refreshToken, {
-              maxAge: StaticKeys.REFRESH_TOKEN_EXPIRES / 1000,
-            });
             return {
               id: credentials?.id,
               email: credentials?.id,
@@ -68,13 +52,6 @@ export const authOptions = {
               isAuto: credentials?.auto,
             };
           } else if (data?.access_token && !data?.refresh_token) {
-            const accessToken = AesEncryption.aes_encrypt(data.access_token);
-            await cookies().set("AccessToken", accessToken, {
-              maxAge: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
-            });
-            await cookies().set("RefreshToken", "", {
-              maxAge: 0,
-            });
             return {
               id: credentials?.id,
               email: credentials?.id,
@@ -110,13 +87,6 @@ export const authOptions = {
             );
           }
 
-          const accessToken = AesEncryption.aes_encrypt(
-            response.data.access_token
-          );
-          await cookies().set("AccessToken", accessToken, {
-            maxAge: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
-          });
-
           return {
             ...token,
             accessToken: refreshedTokens.access_token,
@@ -145,6 +115,7 @@ export const authOptions = {
           const social_id = user.id;
           const img = user.image;
           const name = user.name;
+
           const { data } = await axios.get(
             `${process.env.BASE_URL}${API.SOCIAL_CHECK(social_id)}`
           );
@@ -159,30 +130,25 @@ export const authOptions = {
               }
             );
             if (signupData?.access_token) {
-              const accessToken = AesEncryption.aes_encrypt(
-                signupData.access_token
-              );
-              await cookies().set("AccessToken", accessToken, {
-                maxAge: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
-              });
+              token.accessToken = signupData.access_token;
+              token.accessTokenExpires =
+                Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES;
             }
           } else if (data?.isNew === false) {
             const { data: loginData } = await axios.get(
               `${process.env.BASE_URL}${API.SOCIAL_LOGIN(social_id)}`
             );
             if (loginData?.access_token) {
-              const accessToken = AesEncryption.aes_encrypt(
-                loginData.access_token
-              );
-              await cookies().set("AccessToken", accessToken, {
-                maxAge: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
-              });
+              token.accessToken = loginData.access_token;
+              token.accessTokenExpires =
+                Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES;
             }
           }
         }
 
         return token;
       }
+
       const timeNow = Date.now();
       const shouldRefreshTime =
         token.accessTokenExpires - StaticKeys.TOKEN_REFRESH_THRESHOLD;
@@ -200,8 +166,6 @@ export const authOptions = {
             error?.response?.status === 401 ||
             error?.response?.status === 403
           ) {
-            cookies().delete("AccessToken");
-            cookies().delete("RefreshToken");
             return {
               ...token,
               accessToken: null,
@@ -211,7 +175,6 @@ export const authOptions = {
               destroy: true,
             };
           }
-
           return {
             ...token,
             error: "RefreshAccessTokenError",

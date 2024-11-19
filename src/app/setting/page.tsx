@@ -3,16 +3,14 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { cookies } from "next/headers";
-import AesEncryption from "@/utils/AesEncryption";
 import QueryKeys from "@/keys/QueryKeys";
 import API from "@/server/API";
 import axios from "axios";
 import rqOption from "@/server/rqOption";
-import Helper from "@/helper/Helper";
 import SettingClientPage from "@/app/setting/clientPage";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 const getUser = async (accessToken: any) => {
   const { data } = await axios.get(
@@ -40,6 +38,10 @@ const getCalendarList = async (accessToken: any, query: string) => {
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
   const accessToken = session?.accessToken;
+
+  if (!accessToken) {
+    return redirect("/login");
+  }
 
   const queryClient = new QueryClient();
 

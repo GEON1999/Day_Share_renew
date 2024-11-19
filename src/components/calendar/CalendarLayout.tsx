@@ -1,6 +1,5 @@
 import { dodum } from "@/app/fonts";
 import useSearch from "@/hooks/useSearch";
-import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -22,8 +21,6 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const handleClickSetting = () => setIsOpen(true);
 
   const handleLogout = async () => {
-    deleteCookie("AccessToken");
-    deleteCookie("RefreshToken");
     await signOut();
   };
 

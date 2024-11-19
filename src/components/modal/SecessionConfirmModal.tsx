@@ -2,7 +2,6 @@ import { useMutation } from "@tanstack/react-query";
 import useUserMutations from "@/queries/user/useUserMutations";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { deleteCookie } from "cookies-next";
 
 const SecessionConfirmModal = ({ setIsOpen }: any) => {
   const router = useRouter();
@@ -21,8 +20,6 @@ const SecessionConfirmModal = ({ setIsOpen }: any) => {
           } else {
             alert("탈퇴에 실패하였습니다.");
           }
-          deleteCookie("AccessToken");
-          deleteCookie("RefreshToken");
           signOut();
         },
         onError: () => {

@@ -1,7 +1,6 @@
 "use client";
 import { dodum } from "@/app/fonts";
 import useUserQueries from "@/queries/user/useUserQueries";
-import { deleteCookie } from "cookies-next";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -17,8 +16,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const handleClickMain = () => router.push("/");
   const handleClickSetting = () => router.push("/setting");
   const handleLogout = async () => {
-    deleteCookie("AccessToken");
-    deleteCookie("RefreshToken");
     await signOut();
   };
 
