@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import AesEncryption from "@/utils/AesEncryption";
 import API from "@/server/API";
 import KakaoProvider from "next-auth/providers/kakao";
+import StaticKeys from "@/keys/StaticKeys";
 
 export const authOptions = {
   site: process.env.NEXTAUTH_URL,
@@ -52,24 +53,24 @@ export const authOptions = {
             const refreshToken = AesEncryption.aes_encrypt(data.refresh_token);
 
             await cookies().set("AccessToken", accessToken, {
-              maxAge: 30, // test를 위해 30초로 설정
+              maxAge: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
             });
 
             await cookies().set("RefreshToken", refreshToken, {
-              maxAge: 60 * 60, // test를 위해 60분으로 설정
+              maxAge: StaticKeys.REFRESH_TOKEN_EXPIRES / 1000,
             });
             return {
               id: credentials?.id,
               email: credentials?.id,
               accessToken: data.access_token,
               refreshToken: data.refresh_token,
-              expires_in: 30, // test를 위해 30초로 설정
+              expires_in: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
               isAuto: credentials?.auto,
             };
           } else if (data?.access_token && !data?.refresh_token) {
             const accessToken = AesEncryption.aes_encrypt(data.access_token);
             await cookies().set("AccessToken", accessToken, {
-              maxAge: 30, // test를 위해 30초로 설정
+              maxAge: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
             });
             await cookies().set("RefreshToken", "", {
               maxAge: 0,
@@ -78,7 +79,7 @@ export const authOptions = {
               id: credentials?.id,
               email: credentials?.id,
               accessToken: data.access_token,
-              expires_in: 30, // test를 위해 30초로 설정
+              expires_in: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
               isAuto: credentials?.auto,
             };
           } else {
@@ -113,13 +114,13 @@ export const authOptions = {
             response.data.access_token
           );
           await cookies().set("AccessToken", accessToken, {
-            maxAge: 30, // test를 위해 30초로 설정
+            maxAge: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
           });
 
           return {
             ...token,
             accessToken: refreshedTokens.access_token,
-            accessTokenExpires: Date.now() + 30 * 1000, // test를 위해 30초로 설정
+            accessTokenExpires: Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES,
             refreshToken: refreshedTokens.refresh_token || token.refreshToken,
           };
         } catch (error) {
@@ -134,8 +135,8 @@ export const authOptions = {
       if (account && user) {
         token.accessToken = user.accessToken || token.accessToken;
         token.refreshToken = user.refreshToken || token.refreshToken;
-        (token.accessTokenExpires = Date.now() + 30 * 1000), // test를 위해 30초로 설정
-          (token.user = user);
+        token.accessTokenExpires = Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES;
+        token.user = user;
         token.provider = account.provider;
         token.isAuto = user.isAuto;
 
@@ -162,7 +163,7 @@ export const authOptions = {
                 signupData.access_token
               );
               await cookies().set("AccessToken", accessToken, {
-                maxAge: 86400,
+                maxAge: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
               });
             }
           } else if (data?.isNew === false) {
@@ -174,7 +175,7 @@ export const authOptions = {
                 loginData.access_token
               );
               await cookies().set("AccessToken", accessToken, {
-                maxAge: 86400,
+                maxAge: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
               });
             }
           }
@@ -183,7 +184,8 @@ export const authOptions = {
         return token;
       }
       const timeNow = Date.now();
-      const shouldRefreshTime = token.accessTokenExpires - 15 * 1000; // test를 위해 15초로 설정
+      const shouldRefreshTime =
+        token.accessTokenExpires - StaticKeys.TOKEN_REFRESH_THRESHOLD;
 
       if (timeNow < shouldRefreshTime) {
         return token;
