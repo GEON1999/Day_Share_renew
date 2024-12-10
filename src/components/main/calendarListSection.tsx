@@ -12,7 +12,7 @@ import useSearch from "@/hooks/useSearch";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import AddCalendarModal from "@/components/modal/AddCalendar";
 import Helper from "@/helper/Helper";
-import { IconAdd } from "@/icons";
+import { IconAdd, IconSettingOrder } from "@/icons";
 import ScrollingComponent from "@/components/common/ScrollingComponent";
 
 const CalendarListSection = () => {
@@ -68,23 +68,23 @@ const CalendarListSection = () => {
   }, []);
 
   const handleSaveOrder = async () => {
-    if (isEditMode) {
-      const orders = calendars.map((calendar) => calendar.id);
-      updateUserCalendarOrder(
-        { orders },
-        {
-          onSuccess: () => {
-            alert("순서가 저장되었습니다.");
-            setIsEditMode(false);
-          },
-          onError: () => {
-            alert("순서 저장에 실패했습니다.");
-          },
-        }
-      );
-    } else {
-      setIsEditMode(true);
-    }
+    const orders = calendars.map((calendar) => calendar.id);
+    updateUserCalendarOrder(
+      { orders },
+      {
+        onSuccess: () => {
+          alert("순서가 저장되었습니다.");
+          setIsEditMode(false);
+        },
+        onError: () => {
+          alert("순서 저장에 실패했습니다.");
+        },
+      }
+    );
+  };
+
+  const handleCancelOrder = () => {
+    setIsEditMode(false);
   };
 
   const handleClickCalendar = (id: number) => {
@@ -95,18 +95,40 @@ const CalendarListSection = () => {
   return (
     <section>
       <div className="flex justify-between w-[1260px] items-center mt-[47px]">
-        <div className="flex items-center mb-[17px] space-x-1">
-          <h2 className={`text-[30px] ${dodum.className}`}>공유 달력</h2>
-          <IconAdd onClick={handleAddBtn} className="w-6 h-6 cur" />
+        <div className="flex items-center mb-[17px] space-x-2">
+          <h2 className={`text-[25px] ${dodum.className}`}>공유 달력</h2>
+          <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
         </div>
         <div className="flex items-center justify-between space-x-4">
           {!calendarData || calendarData?.total_calendars === 0 ? null : (
-            <button
-              onClick={handleSaveOrder}
-              className="p-2  bor rounded shadow_box"
-            >
-              {isEditMode ? "저장" : "순서 조정"}
-            </button>
+            <div>
+              {isEditMode ? (
+                <div className="flex items-center space-x-2">
+                  <button
+                    className="w-10 h-[25px] bor bg_hilight_2 font-bold rounded-md text-center"
+                    onClick={handleSaveOrder}
+                  >
+                    완료
+                  </button>
+                  <button
+                    className="w-10 h-[25px] bor bg-[#49494920]  font-bold rounded-md"
+                    onClick={handleCancelOrder}
+                  >
+                    취소
+                  </button>
+                  {/* <div className="w-8 h-8 rounded-full bg-[#494949] bg-opacity-20 flex items-center justify-center">
+                    <IconSettingOrder
+                      className="w-5 h-4 cur "
+                    />
+                  </div> */}
+                </div>
+              ) : (
+                <IconSettingOrder
+                  onClick={() => setIsEditMode(true)}
+                  className="w-5 h-4 cur"
+                />
+              )}
+            </div>
           )}
           {!isEditMode && (
             <CalendarPagination total_count={calendarData?.total_calendars} />

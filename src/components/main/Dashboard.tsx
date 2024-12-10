@@ -8,7 +8,7 @@ const Dashboard = () => {
   return (
     <div className="main_container">
       <GreetingSection />
-      <div className="flex space-x-10 mt-[111px] w-full items-strat">
+      <div className="flex space-x-10 mt-[53px] w-full items-strat">
         <StatusSection />
         <DiarySection />
       </div>

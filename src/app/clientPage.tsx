@@ -5,11 +5,11 @@ import { useEffect } from "react";
 
 const ClientPage = () => {
   useEffect(() => {
-    document.querySelector("body")?.classList.add("bg_depp");
+    document.querySelector("body")?.classList.add("bg_main");
   }, []);
   return (
     <MainLayout>
-      <div className="flex w-full h-full bg_depp">
+      <div className="h-full w-full bg_main px-[200px]">
         {/* 메인 컨텐츠 */}
         <Dashboard />
       </div>

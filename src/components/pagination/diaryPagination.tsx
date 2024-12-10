@@ -24,21 +24,27 @@ const DiaryPagination = ({ total_count }: any) => {
     router.push(`${pathName}?${params.toString()}`);
   };
   return (
-    <div className="flex items-center space-x-[13px]">
-      <div className="w-4 h-5 cur">
+    <div className="flex items-center space-x-[11px]">
+      <div>
         {Number(currentDiaryPage) <= 1 ? (
-          <IconPrev_disabled />
+          <IconPrev_disabled className="w-1 h-[10px] cur" />
         ) : (
-          <IconPrev onClick={handleDiaryPrevBtn} />
+          <IconPrev
+            className="w-[5px] h-[10px] cur"
+            onClick={handleDiaryPrevBtn}
+          />
         )}
       </div>
 
       <p>{currentDiaryPage}</p>
-      <div className="w-4 h-5 cur">
+      <div>
         {total_count <= Number(currentDiaryPage) * 4 ? (
-          <IconNext_disabled />
+          <IconNext_disabled className="w-1 h-[10px] cur" />
         ) : (
-          <IconNext onClick={handleDiaryNextBtn} />
+          <IconNext
+            className="w-[5px] h-[10px] cur"
+            onClick={handleDiaryNextBtn}
+          />
         )}
       </div>
     </div>

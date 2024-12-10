@@ -72,15 +72,21 @@ const CalendarItem = memo(
               <img
                 className={`object-cover rounded-md bor ${
                   isEditMode
-                    ? "cursor-move w-28 h-20"
+                    ? "cursor-move w-[170px] h-[113px]"
                     : "cursor-pointer w-[300px] h-[200px]"
                 }`}
                 src={calendar.img}
-                alt={calendar.name}
+                alt={calendar.img}
               />
             </div>
-            <div className="flex items-center space-x-1 mt-2">
-              <h3 className={`${dodum.className}`}>{calendar.name}</h3>
+            <div className="flex items-center space-x-1 mt-2  mb-[23px]">
+              <h3
+                className={`${dodum.className} ${
+                  isEditMode ? "text-[20px]" : "text-[25px]"
+                }`}
+              >
+                {calendar.name}
+              </h3>
               {calendar.isRead ? null : (
                 <img
                   className="h-[23.6px] w-[23.6px]"

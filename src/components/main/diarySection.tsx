@@ -39,7 +39,7 @@ const DiarySection = () => {
                 }`}
               >
                 <div className="flex space-x-2 items-center">
-                  <span>{diary.title}</span>
+                  <span className="text-[20px]">{diary.title}</span>
                   {Helper.isDateOlderThanOneDay(diary.createdAt) ? null : (
                     <img
                       className="h-[23.6px] w-[23.6px]"
@@ -48,7 +48,7 @@ const DiarySection = () => {
                     />
                   )}
                 </div>
-                <div className="text-[23px] text-[#2D2D2E] text-opacity-80 flex space-x-2 items-center">
+                <div className="text-[20px] text-[#2D2D2E] text-opacity-80 flex space-x-2 items-center">
                   <span>{diary.userName}</span>
                   <span>|</span>
                   <span className="font-semibold">{diary.calendarName}</span>
@@ -64,7 +64,7 @@ const DiarySection = () => {
             src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024150301_23db0106b82f4323b8f03cef66282fe7.png"
           />
           <p
-            className={`text-center text-[30px] ${dodum.className} absolute top-[502px] left-[1300px]`}
+            className={`text-center text-[30px] ${dodum.className} absolute top-[370px] left-[1250px]`}
           >
             일기가 없어......................
           </p>

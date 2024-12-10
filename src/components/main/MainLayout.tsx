@@ -20,7 +20,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className={`flex h-screen min-h-[1080px]  ${dodum.className}`}>
+    <div className={`flex h-screen min-h-[900px]  ${dodum.className}`}>
       {/* Sidebar */}
       <aside
         className={
@@ -47,8 +47,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               />
             </div>
             <p className={`text-[20px] mt-[13px] `}>{userData?.name}</p>
-            <button className="flex items-center space-x-1 mt-[20px] w-[146px] h-[38px] justify-center rounded-full border-[1.5px] border-[#494949] border-opacity-50">
-              <IconExit onClick={handleLogout} className="w-5 h-5 cur" />
+            <button
+              onClick={handleLogout}
+              className="flex items-center space-x-1 mt-[20px] w-[146px] h-[38px] justify-center rounded-full border-[1.5px] border-[#494949] border-opacity-50"
+            >
+              <IconExit className="w-5 h-5 cur" />
               <p>로그아웃</p>
             </button>
           </div>

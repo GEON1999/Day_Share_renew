@@ -26,7 +26,7 @@ const TodoPagination = ({ total_count }: any) => {
     router.push(`${pathName}?${params.toString()}`);
   };
   return (
-    <div className="flex items-center justify-center space-x-[13px] mb-[13px]">
+    <div className="flex items-center justify-center space-x-[11px] mb-[13px]">
       <div>
         {Number(currentTodoPage) <= 1 ? (
           <IconPrev_disabled className="w-1 h-2 cur" />
