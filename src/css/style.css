@@ -137,6 +137,10 @@ li {
   @apply bg-[#F8F3CE];
 }
 
+.bg_deep_2 {
+  @apply bg-[#F9F4CF];
+}
+
 .bg_deeper {
   @apply bg-[#E0CBB7];
 }
