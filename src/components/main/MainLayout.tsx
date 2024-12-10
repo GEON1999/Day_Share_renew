@@ -5,7 +5,7 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import TodoSection from "@/components/main/todoSection";
-import { IconExit, IconSetting } from "@/icons";
+import { IconCircleSetting, IconExit, IconLogo } from "@/icons";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -20,41 +20,43 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="flex h-screen min-h-[1080px]">
+    <div className={`flex h-screen min-h-[1080px]  ${dodum.className}`}>
       {/* Sidebar */}
       <aside
         className={
           "side_container shadow-side border-r-[1.5px] border-[#494949] z-10"
         }
       >
-        <div>
+        <div className="flex flex-col items-center">
           <div className={`flex flex-col items-center`}>
-            <div className="mt-[74px]">
-              <img
+            <div className="mt-[45px]">
+              <IconLogo
                 onClick={handleClickMain}
-                src={
-                  "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024185055_5c68aca703554836aff212384ba69795.png"
-                }
-                alt="logo"
-                className="w-full h-full object-cover ml-3 cur"
+                className="w-[108px] h-[108px]"
+              />
+              <IconCircleSetting
+                onClick={handleClickSetting}
+                className="w-[30px] h-[30px] absolute top-[300px] left-[160px] cur"
               />
             </div>
-            <div className="rounded-full bg-gray-200 w-[176px] h-[176px] bor mt-[58px] shadow_box">
+            <div className="rounded-full bg-gray-200 w-[140px] h-[140px] bor mt-[36px] shadow_box">
               <img
                 src={userData?.img}
                 alt="profile"
                 className="rounded-full w-full h-full object-cover"
               />
             </div>
-            <p className={`text-[30px] mt-[20px]  ${dodum.className}`}>
-              {userData?.name}
-            </p>
+            <p className={`text-[20px] mt-[13px] `}>{userData?.name}</p>
+            <button className="flex items-center space-x-1 mt-[20px] w-[146px] h-[38px] justify-center rounded-full border-[1.5px] border-[#494949] border-opacity-50">
+              <IconExit onClick={handleLogout} className="w-5 h-5 cur" />
+              <p>로그아웃</p>
+            </button>
           </div>
           <TodoSection />
         </div>
         <div>
           <nav className="mt-2 mb-[73px] tet-[20px]">
-            <ul>
+            {/* <ul>
               <li
                 className="flex items-center cur"
                 onClick={handleClickSetting}
@@ -66,10 +68,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 className="flex items-center cur mt-[20px]"
                 onClick={handleLogout}
               >
-                <IconExit className="w-8 h-8" />
+                
                 <span className={`ml-[17px] ${dodum.className}`}>나가기</span>
               </li>
-            </ul>
+            </ul> */}
           </nav>
         </div>
       </aside>

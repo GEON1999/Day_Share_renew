@@ -27,20 +27,20 @@ const TodoPagination = ({ total_count }: any) => {
   };
   return (
     <div className="flex items-center justify-center space-x-[13px] mb-[13px]">
-      <div className="w-4 h-5 cur">
+      <div>
         {Number(currentTodoPage) <= 1 ? (
-          <IconPrev_disabled />
+          <IconPrev_disabled className="w-1 h-2 cur" />
         ) : (
-          <IconPrev onClick={handleTodoPrevBtn} />
+          <IconPrev className="w-[5px] h-2 cur" onClick={handleTodoPrevBtn} />
         )}
       </div>
 
-      <p>{currentTodoPage}</p>
-      <div className="w-4 h-5 cur">
+      <p className="text-[12px]">{currentTodoPage}</p>
+      <div>
         {total_count <= Number(currentTodoPage) * 4 ? (
-          <IconNext_disabled />
+          <IconNext_disabled className="w-1 h-2 cur" />
         ) : (
-          <IconNext onClick={handleTodoNextBtn} />
+          <IconNext className="w-[5px] h-2 cur" onClick={handleTodoNextBtn} />
         )}
       </div>
     </div>
