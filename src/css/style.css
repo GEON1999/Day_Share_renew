@@ -23,7 +23,11 @@
 }
 
 .side_container {
-  @apply w-[250px] min-w-[250px] bg_depp px-[60px] transition-all duration-300 flex flex-col justify-between;
+  @apply w-[250px] min-w-[250px] bg_depp px-[17px] transition-all duration-300 flex flex-col justify-between;
+}
+
+.side_todo_container {
+  @apply px-[17px] py-[20px] w-[216px] h-[392px] border-[#494949] border-opacity-50 flex flex-col justify-between border-t border-b;
 }
 
 li {

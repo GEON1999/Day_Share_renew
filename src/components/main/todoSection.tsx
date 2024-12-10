@@ -87,7 +87,7 @@ const TodoSection = () => {
     router.push(`/calendar/${calId}/todo/${todoId}`);
 
   return (
-    <section className="mt-[38px] px-[17px] py-[20px] w-[216px] h-[392px] border-[#494949] border-opacity-50 flex flex-col justify-between border-t border-b">
+    <section className="mt-[38px] side_todo_container">
       <ul className="space-y-2">
         <div
           className={`flex items-center justify-between content-center mb-[10px] text-[20px] ${dodum.className}`}

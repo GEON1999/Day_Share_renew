@@ -3,22 +3,17 @@ import useSearch from "@/hooks/useSearch";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import ModalWrapper from "@/components/modal/ModalWrapper";
-import SettingModal from "@/components/modal/SettingModal";
-import { IconExit, IconHome, IconSetting } from "@/icons";
+import { IconExit, IconHome, IconLogo, IconSetting } from "@/icons";
 import SideTodoSection from "./side/sideTodoSection";
-import SideUserList from "./side/sideUserList";
+import SideCalendarProfile from "./side/sideCalendarProfile";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
   const date = useSearch.useSearchDate();
   const id = useSearch.useSearchId();
 
   const handleClickMain = () => router.push("/");
   const handleCLickCalendar = () => router.push(`/calendar/${id}?date=${date}`);
-
-  const handleClickSetting = () => setIsOpen(true);
 
   const handleLogout = async () => {
     await signOut();
@@ -34,19 +29,24 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
       >
         <div>
           <div className={`flex flex-col items-center`}>
-            <div className="mt-[74px] mb-14">
-              <img
+            <div className="mt-[45px]">
+              <IconLogo
                 onClick={handleClickMain}
-                src={
-                  "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024185055_5c68aca703554836aff212384ba69795.png"
-                }
-                alt="logo"
-                className="w-full h-full object-cover ml-3 cur"
+                className="w-[108px] h-[108px]"
               />
             </div>
-            <SideUserList />
+            <SideCalendarProfile />
+            {/* <SideUserList /> */}
+            <SideTodoSection />
+            <button
+              onClick={handleLogout}
+              className="flex items-center space-x-1 mt-[27px] w-[146px] h-[38px] justify-center rounded-full border-[1.5px] border-[#494949] border-opacity-50"
+            >
+              <IconExit className="w-5 h-5 cur" />
+              <p>로그아웃</p>
+            </button>
           </div>
-          <nav className={` mt-8`}>
+          {/* <nav className={` mt-8`}>
             <ul>
               <li
                 onClick={handleClickMain}
@@ -66,17 +66,13 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
                 <span className="mt-1">캘린더</span>
               </li>
             </ul>
-          </nav>
+          </nav> */}
           {/* 개인 일정 */}
-          <SideTodoSection />
         </div>
-        <div>
+        {/* <div>
           <nav className="mt-2 mb-[73px] tet-[20px]">
             <ul>
-              <li
-                className="flex items-center cur"
-                onClick={handleClickSetting}
-              >
+              <li className="flex items-center cur">
                 <IconSetting className="w-8 h-8" />
                 <span className={`ml-[16px] ${dodum.className}`}>설정</span>
               </li>
@@ -89,11 +85,8 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
               </li>
             </ul>
           </nav>
-        </div>
+        </div> */}
       </aside>
-      <ModalWrapper setIsOpen={setIsOpen} isOpen={isOpen}>
-        <SettingModal setIsOpen={setIsOpen} />
-      </ModalWrapper>
 
       {/* Main Content */}
       <main className="flex-grow bg-gray-50">{children}</main>
