@@ -21,6 +21,7 @@ export { default as IconBold } from "./bold.svg";
 export { default as IconAddPhoto } from "./add_photo.svg";
 export { default as IconLogo } from "./logo.svg";
 export { default as IconEmptyTodo } from "./empty_todo.svg";
+export { default as IconEmptyDiary } from "./empty_diary.svg";
 export { default as IconCircleSetting } from "./setting_circle.svg";
 export { default as IconSettingOrder } from "./order_setting.svg";
 export { default as IconAngryEmotion } from "./angry_emotion.svg";
