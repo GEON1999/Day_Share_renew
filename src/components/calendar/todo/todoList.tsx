@@ -1,6 +1,6 @@
 import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
-import { IconAdd, IconCheck_o, IconCheck_x } from "@/icons";
+import { IconAdd, IconCheck_o, IconCheck_x, IconEmptyTodo } from "@/icons";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
 import { useMutation } from "@tanstack/react-query";
@@ -53,9 +53,14 @@ const TodoList = () => {
         </div>
         <div>{/* 페이징 추가 */}</div>
       </div>
-      <div className="flex-grow overflow-hidden px-[25px] bor w-[480px] h-[140px] mt-[10px] rounded-md bg_deep_2 py-[10px]">
+      <div className="flex-grow overflow-hidden px-[25px] bor w-[480px] h-[140px] mt-[10px] rounded-md bg_deep_2 py-[10px] shadow_box">
         {todoData?.length === 0 || !todoData ? (
-          <p className="p-5">일정이 없습니다</p>
+          <div className="flex justify-between items-center h-full px-[13px]">
+            <p className="text-gray-500 text-[20px]">
+              일정이 없어요. 추가해 볼까요?
+            </p>
+            <IconEmptyTodo className="w-[134px] h-[162.36px] mt-12" />
+          </div>
         ) : (
           todoData?.map((todo: any, index: number) => {
             console.log(todo);
@@ -64,7 +69,7 @@ const TodoList = () => {
                 onClick={() => handleClickTodo(todo.id)}
                 key={todo.id}
                 className={`h-[40px] cur flex justify-between items-center py-[10px] text-[20px] ${
-                  index != 2 ? "border-b border-[#49494920]" : ""
+                  index != 2 ? "border-b border-[#49494950]" : ""
                 }`}
               >
                 <div className={`flex items-center space-x-[15px]`}>
