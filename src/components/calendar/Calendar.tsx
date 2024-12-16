@@ -60,6 +60,11 @@ const Calendar = ({}) => {
   const { data: calendarDate, isLoading } =
     useCalendarQueries.useGetCalendarDates(calendarId);
 
+  // const { data: calendarDetail } =
+  //   useCalendarQueries.useGetCalendarDetail(calendarId);
+
+  // console.log("calendarDetail", calendarDetail, "calendarDate", calendarDate);
+
   useEffect(() => {
     document.title = `Calendar - ${year}-${month + 1}`;
   }, [year, month]);
@@ -106,7 +111,7 @@ const Calendar = ({}) => {
         </h1>
         <div className="flex justify-between w-[1255px] items-center">
           <div className="flex w-[626px] space-x-4 justify-between">
-            <span className="text-[46px] font-bold">
+            <span className="text-[46px] ">
               {year}. {month + 1}
             </span>
             <div className="flex items-center ">
@@ -124,20 +129,20 @@ const Calendar = ({}) => {
           </div>
         </div>
         <div className="flex items-center">
-          <div className="w-[610px] h-[715px] rounded-md overflow-hidden bor shadow_box">
+          <div className="w-[629px] h-[675px] overflow-hidden    border-y-[1.5px] border-y-[#494949]">
             <table className="w-full h-full text-center">
-              <thead className="bg_hilight h-[80px] w-full">
-                <tr className="text-black text-md font-bold">
-                  <th className="text_red">일</th>
-                  <th>월</th>
-                  <th>화</th>
-                  <th>수</th>
-                  <th>목</th>
-                  <th>금</th>
-                  <th>토</th>
+              <thead className="bg_light_pink h-[34px] w-full border-b-[1.5px] border-[#494949]">
+                <tr className="text-black text-md font-normal">
+                  <th className="text_red font-normal">SUN</th>
+                  <th className="font-normal">MON</th>
+                  <th className="font-normal">TUE</th>
+                  <th className="font-normal">WED</th>
+                  <th className="font-normal">THU</th>
+                  <th className="font-normal">FRI</th>
+                  <th className="font-normal">SAT</th>
                 </tr>
               </thead>
-              <tbody className="w-full">
+              <tbody className="w-full" style={{ borderCollapse: "collapse" }}>
                 {calendar.map((week, index) => (
                   <tr key={index} className="">
                     {week.map((dateObj, dayIndex) => {
@@ -161,32 +166,46 @@ const Calendar = ({}) => {
                         <td
                           key={dayIndex}
                           onClick={() => isDayCell && handleClickDate(day)}
-                          className="p-0"
+                          className="p-0 space-x-0 space-y-0"
                         >
                           <div
-                            className={`mx-auto w-[70px] h-[70px] rounded-full flex items-center justify-center transition-all duration-300 ease-in-out ${
-                              currentMonth
-                                ? isClicked
-                                  ? "bg_hilight cursor-pointer"
-                                  : isHighlighted
-                                  ? "bg-[#E6E6E650]  cursor-pointer"
-                                  : "bg-transparent text-gray-700 cursor-pointer hover:bg_ligth hover:text-gray-900"
-                                : "cursor-default"
-                            }`}
+                            className={
+                              `mx-auto w-[89.86px] h-[129px] transition-all duration-300 ease-in-out bor_light_pink border px-2 py-1 cur`
+                              //   ${
+                              //   currentMonth
+                              //     ? isClicked
+                              //       ? "bg_hilight cursor-pointer"
+                              //       : isHighlighted
+                              //       ? "bg-[#E6E6E650]  cursor-pointer"
+                              //       : "bg-transparent text-gray-700 cursor-pointer hover:bg_ligth hover:text-gray-900"
+                              //     : "cursor-default"
+                              // }
+                            }
                           >
-                            <span
-                              className={
-                                currentMonth && dayIndex === 0
-                                  ? "text_red"
-                                  : !currentMonth && dayIndex === 0
-                                  ? "text_red opacity-40"
-                                  : !currentMonth && dayIndex !== 0
-                                  ? "opacity-40"
-                                  : ""
-                              }
-                            >
-                              {day}
-                            </span>
+                            <div className="flex flex-col items-center justify-center space-y-2 ml-[51px]">
+                              <span
+                                className={`flex items-center justify-center w-[30px] h-[30px] text-[18px] ${
+                                  currentMonth && dayIndex === 0
+                                    ? "text_red"
+                                    : !currentMonth && dayIndex === 0
+                                    ? "text_red opacity-40"
+                                    : !currentMonth && dayIndex !== 0
+                                    ? "opacity-40"
+                                    : ""
+                                } ${
+                                  isClicked
+                                    ? " bg-[#FFBDBD80] rounded-full"
+                                    : ""
+                                }`}
+                              >
+                                {day}
+                              </span>
+                              <div
+                                className={`${
+                                  isHighlighted ? "bg_deep_pink" : ""
+                                } w-1 h-1 rounded-full`}
+                              ></div>
+                            </div>
                           </div>
                         </td>
                       );

@@ -141,6 +141,18 @@ li {
   @apply bg-[#F9F4CF];
 }
 
+.bg_light_pink {
+  @apply bg-[#FFE3E3];
+}
+
+.bg_deep_pink {
+  @apply bg-[#FF8888];
+}
+
+.bor_light_pink {
+  @apply border-[#FFE3E3];
+}
+
 .bg_deeper {
   @apply bg-[#E0CBB7];
 }
@@ -158,7 +170,7 @@ li {
 }
 
 .text_red {
-  @apply text-[#FF0000];
+  @apply text-[#E75F51];
 }
 
 .center {
