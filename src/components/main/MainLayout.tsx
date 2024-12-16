@@ -32,7 +32,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="mt-[45px]">
               <IconLogo
                 onClick={handleClickMain}
-                className="w-[108px] h-[108px]"
+                className="w-[108px] h-[108px] cur"
               />
               <IconCircleSetting
                 onClick={handleClickSetting}

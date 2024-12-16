@@ -6,12 +6,12 @@ import { useEffect } from "react";
 
 const ClientPage = () => {
   useEffect(() => {
-    document.querySelector("body")?.classList.add("bg_depp");
+    document.querySelector("body")?.classList.add("bg_main");
   }, []);
 
   return (
     <CalendarLayout>
-      <div className="flex w-full h-full bg_depp">
+      <div className="flex w-full h-full bg_main">
         <Calendar />
       </div>
     </CalendarLayout>

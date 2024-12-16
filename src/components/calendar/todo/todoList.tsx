@@ -1,3 +1,4 @@
+import CalendarTodoPagination from "@/components/pagination/calendarTodoPagination";
 import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
 import { IconAdd, IconCheck_o, IconCheck_x, IconEmptyTodo } from "@/icons";
@@ -51,12 +52,14 @@ const TodoList = () => {
           <h1 className="text-2xl">공유 일정</h1>
           <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
         </div>
-        <div>{/* 페이징 추가 */}</div>
+        <div>
+          <CalendarTodoPagination total_count={todoData?.length} />
+        </div>
       </div>
       <div className="flex-grow overflow-hidden px-[25px] bor w-[480px] h-[140px] mt-[10px] rounded-md bg_deep_2 py-[10px] shadow_box">
         {todoData?.length === 0 || !todoData ? (
           <div className="flex justify-between items-center h-full px-[13px]">
-            <p className="text-gray-500 text-[20px]">
+            <p className="text-[#2D2D2E] text-[20px]">
               일정이 없어요. 추가해 볼까요?
             </p>
             <IconEmptyTodo className="w-[134px] h-[162.36px] mt-12" />

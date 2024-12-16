@@ -98,128 +98,107 @@ const Calendar = ({}) => {
   const handleClickToday = () =>
     router.push(`/calendar/${calendarId}?date=${Helper.getTodayMs()}`);
 
-  const handleClickCreateDiary = () =>
-    router.push(`/calendar/${calendarId}/diary/create?date=${date}`);
-
-  const handleClickCreateTodo = () =>
-    router.push(`/calendar/${calendarId}/todo/create?date=${date}`);
-
   return (
-    <div className={`main_container ${dodum.className}`}>
-      <div className="flex items-center space-x-10 mt-[30px]">
-        <div className="w-[150px] h-[100px] bor shadow_box rounded-md">
-          <img
-            className="object-cover w-full h-full rounded-md"
-            src={calendarDate?.calendar?.img ?? process.env.NEXT_PUBLIC_LOGO}
-          />
-        </div>
-        <h1 className="text-[40px]">{calendarDate?.calendar?.name ?? ""}</h1>
-      </div>
-      <div className="flex justify-between w-[1255px] items-center">
-        <div className="flex my-2 mt-14 space-x-4">
-          <span className="text-2xl font-bold">
-            {year}년 {month + 1}월
-          </span>
-          <div className="flex items-center space-x-[13px]">
-            <IconPrev onClick={handlePrevBtn} className="w-5 h-5 cur" />
-            <IconNext onClick={handleNextBtn} className="w-5 h-5 cur" />
+    <div className={`main_container flex space-x-[70px] ${dodum.className}`}>
+      <div className="w-[631.5px]">
+        <h1 className="text-[25px] mt-[75px]">
+          {calendarDate?.calendar?.name ?? ""}
+        </h1>
+        <div className="flex justify-between w-[1255px] items-center">
+          <div className="flex w-[626px] space-x-4 justify-between">
+            <span className="text-[46px] font-bold">
+              {year}. {month + 1}
+            </span>
+            <div className="flex items-center ">
+              <button
+                onClick={handleClickToday}
+                className="w-[109px] h-[34px] text-[20px] bor rounded-full"
+              >
+                TODAY
+              </button>
+              <div className="flex items-center space-x-[13px]">
+                <IconPrev onClick={handlePrevBtn} className="w-5 h-5 cur" />
+                <IconNext onClick={handleNextBtn} className="w-5 h-5 cur" />
+              </div>
+            </div>
           </div>
-          <button onClick={handleClickToday} className="p-1 bor rounded">
-            오늘
-          </button>
         </div>
-        <div className="flex space-x-2 justify-center mt-5">
-          <button
-            onClick={handleClickCreateTodo}
-            className="bg_hilight w-[150px] h-[40px] rounded  bor"
-          >
-            일정 생성
-          </button>
-          <button
-            onClick={handleClickCreateDiary}
-            className="bg_hilight w-[150px] h-[40px] rounded bor"
-          >
-            일기 생성
-          </button>
-        </div>
-      </div>
-      <div className="flex items-center">
-        <div className="w-[610px] h-[715px] rounded-md overflow-hidden mr-[38px] bor shadow_box">
-          <table className="w-full h-full text-center">
-            <thead className="bg_hilight h-[80px] w-full">
-              <tr className="text-black text-md font-bold">
-                <th className="text_red">일</th>
-                <th>월</th>
-                <th>화</th>
-                <th>수</th>
-                <th>목</th>
-                <th>금</th>
-                <th>토</th>
-              </tr>
-            </thead>
-            <tbody className="w-full">
-              {calendar.map((week, index) => (
-                <tr key={index} className="">
-                  {week.map((dateObj, dayIndex) => {
-                    if (!dateObj) {
-                      return <td key={dayIndex} className="p-0"></td>;
-                    }
-
-                    const { day, currentMonth } = dateObj;
-                    const isDayCell = currentMonth;
-                    let isHighlighted = false;
-
-                    if (isDayCell) {
-                      const date = new Date(year, month, day);
-                      const dateString = date.toISOString().split("T")[0];
-                      isHighlighted = dateSet.has(dateString);
-                    }
-
-                    const isClicked = clickedDay === day && currentMonth;
-
-                    return (
-                      <td
-                        key={dayIndex}
-                        onClick={() => isDayCell && handleClickDate(day)}
-                        className="p-0"
-                      >
-                        <div
-                          className={`mx-auto w-[70px] h-[70px] rounded-full flex items-center justify-center transition-all duration-300 ease-in-out ${
-                            currentMonth
-                              ? isClicked
-                                ? "bg_hilight cursor-pointer"
-                                : isHighlighted
-                                ? "bg-[#E6E6E650]  cursor-pointer"
-                                : "bg-transparent text-gray-700 cursor-pointer hover:bg_ligth hover:text-gray-900"
-                              : "cursor-default"
-                          }`}
-                        >
-                          <span
-                            className={
-                              currentMonth && dayIndex === 0
-                                ? "text_red"
-                                : !currentMonth && dayIndex === 0
-                                ? "text_red opacity-40"
-                                : !currentMonth && dayIndex !== 0
-                                ? "opacity-40"
-                                : ""
-                            }
-                          >
-                            {day}
-                          </span>
-                        </div>
-                      </td>
-                    );
-                  })}
+        <div className="flex items-center">
+          <div className="w-[610px] h-[715px] rounded-md overflow-hidden bor shadow_box">
+            <table className="w-full h-full text-center">
+              <thead className="bg_hilight h-[80px] w-full">
+                <tr className="text-black text-md font-bold">
+                  <th className="text_red">일</th>
+                  <th>월</th>
+                  <th>화</th>
+                  <th>수</th>
+                  <th>목</th>
+                  <th>금</th>
+                  <th>토</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <CalendarDateModal />
+              </thead>
+              <tbody className="w-full">
+                {calendar.map((week, index) => (
+                  <tr key={index} className="">
+                    {week.map((dateObj, dayIndex) => {
+                      if (!dateObj) {
+                        return <td key={dayIndex} className="p-0"></td>;
+                      }
+
+                      const { day, currentMonth } = dateObj;
+                      const isDayCell = currentMonth;
+                      let isHighlighted = false;
+
+                      if (isDayCell) {
+                        const date = new Date(year, month, day);
+                        const dateString = date.toISOString().split("T")[0];
+                        isHighlighted = dateSet.has(dateString);
+                      }
+
+                      const isClicked = clickedDay === day && currentMonth;
+
+                      return (
+                        <td
+                          key={dayIndex}
+                          onClick={() => isDayCell && handleClickDate(day)}
+                          className="p-0"
+                        >
+                          <div
+                            className={`mx-auto w-[70px] h-[70px] rounded-full flex items-center justify-center transition-all duration-300 ease-in-out ${
+                              currentMonth
+                                ? isClicked
+                                  ? "bg_hilight cursor-pointer"
+                                  : isHighlighted
+                                  ? "bg-[#E6E6E650]  cursor-pointer"
+                                  : "bg-transparent text-gray-700 cursor-pointer hover:bg_ligth hover:text-gray-900"
+                                : "cursor-default"
+                            }`}
+                          >
+                            <span
+                              className={
+                                currentMonth && dayIndex === 0
+                                  ? "text_red"
+                                  : !currentMonth && dayIndex === 0
+                                  ? "text_red opacity-40"
+                                  : !currentMonth && dayIndex !== 0
+                                  ? "opacity-40"
+                                  : ""
+                              }
+                            >
+                              {day}
+                            </span>
+                          </div>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
+      <CalendarDateModal />
     </div>
   );
 };

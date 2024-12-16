@@ -37,6 +37,16 @@ const useSearchPage = () => {
   return searchParams.get("page") ?? "1";
 };
 
+const useSearchCalendarTodoPage = () => {
+  const searchParams = useSearchParams();
+  return searchParams.get("calendar_todo_page") ?? "1";
+};
+
+const useSearchCalendarDiaryPage = () => {
+  const searchParams = useSearchParams();
+  return searchParams.get("calendar_diary_page") ?? "1";
+};
+
 const useSearchDiaryPage = () => {
   const searchParams = useSearchParams();
   return searchParams.get("diary_page") ?? "1";
@@ -67,4 +77,6 @@ export default {
   useParamsAll,
   useSearchTodoPage,
   useSearchDate,
+  useSearchCalendarTodoPage,
+  useSearchCalendarDiaryPage,
 };

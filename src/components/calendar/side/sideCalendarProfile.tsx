@@ -3,20 +3,24 @@ import SettingModal from "@/components/modal/SettingModal";
 import useSearch from "@/hooks/useSearch";
 import { IconCircleSetting, IconSetting } from "@/icons";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const SideCalendarProfile = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const id = useSearch.useSearchId();
   const { data, isLoading } = useCalendarQueries.useGetCalendarDates(id);
-  console.log(data);
 
   const handleClickSetting = () => setIsOpen(true);
 
+  const handleCalendarProfileClick = () => router.push(`/calendar/${id}`);
+
   return (
-    <div className="flex flex-col items-center mt-[42px]">
+    <div className="flex flex-col items-center mt-[42px] ">
       <img
-        className="w-[191px] h-[127px] bor shadow_box rounded-md"
+        onClick={handleCalendarProfileClick}
+        className="w-[191px] h-[127px] bor shadow_box rounded-md cur"
         src={data?.calendar?.img}
         alt="calendar"
       />
