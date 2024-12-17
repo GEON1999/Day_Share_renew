@@ -49,7 +49,7 @@ const SideTodoSection = () => {
     <section className="mt-[28px] side_todo_container">
       <ul className="space-y-2">
         <div
-          className={`flex items-center justify-between content-center text-[20px] ${dodum.className}`}
+          className={`flex items-center justify-between content-center text-[20px]`}
         >
           전체 일정
         </div>

@@ -10,7 +10,7 @@ const SideCalendarProfile = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const id = useSearch.useSearchId();
-  const { data, isLoading } = useCalendarQueries.useGetCalendarDates(id);
+  const { data, isLoading } = useCalendarQueries.useGetCalendarBasic(id);
 
   const handleClickSetting = () => setIsOpen(true);
 
@@ -21,14 +21,14 @@ const SideCalendarProfile = () => {
       <img
         onClick={handleCalendarProfileClick}
         className="w-[191px] h-[127px] bor shadow_box rounded-md cur"
-        src={data?.calendar?.img}
+        src={data?.img ?? process.env.NEXT_PUBLIC_LOGO}
         alt="calendar"
       />
       <IconCircleSetting
         onClick={handleClickSetting}
         className="w-[30px] h-[30px] absolute top-[302px] left-[203px] cur"
       />
-      <p className="mt-[19px] text-[20px]">{data?.calendar?.name}</p>
+      <p className="mt-[19px] text-[20px]">{data?.name}</p>
 
       <ModalWrapper setIsOpen={setIsOpen} isOpen={isOpen}>
         <SettingModal setIsOpen={setIsOpen} />

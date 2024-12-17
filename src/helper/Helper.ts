@@ -67,12 +67,36 @@ const formatDateTimeLocal = (dateString: string): string => {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
 
+const formatDateForContent = (dateString: string): string => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${year}.${month}.${day}. ${hours}:${minutes}`;
+};
+
 const formatTimeForInput = (timeString: string): string => {
   const date = new Date(timeString);
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
 
   return `${hours}:${minutes}`;
+};
+
+// format date like 2024. 11. 10. 오후 01:00
+const formatDateForComment = (dateString: string): string => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const hours = date.getHours() % 12 || 12;
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const ampm = date.getHours() >= 12 ? "오후" : "오전";
+
+  return `${year}.${month}.${day}. ${ampm} ${hours}:${minutes}`;
 };
 
 const cleanContent = (content: any) => {
@@ -125,4 +149,6 @@ export default {
   isDateOlderThanOneDay,
   getTodayMs,
   formatWithoutYear,
+  formatDateForContent,
+  formatDateForComment,
 };

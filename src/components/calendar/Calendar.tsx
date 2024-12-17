@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import CalendarDateModal from "./CalendarDateModal";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
-import { IconNext, IconPrev } from "@/icons";
+import { IconNext, IconNextBig, IconPrev, IconPrevBig } from "@/icons";
 
 const generateCalendar = (year: number, month: number) => {
   const firstDay = new Date(year, month, 1);
@@ -109,7 +109,7 @@ const Calendar = ({}) => {
         <h1 className="text-[25px] mt-[75px]">
           {calendarDate?.calendar?.name ?? ""}
         </h1>
-        <div className="flex justify-between w-[1255px] items-center">
+        <div className="flex justify-between w-[1255px] items-center mb-2">
           <div className="flex w-[626px] space-x-4 justify-between">
             <span className="text-[46px] ">
               {year}. {month + 1}
@@ -117,19 +117,25 @@ const Calendar = ({}) => {
             <div className="flex items-center ">
               <button
                 onClick={handleClickToday}
-                className="w-[109px] h-[34px] text-[20px] bor rounded-full"
+                className="w-[109px] h-[34px] text-[20px] bor rounded-full mr-6"
               >
                 TODAY
               </button>
-              <div className="flex items-center space-x-[13px]">
-                <IconPrev onClick={handlePrevBtn} className="w-5 h-5 cur" />
-                <IconNext onClick={handleNextBtn} className="w-5 h-5 cur" />
+              <div className="flex items-center space-x-[34px]">
+                <IconPrevBig
+                  onClick={handlePrevBtn}
+                  className="w-[12.5px] h-[25px] cur"
+                />
+                <IconNextBig
+                  onClick={handleNextBtn}
+                  className="w-[12.5px] h-[25px] cur"
+                />
               </div>
             </div>
           </div>
         </div>
         <div className="flex items-center">
-          <div className="w-[629px] h-[675px] overflow-hidden    border-y-[1.5px] border-y-[#494949]">
+          <div className="w-[629px] h-[675px] overflow-hidden border-y-[1.5px] border-y-[#494949]">
             <table className="w-full h-full text-center">
               <thead className="bg_light_pink h-[34px] w-full border-b-[1.5px] border-[#494949]">
                 <tr className="text-black text-md font-normal">
