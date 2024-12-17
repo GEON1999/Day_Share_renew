@@ -28,3 +28,5 @@ export { default as IconEmptyDiary } from "./empty_diary.svg";
 export { default as IconCircleSetting } from "./setting_circle.svg";
 export { default as IconSettingOrder } from "./order_setting.svg";
 export { default as IconAngryEmotion } from "./angry_emotion.svg";
+export { default as IconComment } from "./comment.svg";
+export { default as IconHeart } from "./heart.svg";

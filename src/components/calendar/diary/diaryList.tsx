@@ -63,7 +63,7 @@ const DiaryList = () => {
             return (
               <div onClick={() => handleClickDiary(diary.id)} key={diary.id}>
                 <div
-                  className={`w-full h-[160px]  py-[16px] text-[20px] flex justify-between ${
+                  className={`w-full h-[160px]  py-[16px] text-[20px] flex justify-between cur ${
                     index != 2 ? "border-b border-[#49494950]" : ""
                   }`}
                 >

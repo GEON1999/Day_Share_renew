@@ -19,6 +19,8 @@ const TodoCreate = () => {
     mutationFn: useTodoMutations.createTodo,
   });
 
+  const handleCancel = () => router.push(`/calendar/${id}?date=${date}`);
+
   const onSubmit = debounce((formData: any) => {
     const { startAt, endAt } = Helper.setAt({ formData });
 
@@ -41,36 +43,34 @@ const TodoCreate = () => {
   }, StaticKeys.DEBOUNCE_TIME);
 
   return (
-    <div className="main_container">
-      <div className="max-w-[1500px] min-w-[600px] px-20 mt-20">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-4"
+    <div className="min-w-[600px] mt-[86px] w-[1270px] mx-auto">
+      <div className="flex items-center space-x-[10px] ">
+        <span className="text_red text-[20px]">일정 등록</span>
+        <span className="text-[#999790] text-[16px]">|</span>
+        <span
+          onClick={handleCancel}
+          className="text-[#999790] text-[16px] cur mt-[1px]"
         >
-          <div className="flex justify-between items-center mb-10">
-            <h1 className="text-3xl font-bold ">일정 작성</h1>
-            <button
-              type="submit"
-              className="bg_deeper rounded px-4 py-2 bor mb-5"
-            >
-              저장
-            </button>
-          </div>
-          <div className="flex flex-col space-y-4">
-            <input
-              {...register("title")}
-              className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
-              placeholder="제목을 입력해주세요"
-            />
-            <textarea
-              {...register("content")}
-              className="border-2 border-gray-400 w-full h-40 px-4 outline-none rounded p-4"
-              placeholder="내용을 입력해주세요"
-            />
-            <div className="flex space-x-3 mt-10">
+          이전으로 돌아가기
+        </span>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+        <div className="flex flex-col mt-[30px]">
+          <input
+            {...register("title")}
+            className="border w-full h-[40px] outline-none rounded-md bg-transparent text-[20px] placeholder:text-[#495163] px-5"
+            placeholder="제목을 입력해주세요"
+          />
+          <textarea
+            {...register("content")}
+            className="border-2 border-gray-400 w-full h-[135px] outline-none rounded mt-[30px] p-5 bg-transparent placeholder:text-[#495163] text-[20px]"
+            placeholder="일정에 필요한 설명을 남기세요."
+          />
+          <div className="flex items-center justify-between">
+            <div className="flex space-x-3 mt-[30px]">
               {/* 시작일 입력 필드 추가 */}
-              <label className="flex flex-col mt-4">
-                시작일
+              <label className="flex flex-col ">
+                시작 시간
                 <input
                   type="time"
                   {...register("startAt")}
@@ -78,8 +78,8 @@ const TodoCreate = () => {
                 />
               </label>
               {/* 종료일 입력 필드 추가 */}
-              <label className="flex flex-col mt-4">
-                종료일
+              <label className="flex flex-col">
+                종료 시간
                 <input
                   type="time"
                   {...register("endAt")}
@@ -87,9 +87,24 @@ const TodoCreate = () => {
                 />
               </label>
             </div>
+            <div className="flex items-center space-x-[10px] mt-[25px]">
+              <button
+                onClick={() => router.push(`/calendar/${id}?date=${date}`)}
+                type="button"
+                className="rounded-md w-[60px] h-[35px] bor text-[20px]"
+              >
+                취소
+              </button>
+              <button
+                type="submit"
+                className="bg_hilight rounded-md w-[60px] h-[35px] bor text-[20px]"
+              >
+                저장
+              </button>
+            </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };
