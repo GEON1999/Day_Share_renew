@@ -33,8 +33,11 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   const diaryId = useSearch.useSearchDiaryId();
   const query = `contentType=diary&contentId=${diaryId}`;
 
-  const { register: commentRegister, handleSubmit: commentHandleSubmit } =
-    useForm();
+  const {
+    register: commentRegister,
+    handleSubmit: commentHandleSubmit,
+    reset: commentReset,
+  } = useForm();
 
   const {
     data,
@@ -97,6 +100,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
           refetch();
           console.log("success");
           commentRefetch();
+          commentReset();
         },
         onError: () => {
           console.log("error");
@@ -292,7 +296,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
               </div>
               <input
                 {...commentRegister("content")}
-                className="w-full h-[18px] outline-none rounded bg-transparent text-[20px] placeholder:text-[#969696] px-[1px]"
+                className="w-full h-[18px] outline-none rounded bg-transparent text-[20px] placeholder:text-[#495163] px-[1px]"
                 placeholder="댓글을 남겨보세요."
               />
               {/* 버튼을 가장 우측으로 이동 */}

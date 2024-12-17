@@ -53,43 +53,47 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
     );
   };
   return (
-    <div className="max-w-[1500px] min-w-[600px] px-20 mt-10">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col space-y-2"
-      >
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center">
-            <img
-              className="w-10 h-10 rounded-full bor"
-              src={calendarProfile?.img ?? process.env.NEXT_PUBLIC_LOGO}
-            />
-            <h1 className="font-bold text-xl ml-2">
-              {calendarProfile?.name ?? "탈퇴한 유저"}
-            </h1>
-          </div>
-          <div className="flex space-x-2">
-            <button
-              onClick={() => setEditorMode(false)}
-              type="button"
-              className="bg_deeper rounded px-4 py-2 bor"
-            >
-              취소
-            </button>
-            <button type="submit" className="bg_deeper rounded px-4 py-2 bor">
-              저장
-            </button>
-          </div>
-        </div>
-        <div className="flex flex-col">
+    <div className="min-w-[600px] mt-[86px] w-[1270px]">
+      <div className="flex items-center space-x-[10px] ">
+        <span className="text_red text-[20px]">일기 등록</span>
+        <span className="text-[#999790] text-[16px]">|</span>
+        <span
+          onClick={() => setEditorMode(false)}
+          className="text-[#999790] text-[16px] cur mt-[1px]"
+        >
+          이전으로 돌아가기
+        </span>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+        <div className="flex flex-col mt-[26px]">
           <input
             {...register("title")}
-            className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded mb-5"
+            className="border w-full h-[40px] outline-none rounded-md bg-transparent text-[20px] placeholder:text-[#495163] px-5 mb-5"
             placeholder="제목을 입력해주세요"
             defaultValue={data?.title}
           />
-          <Toolbar editor={editor} />
-          <EditorContent className="outline-none" editor={editor} />
+          <div className="border rounded-md flex flex-col h-[595px] overflow-y-auto">
+            <Toolbar editor={editor} />
+            <EditorContent
+              editor={editor}
+              className="w-full h-[595px] outline-none rounded bg-transparent text-[20px] py-[15px] px-[20px] placeholder:text-[#495163] focus:outline-none focus:ring-0"
+            />
+          </div>
+        </div>
+        <div className="flex ml-auto items-center space-x-[10px] mt-[25px]">
+          <button
+            onClick={() => setEditorMode(false)}
+            type="button"
+            className="rounded-md w-[60px] h-[35px] bor text-[20px]"
+          >
+            취소
+          </button>
+          <button
+            type="submit"
+            className="bg_hilight rounded-md w-[60px] h-[35px] bor text-[20px]"
+          >
+            저장
+          </button>
         </div>
       </form>
     </div>

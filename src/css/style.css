@@ -110,14 +110,9 @@ li {
   margin: 0 auto;
 }
 
-.ProseMirror {
-  padding: 20px;
-  border: 2px solid black;
-  border-radius: 5px;
-  max-width: 100%;
-  overflow-x: auto;
-  outline: none;
-  max-height: 700px;
+.ProseMirror:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .shadow_box {

@@ -3,7 +3,7 @@ import ImageCropForEditor from "./ImageCropForEditor";
 
 const Toolbar = ({ editor }: any) => {
   return (
-    <div className="flex space-x-4">
+    <div className="flex space-x-4 border-b px-4 py-2">
       <button
         type="button"
         onClick={() => {
