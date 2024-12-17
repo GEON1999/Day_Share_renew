@@ -6,7 +6,7 @@ import DiaryCreate from "@/components/calendar/diary/DiaryCreate";
 const ClientPage = () => {
   return (
     <CalendarLayout>
-      <div className="flex w-full h-full bg_depp">
+      <div className="flex w-full h-full bg_main">
         <DiaryCreate />
       </div>
     </CalendarLayout>

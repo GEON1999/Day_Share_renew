@@ -115,6 +115,14 @@ li {
   box-shadow: none !important;
 }
 
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #495163;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
 .shadow_box {
   box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.15) !important;
 }

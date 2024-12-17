@@ -55,7 +55,7 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
   return (
     <div className="min-w-[600px] mt-[86px] w-[1270px]">
       <div className="flex items-center space-x-[10px] ">
-        <span className="text_red text-[20px]">일기 등록</span>
+        <span className="text_red text-[20px]">일기 수정</span>
         <span className="text-[#999790] text-[16px]">|</span>
         <span
           onClick={() => setEditorMode(false)}
