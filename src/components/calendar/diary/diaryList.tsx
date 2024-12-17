@@ -16,7 +16,6 @@ const DiaryList = () => {
       calendarId,
       `date=${date}&calendar_diary_page=${calendarDiaryPage}`
     );
-  console.log("diaryData :", diaryData);
 
   const options = {
     replace: (node: any) => {

@@ -100,8 +100,14 @@ export default async function Home(req: any) {
   const queries = Helper.queryToString(req.searchParams) ?? "";
 
   const queryClient = new QueryClient();
-  const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
   const date = `date=${req.searchParams.date ?? ""}`;
+  const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
+
+  const calendarTodoPage = `calendar_todo_page=${
+    req.searchParams.calendar_todo_page ?? "1"
+  }`;
+  const todoQueries = `${date}&${calendarTodoPage}`;
+
   const diaryPage = `calendar_diary_page=${
     req.searchParams.calendar_diary_page ?? "1"
   }`;
@@ -135,8 +141,8 @@ export default async function Home(req: any) {
       queryFn: () => getCalendarDates(accessToken, id),
     }),
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_TODOS, id, queries],
-      queryFn: () => getTodoDetail(accessToken, id, queries),
+      queryKey: [QueryKeys.GET_TODOS, id, todoQueries],
+      queryFn: () => getTodoDetail(accessToken, id, todoQueries),
     }),
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_DIARIES, id, diaryQueries],

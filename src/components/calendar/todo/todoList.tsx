@@ -11,12 +11,16 @@ const TodoList = () => {
   const router = useRouter();
   const calendarId = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
+  const calendarTodoPage = useSearch.useSearchCalendarTodoPage();
 
   const {
     data: todoData,
     isLoading,
     refetch,
-  } = useTodoQueries.useGetTodos(calendarId, `date=${date}`);
+  } = useTodoQueries.useGetTodos(
+    calendarId,
+    `date=${date}&calendar_todo_page=${calendarTodoPage}`
+  );
 
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,
@@ -53,11 +57,11 @@ const TodoList = () => {
           <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
         </div>
         <div>
-          <CalendarTodoPagination total_count={todoData?.length} />
+          <CalendarTodoPagination total_count={todoData?.total_count} />
         </div>
       </div>
       <div className="flex-grow overflow-hidden px-[25px] bor w-[480px] h-[140px] mt-[10px] rounded-md bg_deep_2 py-[10px] shadow_box">
-        {todoData?.length === 0 || !todoData ? (
+        {todoData?.todos?.length === 0 || !todoData ? (
           <div className="flex justify-between items-center h-full px-[13px]">
             <p className="text-[#2D2D2E] text-[20px]">
               일정이 없어요. 추가해 볼까요?
@@ -65,7 +69,7 @@ const TodoList = () => {
             <IconEmptyTodo className="w-[134px] h-[162.36px] mt-12" />
           </div>
         ) : (
-          todoData?.map((todo: any, index: number) => {
+          todoData?.todos?.map((todo: any, index: number) => {
             console.log(todo);
             return (
               <div
