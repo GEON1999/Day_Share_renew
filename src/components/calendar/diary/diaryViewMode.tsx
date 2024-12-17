@@ -17,7 +17,7 @@ import useDiaryMutations from "@/queries/diary/useDiaryMutations";
 import parse from "html-react-parser";
 import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
-import { IconNext, IconNextRed } from "@/icons";
+import { IconComment, IconHeart, IconNext, IconNextRed } from "@/icons";
 import useUserQueries from "@/queries/user/useUserQueries";
 
 const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
@@ -216,19 +216,11 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       <div className="flex border-t space-x-4 mt-[75px]">
         <div className="flex items-center space-x-6 mt-[10px]">
           <div className="flex items-center space-x-2  ">
-            <img
-              onClick={handleToggleLike}
-              className="w-5 h-5 cur"
-              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729076426211.png"
-            />
+            <IconHeart onClick={handleToggleLike} className="w-5 h-5 cur" />
             <div>{likeData}</div>
           </div>
           <div className="flex items-center space-x-2">
-            <img
-              onClick={handleOpenComment}
-              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729076565076.png"
-              className="w-5 h-5 cur"
-            />
+            <IconComment onClick={handleOpenComment} className="w-5 h-5 cur" />
             <div>{commentData ? commentData.length : "0"}</div>
           </div>
         </div>

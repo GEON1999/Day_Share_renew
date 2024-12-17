@@ -81,6 +81,14 @@ const getDiaryDetail = async (accessToken: any, id: string, query: string) => {
   return data;
 };
 
+const getCalendarBasic = async (accessToken: any, id: string) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}${API.GET_CALENDAR_BASIC(id)}`,
+    rqOption.apiHeader(accessToken)
+  );
+  return data;
+};
+
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
   const accessToken = session?.accessToken;
@@ -93,6 +101,11 @@ export default async function Home(req: any) {
 
   const queryClient = new QueryClient();
   const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
+  const date = `date=${req.searchParams.date ?? ""}`;
+  const diaryPage = `calendar_diary_page=${
+    req.searchParams.calendar_diary_page ?? "1"
+  }`;
+  const diaryQueries = `${date}&${diaryPage}`;
 
   const id = req.params.id;
 
@@ -126,8 +139,12 @@ export default async function Home(req: any) {
       queryFn: () => getTodoDetail(accessToken, id, queries),
     }),
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_DIARIES, id, queries],
-      queryFn: () => getDiaryDetail(accessToken, id, queries),
+      queryKey: [QueryKeys.GET_DIARIES, id, diaryQueries],
+      queryFn: () => getDiaryDetail(accessToken, id, diaryQueries),
+    }),
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_CALENDAR_BASIC, id],
+      queryFn: () => getCalendarBasic(accessToken, id),
     }),
   ]);
 

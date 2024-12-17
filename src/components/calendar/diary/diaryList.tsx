@@ -1,6 +1,6 @@
 import CalendarDiaryPagination from "@/components/pagination/calendarDiaryPagination";
 import useSearch from "@/hooks/useSearch";
-import { IconAdd, IconEmptyDiary } from "@/icons";
+import { IconAdd, IconComment, IconEmptyDiary, IconHeart } from "@/icons";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import parse from "html-react-parser";
 import { useRouter } from "next/navigation";
@@ -9,9 +9,14 @@ const DiaryList = () => {
   const router = useRouter();
   const calendarId = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
+  const calendarDiaryPage = useSearch.useSearchCalendarDiaryPage();
 
   const { data: diaryData, isLoading: diaryIsLoading } =
-    useDiaryQueries.useGetDiaries(calendarId, `date=${date}`);
+    useDiaryQueries.useGetDiaries(
+      calendarId,
+      `date=${date}&calendar_diary_page=${calendarDiaryPage}`
+    );
+  console.log("diaryData :", diaryData);
 
   const options = {
     replace: (node: any) => {
@@ -41,12 +46,12 @@ const DiaryList = () => {
           <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
         </div>
         <div>
-          <CalendarDiaryPagination total_count={diaryData?.length} />
+          <CalendarDiaryPagination total_count={diaryData?.total_count} />
         </div>
       </div>
 
       <div className="mt-[10px] bg_deep_2 h-[480px] w-[480px] rounded-md shadow_box bor overflow-hidden px-[25px]">
-        {diaryData?.length === 0 || !diaryData ? (
+        {diaryData?.diaries?.length === 0 || !diaryData ? (
           <div className="flex h-full flex-col items-center">
             <p className="text-[#2D2D2E] text-[20px]">
               <span className="relative top-[130px] right-[45px]">
@@ -58,7 +63,7 @@ const DiaryList = () => {
             <IconEmptyDiary className="w-[220px] h-[161.21px] mt-[154px]" />
           </div>
         ) : (
-          diaryData?.map((diary: any, index: number) => {
+          diaryData?.diaries?.map((diary: any, index: number) => {
             console.log(diary);
             return (
               <div onClick={() => handleClickDiary(diary.id)} key={diary.id}>
@@ -81,17 +86,11 @@ const DiaryList = () => {
                     </p>
                     <div className="flex space-x-3 text-[15px] mt-3">
                       <div className="flex items-center space-x-2">
-                        <img
-                          className="w-5 h-5"
-                          src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729076426211.png"
-                        />
+                        <IconHeart className="w-5 h-5 cur" />
                         <div>{diary.likeCount}</div>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <img
-                          className="w-5 h-5"
-                          src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729076565076.png"
-                        />
+                        <IconComment className="w-5 h-5 cur" />
                         <div>{diary.commentCount}</div>
                       </div>
                     </div>
