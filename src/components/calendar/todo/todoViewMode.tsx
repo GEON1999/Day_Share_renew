@@ -155,7 +155,9 @@ const TodoViewMode = ({ setEditorMode }: any) => {
         <p className="text-[30px] flex items-center space-x-5">
           <span>{data?.title}</span>
           <span className="font-thin">|</span>
-          <span>{Helper.formatTimeForTodo(data?.startAt, data?.endAt)}</span>
+          <span>
+            {Helper.formatTimeForTodoDetail(data?.startAt, data?.endAt)}
+          </span>
         </p>
         <div className="flex space-x-2">
           <button onClick={handleEditorMode} className="rounded w-15 h-10 bor">

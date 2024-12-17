@@ -47,68 +47,69 @@ const TodoEditMode = ({ setEditorMode }: any) => {
     );
   };
   return (
-    <div className="max-w-[1500px] min-w-[600px] px-20 mt-20">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col space-y-4"
-      >
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center">
-            <img
-              className="w-10 h-10 rounded-full bor"
-              src={calendarProfile?.img ?? process.env.NEXT_PUBLIC_LOGO}
-            />
-            <h1 className="font-bold text-xl ml-2">
-              {calendarProfile?.name ?? "탈퇴한 유저"}
-            </h1>
-          </div>
-          <div className="flex space-x-2">
-            <button
-              type="button"
-              onClick={() => setEditorMode(false)}
-              className="bg_deeper rounded px-4 py-2 bor"
-            >
-              취소
-            </button>
-            <button type="submit" className="bg_deeper rounded px-4 py-2 bor">
-              저장
-            </button>
-          </div>
-        </div>
-        <div className="flex flex-col space-y-4">
+    <div className="min-w-[600px] mt-[86px] w-[1270px]">
+      <div className="flex items-center space-x-[10px] ">
+        <span className="text_red text-[20px]">일정 수정</span>
+        <span className="text-[#999790] text-[16px]">|</span>
+        <span
+          onClick={() => setEditorMode(false)}
+          className="text-[#999790] text-[16px] cur mt-[1px]"
+        >
+          이전으로 돌아가기
+        </span>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+        <div className="flex flex-col mt-[30px]">
           <input
             {...register("title")}
-            className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
+            className="border w-full h-[40px] outline-none rounded-md bg-transparent text-[20px] placeholder:text-[#495163] px-5"
             placeholder="제목을 입력해주세요"
             defaultValue={data?.title}
           />
           <textarea
             {...register("content")}
-            className="border-2 border-gray-400 w-full h-40 px-4 outline-none rounded p-4"
-            placeholder="내용을 입력해주세요"
+            className="border-2 border-gray-400 w-full h-[135px] outline-none rounded mt-[30px] p-5 bg-transparent placeholder:text-[#495163] text-[20px]"
+            placeholder="일정에 필요한 설명을 남기세요."
             defaultValue={data?.content}
           />
-          <div className="flex space-x-3 mt-10">
-            {/* 시작일 입력 필드 추가 */}
-            <label className="flex flex-col mt-4">
-              시작일
-              <input
-                type="time"
-                {...register("startAt")}
-                defaultValue={Helper.formatTimeForInput(data?.startAt)}
-                className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
-              />
-            </label>
-            {/* 종료일 입력 필드 추가 */}
-            <label className="flex flex-col mt-4">
-              종료일
-              <input
-                type="time"
-                {...register("endAt")}
-                defaultValue={Helper.formatTimeForInput(data?.endAt)}
-                className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
-              />
-            </label>
+          <div className="flex items-center justify-between">
+            <div className="flex space-x-3 mt-[30px]">
+              {/* 시작일 입력 필드 추가 */}
+              <label className="flex flex-col ">
+                시작 시간
+                <input
+                  type="time"
+                  {...register("startAt")}
+                  defaultValue={Helper.formatTimeForInput(data?.startAt)}
+                  className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
+                />
+              </label>
+              {/* 종료일 입력 필드 추가 */}
+              <label className="flex flex-col">
+                종료 시간
+                <input
+                  type="time"
+                  {...register("endAt")}
+                  defaultValue={Helper.formatTimeForInput(data?.endAt)}
+                  className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
+                />
+              </label>
+            </div>
+            <div className="flex items-center space-x-[10px] mt-[25px]">
+              <button
+                onClick={() => setEditorMode(false)}
+                type="button"
+                className="rounded-md w-[60px] h-[35px] bor text-[20px]"
+              >
+                취소
+              </button>
+              <button
+                type="submit"
+                className="bg_hilight rounded-md w-[60px] h-[35px] bor text-[20px]"
+              >
+                저장
+              </button>
+            </div>
           </div>
         </div>
       </form>

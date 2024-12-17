@@ -102,7 +102,7 @@ const formatDateForTodo = (dateString: string): string => {
   return `${year}.${month}.${day} (${dayOfWeek})`;
 };
 
-const formatTimeForTodo = (start: string, end: string): string => {
+const formatTimeForTodoDetail = (start: string, end: string): string => {
   const startDate = new Date(start);
   const endDate = new Date(end);
   const startHours = startDate.getHours() % 12 || 12;
@@ -113,6 +113,14 @@ const formatTimeForTodo = (start: string, end: string): string => {
   const endAmpm = endDate.getHours() >= 12 ? "오후" : "오전";
 
   return `${startAmpm} ${startHours}:${startMinutes} ~ ${endAmpm} ${endHours}:${endMinutes}`;
+};
+
+const formatTimeForTodo = (dateString: string): string => {
+  const date = new Date(dateString);
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${hours}:${minutes}`;
 };
 
 const cleanContent = (content: any) => {
@@ -168,4 +176,5 @@ export default {
   formatDateForComment,
   formatDateForTodo,
   formatTimeForTodo,
+  formatTimeForTodoDetail,
 };
