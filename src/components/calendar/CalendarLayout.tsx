@@ -1,20 +1,13 @@
-import { dodum } from "@/app/fonts";
-import useSearch from "@/hooks/useSearch";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { IconExit, IconHome, IconLogo, IconSetting } from "@/icons";
+import React from "react";
+import { IconExit, IconLogo } from "@/icons";
 import SideTodoSection from "./side/sideTodoSection";
 import SideCalendarProfile from "./side/sideCalendarProfile";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const date = useSearch.useSearchDate();
-  const id = useSearch.useSearchId();
-
   const handleClickMain = () => router.push("/");
-  const handleCLickCalendar = () => router.push(`/calendar/${id}?date=${date}`);
-
   const handleLogout = async () => {
     await signOut();
   };

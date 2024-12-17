@@ -31,14 +31,6 @@ const formatTime = (dateString: string): string => {
   return `${hours}시 ${minutes}분`;
 };
 
-const formatTimeForTodo = (dateString: string): string => {
-  const date = new Date(dateString);
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-
-  return `${hours}:${minutes}`;
-};
-
 const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
   const year = date.getFullYear().toString().slice(2);
@@ -99,6 +91,30 @@ const formatDateForComment = (dateString: string): string => {
   return `${year}.${month}.${day}. ${ampm} ${hours}:${minutes}`;
 };
 
+// format date like 2024. 10. 24 (목)
+const formatDateForTodo = (dateString: string): string => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
+
+  return `${year}.${month}.${day} (${dayOfWeek})`;
+};
+
+const formatTimeForTodo = (start: string, end: string): string => {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  const startHours = startDate.getHours() % 12 || 12;
+  const startMinutes = startDate.getMinutes().toString().padStart(2, "0");
+  const endHours = endDate.getHours() % 12 || 12;
+  const endMinutes = endDate.getMinutes().toString().padStart(2, "0");
+  const startAmpm = startDate.getHours() >= 12 ? "오후" : "오전";
+  const endAmpm = endDate.getHours() >= 12 ? "오후" : "오전";
+
+  return `${startAmpm} ${startHours}:${startMinutes} ~ ${endAmpm} ${endHours}:${endMinutes}`;
+};
+
 const cleanContent = (content: any) => {
   return content
     .replace(/<p>/g, "") // <p> 태그 제거
@@ -140,7 +156,6 @@ export default {
   CURRENT_URL,
   queryToString,
   formatTime,
-  formatTimeForTodo,
   formatDate,
   formatDateTimeLocal,
   formatTimeForInput,
@@ -151,4 +166,6 @@ export default {
   formatWithoutYear,
   formatDateForContent,
   formatDateForComment,
+  formatDateForTodo,
+  formatTimeForTodo,
 };

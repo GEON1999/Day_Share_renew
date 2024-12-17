@@ -45,7 +45,6 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     refetch: diaryRefetch,
   } = useDiaryQueries.useGetDiaryDetail(id, diaryId);
   const { data: userData } = useCalendarQueries.useGetCalendarUserInfo(id);
-  console.log("userData:", userData);
   const { data: calendarData } = useCalendarQueries.useGetCalendarBasic(id);
   const options = {
     replace: (node: any) => {

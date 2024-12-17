@@ -16,6 +16,7 @@ import DeleteModal from "@/components/modal/DeleteModal";
 import { useRouter } from "next/navigation";
 import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
+import { IconNextRed } from "@/icons";
 
 const TodoViewMode = ({ setEditorMode }: any) => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   const [openComment, setOpenComment] = useState(true);
   const id = useSearch.useSearchId();
   const todoId = useSearch.useSearchTodoId();
+  const date = useSearch.useSearchDate();
   const query = `contentType=todo&contentId=${todoId}`;
 
   const { register: commentRegister, handleSubmit: commentHandleSubmit } =
@@ -37,6 +39,8 @@ const TodoViewMode = ({ setEditorMode }: any) => {
     isLoading,
     refetch: todoReFetch,
   } = useTodoQueries.useGetTodoDetail(id, todoId);
+  const { data: userData } = useCalendarQueries.useGetCalendarUserInfo(id);
+  const { data: calendarData } = useCalendarQueries.useGetCalendarBasic(id);
   const {
     data: commentData,
     isLoading: commentIsLoading,
@@ -64,7 +68,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   });
 
   const handleClickDeleteTodo = () => setIsTodoModalOpen(true);
-
+  const handleClickCalendar = () => router.push(`/calendar/${id}?date=${date}`);
   const onCommentSubmit = debounce((data: any) => {
     createComment({ calendarId: id, query, body: data }),
       {
@@ -139,113 +143,145 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   };
 
   return (
-    <div className="max-w-[1500px] min-w-[600px] px-20 mt-20">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center">
-          <img
-            className="w-10 h-10 rounded-full bor"
-            src={calendarProfile?.img ?? process.env.NEXT_PUBLIC_LOGO}
-          />
-          <h1 className="font-bold text-xl ml-2">
-            {calendarProfile?.name ?? "탈퇴한 유저"}
-          </h1>
-        </div>
+    <div className={`min-w-[600px] mt-[86px] w-[1270px]`}>
+      <div
+        className="flex items-center space-x-[10px] cur"
+        onClick={handleClickCalendar}
+      >
+        <p className="text_red text-[20px]">{calendarData?.name}</p>
+        <IconNextRed className="w-[9px] h-5" />
+      </div>
+      <div className="flex justify-between items-center mt-3">
+        <p className="text-[30px] flex items-center space-x-5">
+          <span>{data?.title}</span>
+          <span className="font-thin">|</span>
+          <span>{Helper.formatTimeForTodo(data?.startAt, data?.endAt)}</span>
+        </p>
         <div className="flex space-x-2">
+          <button onClick={handleEditorMode} className="rounded w-15 h-10 bor">
+            수정
+          </button>
           <button
             type="button"
             onClick={handleClickDeleteTodo}
-            className="bg_deeper rounded px-4 py-2 bor"
+            className="rounded w-15 h-10 bor"
           >
             삭제
           </button>
-          <button
-            type="button"
-            onClick={handleEditorMode}
-            className="bg_deeper rounded px-4 py-2 bor"
-          >
-            수정
-          </button>
+          {/* <button className="rounded w-15 h-10 bor">공유</button> */}
         </div>
       </div>
-      <div className="flex flex-col space-y-4 mt-8">
-        <h2 className="text-xl font-bold text-center">{data?.title}</h2>
-        <p>{data?.content}</p>
-      </div>
-      <div className="flex space-x-3 mt-10">
-        <p>시작 {Helper.formatTime(data.startAt)}</p>
-        <p> ~ </p>
-        <p>종료 {Helper.formatTime(data.endAt)}</p>
-      </div>
-      <div className="flex border-t-2 border-b-2 py-4 my-4 space-x-4">
-        <div className="flex items-center space-x-2">
-          <img
-            onClick={handleToggleLike}
-            className="w-5 h-5 cur"
-            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729076426211.png"
-          />
-          <div>{likeData}</div>
+      <div className="flex items-center mt-3">
+        <img
+          className="w-[50px] h-[50px] rounded-full bor"
+          src={calendarProfile?.img ?? process.env.NEXT_PUBLIC_LOGO}
+        />
+        <div className="flex flex-col ml-2">
+          <h1 className="ftext-[20px]">
+            {calendarProfile?.name ?? "탈퇴한 유저"}
+          </h1>
+          <p className="text-[16px] text-[#969696]">
+            {Helper.formatDateForContent(data?.createdAt)}
+          </p>
         </div>
-        <div className="flex items-center space-x-2">
-          <img
-            onClick={handleOpenComment}
-            src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729076565076.png"
-            className="w-5 h-5 cur"
-          />
-          <div>{commentData.length}</div>
+      </div>
+      <div className="my-8 text-[22px]">{data?.content}</div>
+      <div className="flex border-t space-x-4">
+        <div className="flex items-center space-x-6 mt-[10px]">
+          <div className="flex items-center space-x-2  ">
+            <img
+              onClick={handleToggleLike}
+              className="w-5 h-5 cur"
+              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729076426211.png"
+            />
+            <div>{likeData}</div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <img
+              onClick={handleOpenComment}
+              src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729076565076.png"
+              className="w-5 h-5 cur"
+            />
+            <div>{commentData ? commentData.length : "0"}</div>
+          </div>
         </div>
-        <div className=""> - {Helper.formatDate(data.createdAt)} - </div>
       </div>
       {openComment && (
-        <div>
-          <h1 className="font-bold text-xl mb-5">댓글</h1>
-          {commentData?.map((comment: any) => (
-            <div
-              key={comment.comment.id}
-              className="flex justify-between items-center"
-            >
-              <div className="flex items-center space-x-2 space-y-2">
-                <div>
+        <div className="mt-[13px]">
+          <div className="flex text-[22px] space-x-3">
+            <h1 className="">댓글 </h1>
+            <h1>{commentData?.length}</h1>
+          </div>
+          <div className="overflow-y-auto space-y-3">
+            {commentData?.map((comment: any) => (
+              <div
+                key={comment.comment.id}
+                className="flex justify-between items-center"
+              >
+                <div className="flex items-start space-x-3 space-y-2">
                   <img
-                    className="w-10 h-10 rounded-full bor"
-                    src={comment.profile.img}
+                    className="w-10 h-10 rounded-full bor mt-[7px]"
+                    src={comment?.profile?.img ?? ""}
+                  />
+                  <div className="max-w-[1000px] space-y-[2px]">
+                    <div className="flex items-center space-x-[15px]">
+                      <h1 className="text-[16px] text-[#2D2D2E]">
+                        {comment?.profile?.name}
+                      </h1>
+                      <p className="text-[13px] text-[#969696]">
+                        {Helper.formatDateForComment(
+                          comment?.comment?.createdAt
+                        )}
+                      </p>
+                    </div>
+                    <p>{comment.comment.content}</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <img
+                    onClick={() => {
+                      handleClickEditComment(comment.comment);
+                    }}
+                    src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729079582327.png"
+                    className="w-5 h-5 cur"
+                  />
+                  <img
+                    onClick={() => handleClickDeleteComment(comment.comment.id)}
+                    src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729079615050.png"
+                    className="w-5 h-5 cur"
                   />
                 </div>
-                <div>
-                  <h1 className="font-bold">{comment.profile.name}</h1>
-                  <p>{comment.comment.content}</p>
-                </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <img
-                  onClick={() => {
-                    handleClickEditComment(comment.comment);
-                  }}
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729079582327.png"
-                  className="w-5 h-5 cur"
-                />
-                <img
-                  onClick={() => handleClickDeleteComment(comment.comment.id)}
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729079615050.png"
-                  className="w-5 h-5 cur"
-                />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
           <form
             onSubmit={commentHandleSubmit(onCommentSubmit)}
-            className="flex items-center mt-5 space-x-2"
+            className="flex items-center mt-8 space-x-2"
           >
-            <input
-              {...commentRegister("content")}
-              className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
-              placeholder="댓글을 입력해주세요"
-            />
-            <button type="submit" className="w-20 bg_deeper bor h-10 rounded">
-              저장
-            </button>
+            <div className="bor w-full h-[162px] rounded py-[15px] px-[20px] flex flex-col space-y-[10px] justify-between">
+              <div className="flex items-center space-x-[10px]">
+                <img
+                  className="w-10 h-10 rounded-full bor"
+                  src={userData?.img ?? process.env.NEXT_PUBLIC_LOGO}
+                />
+                <h1 className="text-[16px] text-[#2D2D2E]">{userData?.name}</h1>
+              </div>
+              <input
+                {...commentRegister("content")}
+                className="w-full h-[18px] outline-none rounded bg-transparent text-[20px] placeholder:text-[#495163] px-[1px]"
+                placeholder="댓글을 남겨보세요."
+              />
+              {/* 버튼을 가장 우측으로 이동 */}
+              <button
+                type="submit"
+                className="w-[46px] bor h-[30px] rounded ml-auto"
+              >
+                등록
+              </button>
+            </div>
           </form>
         </div>
-      )}
+      )}{" "}
       <ModalWrapper isOpen={isEditModalOpen} setIsOpen={setIsEditModalOpen}>
         <EditCommentModal
           setIsOpen={setIsEditModalOpen}

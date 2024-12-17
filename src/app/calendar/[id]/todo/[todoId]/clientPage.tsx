@@ -6,7 +6,7 @@ import TodoDetail from "@/components/calendar/todo/TodoDetail";
 const ClientPage = () => {
   return (
     <CalendarLayout>
-      <div className="flex w-full h-full bg_depp">
+      <div className="flex w-full h-full bg_main">
         <TodoDetail />
       </div>
     </CalendarLayout>
