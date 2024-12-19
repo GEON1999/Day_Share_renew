@@ -63,6 +63,16 @@ const updateUserPassword = async (body: any) => {
   return data;
 };
 
+// update user emotion
+const updateUserEmotion = async (body: any) => {
+  console.log(body);
+  const { data } = await axios.put(
+    Helper.CURRENT_URL() + API.UPDATE_USER_EMOTION,
+    body
+  );
+  return data;
+};
+
 export default {
   updateUser,
   deleteUser,
@@ -71,4 +81,5 @@ export default {
   deleteUserFavoriteTodo,
   updateUserCalendarOrder,
   updateUserPassword,
+  updateUserEmotion,
 };
