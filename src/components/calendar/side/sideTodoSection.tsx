@@ -1,4 +1,3 @@
-import { dodum } from "@/app/fonts";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import { useMutation } from "@tanstack/react-query";
 import TodoPagination from "@/components/pagination/todoPagination";

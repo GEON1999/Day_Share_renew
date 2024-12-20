@@ -67,14 +67,14 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
             <ul>
               <li className="flex items-center cur">
                 <IconSetting className="w-8 h-8" />
-                <span className={`ml-[16px] ${dodum.className}`}>설정</span>
+                <span className={`ml-[16px] `}>설정</span>
               </li>
               <li
                 className="flex items-center cur mt-[20px]"
                 onClick={handleLogout}
               >
                 <IconExit className="w-8 h-8" />
-                <span className={`ml-[17px] ${dodum.className}`}>나가기</span>
+                <span className={`ml-[17px] `}>나가기</span>
               </li>
             </ul>
           </nav>

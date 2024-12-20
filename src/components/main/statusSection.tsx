@@ -1,4 +1,3 @@
-import { dodum } from "@/app/fonts";
 import { IconClose } from "@/icons";
 import useUserMutations from "@/queries/user/useUserMutations";
 import useUserQueries from "@/queries/user/useUserQueries";
@@ -65,7 +64,7 @@ const EmotionItem = ({
   >
     <img className="w-[80px] h-[80px]" src={emotion.imgSrc} alt={emotion.id} />
     <p
-      className={`text-[15px] text-[#494949] rounded-full w-[55px] h-[20px] flex items-center justify-center group-hover:${emotion.hoverBg} transition-all duration-300`}
+      className={`text-[15px] text-[#494949] rounded-full w-[65px] h-[20px] flex items-center justify-center group-hover:${emotion.hoverBg} transition-all duration-300`}
     >
       {emotion.text}
     </p>
@@ -105,10 +104,8 @@ const StatusSection = () => {
   };
 
   return (
-    <section
-      className={`flex flex-col items-center w-[256px] ${dodum.className}`}
-    >
-      <h2 className={`dashboard_title ${dodum.className}`}>오늘 감정</h2>
+    <section className={`flex flex-col items-center w-[256px]`}>
+      <h2 className={`dashboard_title`}>현재의 감정</h2>
       <div
         className={`status_box bor transition-colors duration-300 ${getBackgroundColor(
           hoverEmotion

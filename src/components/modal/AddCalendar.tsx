@@ -5,9 +5,10 @@ import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import commonMutation from "@/queries/commonMutation";
 import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
+import { IconNextBig, IconX } from "@/icons";
 
 const AddCalendarModal = ({ setIsOpen }: any) => {
-  const [formSelect, setFormSelect] = useState("create");
+  const [formSelect, setFormSelect] = useState("empty");
   const [image, setImage] = useState("");
   const { mutate: createCalendar } = useMutation({
     mutationFn: useCalendarMutations.createCalendar,
@@ -70,115 +71,92 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bor  relative flex flex-col w-[600px] h-[550px] bg_depp rounded-xl p-8">
-        <div className="flex justify-between p-4 items-center">
-          <nav className="flex">
+      {formSelect === "empty" ? (
+        <div className="bor w-[520px] h-[210px] bg_depp rounded-xl p-[20px] text-[20px]">
+          <IconX
+            className="w-[10px] h-[10px] ml-auto cur"
+            onClick={() => setIsOpen(false)}
+          />
+          <h1 className="-mt-[5px] font-bold">달력 참여 방식</h1>
+          <div className="flex flex-col w-full space-y-[10px] mt-[27px]">
             <div
-              className={`cursor-pointer px-2 py-1 rounded-md ${
-                formSelect === "create"
-                  ? "bg-gray-400 text-white"
-                  : "hover:bg-gray-200"
-              }`}
+              className="flex items-center justify-between px-[14px] w-[470px] h-[50px] bor rounded-md cur hover:bg-[#f7eeab] transition-all duration-300"
               onClick={() => formChancher("create")}
             >
-              달력 생성
+              <p className="ml-1">달력 생성</p>
+              <IconNextBig className="w-[5px] h-[10px]" />
             </div>
             <div
-              className={`ml-2 cursor-pointer px-2 py-1 rounded-md ${
-                formSelect === "invite"
-                  ? "bg-gray-400 text-white"
-                  : "hover:bg-gray-200"
-              }`}
+              className="flex items-center justify-between px-[14px] w-[470px] h-[50px] bor rounded-md cur hover:bg-[#f7eeab] transition-all duration-300"
               onClick={() => formChancher("invite")}
             >
-              달력 참가하기
+              <p className="ml-1">달력 참가</p>
+              <IconNextBig className="w-[5px] h-[10px]" />
             </div>
-          </nav>
-          <button
-            onClick={() => setIsOpen(false)}
-            type="button"
-            className="bg_deeper bor rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100"
-          >
-            <svg
-              className="h-6 w-6"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
+          </div>
         </div>
-        {formSelect === "create" ? (
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col items-center mt-10 space-y-5"
-          >
-            <div className="flex flex-col items-center">
-              <input
-                id="imageUpload"
-                className="hidden"
-                onInput={handleImage}
-                accept=".jpg, .png, .bmp, .gif, .svg, .webp"
-                type="file"
+      ) : formSelect === "create" ? (
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col items-center mt-10 space-y-5"
+        >
+          <div className="flex flex-col items-center">
+            <input
+              id="imageUpload"
+              className="hidden"
+              onInput={handleImage}
+              accept=".jpg, .png, .bmp, .gif, .svg, .webp"
+              type="file"
+            />
+            {image === "" ? (
+              <div
+                onClick={handleImageBtn}
+                className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2 bg-whiten"
               />
-              {image === "" ? (
-                <div
-                  onClick={handleImageBtn}
-                  className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2 bg-whiten"
-                />
-              ) : (
-                <img
-                  src={image ?? ""}
-                  onClick={handleImageBtn}
-                  className="bg-white  w-40 h-40 rounded-full cur bor"
-                  alt="Calendar"
-                />
-              )}
-              <label htmlFor="imageUpload" className="mt-4">
-                달력 이미지
-              </label>
-            </div>
-            <input
-              className="w-80 h-12 bor rounded-md bg-gray-200 p-3 outline-none text-black"
-              {...register("name", { required: true })}
-              type="text"
-              placeholder="달력 이름"
-            />
-            <button
-              type="submit"
-              className="bg_deeper bor text-black w-32 h-12 rounded-md mt-4 "
-            >
-              생성
-            </button>
-          </form>
-        ) : (
-          <form
-            onSubmit={inviteHandleSubmit(onInviteSubmit)}
-            className="flex flex-col items-center mt-28 space-y-5"
+            ) : (
+              <img
+                src={image ?? ""}
+                onClick={handleImageBtn}
+                className="bg-white  w-40 h-40 rounded-full cur bor"
+                alt="Calendar"
+              />
+            )}
+            <label htmlFor="imageUpload" className="mt-4">
+              달력 이미지
+            </label>
+          </div>
+          <input
+            className="w-80 h-12 bor rounded-md bg-gray-200 p-3 outline-none text-black"
+            {...register("name", { required: true })}
+            type="text"
+            placeholder="달력 이름"
+          />
+          <button
+            type="submit"
+            className="bg_deeper bor text-black w-32 h-12 rounded-md mt-4 "
           >
-            <input
-              className="w-80 h-12 bor rounded-md bg-gray-200 p-3 outline-none text-black"
-              {...inviteRegister("code", { required: true })}
-              type="text"
-              placeholder="초대코드"
-            />
-            <button
-              type="submit"
-              className="bg_deeper bor text-black w-32 h-12 rounded-md mt-4"
-            >
-              참가하기
-            </button>
-          </form>
-        )}
-      </div>
+            생성
+          </button>
+        </form>
+      ) : (
+        <form
+          onSubmit={inviteHandleSubmit(onInviteSubmit)}
+          className="flex flex-col items-center mt-28 space-y-5"
+        >
+          <input
+            className="w-80 h-12 bor rounded-md bg-gray-200 p-3 outline-none text-black"
+            {...inviteRegister("code", { required: true })}
+            type="text"
+            placeholder="초대코드"
+          />
+          <button
+            type="submit"
+            className="bg_deeper bor text-black w-32 h-12 rounded-md mt-4"
+          >
+            참가하기
+          </button>
+        </form>
+      )}
     </div>
   );
 };

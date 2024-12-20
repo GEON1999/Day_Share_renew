@@ -1,4 +1,3 @@
-import { dodum } from "@/app/fonts";
 import DiaryPagination from "@/components/pagination/diaryPagination";
 import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
@@ -20,11 +19,11 @@ const DiarySection = () => {
   return (
     <section className="">
       <div className="flex justify-between">
-        <h2 className={`dashboard_title ${dodum.className}`}>공유 일기</h2>
+        <h2 className={`dashboard_title`}>공유 일기</h2>
         <DiaryPagination total_count={diaryData?.total_count} />
       </div>
       {diaryData?.diaries && diaryData.diaries.length > 0 ? (
-        <ul className="bg-[#F9F4CF] px-[10px] bor rounded-md w-[950px] h-[270px] shadow_box">
+        <ul className="bg-[#F9F4CF] px-[10px] bor rounded-md w-[950px] h-[270px] shadow_box noto-serif-text">
           {diaryData?.diaries?.map((diary: any, idx: number) => {
             return (
               <li
@@ -64,7 +63,7 @@ const DiarySection = () => {
             src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024150301_23db0106b82f4323b8f03cef66282fe7.png"
           />
           <p
-            className={`text-center text-[30px] ${dodum.className} absolute top-[370px] left-[1250px]`}
+            className={`text-center text-[30px] absolute top-[370px] left-[1250px] noto-serif-text`}
           >
             일기가 없어......................
           </p>

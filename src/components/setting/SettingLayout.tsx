@@ -1,5 +1,4 @@
 "use client";
-import { dodum } from "@/app/fonts";
 import { IconExit, IconHome, IconSetting } from "@/icons";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { signOut } from "next-auth/react";
@@ -90,14 +89,14 @@ const SettingLayout = ({ children }: { children: React.ReactNode }) => {
                 onClick={handleClickSetting}
               >
                 <IconSetting className="w-8 h-8" />
-                <span className={`ml-[16px] ${dodum.className}`}>설정</span>
+                <span className={`ml-[16px]`}>설정</span>
               </li>
               <li
                 className="flex items-center cur mt-[20px]"
                 onClick={handleLogout}
               >
                 <IconExit className="w-8 h-8" />
-                <span className={`ml-[17px] ${dodum.className}`}>나가기</span>
+                <span className={`ml-[17px]`}>나가기</span>
               </li>
             </ul>
           </nav>

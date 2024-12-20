@@ -1,3 +1,11 @@
-<svg width="15" height="27" viewBox="0 0 15 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1 26L13.5 13.5L1 1" stroke="#494949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_선깸" data-name="선깸" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 12">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #494949;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M.89,12c-.2,0-.4-.08-.55-.23-.31-.31-.31-.8,0-1.11l4.66-4.66L.34,1.34C.03,1.03.03.53.34.23S1.14-.08,1.45.23l5.22,5.22c.31.31.31.8,0,1.11L1.45,11.77c-.15.15-.35.23-.55.23Z"/>
 </svg>

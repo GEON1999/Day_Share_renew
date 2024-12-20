@@ -1,4 +1,3 @@
-import { dodum } from "@/app/fonts";
 import { useDrag, useDrop } from "react-dnd";
 import React, { useEffect, useRef, useState, memo } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
@@ -80,13 +79,9 @@ const CalendarItem = memo(
               />
             </div>
             <div className="flex items-center space-x-1 mt-2  mb-[23px]">
-              <h3
-                className={`${dodum.className} ${
-                  isEditMode ? "text-[20px]" : "text-[25px]"
-                }`}
-              >
+              <p className={`${isEditMode ? "text-[20px]" : "text-[23px]"}`}>
                 {calendar.name}
-              </h3>
+              </p>
               {calendar.isRead ? null : (
                 <img
                   className="h-[23.6px] w-[23.6px]"

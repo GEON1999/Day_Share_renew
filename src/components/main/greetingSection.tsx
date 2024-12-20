@@ -1,11 +1,10 @@
-import { dodum } from "@/app/fonts";
 import useUserQueries from "@/queries/user/useUserQueries";
 
 const GreetingSection = () => {
   const { data: favoriteTodoData } = useUserQueries.useGetUserFavoriteTodo();
 
   return (
-    <section className={`mt-[33px] text-[40px] ${dodum.className}`}>
+    <section className={`mt-[33px] text-[40px]`}>
       <h1>안녕하세요, 박건님.</h1>
       {favoriteTodoData?.title ? (
         <p>

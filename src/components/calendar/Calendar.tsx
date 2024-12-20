@@ -1,4 +1,3 @@
-import { dodum } from "@/app/fonts";
 import { useEffect, useState } from "react";
 import useSearch from "@/hooks/useSearch";
 import { useRouter } from "next/navigation";
@@ -104,7 +103,7 @@ const Calendar = ({}) => {
     router.push(`/calendar/${calendarId}?date=${Helper.getTodayMs()}`);
 
   return (
-    <div className={`main_container flex space-x-[70px] ${dodum.className}`}>
+    <div className={`main_container flex space-x-[70px]`}>
       <div className="w-[631.5px]">
         <h1 className="text-[25px] mt-[75px]">
           {calendarDate?.calendar?.name ?? ""}

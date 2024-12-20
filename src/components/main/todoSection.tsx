@@ -1,4 +1,3 @@
-import { dodum } from "@/app/fonts";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useUserMutations from "@/queries/user/useUserMutations";
 import { useMutation } from "@tanstack/react-query";
@@ -90,14 +89,14 @@ const TodoSection = () => {
     <section className="mt-[38px] side_todo_container">
       <ul className="space-y-2">
         <div
-          className={`flex items-center justify-between content-center mb-[10px] text-[20px] ${dodum.className}`}
+          className={`flex items-center justify-between content-center mb-[10px] text-[20px]`}
         >
           전체 일정
         </div>
         {todoData?.todos && todoData.todos.length > 0 ? (
           todoData?.todos?.map((todo_group: any) => {
             return (
-              <div key={todo_group.date}>
+              <div key={todo_group.date} className="noto-sans-text">
                 <h4 className="bg_hilight inline-block mb-1 text-[15px] font-medium px-1">
                   {Helper.formatWithoutYear(todo_group.date)}
                 </h4>
