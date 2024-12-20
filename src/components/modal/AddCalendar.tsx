@@ -5,7 +5,12 @@ import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import commonMutation from "@/queries/commonMutation";
 import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
-import { IconNextBig, IconX } from "@/icons";
+import {
+  IconAddCalendar,
+  IconCameraRounded,
+  IconNextBig,
+  IconX,
+} from "@/icons";
 
 const AddCalendarModal = ({ setIsOpen }: any) => {
   const [formSelect, setFormSelect] = useState("empty");
@@ -70,7 +75,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center noto-sans-text">
       {formSelect === "empty" ? (
         <div className="bor w-[520px] h-[210px] bg_depp rounded-xl p-[20px] text-[20px]">
           <IconX
@@ -96,11 +101,25 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
           </div>
         </div>
       ) : formSelect === "create" ? (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center mt-10 space-y-5"
-        >
-          <div className="flex flex-col items-center">
+        <div className="bor w-[520px] h-[450px] bg_depp rounded-xl p-[20px] text-[20px]">
+          <IconX
+            className="w-[10px] h-[10px] ml-auto cur"
+            onClick={() => setIsOpen(false)}
+          />
+          <div className="flex items-center -mt-[5px] space-x-[10px]">
+            <h1 className=" font-bold">달력 생성</h1>
+            <span className="text-[15px] text-[#95927C] ">|</span>
+            <p
+              className="text-[15px] text-[#95927C] cur"
+              onClick={() => setFormSelect("empty")}
+            >
+              이전으로 돌아가기
+            </p>
+          </div>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col items-center mt-10"
+          >
             <input
               id="imageUpload"
               className="hidden"
@@ -111,51 +130,67 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
             {image === "" ? (
               <div
                 onClick={handleImageBtn}
-                className="rounded-full bg-gray-200 w-40 h-40 mb-4 border-black border-2 bg-whiten"
-              />
+                className="rounded-md bg-[#D1D3D4] w-[300px] h-[200px] bor flex items-center justify-center overflow-hidden cur"
+              >
+                <IconAddCalendar className="w-[170px] h-[217px] mt-3" />
+                <IconCameraRounded className="w-[30px] h-[30px] absolute top-[447px] left-[898px]" />
+              </div>
             ) : (
               <img
                 src={image ?? ""}
                 onClick={handleImageBtn}
-                className="bg-white  w-40 h-40 rounded-full cur bor"
+                className="bg-white w-[300px] h-[200px] rounded-md cur bor object-contain"
                 alt="Calendar"
               />
             )}
-            <label htmlFor="imageUpload" className="mt-4">
-              달력 이미지
-            </label>
-          </div>
-          <input
-            className="w-80 h-12 bor rounded-md bg-gray-200 p-3 outline-none text-black"
-            {...register("name", { required: true })}
-            type="text"
-            placeholder="달력 이름"
-          />
-          <button
-            type="submit"
-            className="bg_deeper bor text-black w-32 h-12 rounded-md mt-4 "
-          >
-            생성
-          </button>
-        </form>
+            <input
+              className="w-[300px] h-[50px] text-[20px] bor rounded-md p-3 outline-none text-black my-[10px] text-center placeholder:text-[#C2BFBC]"
+              {...register("name", { required: true })}
+              type="text"
+              placeholder="달력 이름"
+            />
+            <button
+              type="submit"
+              className="bg_hilight_2 bor w-[300px] h-[50px] rounded-md text-[#494949] font-[400]"
+            >
+              생성
+            </button>
+          </form>
+        </div>
       ) : (
-        <form
-          onSubmit={inviteHandleSubmit(onInviteSubmit)}
-          className="flex flex-col items-center mt-28 space-y-5"
-        >
-          <input
-            className="w-80 h-12 bor rounded-md bg-gray-200 p-3 outline-none text-black"
-            {...inviteRegister("code", { required: true })}
-            type="text"
-            placeholder="초대코드"
+        <div className="bor w-[520px] h-[240px] bg_depp rounded-xl p-[20px] text-[20px]">
+          <IconX
+            className="w-[10px] h-[10px] ml-auto cur"
+            onClick={() => setIsOpen(false)}
           />
-          <button
-            type="submit"
-            className="bg_deeper bor text-black w-32 h-12 rounded-md mt-4"
+          <div className="flex items-center -mt-[5px] space-x-[10px]">
+            <h1 className=" font-bold">달력 참가</h1>
+            <span className="text-[15px] text-[#95927C] ">|</span>
+            <p
+              className="text-[15px] text-[#95927C] cur"
+              onClick={() => setFormSelect("empty")}
+            >
+              이전으로 돌아가기
+            </p>
+          </div>
+          <form
+            onSubmit={inviteHandleSubmit(onInviteSubmit)}
+            className="flex flex-col items-center mt-[20px]"
           >
-            참가하기
-          </button>
-        </form>
+            <input
+              className="w-[300px] h-[50px] text-[20px] bor rounded-md p-3 outline-none text-black my-[10px] text-center placeholder:text-[#C2BFBC]"
+              {...inviteRegister("code", { required: true })}
+              type="text"
+              placeholder="초대코드"
+            />
+            <button
+              type="submit"
+              className="bg_hilight_2 bor w-[300px] h-[50px] rounded-md mt-[10px] text-[#494949] font-[400]"
+            >
+              참가
+            </button>
+          </form>
+        </div>
       )}
     </div>
   );

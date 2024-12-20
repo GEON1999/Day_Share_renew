@@ -137,14 +137,14 @@ const Calendar = ({}) => {
           <div className="w-[629px] h-[675px] overflow-hidden border-y-[1.5px] border-y-[#494949]">
             <table className="w-full h-full text-center">
               <thead className="bg_light_pink h-[34px] w-full border-b-[1.5px] border-[#494949]">
-                <tr className="text-black text-md font-normal">
-                  <th className="text_red font-normal">SUN</th>
-                  <th className="font-normal">MON</th>
-                  <th className="font-normal">TUE</th>
-                  <th className="font-normal">WED</th>
-                  <th className="font-normal">THU</th>
-                  <th className="font-normal">FRI</th>
-                  <th className="font-normal">SAT</th>
+                <tr className="text-black text-md">
+                  <th className="text_red">SUN</th>
+                  <th>MON</th>
+                  <th>TUE</th>
+                  <th>WED</th>
+                  <th>THU</th>
+                  <th>FRI</th>
+                  <th>SAT</th>
                 </tr>
               </thead>
               <tbody className="w-full" style={{ borderCollapse: "collapse" }}>

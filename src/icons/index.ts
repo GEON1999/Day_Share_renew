@@ -31,3 +31,5 @@ export { default as IconComment } from "./comment.svg";
 export { default as IconHeart } from "./heart.svg";
 export { default as IconClose } from "./close.svg";
 export { default as IconX } from "./x.svg";
+export { default as IconAddCalendar } from "./add_calendar.svg";
+export { default as IconCameraRounded } from "./camera_rounded.svg";
