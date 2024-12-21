@@ -127,13 +127,14 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
               accept=".jpg, .png, .bmp, .gif, .svg, .webp"
               type="file"
             />
+            {/* crop 추가 필요 */}
             {image === "" ? (
               <div
                 onClick={handleImageBtn}
-                className="rounded-md bg-[#D1D3D4] w-[300px] h-[200px] bor flex items-center justify-center overflow-hidden cur"
+                className="relative rounded-md bg-[#D1D3D4] w-[300px] h-[200px] bor flex items-center justify-center overflow-hidden cur"
               >
                 <IconAddCalendar className="w-[170px] h-[217px] mt-3" />
-                <IconCameraRounded className="w-[30px] h-[30px] absolute top-[447px] left-[898px]" />
+                <IconCameraRounded className="w-[30px] h-[30px] absolute bottom-[10px] right-[10px]" />
               </div>
             ) : (
               <img
