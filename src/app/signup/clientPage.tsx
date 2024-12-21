@@ -65,26 +65,26 @@ function SignupClientPage() {
         <ImageCropComponent userImg={userImg} setUserImg={setUserImg} />
         <div className="flex flex-col mt-[20px] text-[20px]">
           <input
-            className="w-[390px] h-[50px] outline-none border border-b-0 rounded-t-md px-[19px] placeholder-[#C2BFBC]"
+            className="w-[390px] h-[50px] outline-none border border-b-0 rounded-t-md px-[19px] placeholder-[#C2BFBC] focus:outline-none"
             {...register("name")}
             required
             placeholder="이름"
           />
           <input
-            className="w-[390px] h-[50px] outline-none border border-b-0 px-[19px] placeholder-[#C2BFBC]"
+            className="w-[390px] h-[50px] outline-none border border-b-0 px-[19px] placeholder-[#C2BFBC] focus:outline-none"
             {...register("email")}
             required
             placeholder="아이디"
           />
           <input
-            className="w-[390px] h-[50px] outline-none border border-b-0 px-[19px] placeholder-[#C2BFBC]"
+            className="w-[390px] h-[50px] outline-none border border-b-0 px-[19px] placeholder-[#C2BFBC] focus:outline-none"
             {...register("password")}
             type="password"
             required
             placeholder="비밀번호"
           />
           <input
-            className="w-[390px] h-[50px] outline-none border rounded-b-md px-[19px] placeholder-[#C2BFBC]"
+            className="w-[390px] h-[50px] outline-none border rounded-b-md px-[19px] placeholder-[#C2BFBC] focus:outline-none"
             {...register("password_check")}
             type="password"
             required

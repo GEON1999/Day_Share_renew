@@ -48,14 +48,14 @@ function LoginClientPage() {
         <div className="flex flex-col mt-[45px]">
           <div className="w-[390px] h-[110px] text-[18px]">
             <input
-              className="w-[390px] h-[55px] bor px-[19px] rounded-md rounded-b-none placeholder:text-[#C2BFBC]"
+              className="w-[390px] h-[55px] bor px-[19px] rounded-md rounded-b-none placeholder:text-[#C2BFBC] focus:outline-none"
               {...register("id")}
               required
               autoFocus={true}
               placeholder={"아이디"}
             />
             <input
-              className="w-[390px] h-[55px] bor px-[19px] border-t-0 rounded-md rounded-t-none placeholder:text-[#C2BFBC]"
+              className="w-[390px] h-[55px] bor px-[19px] border-t-0 rounded-md rounded-t-none placeholder:text-[#C2BFBC] focus:outline-none"
               {...register("password")}
               type="password"
               required

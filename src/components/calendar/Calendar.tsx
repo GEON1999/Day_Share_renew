@@ -189,7 +189,7 @@ const Calendar = ({}) => {
                           >
                             <div className="flex flex-col items-center justify-center space-y-2 ml-[51px]">
                               <span
-                                className={`flex items-center justify-center w-[30px] h-[30px] text-[18px] ${
+                                className={`flex items-center justify-center w-[30px] h-[30px] text-[18px] pb-[1.5px] ${
                                   currentMonth && dayIndex === 0
                                     ? "text_red"
                                     : !currentMonth && dayIndex === 0
