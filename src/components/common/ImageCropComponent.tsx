@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import commonMutation from "@/queries/commonMutation";
 import StaticKeys from "@/keys/StaticKeys";
-import { IconCamera } from "@/icons";
+import { IconAddCalendar, IconCamera, IconCameraRounded, IconX } from "@/icons";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import React, { useState, useRef, ChangeEvent } from "react";
 import ReactCrop, { Crop, PixelCrop } from "react-image-crop";
@@ -110,7 +110,7 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
     <div>
       <div
         onClick={handleImageUpload}
-        className={`rounded-full bg-gray-200 w-60 h-60 mb-4 mt-10 bor cur bg-whiten flex justify-center items-center`}
+        className={`rounded-full bg-gray-200 w-[140px] h-[140px] bor cur bg-[#D9D9D9] flex justify-center items-center `}
       >
         {userImg ? (
           <img
@@ -119,7 +119,12 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
             className="rounded-full w-full h-full object-cover"
           />
         ) : (
-          <IconCamera className="w-45 h-45 mb-5" />
+          <div className="relative">
+            <div className="overflow-hidden w-[140px] h-[136px] rounded-full flex justify-center items-center">
+              <IconAddCalendar className="w-[100.95px] h-[128.88px] mt-[13px]" />
+            </div>
+            <IconCameraRounded className="w-[30px] h-[30px] absolute bottom-0 right-[18px] transform translate-x-1/4 translate-y-1 /4" />
+          </div>
         )}
       </div>
       <input
@@ -129,32 +134,51 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
         id="imageUpload"
       />
       <ModalWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
-        <div className="flex flex-col items-center bg-[#FFFCF0] py-15 px-40 rounded-md bor">
-          <ReactCrop
-            crop={crop}
-            onChange={(c) => setCrop({ ...c, aspect: 1 })}
-            onComplete={onCropComplete}
-            ruleOfThirds={true}
-            circularCrop={true}
-          >
-            <img
-              src={src ?? ""}
-              onLoad={onImageLoad}
-              alt="Source"
-              style={{
-                maxWidth: `${StaticKeys.MAX_WIDTH}px`,
-                maxHeight: `${StaticKeys.MAX_HEIGHT}px`,
-                width: "auto",
-                height: "auto",
-              }}
-            />
-          </ReactCrop>
-          <button
-            className="bg-[#F6BEBE] w-20 h-12 bor rounded-md text-white mt-15"
-            onClick={handleCropUpload}
-          >
-            다음
-          </button>
+        <div className="bg_depp p-[20px] rounded-md bor">
+          <IconX
+            className="w-[10px] h-[10px] ml-auto cur"
+            onClick={() => setIsOpen(false)}
+          />
+          <h2 className="text-[20px] noto-sans-text font-bold text-[#494949] mb-[30px] ml-[5px] -mt-[5px]">
+            이미지 자르기
+          </h2>
+          <div className="px-[5px]">
+            <ReactCrop
+              crop={crop}
+              onChange={(c) => setCrop({ ...c, aspect: 1 })}
+              onComplete={onCropComplete}
+              ruleOfThirds={true}
+              circularCrop={true}
+            >
+              <img
+                onClick={handleImageUpload}
+                className="w-[140px] h-[140px] object-contain bor bg-white"
+                src={src ?? ""}
+                onLoad={onImageLoad}
+                alt="Source"
+                style={{
+                  maxWidth: `${StaticKeys.MAX_WIDTH}px`,
+                  maxHeight: `${StaticKeys.MAX_HEIGHT}px`,
+                  width: "auto",
+                  height: "auto",
+                }}
+              />
+            </ReactCrop>
+          </div>
+          <div className="flex justify-center mt-[30px] space-x-[10px]">
+            <button
+              className="bg-white w-[60px] h-[35px] bor rounded-md text-[#494949] "
+              onClick={handleCropUpload}
+            >
+              취소
+            </button>
+            <button
+              className="bg-[#F6BEBE] w-[60px] h-[35px] bor rounded-md text-[#494949] "
+              onClick={handleCropUpload}
+            >
+              다음
+            </button>
+          </div>
         </div>
       </ModalWrapper>
     </div>

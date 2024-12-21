@@ -47,7 +47,7 @@ li {
 }
 
 .auth {
-  @apply border-[1.5px] border-[#7A7A7A] w-[385px] h-[50px] outline-none;
+  @apply border-[1.5px] border-[#7A7A7A] w-[390px] h-[50px] outline-none;
 }
 
 .auth.login_input {
@@ -55,7 +55,7 @@ li {
 }
 
 .auth.regular_input {
-  @apply rounded-xl bg-white mt-2 placeholder-[#D6B18D] px-4;
+  @apply bg-white placeholder-[#D6B18D] px-4;
 }
 
 .auth.submit_btn {
@@ -63,7 +63,7 @@ li {
 }
 
 .auth.sub_btn {
-  @apply text-[#F6BEBE] rounded-xl bg-white  font-black;
+  @apply rounded-xl bg-white  font-black;
 }
 
 .sub_text {
