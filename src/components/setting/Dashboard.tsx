@@ -25,7 +25,6 @@ const Dashboard = () => {
   });
 
   const onSubmit = async (formData: any) => {
-    console.log("formData :", formData);
     const submitData = {
       name: formData.name,
       img: userImg,
@@ -71,7 +70,7 @@ const Dashboard = () => {
             />
             <button
               type="submit"
-              className="mt-[35px] text-[#494949] font-[400] rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor"
+              className="mt-[35px] text-[#494949] font-[400] rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor hover:bg-[#F69D9D]"
             >
               저장
             </button>

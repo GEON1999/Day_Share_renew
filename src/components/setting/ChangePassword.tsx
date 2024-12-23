@@ -78,13 +78,13 @@ const ChangePassword = () => {
             <button
               onClick={handleSetting}
               type="button"
-              className="text-[#494949] font-[400] rounded-md bg-white w-[60px] h-[35px] bor"
+              className="text-[#494949] font-[400] rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#49494910]"
             >
               취소
             </button>
             <button
               type="submit"
-              className="text-[#494949] font-[400] rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor"
+              className="text-[#494949] font-[400] rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
             >
               저장
             </button>
