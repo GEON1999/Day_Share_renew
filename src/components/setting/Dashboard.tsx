@@ -7,12 +7,12 @@ import { useMutation } from "@tanstack/react-query";
 import useUserMutations from "@/queries/user/useUserMutations";
 import SecessionConfirmModal from "@/components/modal/SecessionConfirmModal";
 import ImageCropComponent from "../common/ImageCropComponent";
-import ChangePasswordModal from "../modal/ChangePasswordModal";
 import { IconSetting } from "@/icons";
+import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [isChangeOpen, setIsChangeOpen] = useState(false);
   const { data: userData, isLoading: userIsLoading } =
     useUserQueries.useGetUser();
 
@@ -42,7 +42,7 @@ const Dashboard = () => {
     });
   };
 
-  const handleChangePassword = () => setIsChangeOpen(true);
+  const handleChangePassword = () => router.push("/setting/changePW");
   const handleDeleteUser = () => setIsOpen(true);
 
   return (
@@ -92,9 +92,6 @@ const Dashboard = () => {
       </div>
       <ModalWrapper setIsOpen={setIsOpen} isOpen={isOpen}>
         <SecessionConfirmModal setIsOpen={setIsOpen} />
-      </ModalWrapper>
-      <ModalWrapper setIsOpen={setIsChangeOpen} isOpen={isChangeOpen}>
-        <ChangePasswordModal setIsOpen={setIsChangeOpen} />
       </ModalWrapper>
     </div>
   );
