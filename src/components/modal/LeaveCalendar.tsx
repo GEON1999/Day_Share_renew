@@ -1,33 +1,27 @@
 import { useMutation } from "@tanstack/react-query";
-import useUserMutations from "@/queries/user/useUserMutations";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
 import { IconX } from "@/icons";
+import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
+import useSearch from "@/hooks/useSearch";
 
-const SecessionConfirmModal = ({ setIsOpen }: any) => {
+const LeaveCalendar = ({ setIsOpen }: any) => {
   const router = useRouter();
+  const id = useSearch.useSearchId();
 
-  const { mutate: deleteUser } = useMutation({
-    mutationFn: useUserMutations.deleteUser,
+  const { mutate: leaveCalendar } = useMutation({
+    mutationFn: useCalendarMutations.leaveCalendar,
   });
 
-  const handleDeleteUser = () => {
-    deleteUser(
-      {},
-      {
-        onSuccess: (result) => {
-          if (result) {
-            alert("탈퇴에 성공하였습니다.");
-          } else {
-            alert("탈퇴에 실패하였습니다.");
-          }
-          signOut();
-        },
-        onError: () => {
-          console.log("실패");
-        },
-      }
-    );
+  const handleLeaveCalendar = () => {
+    leaveCalendar(id, {
+      onSuccess: (result) => {
+        alert("서버 탈퇴에 성공하였습니다.");
+        router.push("/");
+      },
+      onError: (error) => {
+        alert("서버 탈퇴에 실패하였습니다.");
+      },
+    });
   };
 
   const handleCancel = () => setIsOpen(false);
@@ -40,10 +34,10 @@ const SecessionConfirmModal = ({ setIsOpen }: any) => {
           onClick={handleCancel}
         />
         <h1 className="text-center mt-[5px] text-[20px] font-bold ">
-          정말 탈퇴 하시겠습니까?
+          정말 서버를 나가시겠습니까?
         </h1>
         <p className="text-center text-[15px]">
-          탈퇴하시면 공유 달력 및 공유 일기등에 대한 <br />
+          서버를 나가시면 공유 달력 및 공유 일기등에 대한 <br />
           모든 정보가 삭제됩니다.
         </p>
         <div className="flex mt-[20px] text-[#494949] text-[20px] space-x-[10px] mx-auto">
@@ -55,8 +49,8 @@ const SecessionConfirmModal = ({ setIsOpen }: any) => {
             취소
           </button>
           <button
-            onClick={handleDeleteUser}
             type="submit"
+            onClick={handleLeaveCalendar}
             className="text-[#494949] font-[400] rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
           >
             확인
@@ -67,4 +61,4 @@ const SecessionConfirmModal = ({ setIsOpen }: any) => {
   );
 };
 
-export default SecessionConfirmModal;
+export default LeaveCalendar;

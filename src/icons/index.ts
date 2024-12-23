@@ -34,3 +34,4 @@ export { default as IconX } from "./x.svg";
 export { default as IconAddCalendar } from "./add_calendar.svg";
 export { default as IconCameraRounded } from "./camera_rounded.svg";
 export { default as IconLogoHoriz } from "./logo_horiz.svg";
+export { default as IconReload } from "./reload.svg";

@@ -41,14 +41,6 @@ const getCalendarList = async (accessToken: any, query: string) => {
   return data;
 };
 
-const getInviteCode = async (accessToken: any, id: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_INVITE_CODE(id)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
 const getCalendarDetail = async (accessToken: any, id: string) => {
   const { data } = await axios.get(
     `${process.env.BASE_URL}${API.GET_CALENDAR_DETAIL(id)}`,
@@ -127,10 +119,6 @@ export default async function Home(req: any) {
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id],
       queryFn: () => getCalendarPermissionList(accessToken, id),
-    }),
-    await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_INVITE_CODE, id],
-      queryFn: () => getInviteCode(accessToken, id),
     }),
     // await queryClient.prefetchQuery({
     //   queryKey: [QueryKeys.GET_CALENDAR_DETAIL, id],

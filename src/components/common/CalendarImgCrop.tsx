@@ -1,0 +1,189 @@
+import { useMutation } from "@tanstack/react-query";
+import commonMutation from "@/queries/commonMutation";
+import StaticKeys from "@/keys/StaticKeys";
+import { IconAddCalendar, IconCamera, IconCameraRounded, IconX } from "@/icons";
+import ModalWrapper from "@/components/modal/ModalWrapper";
+import React, { useState, useRef, ChangeEvent } from "react";
+import ReactCrop, { Crop, PixelCrop } from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
+
+function CalendarImgCrop({ calendarImg, setCalendarImg }: any) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [src, setSrc] = useState<string | null>(null);
+  const [crop, setCrop] = useState<Crop>({
+    unit: "%",
+    width: 50,
+    height: 50 / StaticKeys.CALENDAR_ASPECT_RATIO, // 높이를 비율에 맞게 조정
+    aspect: StaticKeys.CALENDAR_ASPECT_RATIO, // 195:135 비율 고정
+  });
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop | null>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+
+  const { mutate: imageMutate } = useMutation({
+    mutationFn: commonMutation.uploadImage,
+  });
+
+  const handleImageUpload = () => {
+    document.getElementById("imageUpload")?.click();
+  };
+
+  const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => setSrc(reader.result as string));
+      reader.readAsDataURL(e.target.files[0]);
+      setIsOpen(true);
+    }
+  };
+
+  const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    imageRef.current = e.currentTarget;
+    const { width, height } = e.currentTarget;
+    const size = Math.min(width, height) * 0.8;
+
+    const initialCrop: PixelCrop = {
+      unit: "px",
+      width: size,
+      height: size / StaticKeys.CALENDAR_ASPECT_RATIO, // ASPECT_RATIO에 맞게 높이 조정
+      x: (width - size) / 2,
+      y: (height - size / StaticKeys.CALENDAR_ASPECT_RATIO) / 2, // 높이도 ASPECT_RATIO 반영
+    };
+
+    setCrop({
+      ...initialCrop,
+      aspect: StaticKeys.CALENDAR_ASPECT_RATIO,
+    });
+    setCompletedCrop(initialCrop);
+  };
+
+  const onCropComplete = (crop: PixelCrop) => {
+    setCompletedCrop(crop);
+  };
+
+  const handleCropUpload = () => {
+    if (completedCrop && imageRef.current) {
+      generateCroppedImage(imageRef.current, completedCrop);
+      setIsOpen(false);
+    }
+  };
+
+  const generateCroppedImage = (image: HTMLImageElement, crop: PixelCrop) => {
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext("2d");
+
+    if (ctx) {
+      ctx.drawImage(
+        image,
+        crop.x * scaleX,
+        crop.y * scaleY,
+        crop.width * scaleX,
+        crop.height * scaleY,
+        0,
+        0,
+        crop.width,
+        crop.height
+      );
+
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const file = new File([blob], "cropped_image.jpg", {
+            type: "image/jpeg",
+          });
+          imageMutate(file, {
+            onSuccess: (result: any) => {
+              setCalendarImg(result.url);
+            },
+            onError: () => {
+              alert("이미지 업로드에 실패했습니다.");
+            },
+          });
+        }
+      }, "image/jpeg");
+    }
+  };
+
+  return (
+    <div>
+      <div
+        onClick={handleImageUpload}
+        className={`rounded-md bg-gray-200 w-[195px] h-[135px] bor cur bg-[#D9D9D9] flex justify-center items-center `}
+      >
+        {calendarImg ? (
+          <img
+            src={calendarImg}
+            alt="profile"
+            className="rounded-md w-full h-full object-cover"
+          />
+        ) : (
+          <div className="relative">
+            <div className="overflow-hidden w-[195px] h-[130px] rounded-full flex justify-center items-center">
+              <IconAddCalendar className="w-[100.95px] h-[128.88px] mt-[28px]" />
+            </div>
+            <IconCameraRounded className="w-[30px] h-[30px] absolute bottom-[12px] right-[17px] transform translate-x-1/4 translate-y-1 /4" />
+          </div>
+        )}
+      </div>
+      <input
+        onChange={onSelectFile}
+        type="file"
+        className="hidden"
+        id="imageUpload"
+      />
+      <ModalWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
+        <div className="bg_depp p-[20px] rounded-md bor">
+          <IconX
+            className="w-[10px] h-[10px] ml-auto cur"
+            onClick={() => setIsOpen(false)}
+          />
+          <h2 className="text-[20px] noto-sans-text font-bold text-[#494949] mb-[30px] ml-[5px] -mt-[5px]">
+            이미지 자르기
+          </h2>
+          <div className="px-[5px]">
+            <ReactCrop
+              crop={crop}
+              onChange={(c) =>
+                setCrop({ ...c, aspect: StaticKeys.CALENDAR_ASPECT_RATIO })
+              }
+              onComplete={onCropComplete}
+              ruleOfThirds={true}
+            >
+              <img
+                onClick={handleImageUpload}
+                className="w-[140px] h-[140px] object-contain bor bg-white"
+                src={src ?? ""}
+                onLoad={onImageLoad}
+                alt="Source"
+                style={{
+                  maxWidth: `${StaticKeys.MAX_WIDTH}px`,
+                  maxHeight: `${StaticKeys.MAX_HEIGHT}px`,
+                  width: "auto",
+                  height: "auto",
+                }}
+              />
+            </ReactCrop>
+          </div>
+          <div className="flex justify-center mt-[30px] space-x-[10px]">
+            <button
+              className="bg-white w-[60px] h-[35px] bor rounded-md text-[#494949] "
+              onClick={handleCropUpload}
+            >
+              취소
+            </button>
+            <button
+              className="bg-[#F6BEBE] w-[60px] h-[35px] bor rounded-md text-[#494949] "
+              onClick={handleCropUpload}
+            >
+              다음
+            </button>
+          </div>
+        </div>
+      </ModalWrapper>
+    </div>
+  );
+}
+
+export default CalendarImgCrop;

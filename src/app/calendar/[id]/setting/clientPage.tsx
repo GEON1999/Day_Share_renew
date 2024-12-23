@@ -1,19 +1,18 @@
 "use client";
-import Dashboard from "@/components/setting/Setting";
-import MainLayout from "@/components/main/MainLayout";
+import CalendarSetting from "@/components/calendar/setting/CalendarSetting";
 import { useEffect } from "react";
-
+import CalendarLayout from "@/components/calendar/CalendarLayout";
 const SettingClientPage = () => {
   useEffect(() => {
     document.querySelector("body")?.classList.add("bg_main");
   }, []);
   return (
-    <MainLayout>
+    <CalendarLayout>
       <div className="flex w-full h-full bg_main">
         {/* 메인 컨텐츠 */}
-        <Dashboard />
+        <CalendarSetting />
       </div>
-    </MainLayout>
+    </CalendarLayout>
   );
 };
 

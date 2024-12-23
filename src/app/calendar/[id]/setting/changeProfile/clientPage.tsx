@@ -1,9 +1,8 @@
 "use client";
-import Dashboard from "@/components/setting/Setting";
 import MainLayout from "@/components/main/MainLayout";
 import { useEffect } from "react";
-
-const SettingClientPage = () => {
+import ChangePassword from "@/components/setting/ChangePassword";
+const ChangePasswordClientPage = () => {
   useEffect(() => {
     document.querySelector("body")?.classList.add("bg_main");
   }, []);
@@ -11,10 +10,10 @@ const SettingClientPage = () => {
     <MainLayout>
       <div className="flex w-full h-full bg_main">
         {/* 메인 컨텐츠 */}
-        <Dashboard />
+        <ChangePassword />
       </div>
     </MainLayout>
   );
 };
 
-export default SettingClientPage;
+export default ChangePasswordClientPage;

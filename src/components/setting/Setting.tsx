@@ -6,11 +6,11 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import useUserMutations from "@/queries/user/useUserMutations";
 import SecessionConfirmModal from "@/components/modal/SecessionConfirmModal";
-import ImageCropComponent from "../common/ImageCropComponent";
+import ImageCropComponent from "@/components/common/ImageCropComponent";
 import { IconSetting } from "@/icons";
 import { useRouter } from "next/navigation";
 
-const Dashboard = () => {
+const Setting = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const { data: userData, isLoading: userIsLoading } =
@@ -57,7 +57,7 @@ const Dashboard = () => {
           <div className="flex flex-col mt-[20px] text-[#494949] text-[20px] noto-sans-text">
             <input
               disabled
-              className="w-[390px] h-[55px] bor px-[19px] rounded-md rounded-b-none focus:outline-none bg-[#EDEADF]"
+              className="w-[390px] h-[55px] bor px-[19px] rounded-md rounded-b-none focus:outline-none bg-[#EDEADF] cursor-not-allowed"
               defaultValue={userData?.email}
             />
             <input
@@ -96,4 +96,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Setting;

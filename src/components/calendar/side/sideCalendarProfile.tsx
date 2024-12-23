@@ -1,18 +1,14 @@
-import ModalWrapper from "@/components/modal/ModalWrapper";
-import SettingModal from "@/components/modal/SettingModal";
 import useSearch from "@/hooks/useSearch";
-import { IconCircleSetting, IconSetting } from "@/icons";
+import { IconCircleSetting } from "@/icons";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 const SideCalendarProfile = () => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
   const id = useSearch.useSearchId();
   const { data, isLoading } = useCalendarQueries.useGetCalendarBasic(id);
 
-  const handleClickSetting = () => setIsOpen(true);
+  const handleClickSetting = () => router.push(`/calendar/${id}/setting`);
 
   const handleCalendarProfileClick = () => router.push(`/calendar/${id}`);
 
@@ -29,10 +25,6 @@ const SideCalendarProfile = () => {
         className="w-[30px] h-[30px] absolute top-[302px] left-[203px] cur"
       />
       <p className="mt-[19px] text-[20px]">{data?.name}</p>
-
-      <ModalWrapper setIsOpen={setIsOpen} isOpen={isOpen}>
-        <SettingModal setIsOpen={setIsOpen} />
-      </ModalWrapper>
     </div>
   );
 };
