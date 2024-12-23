@@ -2,15 +2,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
-import commonMutation from "@/queries/commonMutation";
 import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
-import {
-  IconAddCalendar,
-  IconCameraRounded,
-  IconNextBig,
-  IconX,
-} from "@/icons";
+import { IconNextBig, IconX } from "@/icons";
+import CalendarImgCrop from "@/components/common/CalendarImgCrop";
 
 const AddCalendarModal = ({ setIsOpen }: any) => {
   const [formSelect, setFormSelect] = useState("empty");
@@ -20,9 +15,6 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
   });
   const { mutate: getInvtedCalendar } = useMutation({
     mutationFn: useCalendarMutations.joinCalendar,
-  });
-  const { mutate: uploadImage } = useMutation({
-    mutationFn: commonMutation.uploadImage,
   });
 
   const { register, handleSubmit } = useForm();
@@ -60,18 +52,6 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
 
   const formChancher = (form: any) => {
     setFormSelect(form);
-  };
-
-  const handleImage = async (e: any) => {
-    await uploadImage(e.target.files[0], {
-      onSuccess: async (result) => {
-        setImage(result.url);
-      },
-    });
-  };
-
-  const handleImageBtn = () => {
-    document.getElementById("imageUpload")!.click();
   };
 
   return (
@@ -120,30 +100,11 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col items-center mt-10"
           >
-            <input
-              id="imageUpload"
-              className="hidden"
-              onInput={handleImage}
-              accept=".jpg, .png, .bmp, .gif, .svg, .webp"
-              type="file"
+            <CalendarImgCrop
+              calendarImg={image}
+              setCalendarImg={setImage}
+              type={StaticKeys.ADD_TYPE}
             />
-            {/* crop 추가 필요 */}
-            {image === "" ? (
-              <div
-                onClick={handleImageBtn}
-                className="relative rounded-md bg-[#D1D3D4] w-[300px] h-[200px] bor flex items-center justify-center overflow-hidden cur"
-              >
-                <IconAddCalendar className="w-[170px] h-[217px] mt-3" />
-                <IconCameraRounded className="w-[30px] h-[30px] absolute bottom-[10px] right-[10px]" />
-              </div>
-            ) : (
-              <img
-                src={image ?? ""}
-                onClick={handleImageBtn}
-                className="bg-white w-[300px] h-[200px] rounded-md cur bor object-contain"
-                alt="Calendar"
-              />
-            )}
             <input
               className="w-[300px] h-[50px] text-[20px] bor rounded-md p-3 outline-none text-black my-[10px] text-center placeholder:text-[#C2BFBC]"
               {...register("name", { required: true })}

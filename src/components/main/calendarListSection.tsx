@@ -13,6 +13,8 @@ import AddCalendarModal from "@/components/modal/AddCalendar";
 import Helper from "@/helper/Helper";
 import { IconAdd, IconSettingOrder } from "@/icons";
 import ScrollingComponent from "@/components/common/ScrollingComponent";
+import ModalContainer from "../modal/ModalContainer";
+import ModalType from "@/keys/ModalType";
 
 const CalendarListSection = () => {
   const router = useRouter();
@@ -82,15 +84,13 @@ const CalendarListSection = () => {
     );
   };
 
-  const handleCancelOrder = () => {
-    setIsEditMode(false);
-  };
+  const handleCancelOrder = () => setIsEditMode(false);
 
-  const handleClickCalendar = (id: number) => {
+  const handleClickCalendar = (id: number) =>
     router.push(`/calendar/${id}?date=${Helper.getTodayMs()}`);
-  };
 
   const handleAddBtn = () => setIsOpen(true);
+
   return (
     <section>
       <div className="flex justify-between w-[1260px] items-center mt-[47px]">
@@ -152,9 +152,12 @@ const CalendarListSection = () => {
           </ScrollingComponent>
         </DndProvider>
       )}
-      <ModalWrapper setIsOpen={setIsOpen} isOpen={isOpen}>
-        <AddCalendarModal setIsOpen={setIsOpen} />
-      </ModalWrapper>
+      {isOpen && (
+        <ModalContainer
+          setIsOpen={setIsOpen}
+          initialModal={ModalType.ADD_CALENDAR}
+        />
+      )}
     </section>
   );
 };

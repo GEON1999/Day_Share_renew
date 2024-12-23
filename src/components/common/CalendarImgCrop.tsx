@@ -7,7 +7,17 @@ import React, { useState, useRef, ChangeEvent } from "react";
 import ReactCrop, { Crop, PixelCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
-function CalendarImgCrop({ calendarImg, setCalendarImg }: any) {
+interface CalendarImgCropProps {
+  calendarImg: string;
+  setCalendarImg: (img: string) => void;
+  type: string;
+}
+
+function CalendarImgCrop({
+  calendarImg,
+  setCalendarImg,
+  type = StaticKeys.EDIT_TYPE,
+}: CalendarImgCropProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [src, setSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState<Crop>({
@@ -110,7 +120,11 @@ function CalendarImgCrop({ calendarImg, setCalendarImg }: any) {
     <div>
       <div
         onClick={handleImageUpload}
-        className={`rounded-md bg-gray-200 w-[195px] h-[135px] bor cur bg-[#D9D9D9] flex justify-center items-center `}
+        className={`rounded-md bg-gray-200 bor cur bg-[#D9D9D9] flex justify-center items-center ${
+          type === StaticKeys.EDIT_TYPE
+            ? "w-[195px] h-[135px]"
+            : "w-[299.42px] h-[200px]"
+        }`}
       >
         {calendarImg ? (
           <img
@@ -120,8 +134,20 @@ function CalendarImgCrop({ calendarImg, setCalendarImg }: any) {
           />
         ) : (
           <div className="relative">
-            <div className="overflow-hidden w-[195px] h-[130px] rounded-full flex justify-center items-center">
-              <IconAddCalendar className="w-[100.95px] h-[128.88px] mt-[28px]" />
+            <div
+              className={`overflow-hidden rounded-full flex justify-center items-center ${
+                type === StaticKeys.EDIT_TYPE
+                  ? "w-[195px] h-[130px]"
+                  : "w-[299.42px] h-[195px]"
+              }`}
+            >
+              <IconAddCalendar
+                className={`mt-[28px] ${
+                  type === StaticKeys.EDIT_TYPE
+                    ? "w-[100.95px] h-[128.88px]"
+                    : "w-[170px] h-[189.46px]"
+                }`}
+              />
             </div>
             <IconCameraRounded className="w-[30px] h-[30px] absolute bottom-[12px] right-[17px] transform translate-x-1/4 translate-y-1 /4" />
           </div>
