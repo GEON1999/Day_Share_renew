@@ -18,7 +18,7 @@ const emotionData: EmotionData[] = [
     text: "좋아",
     imgSrc:
       "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241220022621_62e35e9def4f493cb6aed5bb103bd7bd.png",
-    hoverBg: "bg-[#FEDB69]",
+    hoverBg: "group-hover:bg-[#FEDB69]",
     containerBg: "bg-[#FFF8C6]",
   },
   {
@@ -26,7 +26,7 @@ const emotionData: EmotionData[] = [
     text: "속상해",
     imgSrc:
       "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241220022654_f9482cad7ae24f6490e2de3dbd578da5.png",
-    hoverBg: "bg-[#B4FC7E]",
+    hoverBg: "group-hover:bg-[#B4FC7E]",
     containerBg: "bg-[#E6FFCD]",
   },
   {
@@ -34,7 +34,7 @@ const emotionData: EmotionData[] = [
     text: "화나",
     imgSrc:
       "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241220022535_1ed8050f691a48b187a8dad47e03f8fc.png",
-    hoverBg: "bg-[#FFADAD]",
+    hoverBg: "group-hover:bg-[#FFADAD]",
     containerBg: "bg-[#FFDCDC]",
   },
   {
@@ -42,7 +42,7 @@ const emotionData: EmotionData[] = [
     text: "그냥그래",
     imgSrc:
       "https://s3.ap-northeast-2.amazonaws.com/geon.com/20241220022709_64a7a29da24f4cf1ab0000c2d5db5eb8.png",
-    hoverBg: "bg-[#ACCDFF]",
+    hoverBg: "group-hover:bg-[#ACCDFF]",
     containerBg: "bg-[#CDE4F9]",
   },
 ];
@@ -64,7 +64,7 @@ const EmotionItem = ({
   >
     <img className="w-[80px] h-[80px]" src={emotion.imgSrc} alt={emotion.id} />
     <p
-      className={`text-[15px] text-[#494949] rounded-full w-[65px] h-[20px] flex items-center justify-center group-hover:${emotion.hoverBg} transition-all duration-300`}
+      className={`text-[15px] text-[#494949] rounded-full w-[65px] h-[20px] flex items-center justify-center ${emotion.hoverBg} transition-all duration-300`}
     >
       {emotion.text}
     </p>
