@@ -102,24 +102,19 @@ const CalendarListSection = () => {
           {!calendarData || calendarData?.total_calendars === 0 ? null : (
             <div>
               {isEditMode ? (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 text-[15px] text-[#494949]">
                   <button
-                    className="w-10 h-[25px] bor bg_hilight_2 font-bold rounded-md text-center"
+                    className="w-10 h-[25px] bor bg_hilight_2 font-bold rounded-md"
                     onClick={handleSaveOrder}
                   >
-                    완료
+                    <p className="mb-[1px]">저장</p>
                   </button>
                   <button
-                    className="w-10 h-[25px] bor bg-[#49494920]  font-bold rounded-md"
+                    className="w-10 h-[25px] bor bg-[#49494920] font-bold rounded-md"
                     onClick={handleCancelOrder}
                   >
-                    취소
+                    <p className="mb-[1px]">취소</p>
                   </button>
-                  {/* <div className="w-8 h-8 rounded-full bg-[#494949] bg-opacity-20 flex items-center justify-center">
-                    <IconSettingOrder
-                      className="w-5 h-4 cur "
-                    />
-                  </div> */}
                 </div>
               ) : (
                 <IconSettingOrder

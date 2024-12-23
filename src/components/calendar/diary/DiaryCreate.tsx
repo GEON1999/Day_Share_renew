@@ -34,7 +34,12 @@ const DiaryCreate = () => {
   });
 
   const onSubmit = debounce((formData: any) => {
-    const submitData = { ...formData, content: editor?.getHTML() };
+    const thumnail = editor?.getHTML().split("<img")[1]?.split('"')[1];
+    const submitData = {
+      ...formData,
+      content: editor?.getHTML(),
+      img: thumnail ?? null,
+    };
     createDiary(
       { calendarId: id, query: `date=${date}`, body: submitData },
       {

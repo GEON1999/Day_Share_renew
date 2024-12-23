@@ -63,7 +63,6 @@ const DiaryList = () => {
           </div>
         ) : (
           diaryData?.diaries?.map((diary: any, index: number) => {
-            console.log(diary);
             return (
               <div onClick={() => handleClickDiary(diary.id)} key={diary.id}>
                 <div
@@ -94,10 +93,15 @@ const DiaryList = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-[118px] h-[118px] rounded-md bor">
-                    {" "}
-                    {/* {parse(diary.content, options)}{" "} */}
-                  </div>
+                  {diary.img ? (
+                    <img
+                      src={diary.img}
+                      alt="diary"
+                      className="w-[118px] h-[118px] object-cover rounded-md bor"
+                    />
+                  ) : (
+                    <div className="w-[118px] h-[118px] rounded-md bor bg-[#D9D9D9]" />
+                  )}
                 </div>
               </div>
             );
