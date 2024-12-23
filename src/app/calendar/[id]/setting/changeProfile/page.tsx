@@ -7,21 +7,30 @@ import QueryKeys from "@/keys/QueryKeys";
 import API from "@/server/API";
 import axios from "axios";
 import rqOption from "@/server/rqOption";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import ChangePasswordClientPage from "./clientPage";
+import ChangeProfileClientPage from "./clientPage";
 
-const getUser = async (accessToken: any) => {
+const getCalendarPermissionList = async (accessToken: any, id: string) => {
   const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER}`,
+    `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id)}`,
     rqOption.apiHeader(accessToken)
   );
   return data;
 };
-const getUserTodos = async (accessToken: any, query: string) => {
+
+const getCalendarUserInfo = async (accessToken: any, id: string) => {
   const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER_TODOS(query)}`,
+    `${process.env.BASE_URL}${API.GET_CALENDAR_USER_INFO(id)}`,
+    rqOption.apiHeader(accessToken)
+  );
+  return data;
+};
+
+const getCalendarBasic = async (accessToken: any, id: string) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}${API.GET_CALENDAR_BASIC(id)}`,
     rqOption.apiHeader(accessToken)
   );
   return data;
@@ -39,20 +48,26 @@ export default async function Home(req: any) {
 
   const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
 
+  const id = req.params.id;
+
   Promise.all([
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_USER],
-      queryFn: () => getUser(accessToken),
+      queryKey: [QueryKeys.GET_CALENDAR_BASIC, id],
+      queryFn: () => getCalendarBasic(accessToken, id),
     }),
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_USER_TODOS, todoPage],
-      queryFn: () => getUserTodos(accessToken, todoPage),
+      queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id],
+      queryFn: () => getCalendarPermissionList(accessToken, id),
+    }),
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_CALENDAR_USER_INFO, id],
+      queryFn: () => getCalendarUserInfo(accessToken, id),
     }),
   ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ChangePasswordClientPage />
+      <ChangeProfileClientPage />
     </HydrationBoundary>
   );
 }

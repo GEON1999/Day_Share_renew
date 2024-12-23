@@ -42,9 +42,9 @@ const ChangePassword = () => {
 
   return (
     <div className="main_container">
-      <div className="flex w-full h-screen justify-center items-center flex-col">
+      <div className="flex w-full h-screen justify-center items-center flex-col text-[#494949]">
         <IconSetting onClick={handleSetting} className="w-5 h-5 cur" />
-        <h1 onClick={handleSetting} className="text-[25px] cur">
+        <h1 onClick={handleSetting} className="text-[25px] cur text-[#2D2D2E]">
           설정
         </h1>
         <span className="text-[15px] font-satoshi font-[100] mt-[5px]">|</span>

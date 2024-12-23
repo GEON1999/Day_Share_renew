@@ -69,6 +69,9 @@ const CalendarSetting = () => {
     });
   }, StaticKeys.DEBOUNCE_TIME);
 
+  const handleChangeProfile = () =>
+    router.push(`/calendar/${id}/setting/changeProfile`);
+
   return (
     <div className="main_container">
       <div className="flex w-full h-screen justify-center items-center flex-col ">
@@ -113,7 +116,8 @@ const CalendarSetting = () => {
                 />
                 <button
                   className="absolute right-[16px] bottom-[10px] w-[109px] h-[30px] cur rounded-full border-[0.8px] border-[#49494950] text-[15px] hover:bg-[#49494910] hover:border-[#49494950]"
-                  onClick={reloadInviteCode}
+                  onClick={handleChangeProfile}
+                  type="button"
                 >
                   프로필 변경
                 </button>
