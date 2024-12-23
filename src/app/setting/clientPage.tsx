@@ -1,19 +1,19 @@
 "use client";
 import Dashboard from "@/components/setting/Dashboard";
-import SettingLayout from "@/components/setting/SettingLayout";
+import MainLayout from "@/components/main/MainLayout";
 import { useEffect } from "react";
 
 const SettingClientPage = () => {
   useEffect(() => {
-    document.querySelector("body")?.classList.add("bg_depp");
+    document.querySelector("body")?.classList.add("bg_main");
   }, []);
   return (
-    <SettingLayout>
-      <div className="flex w-full h-full bg_depp">
+    <MainLayout>
+      <div className="flex w-full h-full bg_main">
         {/* 메인 컨텐츠 */}
         <Dashboard />
       </div>
-    </SettingLayout>
+    </MainLayout>
   );
 };
 
