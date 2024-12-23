@@ -25,7 +25,6 @@ export async function GET(req: any, res: { params: { id?: string } }) {
   }
 
   const queries = `${req.nextUrl.searchParams.toString()}`;
-  console.log("queries", queries);
 
   try {
     const data = await axios.get(

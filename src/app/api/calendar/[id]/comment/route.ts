@@ -54,7 +54,6 @@ export async function POST(req: any, res: { params: { id?: string } }) {
   const id = res.params.id;
   const body = await req.json();
   const queries = `${req.nextUrl.searchParams.toString()}`;
-  console.log("queries :", queries, "body :", body, "id :", id);
 
   try {
     const data = await axios.post(
