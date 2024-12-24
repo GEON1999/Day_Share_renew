@@ -1,19 +1,24 @@
 import useSearch from "@/hooks/useSearch";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Helper from "@/helper/Helper";
 import { useRouter } from "next/navigation";
 import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
+import { TimePicker } from "antd";
+import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 const TodoCreate = () => {
   const router = useRouter();
   const id = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue, watch } = useForm();
+  const [startTime, setStartTime] = useState<Dayjs>(dayjs().hour(10).minute(0));
+  const [endTime, setEndTime] = useState<Dayjs>(dayjs().hour(11).minute(0));
 
   const { mutate: createTodo } = useMutation({
     mutationFn: useTodoMutations.createTodo,
@@ -42,6 +47,21 @@ const TodoCreate = () => {
     );
   }, StaticKeys.DEBOUNCE_TIME);
 
+  // TimePicker onChange 핸들러
+  const handleStartTimeChange = (time: Dayjs | null) => {
+    if (time) {
+      setStartTime(time);
+      setValue("startAt", time.format("HH:mm"));
+    }
+  };
+
+  const handleEndTimeChange = (time: Dayjs | null) => {
+    if (time) {
+      setEndTime(time);
+      setValue("endAt", time.format("HH:mm"));
+    }
+  };
+
   return (
     <div className="min-w-[600px] mt-[86px] w-[1270px] mx-auto">
       <div className="flex items-center space-x-[10px] ">
@@ -68,22 +88,27 @@ const TodoCreate = () => {
           />
           <div className="flex items-center justify-between">
             <div className="flex space-x-3 mt-[30px]">
-              {/* 시작일 입력 필드 추가 */}
-              <label className="flex flex-col ">
+              <label className="flex flex-col">
                 시작 시간
-                <input
-                  type="time"
-                  {...register("startAt")}
-                  className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
+                <TimePicker
+                  value={startTime}
+                  format="HH:mm"
+                  onChange={handleStartTimeChange}
+                  minuteStep={5}
+                  className="w-full h-10 !border-2 !border-gray-400"
+                  popupClassName="custom-timepicker-dropdown"
+                  placement="bottomLeft"
                 />
               </label>
-              {/* 종료일 입력 필드 추가 */}
               <label className="flex flex-col">
                 종료 시간
-                <input
-                  type="time"
-                  {...register("endAt")}
-                  className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
+                <TimePicker
+                  value={endTime}
+                  format="HH:mm"
+                  onChange={handleEndTimeChange}
+                  minuteStep={5}
+                  className="w-full h-10"
+                  popupClassName="custom-timepicker-dropdown"
                 />
               </label>
             </div>

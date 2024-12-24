@@ -229,3 +229,30 @@ div::-webkit-scrollbar-track {
   align-items: center;
   box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.15) !important;
 }
+
+/* antd TimePicker 스타일 */
+.ant-picker {
+  width: 100% !important;
+  height: 40px !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 0.375rem !important;
+  background-color: transparent !important;
+}
+
+.ant-picker:hover {
+  border-color: #d1d5db !important;
+}
+
+.ant-picker-input > input {
+  font-size: 16px !important;
+  color: inherit !important;
+}
+
+.ant-picker-panel-container {
+  margin-top: 4px !important;
+}
+
+/* 드롭다운이 다른 요소 위에 표시되도록 */
+.custom-timepicker-dropdown {
+  z-index: 1100 !important;
+}
