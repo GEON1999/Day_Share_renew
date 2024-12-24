@@ -57,7 +57,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center noto-sans-text">
       {formSelect === "empty" ? (
-        <div className="bor w-[520px] h-[210px] bg_depp rounded-xl p-[20px] text-[20px]">
+        <div className="bor w-[520px] h-[210px] bg_depp rounded-md p-[20px] text-[20px]">
           <IconX
             className="w-[10px] h-[10px] ml-auto cur"
             onClick={() => setIsOpen(false)}
@@ -81,7 +81,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
           </div>
         </div>
       ) : formSelect === "create" ? (
-        <div className="bor w-[520px] h-[450px] bg_depp rounded-xl p-[20px] text-[20px]">
+        <div className="bor w-[520px] h-[450px] bg_depp rounded-md p-[20px] text-[20px]">
           <IconX
             className="w-[10px] h-[10px] ml-auto cur"
             onClick={() => setIsOpen(false)}
@@ -120,7 +120,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
           </form>
         </div>
       ) : (
-        <div className="bor w-[520px] h-[240px] bg_depp rounded-xl p-[20px] text-[20px]">
+        <div className="bor w-[520px] h-[240px] bg_depp rounded-md p-[20px] text-[20px]">
           <IconX
             className="w-[10px] h-[10px] ml-auto cur"
             onClick={() => setIsOpen(false)}

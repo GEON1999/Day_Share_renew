@@ -12,6 +12,8 @@ import StaticKeys from "@/keys/StaticKeys";
 import { debounce } from "lodash";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import LeaveCalendar from "@/components/modal/LeaveCalendar";
+import ModalType from "@/keys/ModalType";
+import ModalContainer from "@/components/modal/ModalContainer";
 
 const CalendarSetting = () => {
   const router = useRouter();

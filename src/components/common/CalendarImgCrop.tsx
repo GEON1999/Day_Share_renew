@@ -6,11 +6,13 @@ import ModalWrapper from "@/components/modal/ModalWrapper";
 import React, { useState, useRef, ChangeEvent } from "react";
 import ReactCrop, { Crop, PixelCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import ModalContainer from "../modal/ModalContainer";
+import ModalType from "@/keys/ModalType";
 
 interface CalendarImgCropProps {
   calendarImg: string;
   setCalendarImg: (img: string) => void;
-  type: string;
+  type?: string;
 }
 
 function CalendarImgCrop({
@@ -19,6 +21,7 @@ function CalendarImgCrop({
   type = StaticKeys.EDIT_TYPE,
 }: CalendarImgCropProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenImgSelectModal, setIsOpenImgSelectModal] = useState(false);
   const [src, setSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState<Crop>({
     unit: "%",
@@ -32,6 +35,8 @@ function CalendarImgCrop({
   const { mutate: imageMutate } = useMutation({
     mutationFn: commonMutation.uploadImage,
   });
+
+  const handleOpenImgSelectModal = () => setIsOpenImgSelectModal(true);
 
   const handleImageUpload = () => {
     document.getElementById("imageUpload")?.click();
@@ -119,7 +124,7 @@ function CalendarImgCrop({
   return (
     <div>
       <div
-        onClick={handleImageUpload}
+        onClick={handleOpenImgSelectModal}
         className={`rounded-md bg-gray-200 bor cur bg-[#D9D9D9] flex justify-center items-center ${
           type === StaticKeys.EDIT_TYPE
             ? "w-[195px] h-[135px]"
@@ -208,6 +213,13 @@ function CalendarImgCrop({
           </div>
         </div>
       </ModalWrapper>
+      {isOpenImgSelectModal && (
+        <ModalContainer
+          setIsOpen={setIsOpenImgSelectModal}
+          initialModal={ModalType.CALENDAR_IMAGE_SELECT}
+          setImg={setCalendarImg}
+        />
+      )}
     </div>
   );
 }

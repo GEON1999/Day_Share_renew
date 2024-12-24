@@ -1,10 +1,10 @@
 import { useState } from "react";
 import AddCalendarModal from "@/components/modal/AddCalendar";
-import CalendarImgCrop from "@/components/common/CalendarImgCrop";
 import ModalType from "@/keys/ModalType";
 import LeaveCalendarModal from "@/components/modal/LeaveCalendar";
 import SecessionModal from "@/components/modal/SecessionConfirmModal";
 import ModalWrapper from "@/components/modal/ModalWrapper";
+import CalendarImageSelect from "@/components/modal/CalendarImageSelect";
 
 interface ModalContainerProps {
   setIsOpen: (isOpen: boolean) => void;
@@ -39,6 +39,14 @@ const ModalContainer = ({
         return (
           <ModalWrapper isOpen={true} setIsOpen={setIsOpen}>
             <SecessionModal />
+          </ModalWrapper>
+        );
+      case ModalType.CALENDAR_IMAGE_SELECT:
+        return (
+          <ModalWrapper isOpen={true} setIsOpen={setIsOpen}>
+            {setImg && (
+              <CalendarImageSelect setIsOpen={setIsOpen} setImg={setImg} />
+            )}
           </ModalWrapper>
         );
       default:

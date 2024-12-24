@@ -4,6 +4,7 @@ import React from "react";
 import { IconExit, IconLogo } from "@/icons";
 import SideTodoSection from "./side/sideTodoSection";
 import SideCalendarProfile from "./side/sideCalendarProfile";
+import SideUserList from "./side/sideUserList";
 
 const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -29,7 +30,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
               />
             </div>
             <SideCalendarProfile />
-            {/* <SideUserList /> */}
+            <SideUserList />
             <SideTodoSection />
             <button
               onClick={handleLogout}

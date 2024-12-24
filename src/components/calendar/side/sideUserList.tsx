@@ -14,6 +14,7 @@ const SideUserList = () => {
 
   const { data: userList, isLoading: userListLoading } =
     useCalendarQueries.useGetCalendarPermissionList(id);
+  console.log("userList", userList, userListLoading);
 
   const { mutate: deleteCalendarPermission } = useMutation({
     mutationFn: useCalendarMutations.deleteCalendarPermission,
