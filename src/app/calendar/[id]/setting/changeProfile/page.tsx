@@ -12,9 +12,13 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import ChangeProfileClientPage from "./clientPage";
 
-const getCalendarPermissionList = async (accessToken: any, id: string) => {
+const getCalendarPermissionList = async (
+  accessToken: any,
+  id: string,
+  query: string
+) => {
   const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id)}`,
+    `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id, query)}`,
     rqOption.apiHeader(accessToken)
   );
   return data;
@@ -45,9 +49,7 @@ export default async function Home(req: any) {
   }
 
   const queryClient = new QueryClient();
-
-  const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
-
+  const userPage = `user_page=${req.searchParams.user_page ?? "1"}`;
   const id = req.params.id;
 
   Promise.all([
@@ -56,8 +58,8 @@ export default async function Home(req: any) {
       queryFn: () => getCalendarBasic(accessToken, id),
     }),
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id],
-      queryFn: () => getCalendarPermissionList(accessToken, id),
+      queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id, userPage],
+      queryFn: () => getCalendarPermissionList(accessToken, id, userPage),
     }),
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_USER_INFO, id],

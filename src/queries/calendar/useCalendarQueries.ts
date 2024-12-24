@@ -126,17 +126,17 @@ const useGetCalendarPermission = (calendarId: string) => {
 };
 
 // Get Calendar Permission List
-const getCalendarPermissionList = async (calendarId: string) => {
+const getCalendarPermissionList = async (calendarId: string, query: string) => {
   const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_PERMISSION_LIST(calendarId)
+    Helper.CURRENT_URL() + API.GET_CALENDAR_PERMISSION_LIST(calendarId, query)
   );
   return data;
 };
 
-const useGetCalendarPermissionList = (calendarId: string) => {
+const useGetCalendarPermissionList = (calendarId: string, query: string) => {
   return useQuery({
-    queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, calendarId],
-    queryFn: () => getCalendarPermissionList(calendarId),
+    queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, calendarId, query],
+    queryFn: () => getCalendarPermissionList(calendarId, query),
   });
 };
 

@@ -31,7 +31,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
             <SideCalendarProfile />
             <SideUserList />
-            <SideTodoSection />
+            {/* <SideTodoSection /> */}
             <button
               onClick={handleLogout}
               className="flex items-center space-x-1 mt-[27px] w-[146px] h-[38px] justify-center rounded-full border-[1.5px] border-[#494949] border-opacity-50"

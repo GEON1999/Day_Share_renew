@@ -42,6 +42,10 @@
   @apply px-[17px] py-[20px] w-[216px] h-[392px] border-[#494949] border-opacity-50 flex flex-col justify-between border-t border-b;
 }
 
+.side_user_container {
+  @apply py-[8px] w-[216px] h-[392px] border-[#494949] border-opacity-50 flex flex-col justify-between border-t border-b;
+}
+
 li {
   @apply cursor-pointer;
 }

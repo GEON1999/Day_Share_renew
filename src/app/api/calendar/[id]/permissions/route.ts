@@ -17,6 +17,7 @@ export async function GET(req: any, res: { params: { id?: string } }) {
   }
 
   const id = res.params.id;
+  const queries = `${req.nextUrl.searchParams.toString()}`;
   if (!id) {
     return NextResponse.json(
       { error: "Failed to fetch data" },
@@ -26,7 +27,7 @@ export async function GET(req: any, res: { params: { id?: string } }) {
 
   try {
     const data = await axios.get(
-      `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id)}`,
+      `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id, queries)}`,
       rqOption.apiHeader(accessToken)
     );
 

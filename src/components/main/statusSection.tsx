@@ -12,7 +12,7 @@ interface EmotionData {
   containerBg: string;
 }
 
-const emotionData: EmotionData[] = [
+export const emotionData: EmotionData[] = [
   {
     id: "JOY",
     text: "좋아",

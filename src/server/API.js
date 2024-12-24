@@ -116,8 +116,8 @@ const LEAVE_CALENDAR = (calendarId) => `/api/calendar/${calendarId}/user`;
 //   `/api/calendar/${calendarId}/del/${userId}`;
 
 // 달력 권한 리스트 조회
-const GET_CALENDAR_PERMISSION_LIST = (calendarId) =>
-  `/api/calendar/${calendarId}/permissions`;
+const GET_CALENDAR_PERMISSION_LIST = (calendarId, query) =>
+  `/api/calendar/${calendarId}/permissions${query ? `?${query}` : ""}`;
 
 // 캘린더 프로필 조회
 const GET_CALENDAR_PROFILE = (calendarId, query) =>

@@ -67,6 +67,11 @@ const useParamsAll = () => {
   return new URLSearchParams(Array.from(searchParams.entries()));
 };
 
+const useSearchUserPage = () => {
+  const searchParams = useSearchParams();
+  return searchParams.get("user_page") ?? "1";
+};
+
 export default {
   useSearchQueries,
   useSearchId,
@@ -79,4 +84,5 @@ export default {
   useSearchDate,
   useSearchCalendarTodoPage,
   useSearchCalendarDiaryPage,
+  useSearchUserPage,
 };
