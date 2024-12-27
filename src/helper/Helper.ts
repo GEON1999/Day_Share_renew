@@ -40,6 +40,15 @@ const formatDate = (dateString: string): string => {
   return `${year}년 ${month}월 ${day}일`;
 };
 
+const formatDateForTodo = (dateString: string | number): string => {
+  const date = new Date(Number(dateString));
+  const year = date.getFullYear().toString();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+
+  return `${year}. ${month}. ${day}`;
+};
+
 const formatWithoutYear = (dateString: string): string => {
   const date = new Date(dateString);
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -91,17 +100,6 @@ const formatDateForComment = (dateString: string): string => {
   return `${year}.${month}.${day}. ${ampm} ${hours}:${minutes}`;
 };
 
-// format date like 2024. 10. 24 (목)
-const formatDateForTodo = (dateString: string): string => {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const day = date.getDate().toString().padStart(2, "0");
-  const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
-
-  return `${year}.${month}.${day} (${dayOfWeek})`;
-};
-
 const formatTimeForTodoDetail = (start: string, end: string): string => {
   const startDate = new Date(start);
   const endDate = new Date(end);
@@ -129,23 +127,21 @@ const cleanContent = (content: any) => {
     .replace(/<\/p>/g, ""); // </p> 태그 제거
 };
 
-const setAt = ({ data, formData }: any) => {
-  const originalStartDate = new Date();
-  const originalEndDate = new Date();
+// 추후 일정 선택 기능을 염두
+const setAt = ({ startAt, endAt, startTime, endTime }: any) => {
+  const startDate = new Date(Number(startAt));
+  const endDate = new Date(Number(endAt));
+  console.log(startDate, endDate);
 
-  if (data) {
-    originalStartDate.setTime(Date.parse(data.startAt));
-    originalEndDate.setTime(Date.parse(data.endAt));
-  }
-  const [startHours, startMinutes] = formData.startAt.split(":");
-  const [endHours, endMinutes] = formData.endAt.split(":");
+  const [startHours, startMinutes] = startTime.split(":");
+  const [endHours, endMinutes] = endTime.split(":");
 
-  originalStartDate.setUTCHours(startHours, startMinutes);
-  originalEndDate.setUTCHours(endHours, endMinutes);
+  startDate.setHours(Number(startHours), Number(startMinutes), 0);
+  endDate.setHours(Number(endHours), Number(endMinutes), 0);
 
   return {
-    startAt: originalStartDate.toISOString(),
-    endAt: originalEndDate.toISOString(),
+    startAt: startDate.toISOString(),
+    endAt: endDate.toISOString(),
   };
 };
 

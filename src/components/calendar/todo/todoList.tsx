@@ -7,26 +7,36 @@ import {
   IconCheck_x,
   IconClose,
   IconEmptyTodo,
+  IconNext,
   IconX,
 } from "@/icons";
 import StaticKeys from "@/keys/StaticKeys";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
 import { useMutation } from "@tanstack/react-query";
+import { TimePicker } from "antd";
 import { debounce } from "lodash";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 const TodoList = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const id = useSearch.useSearchId();
   const calendarId = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
   const calendarTodoPage = useSearch.useSearchCalendarTodoPage();
+  const [isOpen, setIsOpen] = useState(false);
+  const [startTime, setStartTime] = useState<Dayjs>(
+    dayjs(Number(date)).hour(10).minute(0)
+  );
+  const [endTime, setEndTime] = useState<Dayjs>(
+    dayjs(Number(date)).hour(11).minute(0)
+  );
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const {
     data: todoData,
@@ -65,19 +75,30 @@ const TodoList = () => {
     );
   };
 
+  const handleStartTimeChange = (value: any) => {
+    setStartTime(value);
+  };
+
+  const handleEndTimeChange = (value: any) => {
+    setEndTime(value);
+  };
+
   const onSubmit = debounce((formData: any) => {
-    const { startAt, endAt } = Helper.setAt({ formData });
+    const startAtUTC = dayjs(startTime).format();
+    const endAtUTC = dayjs(endTime).format();
 
     const updatedData = {
       ...formData,
-      startAt: startAt,
-      endAt: endAt,
+      startAt: startAtUTC,
+      endAt: endAtUTC,
     };
     createTodo(
       { calendarId: id, query: `date=${date}`, body: updatedData },
       {
-        onSuccess: (result: any) => {
-          router.push(`/calendar/${id}/todo/${result.id}`);
+        onSuccess: async (result: any) => {
+          await refetch();
+          reset();
+          setIsOpen(false);
         },
         onError: () => {
           console.log("error");
@@ -166,12 +187,40 @@ const TodoList = () => {
                 <label htmlFor="date" className="text-[20px]">
                   일시
                 </label>
-                <input className="ml-[12px] w-[102px] h-[30px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]" />
-                <input className="ml-[8px] w-[113px] h-[30px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]" />
+                <input
+                  className="ml-[12px] w-[102px] h-[30px] text-[15px] bor rounded-md px-[8px] py-[6px] outline-none placeholder:text-[#C2BFBC] mr-[8px] disabled cursor-not-allowed text-center"
+                  disabled
+                  value={Helper.formatDateForTodo(date)}
+                />
+                <TimePicker
+                  value={startTime}
+                  format="A hh:mm"
+                  onChange={handleStartTimeChange}
+                  minuteStep={5}
+                  popupClassName="custom-timepicker-dropdown"
+                  placement="bottomLeft"
+                  suffixIcon={
+                    <IconNext className="w-[7px] h-[12px] rotate-90" />
+                  }
+                  allowClear={false}
+                  placeholder="시작 시간"
+                />
                 <p className="ml-[4px] text-[20px] font-medium font-satoshi">
                   -
                 </p>
-                <input className="ml-[4px] w-[113px] h-[30px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]" />
+                <TimePicker
+                  value={endTime}
+                  format="A hh:mm"
+                  onChange={handleEndTimeChange}
+                  minuteStep={5}
+                  popupClassName="custom-timepicker-dropdown"
+                  placement="bottomLeft"
+                  suffixIcon={
+                    <IconNext className="w-[7px] h-[12px] rotate-90" />
+                  }
+                  allowClear={false}
+                  placeholder="종료 시간"
+                />
               </div>
               <div className="flex items-start space-x-[12px]">
                 <label htmlFor="content" className="text-[20px]">
