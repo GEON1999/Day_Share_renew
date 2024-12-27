@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predev": "ts-node --project ./tsconfig.node.json ./scripts/genAntdCss.tsx",
+    "prebuild": "ts-node --project ./tsconfig.node.json ./scripts/genAntdCss.tsx"
   },
   "dependencies": {
+    "@ant-design/static-style-extract": "^1.0.3",
     "@tanstack/react-query": "^5.36.0",
     "@tiptap/extension-document": "^2.8.0",
     "@tiptap/extension-heading": "^2.8.0",
@@ -31,6 +34,7 @@
     "lodash": "^4.17.21",
     "next": "14.2.9",
     "next-auth": "^4.24.7",
+    "npm": "^11.0.0",
     "react": "^18",
     "react-datepicker": "^6.2.0",
     "react-dnd": "^16.0.1",
@@ -41,7 +45,9 @@
     "react-image-crop": "^11.0.7",
     "react-slick": "^0.30.2",
     "react-time-picker": "^7.0.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
