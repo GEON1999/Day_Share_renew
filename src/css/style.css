@@ -232,20 +232,24 @@ div::-webkit-scrollbar-track {
 
 /* antd TimePicker 스타일 */
 .ant-picker {
-  width: 100% !important;
-  height: 40px !important;
-  border: 2px solid #e5e7eb !important;
+  width: 113px !important;
+  height: 30px !important;
+  border: 1.5px solid #494949 !important;
   border-radius: 0.375rem !important;
-  background-color: transparent !important;
+  background-color: #ffffff !important;
+  cursor: pointer !important;
 }
 
 .ant-picker:hover {
-  border-color: #d1d5db !important;
+  border-color: #494949 !important;
 }
 
-.ant-picker-input > input {
-  font-size: 16px !important;
-  color: inherit !important;
+.ant-picker:hover,
+.ant-picker:focus,
+.ant-picker-focused {
+  border-color: #494949 !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .ant-picker-panel-container {

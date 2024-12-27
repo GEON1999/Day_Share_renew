@@ -10,6 +10,8 @@ import StaticKeys from "@/keys/StaticKeys";
 import { TimePicker } from "antd";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
+import { IconAdd, IconClose, IconNext } from "@/icons";
+import locale from "antd/es/time-picker/locale/ko_KR";
 
 const TodoCreate = () => {
   const router = useRouter();
@@ -92,23 +94,30 @@ const TodoCreate = () => {
                 시작 시간
                 <TimePicker
                   value={startTime}
-                  format="HH:mm"
+                  format="A HH:mm"
                   onChange={handleStartTimeChange}
                   minuteStep={5}
-                  className="w-full h-10 !border-2 !border-gray-400"
                   popupClassName="custom-timepicker-dropdown"
                   placement="bottomLeft"
+                  suffixIcon={
+                    <IconNext className="w-[7px] h-[12px] rotate-90" />
+                  }
+                  allowClear={false}
                 />
               </label>
               <label className="flex flex-col">
                 종료 시간
                 <TimePicker
                   value={endTime}
-                  format="HH:mm"
+                  format="A HH:mm"
                   onChange={handleEndTimeChange}
                   minuteStep={5}
-                  className="w-full h-10"
                   popupClassName="custom-timepicker-dropdown"
+                  placement="bottomLeft"
+                  suffixIcon={
+                    <IconNext className="w-[7px] h-[12px] rotate-90" />
+                  }
+                  allowClear={false}
                 />
               </label>
             </div>
