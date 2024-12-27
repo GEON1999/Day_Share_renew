@@ -4,6 +4,7 @@ import Providers from "@/app/Providers";
 import AuthSession from "@/app/AuthSession";
 import { Gowun_Dodum, Noto_Sans, Noto_Serif } from "next/font/google";
 import SessionCheck from "./SessionCheck";
+import withTheme from "./ConfigProvider";
 
 // Google Fonts에서 원하는 폰트를 불러옵니다.
 
@@ -35,8 +36,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
+  return withTheme(
     <html lang="ko">
+      <head>
+        <link rel="stylesheet" href="/antd.min.css" />
+      </head>
       <body
         className={`${dodum.className} ${notoSans.variable} ${notoSerif.variable} font-[300]`}
       >
