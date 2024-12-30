@@ -172,11 +172,15 @@ const Calendar = ({}) => {
                       const { day, currentMonth } = dateObj;
                       const isDayCell = currentMonth;
                       let isHighlighted = false;
+                      let isToday = false;
 
                       if (isDayCell) {
                         const date = new Date(year, month, day);
                         const dateString = date.toISOString().split("T")[0];
                         isHighlighted = dateSet.has(dateString);
+                        isToday =
+                          date.toISOString().split("T")[0] ===
+                          today.toISOString().split("T")[0];
                       }
 
                       const currentDate = new Date(year, month, dateObj.day);
@@ -196,9 +200,9 @@ const Calendar = ({}) => {
                           <div
                             className={`mx-auto w-[89.86px] h-[129px] transition-all duration-300 ease-in-out bor_light_pink border px-2 py-1 cur`}
                           >
-                            <div className="flex flex-col items-center justify-center space-y-2 ml-[51px] relative">
+                            <div className="flex flex-col items-center justify-center ml-[51px] relative">
                               <span
-                                className={`flex items-center justify-center w-[30px] h-[30px] text-[18px] pb-[3px] ${
+                                className={`flex items-center justify-center w-[30px] h-[30px] text-[18px] ${
                                   currentMonth && dayIndex === 0
                                     ? "text_red"
                                     : !currentMonth && dayIndex === 0
@@ -207,7 +211,9 @@ const Calendar = ({}) => {
                                     ? "opacity-40"
                                     : ""
                                 } ${
-                                  isClicked
+                                  isToday
+                                    ? " bg-[#494949] rounded-full text-white"
+                                    : isClicked
                                     ? " bg-[#FFBDBD80] rounded-full"
                                     : ""
                                 }`}
@@ -215,13 +221,13 @@ const Calendar = ({}) => {
                                 {day}
                               </span>
                               <div
-                                className={`${
+                                className={`mt-[2px] ${
                                   isHighlighted ? "bg_deep_pink" : ""
                                 } w-1 h-1 rounded-full`}
                               ></div>
                               <div
                                 className={`absolute w-[89.86px] overflow-hidden -right-[10px] space-y-[5px] text-left text-[13px] text-[#E55A5A] noto-sans-text ${
-                                  todoCount >= 2 ? "top-[45px]" : "top-[83px]"
+                                  todoCount >= 2 ? "top-[52px]" : "top-[90px]"
                                 }`}
                               >
                                 {todoTitles.map(
