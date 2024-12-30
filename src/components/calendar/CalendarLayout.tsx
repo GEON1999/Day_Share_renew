@@ -2,7 +2,6 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { IconExit, IconLogo } from "@/icons";
-import SideTodoSection from "./side/sideTodoSection";
 import SideCalendarProfile from "./side/sideCalendarProfile";
 import SideUserList from "./side/sideUserList";
 

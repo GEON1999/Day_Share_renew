@@ -53,9 +53,14 @@ const getCalendarDetail = async (accessToken: any, id: string) => {
   return data;
 };
 
-const getCalendarDates = async (accessToken: any, id: string) => {
+const getCalendarDates = async (
+  accessToken: any,
+  id: string,
+  query: string
+) => {
+  console.log("getCalendarDates", id, query);
   const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_DATES(id)}`,
+    `${process.env.BASE_URL}${API.GET_CALENDAR_DATES(id, query)}`,
     rqOption.apiHeader(accessToken)
   );
   return data;
@@ -97,6 +102,7 @@ export default async function Home(req: any) {
 
   const queryClient = new QueryClient();
   const date = `date=${req.searchParams.date ?? ""}`;
+  const timestamp = `timestamp_ms=${req.searchParams.date ?? ""}`;
   const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
 
   const calendarTodoPage = `calendar_todo_page=${
@@ -130,8 +136,8 @@ export default async function Home(req: any) {
     //   queryFn: () => getCalendarDetail(accessToken, id),
     // }),
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CALENDAR_DATES, id],
-      queryFn: () => getCalendarDates(accessToken, id),
+      queryKey: [QueryKeys.GET_CALENDAR_DATES, id, timestamp],
+      queryFn: () => getCalendarDates(accessToken, id, timestamp),
     }),
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_TODOS, id, todoQueries],

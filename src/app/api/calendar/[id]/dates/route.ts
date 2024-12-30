@@ -23,10 +23,11 @@ export async function GET(req: any, res: { params: { id?: string } }) {
       { status: 500 }
     );
   }
+  const queries = `${req.nextUrl.searchParams.toString()}`;
 
   try {
     const data = await axios.get(
-      `${process.env.BASE_URL}${API.GET_CALENDAR_DATES(id)}`,
+      `${process.env.BASE_URL}${API.GET_CALENDAR_DATES(id, queries)}`,
       rqOption.apiHeader(accessToken)
     );
 

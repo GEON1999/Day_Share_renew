@@ -51,17 +51,17 @@ const useGetCalendarDetail = (calendarId: string) => {
 };
 
 // Get Calendar Dates
-const getCalendarDates = async (calendarId: string) => {
+const getCalendarDates = async (calendarId: string, query: string) => {
   const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_DATES(calendarId)
+    Helper.CURRENT_URL() + API.GET_CALENDAR_DATES(calendarId, query)
   );
   return data;
 };
 
-const useGetCalendarDates = (calendarId: string) => {
+const useGetCalendarDates = (calendarId: string, query: string) => {
   return useQuery({
-    queryKey: [QueryKeys.GET_CALENDAR_DATES, calendarId],
-    queryFn: () => getCalendarDates(calendarId),
+    queryKey: [QueryKeys.GET_CALENDAR_DATES, calendarId, query],
+    queryFn: () => getCalendarDates(calendarId, query),
   });
 };
 

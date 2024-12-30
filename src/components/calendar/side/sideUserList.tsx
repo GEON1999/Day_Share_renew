@@ -19,7 +19,6 @@ const SideUserList = () => {
       id,
       `user_page=${currentUserPage}`
     );
-  console.log("userList", userList, userListLoading);
 
   const { mutate: deleteCalendarPermission } = useMutation({
     mutationFn: useCalendarMutations.deleteCalendarPermission,

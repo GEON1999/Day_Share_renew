@@ -47,7 +47,6 @@ const Calendar = ({}) => {
   const router = useRouter();
   const date = useSearch.useSearchDate();
   const calendarId = useSearch.useSearchId();
-
   const clickedDate = date ? new Date(parseInt(date)) : null;
   const clickedDay = clickedDate ? clickedDate.getDate() : null;
   const today = new Date();
@@ -57,23 +56,38 @@ const Calendar = ({}) => {
 
   // calendarDetail을 가져오는 것 보다 100 ~ 200ms 빠른 LCP
   const { data: calendarDate, isLoading } =
-    useCalendarQueries.useGetCalendarDates(calendarId);
+    useCalendarQueries.useGetCalendarDates(
+      calendarId,
+      `timestamp_ms=${date ?? ""}`
+    );
+
+  const { data: calendarBasic, isLoading: calendarBasicLoading } =
+    useCalendarQueries.useGetCalendarBasic(calendarId);
+  console.log("calendarDate", calendarDate, isLoading);
 
   // const { data: calendarDetail } =
   //   useCalendarQueries.useGetCalendarDetail(calendarId);
-
-  // console.log("calendarDetail", calendarDetail, "calendarDate", calendarDate);
 
   useEffect(() => {
     document.title = `Calendar - ${year}-${month + 1}`;
   }, [year, month]);
 
   const dateSet = new Set(
-    calendarDate?.dates.map((timestamp: any) => {
+    Object.keys(calendarDate?.dates || {}).map((timestamp) => {
       const date = new Date(Number(timestamp));
       return date.toISOString().split("T")[0];
-    }) || []
+    })
   );
+
+  const getDayData = (timestamp: string) => {
+    return (
+      calendarDate?.dates[timestamp] || {
+        diaryCount: 0,
+        todoCount: 0,
+        todoTitles: [],
+      }
+    );
+  };
 
   const handleClickDate = (day: number | null) => {
     if (day === null) return;
@@ -106,7 +120,7 @@ const Calendar = ({}) => {
     <div className={`main_container flex space-x-[70px]`}>
       <div className="w-[631.5px]">
         <h1 className="text-[25px] mt-[75px]">
-          {calendarDate?.calendar?.name ?? ""}
+          {calendarBasic?.name ?? "달력"}
         </h1>
         <div className="flex justify-between w-[1255px] items-center mb-2">
           <div className="flex w-[626px] space-x-4 justify-between">
@@ -165,6 +179,12 @@ const Calendar = ({}) => {
                         isHighlighted = dateSet.has(dateString);
                       }
 
+                      const currentDate = new Date(year, month, dateObj.day);
+                      const dayData = getDayData(
+                        currentDate.getTime().toString()
+                      );
+                      const { diaryCount, todoCount, todoTitles } = dayData;
+
                       const isClicked = clickedDay === day && currentMonth;
 
                       return (
@@ -174,20 +194,9 @@ const Calendar = ({}) => {
                           className="p-0 space-x-0 space-y-0"
                         >
                           <div
-                            className={
-                              `mx-auto w-[89.86px] h-[129px] transition-all duration-300 ease-in-out bor_light_pink border px-2 py-1 cur`
-                              //   ${
-                              //   currentMonth
-                              //     ? isClicked
-                              //       ? "bg_hilight cursor-pointer"
-                              //       : isHighlighted
-                              //       ? "bg-[#E6E6E650]  cursor-pointer"
-                              //       : "bg-transparent text-gray-700 cursor-pointer hover:bg_ligth hover:text-gray-900"
-                              //     : "cursor-default"
-                              // }
-                            }
+                            className={`mx-auto w-[89.86px] h-[129px] transition-all duration-300 ease-in-out bor_light_pink border px-2 py-1 cur`}
                           >
-                            <div className="flex flex-col items-center justify-center space-y-2 ml-[51px]">
+                            <div className="flex flex-col items-center justify-center space-y-2 ml-[51px] relative">
                               <span
                                 className={`flex items-center justify-center w-[30px] h-[30px] text-[18px] pb-[3px] ${
                                   currentMonth && dayIndex === 0
@@ -210,6 +219,61 @@ const Calendar = ({}) => {
                                   isHighlighted ? "bg_deep_pink" : ""
                                 } w-1 h-1 rounded-full`}
                               ></div>
+                              <div
+                                className={`absolute w-[89.86px] overflow-hidden -right-[10px] space-y-[5px] text-left text-[13px] text-[#E55A5A] noto-sans-text ${
+                                  todoCount >= 2 ? "top-[45px]" : "top-[83px]"
+                                }`}
+                              >
+                                {todoTitles.map(
+                                  // todocount가 1개 일 때, 2개일 때, 3개 이상일 때
+                                  (title: string, index: number) => {
+                                    return todoCount === 1 ? (
+                                      <div
+                                        key={index}
+                                        className="h-[33px] flex"
+                                      >
+                                        <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
+                                        {/* 텍스트 가로 중앙 */}
+                                        <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
+                                          {title}
+                                        </div>
+                                      </div>
+                                    ) : todoCount === 2 ? (
+                                      <div
+                                        key={index}
+                                        className="h-[33px] flex"
+                                      >
+                                        <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
+                                        <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
+                                          {title}
+                                        </div>
+                                      </div>
+                                    ) : todoCount >= 3 ? (
+                                      index === 0 ? (
+                                        <div
+                                          key={index}
+                                          className="h-[33px] flex"
+                                        >
+                                          <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
+                                          <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
+                                            {title}
+                                          </div>
+                                        </div>
+                                      ) : index === 1 ? (
+                                        <div
+                                          key={index}
+                                          className="h-[33px] flex"
+                                        >
+                                          <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
+                                          <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
+                                            +{todoCount - 1}
+                                          </div>
+                                        </div>
+                                      ) : null
+                                    ) : null;
+                                  }
+                                )}
+                              </div>
                             </div>
                           </div>
                         </td>

@@ -71,7 +71,8 @@ const GET_CALENDAR_SELECT_LIST = "/api/calendars";
 const GET_CALENDAR_DETAIL = (calendarId) => `/api/calendar/${calendarId}`;
 
 // 달력에 작성된 글이 있는 dates 조회
-const GET_CALENDAR_DATES = (calendarId) => `/api/calendar/${calendarId}/dates`;
+const GET_CALENDAR_DATES = (calendarId, query) =>
+  `/api/calendar/${calendarId}/dates${query ? `?${query}` : ""}`;
 
 // 달력 기본 정보 조회
 const GET_CALENDAR_BASIC = (calendarId) => `/api/calendar/${calendarId}/basic`;
