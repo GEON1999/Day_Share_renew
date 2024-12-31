@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
-import TodoDetail from "@/components/calendar/todo/todoDetail";
+import TodoDetailModal from "@/components/calendar/todo/todoDetailModal";
 
 const TodoList = () => {
   const router = useRouter();
@@ -258,7 +258,7 @@ const TodoList = () => {
           </form>
         </div>
       )}
-      {isDetailOpen && <TodoDetail setIsDetailOpen={setIsDetailOpen} />}
+      {isDetailOpen && <TodoDetailModal setIsDetailOpen={setIsDetailOpen} />}
     </div>
   );
 };

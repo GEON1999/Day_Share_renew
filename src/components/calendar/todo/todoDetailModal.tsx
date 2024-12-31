@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import TodoViewMode from "./todoViewMode";
 import TodoEditMode from "./todoEditMode";
 
-const TodoDetail = ({
+const TodoDetailModal = ({
   setIsDetailOpen,
 }: {
   setIsDetailOpen: (isOpen: boolean) => void;
@@ -30,4 +30,4 @@ const TodoDetail = ({
   );
 };
 
-export default TodoDetail;
+export default TodoDetailModal;
