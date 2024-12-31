@@ -179,7 +179,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   return (
     <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px] text-[#494949] noto-sans-text overflow-y-auto overflow-x-visible">
       {isLoading ? (
-        <></>
+        <div className="loading spinner " />
       ) : (
         <>
           <IconX

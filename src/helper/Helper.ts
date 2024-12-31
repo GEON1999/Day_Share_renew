@@ -122,13 +122,20 @@ const formatTimeForTodo = (dateString: string): string => {
 };
 
 // "1735570800000" -> 12.10(월)
-const formatDateForTodoDetail = (dateString: string): string => {
+const formatDateForTodoDetail = (
+  dateString: string,
+  isYear: boolean = false
+): string => {
   const date = new Date(Number(dateString));
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const dayOfWeek = date.toLocaleDateString("ko-KR", { weekday: "short" });
 
-  return `${month}.${day}.(${dayOfWeek})`;
+  if (isYear) {
+    return `${date.getFullYear()}. ${month}. ${day}.(${dayOfWeek})`;
+  } else {
+    return `${month}.${day}.(${dayOfWeek})`;
+  }
 };
 
 const cleanContent = (content: any) => {

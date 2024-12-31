@@ -96,22 +96,26 @@ const Calendar = ({}) => {
     router.push(`/calendar/${calendarId}/?date=${ms}`);
   };
 
-  const handlePrevBtn = () => {
+  const handlePrevBtn = async () => {
     if (month === 0) {
-      setYear(year - 1);
-      setMonth(11);
+      await setYear(year - 1);
+      await setMonth(11);
     } else {
-      setMonth(month - 1);
+      await setMonth(month - 1);
     }
+    const ms = new Date(year, month - 1, 1).getTime();
+    router.push(`/calendar/${calendarId}?date=${ms}`);
   };
 
-  const handleNextBtn = () => {
+  const handleNextBtn = async () => {
     if (month === 11) {
-      setYear(year + 1);
-      setMonth(0);
+      await setYear(year + 1);
+      await setMonth(0);
     } else {
-      setMonth(month + 1);
+      await setMonth(month + 1);
     }
+    const ms = new Date(year, month + 1, 1).getTime();
+    router.push(`/calendar/${calendarId}?date=${ms}`);
   };
 
   const handleClickToday = () =>

@@ -1,30 +1,32 @@
-import useSearch from "@/hooks/useSearch";
-import useTodoMutations from "@/queries/todo/useTodoMutations";
-import useTodoQueries from "@/queries/todo/useTodoQueries";
-import { useMutation } from "@tanstack/react-query";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+"use client";
 import Helper from "@/helper/Helper";
+import useSearch from "@/hooks/useSearch";
 import { IconNext, IconX } from "@/icons";
-import { TimePicker } from "antd";
+import StaticKeys from "@/keys/StaticKeys";
+import useTodoMutations from "@/queries/todo/useTodoMutations";
+import { useMutation } from "@tanstack/react-query";
+import { debounce } from "lodash";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
+import { TimePicker } from "antd";
 
-const TodoEditMode = ({ setEditorMode }: any) => {
+const TodoCreate = ({ setIsOpen, refetch }: any) => {
   const id = useSearch.useSearchId();
-  const todoId = useSearch.useSearchQueryTodoId();
+  const date = useSearch.useSearchDate();
+  const [startTime, setStartTime] = useState<Dayjs>(
+    dayjs(Number(date)).hour(10).minute(0)
+  );
+  const [endTime, setEndTime] = useState<Dayjs>(
+    dayjs(Number(date)).hour(11).minute(0)
+  );
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
-  const {
-    data,
-    isLoading,
-    refetch: todoReFetch,
-  } = useTodoQueries.useGetTodoDetail(id, todoId ?? "");
-  console.log("data", data);
-
-  const [startTime, setStartTime] = useState<Dayjs>(dayjs(data?.startAt));
-  const [endTime, setEndTime] = useState<Dayjs>(dayjs(data?.endAt));
+  const { mutate: createTodo } = useMutation({
+    mutationFn: useTodoMutations.createTodo,
+  });
 
   const handleStartTimeChange = (value: any) => {
     setStartTime(value);
@@ -34,39 +36,38 @@ const TodoEditMode = ({ setEditorMode }: any) => {
     setEndTime(value);
   };
 
-  const { mutate: updateTodo } = useMutation({
-    mutationFn: useTodoMutations.updateTodo,
-  });
-
-  const onSubmit = (formData: any) => {
-    const { startAt, endAt } = Helper.setAt({ data, formData });
+  const onSubmit = debounce((formData: any) => {
+    const startAtUTC = dayjs(startTime).format();
+    const endAtUTC = dayjs(endTime).format();
 
     const updatedData = {
       ...formData,
-      startAt: startAt,
-      endAt: endAt,
+      startAt: startAtUTC,
+      endAt: endAtUTC,
     };
-    updateTodo(
-      { calendarId: id, todoId, body: updatedData },
+    createTodo(
+      { calendarId: id, query: `date=${date}`, body: updatedData },
       {
-        onSuccess: (result: any) => {
-          todoReFetch();
-          setEditorMode(false);
+        onSuccess: async (result: any) => {
+          await refetch();
+          reset();
+          setIsOpen(false);
         },
         onError: () => {
           console.log("error");
         },
       }
     );
-  };
+  }, StaticKeys.DEBOUNCE_TIME);
 
-  const handleCancel = () => {
-    setEditorMode(false);
+  const handleClose = () => {
+    setIsOpen(false);
+    reset();
   };
 
   return (
     <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px] text-[#494949] noto-sans-text">
-      <IconX className="w-[10px] h-[10px] ml-auto cur" onClick={handleCancel} />
+      <IconX className="w-[10px] h-[10px] ml-auto cur" onClick={handleClose} />
       <h1 className="-mt-[10px] text-[25px]">일정 등록</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -79,7 +80,6 @@ const TodoEditMode = ({ setEditorMode }: any) => {
             </label>
             <input
               {...register("title", { required: true })}
-              defaultValue={data?.title}
               type="text"
               className="w-[441px] h-[30px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
               placeholder="제목을 입력해 보세요."
@@ -90,9 +90,9 @@ const TodoEditMode = ({ setEditorMode }: any) => {
               일시
             </label>
             <input
-              className="ml-[12px] w-[164px] h-[30px] text-[15px] bor rounded-md px-[8px] py-[6px] outline-none placeholder:text-[#C2BFBC] mr-[8px] disabled cursor-not-allowed text-center"
+              className="ml-[12px] w-[164px] h-[30px] text-[15px] bor rounded-md px-[8px] py-[6px] outline-none placeholder:text-[#C2BFBC] mr-[11px] disabled cursor-not-allowed text-center"
               disabled
-              value={Helper.formatDateForTodoDetail(data?.date, true)}
+              value={Helper.formatDateForTodoDetail(date, true)}
             />
             <TimePicker
               value={startTime}
@@ -124,7 +124,6 @@ const TodoEditMode = ({ setEditorMode }: any) => {
             </label>
             <textarea
               {...register("content", { required: true })}
-              defaultValue={data?.content}
               className="w-[441px] h-[133px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
               placeholder="일정에 필요한 설명을 남겨보세요."
             />
@@ -132,7 +131,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
         </div>
         <div className="flex mt-[40px] text-[20px] noto-sans-text space-x-[10px] mx-auto">
           <button
-            onClick={handleCancel}
+            onClick={handleClose}
             type="button"
             className="rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#49494910]"
           >
@@ -150,4 +149,4 @@ const TodoEditMode = ({ setEditorMode }: any) => {
   );
 };
 
-export default TodoEditMode;
+export default TodoCreate;

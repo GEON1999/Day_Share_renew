@@ -232,7 +232,7 @@ div::-webkit-scrollbar-track {
 
 /* antd TimePicker 스타일 */
 .ant-picker {
-  width: 113px !important;
+  width: 123px !important;
   height: 30px !important;
   border: 1.5px solid #494949 !important;
   border-radius: 0.375rem !important;
