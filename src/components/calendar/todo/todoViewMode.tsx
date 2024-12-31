@@ -140,6 +140,12 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
     setActiveCommentId(null);
   };
 
+  const handleSettingComment = (comment: any) => {
+    setActiveCommentId(
+      activeCommentId === comment.comment.id ? null : comment.comment.id
+    );
+  };
+
   const onEditSubmit = (data: any) => {
     const formData = { content: data[`content_${editingCommentId}`] };
     editComment(
@@ -318,13 +324,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                   <>
                     <div
                       className="w-[30px] h-[30px] rounded-full flex items-center justify-center hover:bg-[#49494910] cur "
-                      onClick={() =>
-                        setActiveCommentId(
-                          activeCommentId === comment.comment.id
-                            ? null
-                            : comment.comment.id
-                        )
-                      }
+                      onClick={() => handleSettingComment(comment)}
                     >
                       <IconEdit className="w-[6px] h-[18px]" />
                     </div>

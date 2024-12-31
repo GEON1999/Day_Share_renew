@@ -23,7 +23,6 @@ const CalendarSetting = () => {
     useCalendarQueries.useGetCalendarUserInfo(id);
   const { data: calendarData, isLoading: calendarIsLoading } =
     useCalendarQueries.useGetCalendarBasic(id);
-  console.log("calendarData : ", calendarData, calendarIsLoading);
   const { data: inviteCode, isLoading: inviteCodeLoading } =
     useCalendarQueries.useGetInviteCode(id);
 

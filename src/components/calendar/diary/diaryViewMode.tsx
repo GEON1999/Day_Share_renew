@@ -7,7 +7,6 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import ModalWrapper from "@/components/modal/ModalWrapper";
-import EditCommentModal from "@/components/modal/EditCommentModal";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
 import DeleteModal from "@/components/modal/DeleteModal";
@@ -17,17 +16,15 @@ import useDiaryMutations from "@/queries/diary/useDiaryMutations";
 import parse from "html-react-parser";
 import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
-import { IconComment, IconHeart, IconNext, IconNextRed } from "@/icons";
-import useUserQueries from "@/queries/user/useUserQueries";
+import { IconComment, IconEdit, IconHeart, IconNextGray } from "@/icons";
 
 const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDiaryModalOpen, setIsDiaryModalOpen] = useState(false);
-  const [currentCommentId, setCurrentCommentId] = useState("");
-  const [currentEditCommentData, setCurrentEditCommentData] = useState(null);
   const [openComment, setOpenComment] = useState(true);
+  const [activeCommentId, setActiveCommentId] = useState(null);
+  const [editingCommentId, setEditingCommentId] = useState(null);
+
   const id = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
   const diaryId = useSearch.useSearchDiaryId();
@@ -37,6 +34,12 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     register: commentRegister,
     handleSubmit: commentHandleSubmit,
     reset: commentReset,
+  } = useForm();
+
+  const {
+    register: editRegister,
+    handleSubmit: editHandleSubmit,
+    reset: editReset,
   } = useForm();
 
   const {
@@ -65,7 +68,6 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     isLoading: commentIsLoading,
     refetch: commentRefetch,
   } = useCommentQueries.useGetComments(id, query);
-  console.log("commentData:", commentData);
   const {
     data: likeData,
     isLoading: likeIsLoading,
@@ -73,8 +75,6 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   } = useLikeQueries.useGetLikes(query);
   const { data: calendarProfile, isLoading: calendarProfileIsLoading } =
     useCalendarQueries.useGetCalendarProfile(id, `userId=${data?.userId}`);
-
-  console.log("data:", data, "calendarData :", calendarData);
 
   const { mutate: toggleLike } = useMutation({
     mutationFn: useLikeMutations.toggleLike,
@@ -87,6 +87,9 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   });
   const { mutate: deleteComment } = useMutation({
     mutationFn: useCommentMutations.deleteComment,
+  });
+  const { mutate: editComment } = useMutation({
+    mutationFn: useCommentMutations.updateComment,
   });
 
   const handleClickdeleteDiary = () => setIsDiaryModalOpen(true);
@@ -121,30 +124,22 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     });
   };
 
-  const handleClickDeleteComment = (commentId: string) => {
-    setIsOpen(true);
-    setCurrentCommentId(commentId);
-  };
-
-  const handleClickEditComment = (commentData: any) => {
-    setIsEditModalOpen(true);
-    setCurrentEditCommentData(commentData);
-  };
-
   const handleEditorMode = () => setEditorMode(!editorMode);
   const handleOpenComment = () => setOpenComment(!openComment);
 
   const handleDeleteComment = () => {
     deleteComment(
-      { calendarId: id, commentId: currentCommentId },
+      { calendarId: id, commentId: activeCommentId },
       {
         onSuccess: (result) => {
           if (result) {
             alert("댓글 삭제에 성공하였습니다.");
+            commentRefetch();
+            setEditingCommentId(null);
+            editReset();
           } else {
             alert("댓글 삭제에 실패하였습니다.");
           }
-          window.location.reload();
         },
         onError: () => {
           console.log("실패");
@@ -154,6 +149,29 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   };
 
   const handleClickCalendar = () => router.push(`/calendar/${id}?date=${date}`);
+
+  const handleSettingComment = (comment: any) => {
+    setActiveCommentId(
+      activeCommentId === comment.comment.id ? null : comment.comment.id
+    );
+  };
+
+  const onEditSubmit = (data: any) => {
+    const formData = { content: data[`content_${editingCommentId}`] };
+    editComment(
+      { calendarId: id, commentId: editingCommentId, body: formData },
+      {
+        onSuccess: () => {
+          commentRefetch();
+          setEditingCommentId(null);
+          editReset();
+        },
+        onError: () => {
+          console.log("실패");
+        },
+      }
+    );
+  };
 
   const handledeleteDiary = () => {
     deleteDiary(
@@ -169,46 +187,56 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       }
     );
   };
+
+  const handleEditClick = (comment: any) => {
+    console.log("edit click", comment);
+    setEditingCommentId(comment.id);
+    setActiveCommentId(null);
+  };
+
   return (
-    <div className="min-w-[600px] mt-[86px] w-[1270px]">
+    <div className="min-w-[600px] mt-[86px] w-[870px] noto-sans-text">
       <div
         className="flex items-center space-x-[10px] cur"
         onClick={handleClickCalendar}
       >
-        <p className="text_red text-[20px]">{calendarData?.name}</p>
-        <IconNextRed className="w-[9px] h-5" />
+        <p className="opacity-50 text-[20px]">{calendarData?.name}</p>
+        <IconNextGray className="w-[5px] h-[10px]" />
       </div>
       <div className="flex justify-between items-center mt-3">
-        <h2 className="text-[30px]">{data?.title}</h2>
+        <h2 className="text-[30px] dodum-text">{data?.title}</h2>
+      </div>
+      <div className="flex items-center mt-3 justify-between">
+        <div className="flex items-center">
+          <img
+            className="w-[20px] h-[20px] rounded-full bor mr-[8px]"
+            src={calendarProfile?.img ?? process.env.NEXT_PUBLIC_LOGO}
+          />
+          <h1 className="text-[20px] mr-[10px]">
+            {calendarProfile?.name ?? "탈퇴한 유저"}
+          </h1>
+          <p className="text-[15px] text-[#969696]">
+            {Helper.formatDateForContent(data?.createdAt)} 등록
+          </p>
+        </div>
         <div className="flex space-x-2">
-          <button onClick={handleEditorMode} className="rounded w-15 h-10 bor">
+          <button
+            onClick={handleEditorMode}
+            className="rounded w-[40px] h-[25px] bor text-[15px]"
+          >
             수정
           </button>
           <button
             type="button"
             onClick={handleClickdeleteDiary}
-            className="rounded w-15 h-10 bor"
+            className="rounded w-[40px] h-[25px] bor text-[15px]"
           >
             삭제
           </button>
           {/* <button className="rounded w-15 h-10 bor">공유</button> */}
         </div>
       </div>
-      <div className="flex items-center mt-3">
-        <img
-          className="w-[50px] h-[50px] rounded-full bor"
-          src={calendarProfile?.img ?? process.env.NEXT_PUBLIC_LOGO}
-        />
-        <div className="flex flex-col ml-2">
-          <h1 className="ftext-[20px]">
-            {calendarProfile?.name ?? "탈퇴한 유저"}
-          </h1>
-          <p className="text-[16px] text-[#969696]">
-            {Helper.formatDateForContent(data?.createdAt)}
-          </p>
-        </div>
-      </div>
-      <div className="flex flex-col space-y-2 mt-[22px]">
+      <div className="flex flex-col space-y-2 mt-[26px]">
         <div className="max-h-[700px] overflow-auto">
           <div>{diaryContent}</div>
         </div>
@@ -227,49 +255,96 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       </div>
       {openComment && (
         <div className="mt-[13px]">
-          <div className="flex text-[22px] space-x-3">
-            <h1 className="">댓글 </h1>
-            <h1>{commentData?.length}</h1>
-          </div>
-          <div className="overflow-y-auto space-y-3">
+          <div className="space-y-3">
             {commentData?.map((comment: any) => (
               <div
                 key={comment.comment.id}
-                className="flex justify-between items-center"
+                className="flex justify-between items-center relative"
               >
-                <div className="flex items-start space-x-3 space-y-2">
+                <div className="flex items-center space-x-[10px] space-y-2">
                   <img
-                    className="w-10 h-10 rounded-full bor mt-[7px]"
+                    className="w-[45px] h-[45px] rounded-full bor"
                     src={comment?.profile?.img ?? ""}
                   />
-                  <div className="max-w-[1000px] space-y-[2px]">
-                    <div className="flex items-center space-x-[15px]">
-                      <h1 className="text-[16px] text-[#2D2D2E]">
-                        {comment?.profile?.name}
-                      </h1>
-                      <p className="text-[13px] text-[#969696]">
-                        {Helper.formatDateForComment(
-                          comment?.comment?.createdAt
-                        )}
-                      </p>
-                    </div>
-                    <p>{comment.comment.content}</p>
+                  <div className=" space-y-[2px]">
+                    {editingCommentId === comment.comment.id ? (
+                      <form
+                        className="w-[818px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
+                        onSubmit={editHandleSubmit(onEditSubmit)}
+                      >
+                        <input
+                          className="w-full h-[37px] px-[10px] border-b border-[#494949] rounded-t-md outline-none"
+                          type="text"
+                          {...editRegister(`content_${comment.comment.id}`, {
+                            value: comment.comment.content,
+                          })}
+                        />
+                        <div className="w-full h-[37px] flex items-center justify-end px-[10px] space-x-[10px]">
+                          <button
+                            onClick={() => setEditingCommentId(null)}
+                            type="button"
+                            className="w-[40px] h-[25px] rounded-md bor"
+                          >
+                            취소
+                          </button>
+                          <button
+                            type="submit"
+                            className="w-[40px] h-[25px] rounded-md bor"
+                          >
+                            등록
+                          </button>
+                        </div>
+                      </form>
+                    ) : (
+                      <div className="space-y-[5px]">
+                        <div className="flex items-center space-x-[10px]">
+                          <h1 className="font-bold">
+                            {comment?.profile?.name}
+                          </h1>
+                          <p className="opacity-50">
+                            {Helper.formatDateForComment(
+                              comment?.comment?.createdAt
+                            )}
+                          </p>
+                        </div>
+                        <p className="w-[700px]">{comment.comment.content}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <img
-                    onClick={() => {
-                      handleClickEditComment(comment.comment);
-                    }}
-                    src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729079582327.png"
-                    className="w-5 h-5 cur"
-                  />
-                  <img
-                    onClick={() => handleClickDeleteComment(comment.comment.id)}
-                    src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729079615050.png"
-                    className="w-5 h-5 cur"
-                  />
-                </div>
+                {editingCommentId === comment.comment.id ? null : (
+                  <>
+                    <div
+                      className="w-[30px] h-[30px] rounded-full flex items-center justify-center hover:bg-[#49494910] cur "
+                      onClick={() => handleSettingComment(comment)}
+                    >
+                      <IconEdit className="w-[6px] h-[18px]" />
+                    </div>
+                    <div
+                      className={`absolute right-[-51px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center border-[#494949] text-[15px] rounded-md shadow_box z-99 ${
+                        activeCommentId === comment.comment.id ? "" : "hidden"
+                      }`}
+                    >
+                      <button
+                        onClick={() => handleEditClick(comment.comment)}
+                        type="button"
+                        className="w-[55px] h-[50%] border-b border-[#494949]"
+                      >
+                        수정
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteComment();
+                        }}
+                        className="w-[55px] h-[50%]"
+                      >
+                        삭제
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>
@@ -287,10 +362,9 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
               </div>
               <input
                 {...commentRegister("content")}
-                className="w-full h-[18px] outline-none rounded bg-transparent text-[20px] placeholder:text-[#495163] px-[1px]"
+                className="w-full outline-none rounded bg-transparent text-[20px] placeholder:opacity-50 px-[1px]"
                 placeholder="댓글을 남겨보세요."
               />
-              {/* 버튼을 가장 우측으로 이동 */}
               <button
                 type="submit"
                 className="w-[46px] bor h-[30px] rounded ml-auto"
@@ -301,19 +375,6 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
           </form>
         </div>
       )}
-      <ModalWrapper isOpen={isEditModalOpen} setIsOpen={setIsEditModalOpen}>
-        <EditCommentModal
-          setIsOpen={setIsEditModalOpen}
-          commentData={currentEditCommentData}
-        />
-      </ModalWrapper>
-      <ModalWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
-        <DeleteModal
-          setIsOpen={setIsOpen}
-          mutateFn={handleDeleteComment}
-          msg="정말 해당 댓글을 삭제하시겠습니까?"
-        />
-      </ModalWrapper>
       <ModalWrapper isOpen={isDiaryModalOpen} setIsOpen={setIsDiaryModalOpen}>
         <DeleteModal
           setIsOpen={setIsDiaryModalOpen}

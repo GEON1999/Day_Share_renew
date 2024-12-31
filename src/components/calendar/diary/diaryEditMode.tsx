@@ -53,9 +53,9 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
     );
   };
   return (
-    <div className="min-w-[600px] mt-[86px] w-[1270px]">
+    <div className="min-w-[600px] mt-[86px] w-[870px] noto-sans-text text-[#494949]">
       <div className="flex items-center space-x-[10px] ">
-        <span className="text_red text-[20px]">일기 수정</span>
+        <span className="text-[30px] dodum-text">일기 수정</span>
         <span className="text-[#999790] text-[16px]">|</span>
         <span
           onClick={() => setEditorMode(false)}
@@ -68,7 +68,7 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
         <div className="flex flex-col mt-[26px]">
           <input
             {...register("title")}
-            className="border w-full h-[40px] outline-none rounded-md bg-transparent text-[20px] placeholder:text-[#495163] px-5 mb-5"
+            className="border w-full h-[40px] outline-none rounded-md bg-transparent text-[20px] placeholder:opacity-50 px-5 mb-5"
             placeholder="제목을 입력해주세요"
             defaultValue={data?.title}
           />
@@ -76,11 +76,11 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
             <Toolbar editor={editor} />
             <EditorContent
               editor={editor}
-              className="w-full h-[595px] outline-none rounded bg-transparent text-[20px] py-[15px] px-[20px] placeholder:text-[#495163] focus:outline-none focus:ring-0"
+              className="w-full h-[595px] outline-none rounded bg-transparent text-[20px] py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"
             />
           </div>
         </div>
-        <div className="flex ml-auto items-center space-x-[10px] mt-[25px]">
+        <div className="flex mx-auto items-center space-x-[10px] mt-[25px]">
           <button
             onClick={() => setEditorMode(false)}
             type="button"

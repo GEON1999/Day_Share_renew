@@ -6,6 +6,7 @@ export { default as IconExit } from "./exit.svg";
 export { default as IconNext_disabled } from "./right_disable.svg";
 export { default as IconNext } from "./right_able.svg";
 export { default as IconNextRed } from "./next_red.svg";
+export { default as IconNextGray } from "./next_gray.svg";
 export { default as IconPrev_disabled } from "./left_disable.svg";
 export { default as IconPrev } from "./left.svg";
 export { default as IconPrevBig } from "./prev_big.svg";
