@@ -13,7 +13,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="flex h-full min-h-[1080px]">
+    <div className="flex h-screen ">
       {/* Sidebar */}
       <aside
         className={

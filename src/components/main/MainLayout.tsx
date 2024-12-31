@@ -2,7 +2,7 @@
 import useUserQueries from "@/queries/user/useUserQueries";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import TodoSection from "@/components/main/todoSection";
 import { IconCircleSetting, IconExit, IconLogo } from "@/icons";
 
@@ -17,7 +17,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const handleLogout = async () => {
     await signOut();
   };
-
   return (
     <div className={`flex h-screen min-h-[900px]`}>
       {/* Sidebar */}

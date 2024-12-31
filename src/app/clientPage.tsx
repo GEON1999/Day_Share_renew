@@ -4,12 +4,9 @@ import MainLayout from "@/components/main/MainLayout";
 import { useEffect } from "react";
 
 const ClientPage = () => {
-  useEffect(() => {
-    document.querySelector("body")?.classList.add("bg_main");
-  }, []);
   return (
     <MainLayout>
-      <div className="h-full w-full bg_main px-[200px]">
+      <div className="w-full h-full bg_main px-[200px] mt-0">
         {/* 메인 컨텐츠 */}
         <Dashboard />
       </div>
