@@ -16,7 +16,12 @@ const CalendarImageSelect = ({
   const handleCancel = () => setIsOpen(false);
   return (
     <div className="bor w-[520px] h-[490px] bg_depp rounded-md p-[20px] text-[20px] noto-sans-text text-[#494949]">
-      <IconX className="w-[10px] h-[10px] ml-auto cur" onClick={handleCancel} />
+      <div
+        className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
+        onClick={handleCancel}
+      >
+        <IconX className="w-full h-full" />
+      </div>
       <h1 className="-mt-[10px] font-bold">달력 이미지 변경</h1>
       <div className="flex flex-wrap gap-[10px] mt-[25px]">
         <div

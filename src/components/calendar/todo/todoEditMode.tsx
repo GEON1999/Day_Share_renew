@@ -66,7 +66,12 @@ const TodoEditMode = ({ setEditorMode }: any) => {
 
   return (
     <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px] text-[#494949] noto-sans-text">
-      <IconX className="w-[10px] h-[10px] ml-auto cur" onClick={handleCancel} />
+      <div
+        className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
+        onClick={handleCancel}
+      >
+        <IconX className="w-full h-full" />
+      </div>
       <h1 className="-mt-[10px] text-[25px]">일정 등록</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}

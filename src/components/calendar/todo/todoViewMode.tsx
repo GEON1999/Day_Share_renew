@@ -182,10 +182,12 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
         <div className="loading spinner " />
       ) : (
         <>
-          <IconX
-            className="w-[10px] h-[10px] ml-auto cur"
+          <div
+            className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
             onClick={handleCancel}
-          />
+          >
+            <IconX className="w-full h-full" />
+          </div>
           <h1 className="-mt-[10px] text-[20px] flex items-center space-x-[10px]">
             <span>{Helper.formatDateForTodoDetail(data?.date)}</span>
             <span className="text-[15px]">|</span>

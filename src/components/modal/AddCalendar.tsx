@@ -58,10 +58,12 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center noto-sans-text">
       {formSelect === "empty" ? (
         <div className="bor w-[520px] h-[210px] bg_depp rounded-md p-[20px] text-[20px]">
-          <IconX
-            className="w-[10px] h-[10px] ml-auto cur"
+          <div
+            className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
             onClick={() => setIsOpen(false)}
-          />
+          >
+            <IconX className="w-full h-full" />
+          </div>
           <h1 className="-mt-[5px] font-bold">달력 참여 방식</h1>
           <div className="flex flex-col w-full space-y-[10px] mt-[27px]">
             <div
@@ -82,10 +84,12 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
         </div>
       ) : formSelect === "create" ? (
         <div className="bor w-[520px] h-[450px] bg_depp rounded-md p-[20px] text-[20px]">
-          <IconX
-            className="w-[10px] h-[10px] ml-auto cur"
+          <div
+            className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
             onClick={() => setIsOpen(false)}
-          />
+          >
+            <IconX className="w-full h-full" />
+          </div>
           <div className="flex items-center -mt-[5px] space-x-[10px]">
             <h1 className=" font-bold">달력 생성</h1>
             <span className="text-[15px] text-[#95927C] ">|</span>
@@ -121,10 +125,12 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
         </div>
       ) : (
         <div className="bor w-[520px] h-[240px] bg_depp rounded-md p-[20px] text-[20px]">
-          <IconX
-            className="w-[10px] h-[10px] ml-auto cur"
+          <div
+            className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
             onClick={() => setIsOpen(false)}
-          />
+          >
+            <IconX className="w-full h-full" />
+          </div>
           <div className="flex items-center -mt-[5px] space-x-[10px]">
             <h1 className=" font-bold">달력 참가</h1>
             <span className="text-[15px] text-[#95927C] ">|</span>

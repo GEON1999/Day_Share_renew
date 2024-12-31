@@ -135,10 +135,12 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
       />
       <ModalWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
         <div className="bg_depp p-[20px] rounded-md bor">
-          <IconX
-            className="w-[10px] h-[10px] ml-auto cur"
+          <div
+            className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
             onClick={() => setIsOpen(false)}
-          />
+          >
+            <IconX className="w-full h-full" />
+          </div>
           <h2 className="text-[20px] noto-sans-text font-bold text-[#494949] mb-[30px] ml-[5px] -mt-[5px]">
             이미지 자르기
           </h2>

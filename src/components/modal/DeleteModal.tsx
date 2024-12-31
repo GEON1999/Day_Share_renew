@@ -13,10 +13,12 @@ const DeleteModal = ({
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bor relative flex flex-col w-[520px] h-[200px] bg_depp rounded-xl p-[20px] noto-sans-text">
-        <IconX
-          className="w-[10px] h-[10px] ml-auto cur"
+        <div
+          className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
           onClick={() => setIsOpen(false)}
-        />
+        >
+          <IconX className="w-full h-full" />
+        </div>
         <h1 className="text-center mt-[5px] text-[20px] font-bold ">{title}</h1>
         <p className="text-center text-[15px]">{msg}</p>
         <div className="flex mt-[20px] text-[#494949] text-[20px] space-x-[10px] mx-auto">
