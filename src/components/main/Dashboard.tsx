@@ -6,7 +6,7 @@ import GreetingSection from "./greetingSection";
 
 const Dashboard = () => {
   return (
-    <div className="main_container">
+    <div className="main_container overflow-auto">
       <GreetingSection />
       <div className="flex space-x-10 mt-[53px] w-full items-strat">
         <StatusSection />

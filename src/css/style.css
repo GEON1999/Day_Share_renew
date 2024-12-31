@@ -23,7 +23,7 @@
 }
 
 .main_container {
-  @apply bg-[#FFFCF0] w-[1270px] h-full mx-auto overflow-auto;
+  @apply bg-[#FFFCF0] w-[1270px] h-full mx-auto;
 }
 
 .bg_main {
