@@ -17,10 +17,11 @@ import { useMutation } from "@tanstack/react-query";
 import { TimePicker } from "antd";
 import { debounce } from "lodash";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
+import TodoDetail from "@/components/calendar/todo/todoDetail";
 
 const TodoList = () => {
   const router = useRouter();
@@ -29,12 +30,18 @@ const TodoList = () => {
   const date = useSearch.useSearchDate();
   const calendarTodoPage = useSearch.useSearchCalendarTodoPage();
   const [isOpen, setIsOpen] = useState(false);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [startTime, setStartTime] = useState<Dayjs>(
     dayjs(Number(date)).hour(10).minute(0)
   );
   const [endTime, setEndTime] = useState<Dayjs>(
     dayjs(Number(date)).hour(11).minute(0)
   );
+
+  useEffect(() => {
+    setIsOpen(false);
+    setIsDetailOpen(false);
+  }, [date]);
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -56,7 +63,8 @@ const TodoList = () => {
   });
 
   const handleClickTodo = (id: number) => {
-    router.push(`/calendar/${calendarId}/todo/${id}?date=${date}`);
+    router.push(`/calendar/${calendarId}?date=${date}&todoId=${id}`);
+    setIsDetailOpen(true);
   };
 
   const handleTodoClick = (calId: number, todoId: number, e: any) => {
@@ -131,7 +139,6 @@ const TodoList = () => {
           </div>
         ) : (
           todoData?.todos?.map((todo: any, index: number) => {
-            console.log(todo);
             return (
               <div
                 onClick={() => handleClickTodo(todo.id)}
@@ -251,6 +258,7 @@ const TodoList = () => {
           </form>
         </div>
       )}
+      {isDetailOpen && <TodoDetail setIsDetailOpen={setIsDetailOpen} />}
     </div>
   );
 };

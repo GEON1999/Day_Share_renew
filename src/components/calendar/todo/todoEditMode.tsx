@@ -2,14 +2,17 @@ import useSearch from "@/hooks/useSearch";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Helper from "@/helper/Helper";
-import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
+import { IconNext, IconX } from "@/icons";
+import { TimePicker } from "antd";
+import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 const TodoEditMode = ({ setEditorMode }: any) => {
   const id = useSearch.useSearchId();
-  const todoId = useSearch.useSearchTodoId();
+  const todoId = useSearch.useSearchQueryTodoId();
 
   const { register, handleSubmit } = useForm();
 
@@ -17,9 +20,19 @@ const TodoEditMode = ({ setEditorMode }: any) => {
     data,
     isLoading,
     refetch: todoReFetch,
-  } = useTodoQueries.useGetTodoDetail(id, todoId);
-  const { data: calendarProfile, isLoading: calendarProfileIsLoading } =
-    useCalendarQueries.useGetCalendarProfile(id, `userId=${data?.userId}`);
+  } = useTodoQueries.useGetTodoDetail(id, todoId ?? "");
+  console.log("data", data);
+
+  const [startTime, setStartTime] = useState<Dayjs>(dayjs(data?.startAt));
+  const [endTime, setEndTime] = useState<Dayjs>(dayjs(data?.endAt));
+
+  const handleStartTimeChange = (value: any) => {
+    setStartTime(value);
+  };
+
+  const handleEndTimeChange = (value: any) => {
+    setEndTime(value);
+  };
 
   const { mutate: updateTodo } = useMutation({
     mutationFn: useTodoMutations.updateTodo,
@@ -46,71 +59,91 @@ const TodoEditMode = ({ setEditorMode }: any) => {
       }
     );
   };
+
+  const handleCancel = () => {
+    setEditorMode(false);
+  };
+
   return (
-    <div className="min-w-[600px] mt-[86px] w-[1270px]">
-      <div className="flex items-center space-x-[10px] ">
-        <span className="text_red text-[20px]">일정 수정</span>
-        <span className="text-[#999790] text-[16px]">|</span>
-        <span
-          onClick={() => setEditorMode(false)}
-          className="text-[#999790] text-[16px] cur mt-[1px]"
-        >
-          이전으로 돌아가기
-        </span>
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-        <div className="flex flex-col mt-[30px]">
-          <input
-            {...register("title")}
-            className="border w-full h-[40px] outline-none rounded-md bg-transparent text-[20px] placeholder:text-[#495163] px-5"
-            placeholder="제목을 입력해주세요"
-            defaultValue={data?.title}
-          />
-          <textarea
-            {...register("content")}
-            className="border-2 border-gray-400 w-full h-[135px] outline-none rounded mt-[30px] p-5 bg-transparent placeholder:text-[#495163] text-[20px]"
-            placeholder="일정에 필요한 설명을 남기세요."
-            defaultValue={data?.content}
-          />
-          <div className="flex items-center justify-between">
-            <div className="flex space-x-3 mt-[30px]">
-              {/* 시작일 입력 필드 추가 */}
-              <label className="flex flex-col ">
-                시작 시간
-                <input
-                  type="time"
-                  {...register("startAt")}
-                  defaultValue={Helper.formatTimeForInput(data?.startAt)}
-                  className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
-                />
-              </label>
-              {/* 종료일 입력 필드 추가 */}
-              <label className="flex flex-col">
-                종료 시간
-                <input
-                  type="time"
-                  {...register("endAt")}
-                  defaultValue={Helper.formatTimeForInput(data?.endAt)}
-                  className="border-2 border-gray-400 w-full h-10 px-4 outline-none rounded"
-                />
-              </label>
-            </div>
-            <div className="flex items-center space-x-[10px] mt-[25px]">
-              <button
-                onClick={() => setEditorMode(false)}
-                type="button"
-                className="rounded-md w-[60px] h-[35px] bor text-[20px]"
-              >
-                취소
-              </button>
-              <button
-                type="submit"
-                className="bg_hilight rounded-md w-[60px] h-[35px] bor text-[20px]"
-              >
-                저장
-              </button>
-            </div>
+    <div className="absolute w-[484px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px] text-[#494949] noto-sans-text">
+      <IconX className="w-[10px] h-[10px] ml-auto cur" onClick={handleCancel} />
+      <h1 className="-mt-[10px] text-[25px]">일정 등록</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col mt-[22px] justify-between h-[90%]"
+      >
+        <div>
+          <div className="flex items-center space-x-[12px]">
+            <label htmlFor="title" className="text-[20px]">
+              제목
+            </label>
+            <input
+              {...register("title", { required: true })}
+              defaultValue={data?.title}
+              type="text"
+              className="w-[352px] h-[30px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
+              placeholder="제목을 입력해 보세요."
+            />
           </div>
+          <div className="flex items-center my-[13px]">
+            <label htmlFor="date" className="text-[20px]">
+              일시
+            </label>
+            <input
+              className="ml-[12px] w-[102px] h-[30px] text-[15px] bor rounded-md px-[8px] py-[6px] outline-none placeholder:text-[#C2BFBC] mr-[8px] disabled cursor-not-allowed text-center"
+              disabled
+              value={Helper.formatDateForTodo(data?.date)}
+            />
+            <TimePicker
+              value={startTime}
+              format="A hh:mm"
+              onChange={handleStartTimeChange}
+              minuteStep={5}
+              popupClassName="custom-timepicker-dropdown"
+              placement="bottomLeft"
+              suffixIcon={<IconNext className="w-[7px] h-[12px] rotate-90" />}
+              allowClear={false}
+              placeholder="시작 시간"
+            />
+            <p className="ml-[4px] text-[20px] font-medium font-satoshi">-</p>
+            <TimePicker
+              value={endTime}
+              format="A hh:mm"
+              onChange={handleEndTimeChange}
+              minuteStep={5}
+              popupClassName="custom-timepicker-dropdown"
+              placement="bottomLeft"
+              suffixIcon={<IconNext className="w-[7px] h-[12px] rotate-90" />}
+              allowClear={false}
+              placeholder="종료 시간"
+            />
+          </div>
+          <div className="flex items-start space-x-[12px]">
+            <label htmlFor="content" className="text-[20px]">
+              설명
+            </label>
+            <textarea
+              {...register("content", { required: true })}
+              defaultValue={data?.content}
+              className="w-[352px] h-[133px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
+              placeholder="일정에 필요한 설명을 남겨보세요."
+            />
+          </div>
+        </div>
+        <div className="flex mt-[40px] text-[20px] noto-sans-text space-x-[10px] mx-auto">
+          <button
+            onClick={handleCancel}
+            type="button"
+            className="rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#49494910]"
+          >
+            취소
+          </button>
+          <button
+            type="submit"
+            className="rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
+          >
+            저장
+          </button>
         </div>
       </form>
     </div>

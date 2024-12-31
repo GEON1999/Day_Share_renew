@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_선깸" data-name="선깸" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 18">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #494949;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="2" cy="2" r="2"/>
+  <circle class="cls-1" cx="2" cy="9" r="2"/>
+  <circle class="cls-1" cx="2" cy="16" r="2"/>
+</svg>

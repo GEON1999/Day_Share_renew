@@ -5,6 +5,7 @@ import CalendarDateModal from "./CalendarDateModal";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
 import { IconNext, IconNextBig, IconPrev, IconPrevBig } from "@/icons";
+import ModalContainer from "../modal/ModalContainer";
 
 const generateCalendar = (year: number, month: number) => {
   const firstDay = new Date(year, month, 1);
@@ -173,14 +174,24 @@ const Calendar = ({}) => {
                       const isDayCell = currentMonth;
                       let isHighlighted = false;
                       let isToday = false;
+                      const todayUTC = new Date(
+                        Date.UTC(
+                          today.getFullYear(),
+                          today.getMonth(),
+                          today.getDate()
+                        )
+                      );
 
                       if (isDayCell) {
                         const date = new Date(year, month, day);
                         const dateString = date.toISOString().split("T")[0];
                         isHighlighted = dateSet.has(dateString);
+                        const currentDateUTC = new Date(
+                          Date.UTC(year, month, dateObj.day)
+                        );
                         isToday =
-                          date.toISOString().split("T")[0] ===
-                          today.toISOString().split("T")[0];
+                          currentDateUTC.toISOString() ===
+                          todayUTC.toISOString();
                       }
 
                       const currentDate = new Date(year, month, dateObj.day);

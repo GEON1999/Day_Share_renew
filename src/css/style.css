@@ -185,7 +185,7 @@ li {
 }
 
 .bg_hilight_2 {
-  @apply bg-[#F6BEBE];
+  @apply bg-[#F6BEBE] hover:bg-[#F69D9D];
 }
 
 .text_red {

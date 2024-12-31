@@ -58,7 +58,6 @@ const getCalendarDates = async (
   id: string,
   query: string
 ) => {
-  console.log("getCalendarDates", id, query);
   const { data } = await axios.get(
     `${process.env.BASE_URL}${API.GET_CALENDAR_DATES(id, query)}`,
     rqOption.apiHeader(accessToken)

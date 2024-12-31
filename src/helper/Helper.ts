@@ -121,6 +121,16 @@ const formatTimeForTodo = (dateString: string): string => {
   return `${hours}:${minutes}`;
 };
 
+// "1735570800000" -> 12.10(월)
+const formatDateForTodoDetail = (dateString: string): string => {
+  const date = new Date(Number(dateString));
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const dayOfWeek = date.toLocaleDateString("ko-KR", { weekday: "short" });
+
+  return `${month}.${day}.(${dayOfWeek})`;
+};
+
 const cleanContent = (content: any) => {
   return content
     .replace(/<p>/g, "") // <p> 태그 제거
@@ -173,4 +183,5 @@ export default {
   formatDateForTodo,
   formatTimeForTodo,
   formatTimeForTodoDetail,
+  formatDateForTodoDetail,
 };

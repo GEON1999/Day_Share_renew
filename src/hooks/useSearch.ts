@@ -27,6 +27,11 @@ const useSearchTodoId = () => {
   return Array.isArray(params.todoId) ? params.todoId[0] : params.todoId;
 };
 
+const useSearchQueryTodoId = () => {
+  const searchParams = useSearchParams();
+  return searchParams.get("todoId");
+};
+
 const useSearchDiaryId = () => {
   const params = useParams();
   return Array.isArray(params.diaryId) ? params.diaryId[0] : params.diaryId;
@@ -76,6 +81,7 @@ export default {
   useSearchQueries,
   useSearchId,
   useSearchTodoId,
+  useSearchQueryTodoId,
   useSearchDiaryId,
   useSearchPage,
   useSearchDiaryPage,
