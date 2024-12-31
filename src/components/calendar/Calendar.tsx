@@ -103,7 +103,7 @@ const Calendar = ({}) => {
     } else {
       await setMonth(month - 1);
     }
-    const ms = new Date(year, month - 1, 1).getTime();
+    const ms = Date.UTC(year, month - 1, 1);
     router.push(`/calendar/${calendarId}?date=${ms}`);
   };
 
@@ -114,7 +114,7 @@ const Calendar = ({}) => {
     } else {
       await setMonth(month + 1);
     }
-    const ms = new Date(year, month + 1, 1).getTime();
+    const ms = Date.UTC(year, month + 1, 1);
     router.push(`/calendar/${calendarId}?date=${ms}`);
   };
 
