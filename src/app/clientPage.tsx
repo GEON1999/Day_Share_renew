@@ -1,7 +1,6 @@
 "use client";
 import Dashboard from "@/components/main/Dashboard";
 import MainLayout from "@/components/main/MainLayout";
-import { useEffect } from "react";
 
 const ClientPage = () => {
   return (

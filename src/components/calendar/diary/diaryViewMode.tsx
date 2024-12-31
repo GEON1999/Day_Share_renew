@@ -128,24 +128,28 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   const handleOpenComment = () => setOpenComment(!openComment);
 
   const handleDeleteComment = () => {
-    deleteComment(
-      { calendarId: id, commentId: activeCommentId },
-      {
-        onSuccess: (result) => {
-          if (result) {
-            alert("댓글 삭제에 성공하였습니다.");
-            commentRefetch();
-            setEditingCommentId(null);
-            editReset();
-          } else {
-            alert("댓글 삭제에 실패하였습니다.");
-          }
-        },
-        onError: () => {
-          console.log("실패");
-        },
-      }
-    );
+    if (userData?.userId === activeCommentId) {
+      deleteComment(
+        { calendarId: id, commentId: activeCommentId },
+        {
+          onSuccess: (result) => {
+            if (result) {
+              alert("댓글 삭제에 성공하였습니다.");
+              commentRefetch();
+              setEditingCommentId(null);
+              editReset();
+            } else {
+              alert("댓글 삭제에 실패하였습니다.");
+            }
+          },
+          onError: () => {
+            console.log("실패");
+          },
+        }
+      );
+    } else {
+      alert("본인의 댓글만 삭제할 수 있습니다.");
+    }
   };
 
   const handleClickCalendar = () => router.push(`/calendar/${id}?date=${date}`);
@@ -189,9 +193,12 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   };
 
   const handleEditClick = (comment: any) => {
-    console.log("edit click", comment);
-    setEditingCommentId(comment.id);
-    setActiveCommentId(null);
+    if (userData?.userId === comment.userId) {
+      setEditingCommentId(comment.id);
+      setActiveCommentId(null);
+    } else {
+      alert("본인의 댓글만 수정할 수 있습니다.");
+    }
   };
 
   return (
@@ -256,97 +263,100 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       {openComment && (
         <div className="mt-[13px]">
           <div className="space-y-3">
-            {commentData?.map((comment: any) => (
-              <div
-                key={comment.comment.id}
-                className="flex justify-between items-center relative"
-              >
-                <div className="flex items-center space-x-[10px] space-y-2">
-                  <img
-                    className="w-[45px] h-[45px] rounded-full bor"
-                    src={comment?.profile?.img ?? ""}
-                  />
-                  <div className=" space-y-[2px]">
-                    {editingCommentId === comment.comment.id ? (
-                      <form
-                        className="w-[818px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
-                        onSubmit={editHandleSubmit(onEditSubmit)}
-                      >
-                        <input
-                          className="w-full h-[37px] px-[10px] border-b border-[#494949] rounded-t-md outline-none"
-                          type="text"
-                          {...editRegister(`content_${comment.comment.id}`, {
-                            value: comment.comment.content,
-                          })}
-                        />
-                        <div className="w-full h-[37px] flex items-center justify-end px-[10px] space-x-[10px]">
-                          <button
-                            onClick={() => setEditingCommentId(null)}
-                            type="button"
-                            className="w-[40px] h-[25px] rounded-md bor"
-                          >
-                            취소
-                          </button>
-                          <button
-                            type="submit"
-                            className="w-[40px] h-[25px] rounded-md bor"
-                          >
-                            등록
-                          </button>
+            {commentData?.map((comment: any) => {
+              console.log("comment", comment);
+              return (
+                <div
+                  key={comment.comment.id}
+                  className="flex justify-between items-center relative"
+                >
+                  <div className="flex items-center space-x-[10px] space-y-2">
+                    <img
+                      className="w-[45px] h-[45px] rounded-full bor"
+                      src={comment?.profile?.img ?? ""}
+                    />
+                    <div className=" space-y-[2px]">
+                      {editingCommentId === comment.comment.id ? (
+                        <form
+                          className="w-[818px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
+                          onSubmit={editHandleSubmit(onEditSubmit)}
+                        >
+                          <input
+                            className="w-full h-[37px] px-[10px] border-b border-[#494949] rounded-t-md outline-none"
+                            type="text"
+                            {...editRegister(`content_${comment.comment.id}`, {
+                              value: comment.comment.content,
+                            })}
+                          />
+                          <div className="w-full h-[37px] flex items-center justify-end px-[10px] space-x-[10px]">
+                            <button
+                              onClick={() => setEditingCommentId(null)}
+                              type="button"
+                              className="w-[40px] h-[25px] rounded-md bor"
+                            >
+                              취소
+                            </button>
+                            <button
+                              type="submit"
+                              className="w-[40px] h-[25px] rounded-md bor"
+                            >
+                              등록
+                            </button>
+                          </div>
+                        </form>
+                      ) : (
+                        <div className="space-y-[5px]">
+                          <div className="flex items-center space-x-[10px]">
+                            <h1 className="font-bold">
+                              {comment?.profile?.name}
+                            </h1>
+                            <p className="opacity-50">
+                              {Helper.formatDateForComment(
+                                comment?.comment?.createdAt
+                              )}
+                            </p>
+                          </div>
+                          <p className="w-[700px]">{comment.comment.content}</p>
                         </div>
-                      </form>
-                    ) : (
-                      <div className="space-y-[5px]">
-                        <div className="flex items-center space-x-[10px]">
-                          <h1 className="font-bold">
-                            {comment?.profile?.name}
-                          </h1>
-                          <p className="opacity-50">
-                            {Helper.formatDateForComment(
-                              comment?.comment?.createdAt
-                            )}
-                          </p>
-                        </div>
-                        <p className="w-[700px]">{comment.comment.content}</p>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
+                  {editingCommentId === comment.comment.id ? null : (
+                    <>
+                      <div
+                        className="w-[30px] h-[30px] rounded-full flex items-center justify-center hover:bg-[#49494910] cur "
+                        onClick={() => handleSettingComment(comment)}
+                      >
+                        <IconEdit className="w-[6px] h-[18px]" />
+                      </div>
+                      <div
+                        className={`absolute right-[-51px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center border-[#494949] text-[15px] rounded-md shadow_box z-99 ${
+                          activeCommentId === comment.comment.id ? "" : "hidden"
+                        }`}
+                      >
+                        <button
+                          onClick={() => handleEditClick(comment.comment)}
+                          type="button"
+                          className="w-[55px] h-[50%] border-b border-[#494949]"
+                        >
+                          수정
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteComment();
+                          }}
+                          className="w-[55px] h-[50%]"
+                        >
+                          삭제
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
-                {editingCommentId === comment.comment.id ? null : (
-                  <>
-                    <div
-                      className="w-[30px] h-[30px] rounded-full flex items-center justify-center hover:bg-[#49494910] cur "
-                      onClick={() => handleSettingComment(comment)}
-                    >
-                      <IconEdit className="w-[6px] h-[18px]" />
-                    </div>
-                    <div
-                      className={`absolute right-[-51px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center border-[#494949] text-[15px] rounded-md shadow_box z-99 ${
-                        activeCommentId === comment.comment.id ? "" : "hidden"
-                      }`}
-                    >
-                      <button
-                        onClick={() => handleEditClick(comment.comment)}
-                        type="button"
-                        className="w-[55px] h-[50%] border-b border-[#494949]"
-                      >
-                        수정
-                      </button>
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDeleteComment();
-                        }}
-                        className="w-[55px] h-[50%]"
-                      >
-                        삭제
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
           <form
             onSubmit={commentHandleSubmit(onCommentSubmit)}

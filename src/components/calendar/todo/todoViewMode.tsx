@@ -54,6 +54,8 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   const { data: calendarProfile, isLoading: calendarProfileIsLoading } =
     useCalendarQueries.useGetCalendarProfile(id, `userId=${data?.userId}`);
 
+  const { data: userData } = useCalendarQueries.useGetCalendarUserInfo(id);
+
   const { mutate: toggleLike } = useMutation({
     mutationFn: useLikeMutations.toggleLike,
   });
@@ -95,22 +97,26 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   };
 
   const handleClickDeleteComment = () => {
-    deleteComment(
-      { calendarId: id, commentId: activeCommentId },
-      {
-        onSuccess: (result) => {
-          if (result) {
-            alert("댓글 삭제에 성공하였습니다.");
-          } else {
-            alert("댓글 삭제에 실패하였습니다.");
-          }
-          commentRefetch();
-        },
-        onError: () => {
-          console.log("실패");
-        },
-      }
-    );
+    if (userData?.userId === activeCommentId) {
+      deleteComment(
+        { calendarId: id, commentId: activeCommentId },
+        {
+          onSuccess: (result) => {
+            if (result) {
+              alert("댓글 삭제에 성공하였습니다.");
+            } else {
+              alert("댓글 삭제에 실패하였습니다.");
+            }
+            commentRefetch();
+          },
+          onError: () => {
+            console.log("실패");
+          },
+        }
+      );
+    } else {
+      alert("본인의 댓글만 삭제할 수 있습니다.");
+    }
   };
 
   const handleEditorMode = () => setEditorMode(true);
@@ -136,8 +142,12 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   };
 
   const handleEditClick = (comment: any) => {
-    setEditingCommentId(comment.id);
-    setActiveCommentId(null);
+    if (userData?.userId === comment.userId) {
+      setEditingCommentId(comment.id);
+      setActiveCommentId(null);
+    } else {
+      alert("본인의 댓글만 수정할 수 있습니다.");
+    }
   };
 
   const handleSettingComment = (comment: any) => {

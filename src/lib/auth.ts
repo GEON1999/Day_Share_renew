@@ -41,10 +41,11 @@ export const authOptions = {
               },
             }
           );
+          console.log("data", data);
 
           if (data?.access_token && data?.refresh_token) {
             return {
-              id: credentials?.id,
+              id: String(data.userId),
               email: credentials?.id,
               accessToken: data.access_token,
               refreshToken: data.refresh_token,
@@ -53,7 +54,7 @@ export const authOptions = {
             };
           } else if (data?.access_token && !data?.refresh_token) {
             return {
-              id: credentials?.id,
+              id: String(data.userId),
               email: credentials?.id,
               accessToken: data.access_token,
               expires_in: StaticKeys.ACCESS_TOKEN_EXPIRES / 1000,
