@@ -12,8 +12,6 @@ import StaticKeys from "@/keys/StaticKeys";
 import { debounce } from "lodash";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import LeaveCalendar from "@/components/modal/LeaveCalendar";
-import ModalType from "@/keys/ModalType";
-import ModalContainer from "@/components/modal/ModalContainer";
 
 const CalendarSetting = () => {
   const router = useRouter();
@@ -99,6 +97,7 @@ const CalendarSetting = () => {
               <div className="flex flex-col space-y-[3px] relative">
                 <label className="text-[20px]">초대코드</label>
                 <input
+                  disabled
                   className="w-[390px] h-[50px] bor px-[19px] rounded-md  focus:outline-none "
                   defaultValue={inviteCode?.code}
                   id="inviteCode"
