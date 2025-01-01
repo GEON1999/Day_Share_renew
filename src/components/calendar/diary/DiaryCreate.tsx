@@ -49,7 +49,7 @@ const DiaryCreate = () => {
       { calendarId: id, query: `date=${date}`, body: submitData },
       {
         onSuccess: (result: any) => {
-          router.push(`/calendar/${id}/diary/${result.id}`);
+          router.push(`/calendar/${id}/diary/${result.id}?date=${date}`);
           console.log("success", result);
         },
         onError: () => {
