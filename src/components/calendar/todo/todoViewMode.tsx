@@ -27,8 +27,11 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   const todoId = useSearch.useSearchQueryTodoId();
   const query = `contentType=todo&contentId=${todoId}`;
 
-  const { register: commentRegister, handleSubmit: commentHandleSubmit } =
-    useForm();
+  const {
+    register: commentRegister,
+    handleSubmit: commentHandleSubmit,
+    reset: commentReset,
+  } = useForm();
 
   const {
     register: editRegister,
@@ -73,15 +76,21 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   });
 
   const handleClickDeleteTodo = () => setIsTodoModalOpen(true);
+
   const onCommentSubmit = debounce((data: any) => {
-    createComment({ calendarId: id, query, body: data }),
+    createComment(
+      { calendarId: id, query, body: data },
       {
         onSuccess: () => {
-          refetch();
           commentRefetch();
+          refetch();
+          commentReset();
         },
-        onError: () => {},
-      };
+        onError: () => {
+          console.log("error");
+        },
+      }
+    );
   }, StaticKeys.DEBOUNCE_TIME);
 
   const handleToggleLike = () => {
