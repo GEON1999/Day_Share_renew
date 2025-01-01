@@ -4,8 +4,7 @@ import { useRouter } from "next/navigation";
 import CalendarDateModal from "./CalendarDateModal";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
-import { IconNext, IconNextBig, IconPrev, IconPrevBig } from "@/icons";
-import ModalContainer from "../modal/ModalContainer";
+import { IconNextBig, IconPrevBig } from "@/icons";
 
 const generateCalendar = (year: number, month: number) => {
   const firstDay = new Date(year, month, 1);
@@ -103,7 +102,9 @@ const Calendar = ({}) => {
     } else {
       await setMonth(month - 1);
     }
-    const ms = Date.UTC(year, month - 1, 1);
+    const utcDate = new Date(Date.UTC(year, month - 1, 1));
+    const ms = utcDate.getTime() - 9 * 60 * 60 * 1000;
+
     router.push(`/calendar/${calendarId}?date=${ms}`);
   };
 
@@ -114,7 +115,9 @@ const Calendar = ({}) => {
     } else {
       await setMonth(month + 1);
     }
-    const ms = Date.UTC(year, month + 1, 1);
+    const utcDate = new Date(Date.UTC(year, month + 1, 1));
+    const ms = utcDate.getTime() - 9 * 60 * 60 * 1000;
+
     router.push(`/calendar/${calendarId}?date=${ms}`);
   };
 
