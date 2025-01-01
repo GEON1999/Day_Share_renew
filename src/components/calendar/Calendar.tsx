@@ -121,8 +121,11 @@ const Calendar = ({}) => {
     router.push(`/calendar/${calendarId}?date=${ms}`);
   };
 
-  const handleClickToday = () =>
+  const handleClickToday = () => {
     router.push(`/calendar/${calendarId}?date=${Helper.getTodayMs()}`);
+    setYear(today.getFullYear());
+    setMonth(today.getMonth());
+  };
 
   return (
     <div className={`main_container flex space-x-[70px]`}>
