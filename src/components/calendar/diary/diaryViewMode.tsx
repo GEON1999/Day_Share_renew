@@ -4,7 +4,7 @@ import useCommentQueries from "@/queries/comment/useCommentQueries";
 import useLikeMutations from "@/queries/like/useLikeMutations";
 import useLikeQueries from "@/queries/like/useLikeQueries";
 import { useMutation } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
@@ -22,13 +22,31 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   const router = useRouter();
   const [isDiaryModalOpen, setIsDiaryModalOpen] = useState(false);
   const [openComment, setOpenComment] = useState(true);
-  const [activeCommentId, setActiveCommentId] = useState(null);
+  const [activeCommentId, setActiveCommentId] = useState<string | null>(null);
   const [editingCommentId, setEditingCommentId] = useState(null);
-
   const id = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
   const diaryId = useSearch.useSearchDiaryId();
   const query = `contentType=diary&contentId=${diaryId}`;
+
+  const menuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (activeCommentId && menuRefs.current[activeCommentId]) {
+        if (
+          !menuRefs.current[activeCommentId]?.contains(event.target as Node)
+        ) {
+          setActiveCommentId(null);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [activeCommentId]);
 
   const {
     register: commentRegister,
@@ -104,7 +122,6 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
         },
       }
     );
-    console.log(data);
   }, StaticKeys.DEBOUNCE_TIME);
 
   const handleToggleLike = () => {
@@ -122,10 +139,10 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   const handleEditorMode = () => setEditorMode(!editorMode);
   const handleOpenComment = () => setOpenComment(!openComment);
 
-  const handleDeleteComment = () => {
-    if (userData?.userId === activeCommentId) {
+  const handleDeleteComment = (comment: any) => {
+    if (userData?.userId === comment.profile.userId) {
       deleteComment(
-        { calendarId: id, commentId: activeCommentId },
+        { calendarId: id, commentId: comment.comment.id },
         {
           onSuccess: (result) => {
             if (result) {
@@ -259,7 +276,6 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
         <div className="mt-[13px]">
           <div className="space-y-3">
             {commentData?.map((comment: any) => {
-              console.log("comment", comment);
               return (
                 <div
                   key={comment.comment.id}
@@ -319,12 +335,15 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                   {editingCommentId === comment.comment.id ? null : (
                     <>
                       <div
-                        className="w-[30px] h-[30px] rounded-full flex items-center justify-center hover:bg-[#49494910] cur "
+                        className="w-[30px] h-[30px] rounded-full flex items-center justify-center hover:bg-[#49494910] cur"
                         onClick={() => handleSettingComment(comment)}
                       >
                         <IconEdit className="w-[6px] h-[18px]" />
                       </div>
                       <div
+                        ref={(el) => {
+                          menuRefs.current[comment.comment.id] = el;
+                        }}
                         className={`absolute right-[-51px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center border-[#494949] text-[15px] rounded-md shadow_box z-99 ${
                           activeCommentId === comment.comment.id ? "" : "hidden"
                         }`}
@@ -340,7 +359,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleDeleteComment();
+                            handleDeleteComment(comment);
                           }}
                           className="w-[55px] h-[50%]"
                         >

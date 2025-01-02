@@ -6,7 +6,7 @@ import useLikeQueries from "@/queries/like/useLikeQueries";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
 import { useMutation } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
@@ -26,6 +26,25 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   const id = useSearch.useSearchId();
   const todoId = useSearch.useSearchQueryTodoId();
   const query = `contentType=todo&contentId=${todoId}`;
+
+  const menuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (activeCommentId && menuRefs.current[activeCommentId]) {
+        if (
+          !menuRefs.current[activeCommentId]?.contains(event.target as Node)
+        ) {
+          setActiveCommentId(null);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [activeCommentId]);
 
   const {
     register: commentRegister,
@@ -348,6 +367,9 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                       <IconEdit className="w-[6px] h-[18px]" />
                     </div>
                     <div
+                      ref={(el) => {
+                        menuRefs.current[comment.comment.id] = el;
+                      }}
                       className={`absolute right-[-51px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center border-[#494949] text-[15px] rounded-md shadow_box z-99 ${
                         activeCommentId === comment.comment.id ? "" : "hidden"
                       }`}

@@ -6,11 +6,13 @@ import { useRouter } from "next/navigation";
 const SideCalendarProfile = () => {
   const router = useRouter();
   const id = useSearch.useSearchId();
+  const date = useSearch.useSearchDate();
   const { data, isLoading } = useCalendarQueries.useGetCalendarBasic(id);
 
   const handleClickSetting = () => router.push(`/calendar/${id}/setting`);
 
-  const handleCalendarProfileClick = () => router.push(`/calendar/${id}`);
+  const handleCalendarProfileClick = () =>
+    router.push(`/calendar/${id}?date=${date}`);
 
   return (
     <div className="flex flex-col items-center mt-[42px] ">
