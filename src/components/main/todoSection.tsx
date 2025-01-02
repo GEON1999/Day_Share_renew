@@ -113,27 +113,27 @@ const TodoSection = () => {
                             onClick={(e: any) =>
                               handleTodoClick(todo.calendarId, todo.id, e)
                             }
-                            className="w-3 h-3"
+                            className="w-[14px] h-[14px]"
                           />
                         ) : (
                           <IconCheck_x
                             onClick={(e: any) =>
                               handleTodoClick(todo.calendarId, todo.id, e)
                             }
-                            className="w-3 h-3"
+                            className="w-[14px] h-[14px]"
                           />
                         )}
-                        <span className="ml-2 text-[13px]">{todo.title}</span>
+                        <span className="ml-2 text-[15px]">{todo.title}</span>
                       </div>
                       {todo.isFavorite ? (
                         <IconStar_o
                           onClick={(e: any) => handleTodoUnFavorite(e)}
-                          className="w-3 h-3 cur"
+                          className="w-[14px] h-[14px] cur"
                         />
                       ) : (
                         <IconStar_x
                           onClick={(e: any) => handleTodoFavorite(e, todo.id)}
-                          className="w-3 h-3 cur"
+                          className="w-[14px] h-[14px] cur"
                         />
                       )}
                     </li>
@@ -145,7 +145,7 @@ const TodoSection = () => {
         ) : (
           <div className="flex flex-col items-center">
             <IconEmptyTodo className={"text-white"} />
-            <p className="mt-[13px] mb-[30px]">
+            <p className="mt-[15px] mb-[30px]">
               일정이 없어요. <br /> 추가해 볼까요?
             </p>
           </div>

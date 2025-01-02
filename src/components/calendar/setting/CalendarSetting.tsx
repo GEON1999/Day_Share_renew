@@ -125,7 +125,7 @@ const CalendarSetting = () => {
             </div>
             <button
               type="submit"
-              className="mt-[40px] text-[#494949] font-[400] rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor hover:bg-[#F69D9D]"
+              className="mt-[40px] text-[#494949] rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor hover:bg-[#F69D9D]"
             >
               저장
             </button>

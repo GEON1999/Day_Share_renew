@@ -46,14 +46,14 @@ const LeaveCalendar = ({ setIsOpen }: any) => {
           <button
             onClick={handleCancel}
             type="button"
-            className="text-[#494949] font-[400] rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#EDEADF]"
+            className="text-[#494949] rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#EDEADF]"
           >
             취소
           </button>
           <button
             type="submit"
             onClick={handleLeaveCalendar}
-            className="text-[#494949] font-[400] rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
+            className="text-[#494949] rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
           >
             확인
           </button>

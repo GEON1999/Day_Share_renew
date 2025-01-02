@@ -117,7 +117,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
             />
             <button
               type="submit"
-              className="bg_hilight_2 bor w-[300px] h-[50px] rounded-md text-[#494949] font-[400]"
+              className="bg_hilight_2 bor w-[300px] h-[50px] rounded-md text-[#494949]"
             >
               생성
             </button>
@@ -153,7 +153,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
             />
             <button
               type="submit"
-              className="bg_hilight_2 bor w-[300px] h-[50px] rounded-md mt-[10px] text-[#494949] font-[400]"
+              className="bg_hilight_2 bor w-[300px] h-[50px] rounded-md mt-[10px] text-[#494949] "
             >
               참가
             </button>

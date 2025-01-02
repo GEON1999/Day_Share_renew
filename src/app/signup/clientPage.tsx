@@ -93,13 +93,13 @@ function SignupClientPage() {
           <div>
             <button
               type="submit"
-              className="text-[#494949] font-[400] rounded-md bg-[#F6BEBE] mt-[40px] w-[390px] h-[50px] flex justify-center items-center bor"
+              className="text-[#494949] rounded-md bg-[#F6BEBE] mt-[40px] w-[390px] h-[50px] flex justify-center items-center bor"
             >
               회원가입
             </button>
             <button
               onClick={handleKakao}
-              className="flex bg-[#FEE500] justify-center items-center rounded-md space-x-5 font-[400] text-[#494949] mt-[10px] w-[390px] h-[50px] bor"
+              className="flex bg-[#FEE500] justify-center items-center rounded-md space-x-5 text-[#494949] mt-[10px] w-[390px] h-[50px] bor"
             >
               <IconKakao className="w-[24px] h-[22px]" />
               <span>카카오 계정으로 간편 로그인</span>
@@ -108,7 +108,7 @@ function SignupClientPage() {
           <button
             type="button"
             onClick={handleLogin}
-            className="text-[#494949] text-[15px] mt-[10px] font-[400]"
+            className="text-[#494949] text-[15px] mt-[10px]"
           >
             로그인 페이지로 이동
           </button>

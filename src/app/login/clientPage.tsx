@@ -75,13 +75,11 @@ function LoginClientPage() {
                   className="w-[13px] h-[13px] mb-[1px]"
                 />
               )}
-              <label className="text-[13px] text-[#494949] font-[400] ">
-                자동 로그인
-              </label>
+              <label className="text-[13px] text-[#494949]">자동 로그인</label>
             </div>
             <button
               onClick={handleSignUp}
-              className="text-[13px] text-[#494949] font-[400]"
+              className="text-[13px] text-[#494949]"
               type="button"
             >
               회원가입
@@ -89,7 +87,7 @@ function LoginClientPage() {
           </div>
           <button
             type="submit"
-            className="mt-[35px] text-[#494949] font-[400] rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor"
+            className="mt-[35px] text-[#494949] rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor"
           >
             로그인
           </button>
@@ -100,10 +98,7 @@ function LoginClientPage() {
             >
               <IconKakao className="w-[16.88px] h-[15px] translate-y-[0.5px]" />
             </div>
-            <span
-              onClick={handleKakao}
-              className="text-[15px] text-[#494949] font-[400]"
-            >
+            <span onClick={handleKakao} className="text-[15px] text-[#494949]">
               카카오 계정으로 로그인하기
             </span>
           </div>
