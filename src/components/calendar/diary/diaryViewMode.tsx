@@ -52,12 +52,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   const options = {
     replace: (node: any) => {
       if (node.type === "tag" && node.name === "img") {
-        return (
-          <img
-            {...node.attribs}
-            className="max-w-[800px] max-h-[800px] rounded-lg"
-          />
-        );
+        return <img {...node.attribs} className="max-w-[870px]" />;
       }
     },
   };

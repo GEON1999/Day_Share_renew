@@ -135,7 +135,6 @@ function ImageCropForEditor({ editor }: any) {
             onChange={(c) => setCrop({ ...c, aspect: 1 })}
             onComplete={onCropComplete}
             ruleOfThirds={true}
-            circularCrop={true}
           >
             <img
               src={src ?? ""}
