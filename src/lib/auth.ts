@@ -208,5 +208,9 @@ export const authOptions = {
       session.provider = token.provider;
       return session;
     },
+    pages: {
+      signIn: "/login",
+      signOut: "/login",
+    },
   },
 };
