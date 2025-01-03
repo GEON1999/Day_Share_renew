@@ -39,7 +39,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
             <div className="rounded-full bg-gray-200 w-[140px] h-[140px] bor mt-[36px] shadow_box">
               <img
-                src={userData?.img}
+                src={
+                  userData?.img == ""
+                    ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                    : userData?.img
+                }
                 alt="profile"
                 className="rounded-full w-full h-full object-cover"
               />

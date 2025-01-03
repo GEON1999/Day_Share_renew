@@ -67,7 +67,9 @@ const SideUserList = () => {
                 <img
                   className="w-[25px] h-[25px] rounded-full bor"
                   src={
-                    user.img === "" ? process.env.NEXT_PUBLIC_LOGO : user.img
+                    user.img === ""
+                      ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                      : user.img
                   }
                 />
                 <span className="ml-2 text-[15px] noto-sans-text text-[#2D2D2E]">

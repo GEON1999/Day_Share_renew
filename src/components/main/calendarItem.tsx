@@ -67,14 +67,18 @@ const CalendarItem = memo(
             style={{ opacity: isEditMode && isDragging ? 0.5 : 1 }}
             onClick={() => !isEditMode && handleClickCalendar(calendar.id)}
           >
-            <div className="shadow_box rounded-md">
+            <div className="shadow_box rounded-md bg-[#C5C5C5]">
               <img
                 className={`object-cover rounded-md bor ${
                   isEditMode
                     ? "cursor-move w-[170px] h-[113px]"
                     : "cursor-pointer w-[300px] h-[200px]"
                 }`}
-                src={calendar.img}
+                src={
+                  calendar.img == ""
+                    ? process.env.NEXT_PUBLIC_CALENDAR_IMG
+                    : calendar.img
+                }
                 alt={calendar.img}
               />
             </div>

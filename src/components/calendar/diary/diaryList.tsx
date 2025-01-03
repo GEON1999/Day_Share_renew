@@ -73,7 +73,12 @@ const DiaryList = () => {
                   <div>
                     <div className="flex items-center space-x-2">
                       <img
-                        src={diary.userProfile?.img}
+                        src={
+                          diary.userProfile?.img == "" ||
+                          diary.userProfile?.img == null
+                            ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                            : diary.userProfile?.img
+                        }
                         alt="profile"
                         className="w-5 h-5 rounded-full bor"
                       />

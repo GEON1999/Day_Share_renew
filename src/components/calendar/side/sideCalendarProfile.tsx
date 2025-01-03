@@ -19,7 +19,7 @@ const SideCalendarProfile = () => {
       <img
         onClick={handleCalendarProfileClick}
         className="w-[191px] h-[127px] bor shadow_box rounded-md cur"
-        src={data?.img ?? process.env.NEXT_PUBLIC_LOGO}
+        src={data?.img == "" ? process.env.NEXT_PUBLIC_CALENDAR_IMG : data?.img}
         alt="calendar"
       />
       <IconCircleSetting

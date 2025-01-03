@@ -229,7 +229,11 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
         <div className="flex items-center">
           <img
             className="w-[20px] h-[20px] rounded-full bor mr-[8px]"
-            src={calendarProfile?.img ?? process.env.NEXT_PUBLIC_LOGO}
+            src={
+              calendarProfile?.img == "" || calendarProfile?.img == null
+                ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                : calendarProfile?.img
+            }
           />
           <h1 className="text-[20px] mr-[10px]">
             {calendarProfile?.name ?? "탈퇴한 유저"}
@@ -284,7 +288,12 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                   <div className="flex items-center space-x-[10px] space-y-2">
                     <img
                       className="w-[45px] h-[45px] rounded-full bor"
-                      src={comment?.profile?.img ?? ""}
+                      src={
+                        comment?.profile?.img == "" ||
+                        comment?.profile?.img == null
+                          ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                          : comment?.profile?.img
+                      }
                     />
                     <div className=" space-y-[2px]">
                       {editingCommentId === comment.comment.id ? (
@@ -380,7 +389,11 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
               <div className="flex items-center space-x-[10px]">
                 <img
                   className="w-10 h-10 rounded-full bor"
-                  src={userData?.img ?? process.env.NEXT_PUBLIC_LOGO}
+                  src={
+                    userData?.img == "" || userData?.img == null
+                      ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                      : userData?.img
+                  }
                 />
                 <h1 className="text-[16px] text-[#2D2D2E]">{userData?.name}</h1>
               </div>
