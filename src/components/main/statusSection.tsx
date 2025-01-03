@@ -73,7 +73,7 @@ const EmotionItem = ({
 
 const StatusSection = () => {
   const { data, refetch } = useUserQueries.useGetUser();
-  const [isOpen, setIsOpen] = useState(data.emotion === "EMPTY");
+  const [isOpen, setIsOpen] = useState(data?.emotion === "EMPTY");
   const [hoverEmotion, setHoverEmotion] = useState<string | null>(null);
 
   const { mutate } = useMutation({
@@ -98,7 +98,7 @@ const StatusSection = () => {
     }
 
     const currentEmotionData = emotionData.find(
-      (e) => e.id.toLowerCase() === data.emotion.toLowerCase()
+      (e) => e.id.toLowerCase() === data?.emotion?.toLowerCase()
     );
     return currentEmotionData ? currentEmotionData.containerBg : "";
   };
@@ -143,10 +143,10 @@ const StatusSection = () => {
             <img
               className="w-[200px] h-[200px] mt-13 cur "
               src={
-                emotionData.find((e) => e.id.toUpperCase() === data.emotion)
+                emotionData.find((e) => e.id.toUpperCase() === data?.emotion)
                   ?.imgSrc
               }
-              alt={data.emotion.toLowerCase()}
+              alt={data?.emotion?.toLowerCase()}
             />
           </div>
         )}
