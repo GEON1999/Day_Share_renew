@@ -92,8 +92,7 @@ const Calendar = ({}) => {
       await setMonth(month - 1);
     }
     const utcDate = new Date(Date.UTC(year, month - 1, 1));
-    const ms = utcDate.getTime() - 9 * 60 * 60 * 1000;
-
+    const ms = utcDate.getTime();
     router.push(`/calendar/${calendarId}?date=${ms}`);
   };
 
@@ -105,10 +104,11 @@ const Calendar = ({}) => {
       await setMonth(month + 1);
     }
     const utcDate = new Date(Date.UTC(year, month + 1, 1));
-    //const ms = utcDate.getTime() - 9 * 60 * 60 * 1000;
     const ms = utcDate.getTime();
     router.push(`/calendar/${calendarId}?date=${ms}`);
   };
+
+  console.log("calendarDate", calendarDate);
 
   const handleClickToday = () => {
     router.push(`/calendar/${calendarId}?date=${Helper.getTodayMs()}`);
@@ -228,7 +228,9 @@ const Calendar = ({}) => {
                               </span>
                               <div
                                 className={`mt-[2px] ${
-                                  diaryCount == 1 ? "bg_deep_pink" : ""
+                                  diaryCount == 1 && currentMonth
+                                    ? "bg_deep_pink"
+                                    : ""
                                 } w-1 h-1 rounded-full`}
                               ></div>
                               <div

@@ -406,7 +406,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
               />
               <button
                 type="submit"
-                className="w-[46px] bor h-[30px] rounded ml-auto"
+                className="w-[46px] bor h-[30px] rounded ml-auto bg_hilight_2"
               >
                 등록
               </button>
