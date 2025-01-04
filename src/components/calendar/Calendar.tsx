@@ -72,13 +72,6 @@ const Calendar = ({}) => {
     document.title = `Calendar - ${year}-${month + 1}`;
   }, [year, month]);
 
-  const dateSet = new Set(
-    Object.keys(calendarDate?.dates || {}).map((timestamp) => {
-      const date = new Date(Number(timestamp));
-      return date.toISOString().split("T")[0];
-    })
-  );
-
   const getDayData = (timestamp: string) => {
     return (
       calendarDate?.dates[timestamp] || {
@@ -182,7 +175,6 @@ const Calendar = ({}) => {
 
                       const { day, currentMonth } = dateObj;
                       const isDayCell = currentMonth;
-                      let isHighlighted = false;
                       let isToday = false;
                       const todayUTC = new Date(
                         Date.UTC(
@@ -193,9 +185,6 @@ const Calendar = ({}) => {
                       );
 
                       if (isDayCell) {
-                        const date = new Date(year, month, day);
-                        const dateString = date.toISOString().split("T")[0];
-                        isHighlighted = dateSet.has(dateString);
                         const currentDateUTC = new Date(
                           Date.UTC(year, month, dateObj.day)
                         );
@@ -243,7 +232,7 @@ const Calendar = ({}) => {
                               </span>
                               <div
                                 className={`mt-[2px] ${
-                                  isHighlighted ? "bg_deep_pink" : ""
+                                  diaryCount == 1 ? "bg_deep_pink" : ""
                                 } w-1 h-1 rounded-full`}
                               ></div>
                               <div
