@@ -287,7 +287,9 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                 >
                   <div className="flex items-center space-x-[10px] space-y-2">
                     <img
-                      className="w-[45px] h-[45px] rounded-full bor"
+                      className={`w-[45px] h-[45px] rounded-full ${
+                        comment?.profile?.id === 0 ? "" : "bor"
+                      }`}
                       src={
                         comment?.profile?.img == "" ||
                         comment?.profile?.img == null

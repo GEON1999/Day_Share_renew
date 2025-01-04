@@ -110,7 +110,7 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
     <div>
       <div
         onClick={handleImageUpload}
-        className={`rounded-full bg-gray-200 w-[140px] h-[140px] bor cur bg-[#D9D9D9] flex justify-center items-center `}
+        className={`rounded-full w-[140px] h-[140px] bor cur bg-[#D9D9D9] flex justify-center items-center `}
       >
         {userImg ? (
           <img

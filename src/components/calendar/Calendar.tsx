@@ -63,10 +63,6 @@ const Calendar = ({}) => {
 
   const { data: calendarBasic, isLoading: calendarBasicLoading } =
     useCalendarQueries.useGetCalendarBasic(calendarId);
-  console.log("calendarDate", calendarDate, isLoading);
-
-  // const { data: calendarDetail } =
-  //   useCalendarQueries.useGetCalendarDetail(calendarId);
 
   useEffect(() => {
     document.title = `Calendar - ${year}-${month + 1}`;
@@ -109,8 +105,8 @@ const Calendar = ({}) => {
       await setMonth(month + 1);
     }
     const utcDate = new Date(Date.UTC(year, month + 1, 1));
-    const ms = utcDate.getTime() - 9 * 60 * 60 * 1000;
-
+    //const ms = utcDate.getTime() - 9 * 60 * 60 * 1000;
+    const ms = utcDate.getTime();
     router.push(`/calendar/${calendarId}?date=${ms}`);
   };
 
