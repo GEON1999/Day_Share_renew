@@ -80,7 +80,7 @@ const Calendar = ({}) => {
 
   const handleClickDate = (day: number | null) => {
     if (day === null) return;
-    const ms = new Date(year, month, day).getTime();
+    const ms = new Date(Date.UTC(year, month, day)).getTime();
     router.push(`/calendar/${calendarId}/?date=${ms}`);
   };
 

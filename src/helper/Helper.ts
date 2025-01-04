@@ -175,7 +175,18 @@ const isDateOlderThanOneDay = (date: string) => {
   return createdDate < oneDayAgo;
 };
 
-const getTodayMs = () => new Date().setHours(0, 0, 0, 0);
+const getTodayMs = () => {
+  const now = new Date();
+  return Date.UTC(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate(),
+    0,
+    0,
+    0,
+    0
+  );
+};
 
 export default {
   CURRENT_URL,
