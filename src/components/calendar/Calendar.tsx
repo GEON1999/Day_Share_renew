@@ -68,9 +68,12 @@ const Calendar = ({}) => {
     document.title = `Calendar - ${year}-${month + 1}`;
   }, [year, month]);
 
-  const getDayData = (timestamp: string) => {
+  const getDayData = (day: number) => {
+    // UTC 기준 타임스탬프 생성
+    const utcTimestamp = Date.UTC(year, month, day);
+
     return (
-      calendarDate?.dates[timestamp] || {
+      calendarDate?.dates[utcTimestamp] || {
         diaryCount: 0,
         todoCount: 0,
         todoTitles: [],
@@ -190,9 +193,7 @@ const Calendar = ({}) => {
                       }
 
                       const currentDate = new Date(year, month, dateObj.day);
-                      const dayData = getDayData(
-                        currentDate.getTime().toString()
-                      );
+                      const dayData = getDayData(day);
                       const { diaryCount, todoCount, todoTitles } = dayData;
 
                       const isClicked = clickedDay === day && currentMonth;
@@ -238,32 +239,22 @@ const Calendar = ({}) => {
                                   todoCount >= 2 ? "top-[52px]" : "top-[90px]"
                                 }`}
                               >
-                                {todoTitles.map(
-                                  // todocount가 1개 일 때, 2개일 때, 3개 이상일 때
-                                  (title: string, index: number) => {
-                                    return todoCount === 1 ? (
-                                      <div
-                                        key={index}
-                                        className="h-[33px] flex"
-                                      >
-                                        <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-                                        {/* 텍스트 가로 중앙 */}
-                                        <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
-                                          {title}
+                                {currentMonth &&
+                                  todoTitles.map(
+                                    // todocount가 1개 일 때, 2개일 때, 3개 이상일 때
+                                    (title: string, index: number) => {
+                                      return todoCount === 1 ? (
+                                        <div
+                                          key={index}
+                                          className="h-[33px] flex"
+                                        >
+                                          <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
+                                          {/* 텍스트 가로 중앙 */}
+                                          <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
+                                            {title}
+                                          </div>
                                         </div>
-                                      </div>
-                                    ) : todoCount === 2 ? (
-                                      <div
-                                        key={index}
-                                        className="h-[33px] flex"
-                                      >
-                                        <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-                                        <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
-                                          {title}
-                                        </div>
-                                      </div>
-                                    ) : todoCount >= 3 ? (
-                                      index === 0 ? (
+                                      ) : todoCount === 2 ? (
                                         <div
                                           key={index}
                                           className="h-[33px] flex"
@@ -273,20 +264,31 @@ const Calendar = ({}) => {
                                             {title}
                                           </div>
                                         </div>
-                                      ) : index === 1 ? (
-                                        <div
-                                          key={index}
-                                          className="h-[33px] flex"
-                                        >
-                                          <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-                                          <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
-                                            +{todoCount - 1}
+                                      ) : todoCount >= 3 ? (
+                                        index === 0 ? (
+                                          <div
+                                            key={index}
+                                            className="h-[33px] flex"
+                                          >
+                                            <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
+                                            <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
+                                              {title}
+                                            </div>
                                           </div>
-                                        </div>
-                                      ) : null
-                                    ) : null;
-                                  }
-                                )}
+                                        ) : index === 1 ? (
+                                          <div
+                                            key={index}
+                                            className="h-[33px] flex"
+                                          >
+                                            <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
+                                            <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
+                                              +{todoCount - 1}
+                                            </div>
+                                          </div>
+                                        ) : null
+                                      ) : null;
+                                    }
+                                  )}
                               </div>
                             </div>
                           </div>
