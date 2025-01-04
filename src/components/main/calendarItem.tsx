@@ -67,7 +67,7 @@ const CalendarItem = memo(
             style={{ opacity: isEditMode && isDragging ? 0.5 : 1 }}
             onClick={() => !isEditMode && handleClickCalendar(calendar.id)}
           >
-            <div className="shadow_box rounded-md bg-[#C5C5C5]">
+            <div className="shadow_box rounded-md ">
               <img
                 className={`object-cover rounded-md bor ${
                   isEditMode

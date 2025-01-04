@@ -125,7 +125,7 @@ function CalendarImgCrop({
     <div>
       <div
         onClick={handleOpenImgSelectModal}
-        className={`rounded-md bg-gray-200 bor cur bg-[#D9D9D9] flex justify-center items-center ${
+        className={`rounded-md bg-gray-200 bor cur flex justify-center items-center ${
           type === StaticKeys.EDIT_TYPE
             ? "w-[195px] h-[135px]"
             : "w-[299.42px] h-[200px]"
