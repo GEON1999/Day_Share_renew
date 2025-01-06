@@ -80,7 +80,7 @@ const DiaryList = () => {
                             : diary.userProfile?.img
                         }
                         alt="profile"
-                        className="w-5 h-5 rounded-full bor"
+                        className="w-5 h-5 rounded-full bor object-cover"
                       />
                       <p>{diary.userProfile?.name}</p>
                     </div>

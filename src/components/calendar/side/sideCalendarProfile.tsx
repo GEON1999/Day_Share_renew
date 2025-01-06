@@ -18,7 +18,7 @@ const SideCalendarProfile = () => {
     <div className="flex flex-col items-center mt-[42px] ">
       <img
         onClick={handleCalendarProfileClick}
-        className="w-[191px] h-[127px] bor shadow_box rounded-md cur"
+        className="w-[191.5px] h-[127.67px] bor shadow_box rounded-md cur object-cover"
         src={data?.img == "" ? process.env.NEXT_PUBLIC_CALENDAR_IMG : data?.img}
         alt="calendar"
       />

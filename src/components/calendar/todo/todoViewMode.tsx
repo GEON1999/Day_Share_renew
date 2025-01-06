@@ -254,7 +254,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                     ? process.env.NEXT_PUBLIC_PROFILE_IMG
                     : calendarProfile?.img
                 }
-                className="w-[20px] h-[20px] rounded-full bor"
+                className="w-[20px] h-[20px] rounded-full bor object-cover"
               />
               <p className="text-[20px] ml-[8px] mr-[12px]">
                 {calendarProfile?.name ?? "탈퇴한 유저"}
@@ -307,7 +307,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                 >
                   <div className="flex items-start space-x-[15px]">
                     <img
-                      className="w-[45px] h-[45px] rounded-full bor"
+                      className="w-[45px] h-[45px] rounded-full bor object-cover"
                       src={
                         comment?.profile?.img == "" ||
                         comment?.profile?.img == null

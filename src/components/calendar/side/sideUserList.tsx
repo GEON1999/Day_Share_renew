@@ -67,7 +67,7 @@ const SideUserList = () => {
               >
                 <div className="flex items-center">
                   <img
-                    className="w-[25px] h-[25px] rounded-full bor"
+                    className="w-[25px] h-[25px] rounded-full bor object-cover"
                     src={
                       user.img === ""
                         ? process.env.NEXT_PUBLIC_PROFILE_IMG

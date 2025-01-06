@@ -27,7 +27,7 @@ function CalendarImgCrop({
     unit: "%",
     width: 50,
     height: 50 / StaticKeys.CALENDAR_ASPECT_RATIO, // 높이를 비율에 맞게 조정
-    aspect: StaticKeys.CALENDAR_ASPECT_RATIO, // 195:135 비율 고정
+    aspect: StaticKeys.CALENDAR_ASPECT_RATIO, // 195:130 비율 고정
   });
   const [completedCrop, setCompletedCrop] = useState<PixelCrop | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -127,7 +127,7 @@ function CalendarImgCrop({
         onClick={handleOpenImgSelectModal}
         className={`rounded-md bg-gray-200 bor cur bg-[#D9D9D9] flex justify-center items-center ${
           type === StaticKeys.EDIT_TYPE
-            ? "w-[195px] h-[135px]"
+            ? "w-[195px] h-[130px]"
             : "w-[299.42px] h-[200px]"
         }`}
       >

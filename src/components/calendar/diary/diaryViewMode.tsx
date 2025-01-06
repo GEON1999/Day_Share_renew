@@ -228,7 +228,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       <div className="flex items-center mt-3 justify-between">
         <div className="flex items-center">
           <img
-            className="w-[20px] h-[20px] rounded-full bor mr-[8px]"
+            className="w-[20px] h-[20px] rounded-full bor mr-[8px] object-cover"
             src={
               calendarProfile?.img == "" || calendarProfile?.img == null
                 ? process.env.NEXT_PUBLIC_PROFILE_IMG
@@ -287,7 +287,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                 >
                   <div className="flex items-center space-x-[10px] space-y-2">
                     <img
-                      className={`w-[45px] h-[45px] rounded-full ${
+                      className={`w-[45px] h-[45px] rounded-full object-cover ${
                         comment?.profile?.id === 0 ? "" : "bor"
                       }`}
                       src={
@@ -390,7 +390,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
             <div className="bor w-full h-[162px] rounded py-[15px] px-[20px] flex flex-col space-y-[10px] justify-between">
               <div className="flex items-center space-x-[10px]">
                 <img
-                  className="w-10 h-10 rounded-full bor"
+                  className="w-10 h-10 rounded-full bor object-cover"
                   src={
                     userData?.img == "" || userData?.img == null
                       ? process.env.NEXT_PUBLIC_PROFILE_IMG
