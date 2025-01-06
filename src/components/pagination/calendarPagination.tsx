@@ -24,21 +24,21 @@ const CalendarPagination = ({ total_count }: any) => {
     router.push(`${pathName}?${params.toString()}`);
   };
   return (
-    <div className="flex items-center space-x-[10px] mr-[15px]">
+    <div className="pagination mr-[15px]">
       <div>
         {Number(currentPage) <= 1 ? (
-          <IconPrev_disabled className="w-1 h-[10px] cur" />
+          <IconPrev_disabled className="pagination_btn_disabled" />
         ) : (
-          <IconPrev className="w-[5px] h-[10px] cur" onClick={handlePrevBtn} />
+          <IconPrev className="pagination_btn" onClick={handlePrevBtn} />
         )}
       </div>
 
       <p>{currentPage}</p>
       <div>
         {total_count <= Number(currentPage) * 4 ? (
-          <IconNext_disabled className="w-1 h-[10px] cur" />
+          <IconNext_disabled className="pagination_btn_disabled" />
         ) : (
-          <IconNext className="w-[5px] h-[10px] cur" onClick={handleNextBtn} />
+          <IconNext className="pagination_btn" onClick={handleNextBtn} />
         )}
       </div>
     </div>

@@ -105,10 +105,23 @@
     @apply rounded-md w-[60px] h-[35px] bor bg-[#F6BEBE] hover:bg-[#F69D9D];
   }
 
+  /* Pagination Classes */
+  .pagination {
+    @apply flex items-center space-x-[10px];
+  }
+
+  .pagination_btn {
+    @apply w-[7px] h-[12px] cursor-pointer;
+  }
+
+  .pagination_btn_disabled {
+    @apply w-[7px] h-[12px] cursor-not-allowed;
+  }
+
   /* Dashboard Classes */
   .dashboard_title {
     font-size: 25px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   /* Loading Classes */

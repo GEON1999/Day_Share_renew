@@ -61,7 +61,7 @@ const DiarySection = () => {
             src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024150301_23db0106b82f4323b8f03cef66282fe7.png"
           />
           <p
-            className={`text-center text-[30px] absolute top-[116px] left-[505px]`}
+            className={`text-center text-[25px] absolute top-[116px] left-[505px]`}
           >
             일기가 없어......................
           </p>

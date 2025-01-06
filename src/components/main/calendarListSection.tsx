@@ -94,7 +94,7 @@ const CalendarListSection = () => {
   return (
     <section>
       <div className="flex justify-between w-[1260px] items-center mt-[47px]">
-        <div className="flex items-center mb-[17px] space-x-2">
+        <div className="flex items-center mb-[10px] space-x-2">
           <h2 className={`text-[25px]`}>공유 달력</h2>
           <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
         </div>

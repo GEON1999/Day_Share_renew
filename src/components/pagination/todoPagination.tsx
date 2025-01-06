@@ -26,21 +26,21 @@ const TodoPagination = ({ total_count }: any) => {
     router.push(`${pathName}?${params.toString()}`);
   };
   return (
-    <div className="flex items-center justify-center space-x-[11px] mb-[13px]">
+    <div className="pagination justify-center mb-[13px]">
       <div>
         {Number(currentTodoPage) <= 1 ? (
-          <IconPrev_disabled className="w-1 h-2 cur" />
+          <IconPrev_disabled className="pagination_btn_disabled" />
         ) : (
-          <IconPrev className="w-[5px] h-2 cur" onClick={handleTodoPrevBtn} />
+          <IconPrev className="pagination_btn" onClick={handleTodoPrevBtn} />
         )}
       </div>
 
-      <p className="text-[12px]">{currentTodoPage}</p>
+      <p className="text-[#2D2D2E] text-[15px]">{currentTodoPage}</p>
       <div>
         {total_count <= Number(currentTodoPage) * 4 ? (
-          <IconNext_disabled className="w-1 h-2 cur" />
+          <IconNext_disabled className="pagination_btn_disabled" />
         ) : (
-          <IconNext className="w-[5px] h-2 cur" onClick={handleTodoNextBtn} />
+          <IconNext className="pagination_btn" onClick={handleTodoNextBtn} />
         )}
       </div>
     </div>
