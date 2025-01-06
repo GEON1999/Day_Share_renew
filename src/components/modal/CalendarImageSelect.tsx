@@ -1,4 +1,4 @@
-import { IconCamera, IconX } from "@/icons";
+import { IconCamera, IconSelectCheck, IconX } from "@/icons";
 import { useState } from "react";
 
 interface CalendarImageSelectProps {
@@ -59,33 +59,40 @@ const CalendarImageSelect = ({
     setIsOpen(false);
   };
   return (
-    <div className="bor w-[520px] h-[490px] bg_depp rounded-md p-[20px] text-[20px] noto-sans-text text-[#494949]">
+    <div className="bor w-[982px] h-[805px] bg_depp rounded-md py-[30px] px-[25px] text-[20px] noto-sans-text text-[#494949]">
       <div
         className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
         onClick={handleCancel}
       >
         <IconX className="w-full h-full" />
       </div>
-      <h1 className="-mt-[10px] font-bold">달력 이미지 변경</h1>
-      <div className="flex flex-wrap gap-[10px] mt-[25px]">
+      <h1 className="-mt-[15px] font-bold">달력 이미지 변경</h1>
+      <div className="flex flex-wrap gap-[15px] mt-[25px]">
         <div
           onClick={handleImageUpload}
-          className="w-[150px] h-[100px] bg-[#D1D3D4] bor rounded-md flex flex-col items-center cur"
+          className="w-[300px] h-[200px] bg-[#D1D3D4] bor rounded-md flex flex-col items-center justify-center cur"
         >
           <IconCamera className="w-[25px] h-[22.31px] mt-[32px]" />
           <p className="text-[15px] mt-[3px]">가져오기</p>
         </div>
         {calendarImageData.map((item) => (
-          <img
-            key={item.id}
-            src={item.src}
-            className={`w-[150px] h-[100px]  rounded-md cur ${
-              calendarImg === item.src ? "border-4 border-[#F6BEBE]" : "bor"
-            }`}
-            onClick={() => {
-              setCalendarImg(item.src);
-            }}
-          />
+          <div className="relative">
+            <img
+              key={item.id}
+              src={item.src}
+              className={`w-[300px] h-[200px]  rounded-md cur ${
+                calendarImg === item.src
+                  ? "border-[3px] border-[#494949]"
+                  : "bor"
+              }`}
+              onClick={() => {
+                setCalendarImg(item.src);
+              }}
+            />
+            {calendarImg === item.src && (
+              <IconSelectCheck className="w-[20px] h-[20px] absolute top-[13px] right-[13px] " />
+            )}
+          </div>
         ))}
       </div>
       <div className="flex justify-center mt-[30px] space-x-[10px] text-[20px]">

@@ -38,3 +38,4 @@ export { default as IconCameraRounded } from "./camera_rounded.svg";
 export { default as IconLogoHoriz } from "./logo_horiz.svg";
 export { default as IconReload } from "./reload.svg";
 export { default as IconEdit } from "./edit.svg";
+export { default as IconSelectCheck } from "./select_check.svg";
