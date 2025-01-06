@@ -39,46 +39,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
               <p>로그아웃</p>
             </button>
           </div>
-          {/* <nav className={` mt-8`}>
-            <ul>
-              <li
-                onClick={handleClickMain}
-                className="mb-4 text-lg flex items-center ml-2"
-              >
-                <IconHome className="w-8 h-8" />
-                <span className=" text-[#666666]">메인화면</span>
-              </li>
-              <li
-                onClick={handleCLickCalendar}
-                className="mb-4 text-lg flex items-center"
-              >
-                <img
-                  className="w-6 h-6 mx-3"
-                  src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1728129889231.png"
-                />
-                <span className="mt-1">캘린더</span>
-              </li>
-            </ul>
-          </nav> */}
-          {/* 개인 일정 */}
         </div>
-        {/* <div>
-          <nav className="mt-2 mb-[73px] tet-[20px]">
-            <ul>
-              <li className="flex items-center cur">
-                <IconSetting className="w-8 h-8" />
-                <span className={`ml-[16px] `}>설정</span>
-              </li>
-              <li
-                className="flex items-center cur mt-[20px]"
-                onClick={handleLogout}
-              >
-                <IconExit className="w-8 h-8" />
-                <span className={`ml-[17px] `}>나가기</span>
-              </li>
-            </ul>
-          </nav>
-        </div> */}
       </aside>
 
       {/* Main Content */}

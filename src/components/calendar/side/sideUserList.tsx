@@ -58,42 +58,48 @@ const SideUserList = () => {
           </p>
         </div>
         <div className="flex justify-center items-center flex-col">
-          {userList?.permissions?.map((user: any) => (
-            <div
-              key={user.id}
-              className="flex items-center justify-between my-[8px] w-[194px] h-[35px] rounded-full group hover:bg-[#00000010] pl-[9px] pr-[6px] "
-            >
-              <div className="flex items-center">
-                <img
-                  className="w-[25px] h-[25px] rounded-full bor"
-                  src={
-                    user.img === ""
-                      ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                      : user.img
-                  }
-                />
-                <span className="ml-2 text-[15px] noto-sans-text text-[#2D2D2E]">
-                  {user.name}
-                </span>
-                <img
-                  src={
-                    emotionData.find((emotion) => emotion.id === user.emotion)
-                      ?.imgSrc
-                  }
-                  alt="emotion"
-                  className="w-[20px] h-[20px] ml-[7px]"
-                />
-              </div>
-              <button
-                onClick={() => {
-                  handleClickDeletePermission(user.userId);
-                }}
-                className="border-[0.8px] border-[#49494950] rounded-full w-[38px] h-[20px] text-[12px] noto-sans-text text-[#2D2D2E] hidden group-hover:block"
+          {userList?.permissions?.map((user: any) => {
+            console.log(user);
+            return (
+              <div
+                key={user.id}
+                className="flex items-center justify-between my-[8px] w-[194px] h-[35px] rounded-full group hover:bg-[#00000010] pl-[9px] pr-[6px] "
               >
-                추방
-              </button>
-            </div>
-          ))}
+                <div className="flex items-center">
+                  <img
+                    className="w-[25px] h-[25px] rounded-full bor"
+                    src={
+                      user.img === ""
+                        ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                        : user.img
+                    }
+                  />
+                  <span className="ml-2 text-[15px] noto-sans-text text-[#2D2D2E]">
+                    {user.name}
+                  </span>
+                  {user?.emotion === "EMPTY" ? null : (
+                    <img
+                      src={
+                        emotionData.find(
+                          (emotion) => emotion.id === user.emotion
+                        )?.imgSrc
+                      }
+                      alt="emotion"
+                      className="w-[20px] h-[20px] ml-[7px]"
+                    />
+                  )}
+                </div>
+                <button
+                  onClick={() => {
+                    handleClickDeletePermission(user.userId);
+                  }}
+                  className="border-[0.8px] border-[#49494950] rounded-full w-[38px] h-[20px] text-[12px] noto-sans-text text-[#2D2D2E] hidden group-hover:block"
+                >
+                  추방
+                </button>
+              </div>
+            );
+          })}
         </div>
         <ModalWrapper setIsOpen={setIsConfirmOpen} isOpen={isConfirmOpen}>
           <DeleteModal
