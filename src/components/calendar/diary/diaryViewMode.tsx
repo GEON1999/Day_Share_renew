@@ -243,16 +243,13 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
           </p>
         </div>
         <div className="flex space-x-2">
-          <button
-            onClick={handleEditorMode}
-            className="rounded w-[40px] h-[25px] bor text-[15px]"
-          >
+          <button onClick={handleEditorMode} className="btn_transparent_sm">
             수정
           </button>
           <button
             type="button"
             onClick={handleClickdeleteDiary}
-            className="rounded w-[40px] h-[25px] bor text-[15px]"
+            className="btn_transparent_sm"
           >
             삭제
           </button>

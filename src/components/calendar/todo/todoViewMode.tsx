@@ -234,7 +234,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
           </div>
           <h1 className="-mt-[10px] text-[20px] flex items-center space-x-[10px]">
             <span>{Helper.formatDateForTodoDetail(data?.date)}</span>
-            <span className="text-[15px]">|</span>
+            <span className="text-[15px] mb-[3px]">|</span>
             <span>
               {Helper.formatTimeForTodoDetail(data?.startAt, data?.endAt)}
             </span>
@@ -264,15 +264,12 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
               </p>
             </div>
             <div className="flex items-center space-x-[4px] text-[15px]">
-              <button
-                onClick={handleEditorMode}
-                className="rounded w-[40px] h-[25px] bor"
-              >
+              <button onClick={handleEditorMode} className="btn_transparent_sm">
                 수정
               </button>
               <button
                 onClick={handleClickDeleteTodo}
-                className="rounded w-[40px] h-[25px] bor"
+                className="btn_transparent_sm"
               >
                 삭제
               </button>

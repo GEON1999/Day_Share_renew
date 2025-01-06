@@ -47,7 +47,7 @@ const DiarySection = () => {
                 </div>
                 <div className="text-[20px] text-[#2D2D2E] text-opacity-80 flex space-x-2 items-center">
                   <span>{diary.userName}</span>
-                  <span>|</span>
+                  <span className="mb-[3px]">|</span>
                   <span className="font-semibold">{diary.calendarName}</span>
                 </div>
               </li>

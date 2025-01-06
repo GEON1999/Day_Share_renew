@@ -70,7 +70,7 @@ const Setting = () => {
             />
             <button
               type="submit"
-              className="mt-[35px]  rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor hover:bg-[#F69D9D]"
+              className="mt-[35px] rounded-md w-[390px] h-[50px] flex justify-center items-center bor btn_hilight"
             >
               저장
             </button>

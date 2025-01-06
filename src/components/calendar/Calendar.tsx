@@ -133,7 +133,7 @@ const Calendar = ({}) => {
             <div className="flex items-center ">
               <button
                 onClick={handleClickToday}
-                className="w-[109px] h-[34px] text-[20px] bor rounded-full mr-6"
+                className="w-[109px] h-[34px] text-[20px] bor rounded-full mr-6 btn_transparent"
               >
                 TODAY
               </button>

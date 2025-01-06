@@ -86,7 +86,7 @@ const DiaryCreate = () => {
                 <Toolbar editor={editor} />
                 <EditorContent
                   editor={editor}
-                  className="w-full flex-1 outline-none rounded bg-transparent text-[20px] py-[15px] px-[20px] placeholder:text-[#49494950] focus:outline-none focus:ring-0"
+                  className="w-full flex-1 outline-none rounded bg-transparent text-[20px] py-[15px] px-[20px] focus:outline-none focus:ring-0"
                 />
               </div>
             </div>

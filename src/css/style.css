@@ -56,15 +56,23 @@
 
   /* Button Classes */
   .btn_hilight {
-    @apply bg-[#F6BEBE] hover:bg-[#F69D9D];
+    @apply bg-[#F6BEBE] hover:bg-[#F69D9D] transition-colors duration-200 ease-in-out;
   }
 
   .btn_while {
-    @apply bg-white hover:bg-[#49494910];
+    @apply bg-white hover:bg-[#49494910] transition-colors duration-200 ease-in-out;
   }
 
   .btn_transparent {
-    @apply bg-transparent hover:bg-[#49494950];
+    @apply bg-transparent hover:bg-[#49494950] transition-colors duration-200 ease-in-out;
+  }
+
+  .btn_logout {
+    @apply flex items-center space-x-1 mt-[20px] w-[146px] h-[38px] justify-center rounded-full border-[1.5px] border-[#49494950] bg-transparent hover:bg-[#49494950] transition-colors duration-200 ease-in-out;
+  }
+
+  .btn_transparent_sm {
+    @apply rounded w-[40px] h-[25px] text-[15px] border-[1.5px] bg-transparent hover:bg-[#49494950] transition-colors duration-200 ease-in-out;
   }
 
   /* Border Classes */
@@ -98,11 +106,11 @@
     @apply flex mx-auto items-center space-x-[10px] text-[20px] noto-sans-text w-[130px] h-[35px];
   }
   .cancel {
-    @apply rounded-md w-[60px] h-[35px] bor bg-white hover:bg-[#49494910];
+    @apply rounded-md w-[60px] h-[35px] bor bg-white hover:bg-[#49494910] transition-colors duration-200 ease-in-out;
   }
 
   .confirm {
-    @apply rounded-md w-[60px] h-[35px] bor bg-[#F6BEBE] hover:bg-[#F69D9D];
+    @apply rounded-md w-[60px] h-[35px] bor bg-[#F6BEBE] hover:bg-[#F69D9D] transition-colors duration-200 ease-in-out;
   }
 
   /* Pagination Classes */
@@ -228,7 +236,7 @@
   }
 
   .auth-kakao-btn {
-    @apply flex bg-[#FEE500] justify-center items-center rounded-md space-x-5  mt-[10px] w-[390px] h-[50px] bor hover:bg-[#F5D101];
+    @apply flex bg-[#FEE500] justify-center items-center rounded-md space-x-5  mt-[10px] w-[390px] h-[50px] bor hover:bg-[#F5D101] transition-colors duration-200 ease-in-out;
   }
 
   .auth-link-btn {
@@ -310,4 +318,8 @@ div::-webkit-scrollbar-track {
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  opacity: 0.5;
 }

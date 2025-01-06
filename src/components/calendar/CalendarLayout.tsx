@@ -15,11 +15,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside
-        className={
-          "side_container shadow-side border-r-[1.5px]  z-10"
-        }
-      >
+      <aside className={"side_container shadow-side border-r-[1.5px]  z-10"}>
         <div>
           <div className={`flex flex-col items-center`}>
             <div className="mt-[45px]">
@@ -31,10 +27,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
             <SideCalendarProfile />
             <SideUserList />
             {/* <SideTodoSection /> */}
-            <button
-              onClick={handleLogout}
-              className="flex items-center space-x-1 mt-[27px] w-[146px] h-[38px] justify-center rounded-full border-[1.5px]  border-opacity-50"
-            >
+            <button onClick={handleLogout} className="btn_logout">
               <IconExit className="w-5 h-5 cur" />
               <p>로그아웃</p>
             </button>

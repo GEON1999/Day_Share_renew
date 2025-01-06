@@ -92,7 +92,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
           </div>
           <div className="flex items-center -mt-[5px] space-x-[10px]">
             <h1 className=" font-bold">달력 생성</h1>
-            <span className="text-[15px] text-[#95927C] ">|</span>
+            <span className="text-[15px] text-[#95927C] mb-[3px]">|</span>
             <p
               className="text-[15px] text-[#95927C] cur"
               onClick={() => setFormSelect("empty")}
@@ -117,7 +117,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
             />
             <button
               type="submit"
-              className="btn_hilight bor w-[300px] h-[50px] rounded-md "
+              className="btn_hilight bor w-[300px] h-[50px] rounded-md"
             >
               생성
             </button>
@@ -133,7 +133,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
           </div>
           <div className="flex items-center -mt-[5px] space-x-[10px]">
             <h1 className=" font-bold">달력 참가</h1>
-            <span className="text-[15px] text-[#95927C] ">|</span>
+            <span className="text-[15px] text-[#95927C] mb-[3px]">|</span>
             <p
               className="text-[15px] text-[#95927C] cur"
               onClick={() => setFormSelect("empty")}
