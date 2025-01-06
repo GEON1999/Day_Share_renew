@@ -416,7 +416,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
             className="mt-[35px] flex items-center space-x-[10px] px-[10px]"
           >
             <input
-              className="w-[420px] h-[35px] rounded-md px-[10px] bor text-[15px]"
+              className="w-[420px] h-[35px] rounded-md px-[10px] bor text-[15px] focus:outline-none"
               placeholder="댓글을 남겨보세요."
               {...commentRegister("content")}
             />

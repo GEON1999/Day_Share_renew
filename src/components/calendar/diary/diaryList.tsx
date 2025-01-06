@@ -84,7 +84,11 @@ const DiaryList = () => {
                       />
                       <p>{diary.userProfile?.name}</p>
                     </div>
-                    <p className="font-light pb-[21px] w-[290px] border-b border-[#49494920]">
+                    <p
+                      className={`font-light pb-[21px] ${
+                        diary.img ? "w-[300px]" : "w-[428px]"
+                      } border-b border-[#49494920]`}
+                    >
                       {diary.title}
                     </p>
                     <div className="flex space-x-3 text-[15px] mt-3">
@@ -98,15 +102,16 @@ const DiaryList = () => {
                       </div>
                     </div>
                   </div>
-                  {diary.img ? (
-                    <img
-                      src={diary.img}
-                      alt="diary"
-                      className="w-[118px] h-[118px] object-cover rounded-md bor"
-                    />
-                  ) : (
-                    <div className="w-[118px] h-[118px] rounded-md bor bg-[#D9D9D9]" />
-                  )}
+                  {
+                    diary.img ? (
+                      <img
+                        src={diary.img}
+                        alt="diary"
+                        className="w-[118px] h-[118px] object-cover rounded-md bor"
+                      />
+                    ) : null
+                    // <div className="w-[118px] h-[118px] rounded-md bor bg-[#D9D9D9]" />
+                  }
                 </div>
               </div>
             );

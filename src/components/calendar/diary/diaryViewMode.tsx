@@ -401,7 +401,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
               </div>
               <input
                 {...commentRegister("content")}
-                className="w-full outline-none rounded bg-transparent text-[20px] placeholder:opacity-50 px-[1px]"
+                className="w-full outline-none rounded bg-transparent text-[20px] placeholder:opacity-50 px-[1px] focus:outline-none"
                 placeholder="댓글을 남겨보세요."
               />
               <button
