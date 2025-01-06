@@ -42,7 +42,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="/antd.min.css" />
       </head>
       <body
-        className={`${dodum.className} ${notoSans.variable} ${notoSerif.variable} ${dodum.variable} font-[300]`}
+        className={`${dodum.className} ${notoSans.variable} ${notoSerif.variable} ${dodum.variable} text-default border-default`}
       >
         <AuthSession>
           <Providers>

@@ -153,7 +153,7 @@ const Calendar = ({}) => {
         <div className="flex items-center">
           <div className="w-[629px] h-[675px] overflow-hidden border-y-[1.5px] border-y-[#494949]">
             <table className="w-full h-full text-center">
-              <thead className="bg_light_pink h-[34px] w-full border-b-[1.5px] border-[#494949]">
+              <thead className="bg_light_pink h-[34px] w-full border-b-[1.5px] ">
                 <tr className="text-black text-md">
                   <th className="text_red">SUN</th>
                   <th>MON</th>

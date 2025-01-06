@@ -98,36 +98,39 @@ const CalendarListSection = () => {
           <h2 className={`text-[25px]`}>공유 달력</h2>
           <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
         </div>
-        <div className="flex items-center justify-between space-x-4">
-          {!calendarData || calendarData?.total_calendars === 0 ? null : (
-            <div>
-              {isEditMode ? (
-                <div className="flex items-center space-x-2 text-[15px] text-[#494949]">
-                  <button
-                    className="w-10 h-[25px] bor bg_hilight_2 font-bold rounded-md"
-                    onClick={handleSaveOrder}
-                  >
-                    <p className="mb-[1px]">저장</p>
-                  </button>
-                  <button
+        {!calendarData || calendarData?.total_calendars === 0 ? null : (
+          <div className="flex items-center  text-[15px]">
+            <div
+              className={`mr-[7px] ${
+                isEditMode
+                  ? "w-[32px] h-[32px] rounded-full flex items-center justify-center bg-[#49494920]"
+                  : ""
+              }`}
+            >
+              <IconSettingOrder
+                onClick={() => setIsEditMode(!isEditMode)}
+                className="w-5 h-4 cur"
+              />
+            </div>
+            {!isEditMode && (
+              <CalendarPagination total_count={calendarData?.total_calendars} />
+            )}
+            {isEditMode ? (
+              <button
+                className="w-10 h-[25px] bor btn_hilight font-bold rounded-md"
+                onClick={handleSaveOrder}
+              >
+                <p className="mb-[1px]">저장</p>
+              </button>
+            ) : null}
+            {/* <button
                     className="w-10 h-[25px] bor bg-[#49494920] font-bold rounded-md"
                     onClick={handleCancelOrder}
                   >
                     <p className="mb-[1px]">취소</p>
-                  </button>
-                </div>
-              ) : (
-                <IconSettingOrder
-                  onClick={() => setIsEditMode(true)}
-                  className="w-5 h-4 cur"
-                />
-              )}
-            </div>
-          )}
-          {!isEditMode && (
-            <CalendarPagination total_count={calendarData?.total_calendars} />
-          )}
-        </div>
+                  </button> */}
+          </div>
+        )}
       </div>
       {isLoading ? (
         <div className="loading spinner small" />

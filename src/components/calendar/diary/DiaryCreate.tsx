@@ -90,18 +90,15 @@ const DiaryCreate = () => {
                 />
               </div>
             </div>
-            <div className="flex mx-auto items-center space-x-[10px] mt-[25px]">
+            <div className="confirm_btn_container mt-[25px]">
               <button
                 onClick={() => router.push(`/calendar/${id}?date=${date}`)}
                 type="button"
-                className="rounded-md w-[60px] h-[35px] bor text-[20px]"
+                className="cancel"
               >
                 취소
               </button>
-              <button
-                type="submit"
-                className="bg_hilight rounded-md w-[60px] h-[35px] bor text-[20px]"
-              >
+              <button type="submit" className="confirm">
                 저장
               </button>
             </div>

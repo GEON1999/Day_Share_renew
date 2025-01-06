@@ -65,7 +65,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
   };
 
   return (
-    <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px] text-[#494949] noto-sans-text">
+    <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px]  noto-sans-text">
       <div
         className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
         onClick={handleCancel}
@@ -135,18 +135,11 @@ const TodoEditMode = ({ setEditorMode }: any) => {
             />
           </div>
         </div>
-        <div className="flex mt-[40px] text-[20px] noto-sans-text space-x-[10px] mx-auto">
-          <button
-            onClick={handleCancel}
-            type="button"
-            className="rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#49494910]"
-          >
+        <div className="confirm_btn_container mt-[40px]">
+          <button onClick={handleCancel} type="button" className="cancel">
             취소
           </button>
-          <button
-            type="submit"
-            className="rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
-          >
+          <button type="submit" className="confirm">
             저장
           </button>
         </div>

@@ -24,7 +24,7 @@ const CalendarPagination = ({ total_count }: any) => {
     router.push(`${pathName}?${params.toString()}`);
   };
   return (
-    <div className="flex items-center space-x-[11px]">
+    <div className="flex items-center space-x-[10px] mr-[15px]">
       <div>
         {Number(currentPage) <= 1 ? (
           <IconPrev_disabled className="w-1 h-[10px] cur" />

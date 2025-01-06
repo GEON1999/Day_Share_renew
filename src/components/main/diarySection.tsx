@@ -32,9 +32,7 @@ const DiarySection = () => {
                 }}
                 key={diary.id}
                 className={`px-[6px] bg-transparent items-center flex justify-between h-[67.5px] text-[23px] cur ${
-                  idx === 3
-                    ? "border-b-[0px]"
-                    : "border-b-[1.5px] border-[#494949]"
+                  idx === 3 ? "border-b-[0px]" : "border-b-[1.5px] "
                 }`}
               >
                 <div className="flex space-x-2 items-center">

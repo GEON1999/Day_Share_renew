@@ -78,7 +78,7 @@ const CalendarSetting = () => {
         <h1 className="text-[25px] text-[#2D2D2E]">달력 설정</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center mt-[35px] noto-sans-text text-[#494949]"
+          className="flex flex-col items-center mt-[35px] noto-sans-text "
         >
           <CalendarImgCrop
             calendarImg={calendarImg}
@@ -125,7 +125,7 @@ const CalendarSetting = () => {
             </div>
             <button
               type="submit"
-              className="mt-[40px] text-[#494949] rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor hover:bg-[#F69D9D]"
+              className="mt-[40px]  rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor hover:bg-[#F69D9D]"
             >
               저장
             </button>

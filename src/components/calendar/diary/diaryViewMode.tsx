@@ -304,23 +304,23 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                           onSubmit={editHandleSubmit(onEditSubmit)}
                         >
                           <input
-                            className="w-full h-[37px] px-[10px] border-b border-[#494949] rounded-t-md outline-none"
+                            className="w-full h-[37px] px-[10px] border-b  rounded-t-md outline-none"
                             type="text"
                             {...editRegister(`content_${comment.comment.id}`, {
                               value: comment.comment.content,
                             })}
                           />
-                          <div className="w-full h-[37px] flex items-center justify-end px-[10px] space-x-[10px]">
+                          <div className="w-full h-[37px] flex items-center justify-end px-[10px] space-x-[4px]">
                             <button
                               onClick={() => setEditingCommentId(null)}
                               type="button"
-                              className="w-[40px] h-[25px] rounded-md bor"
+                              className="w-[40px] h-[25px] rounded-md bor btn_while"
                             >
                               취소
                             </button>
                             <button
                               type="submit"
-                              className="w-[40px] h-[25px] rounded-md bor"
+                              className="w-[40px] h-[25px] rounded-md bor btn_while"
                             >
                               등록
                             </button>
@@ -355,14 +355,14 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                         ref={(el) => {
                           menuRefs.current[comment.comment.id] = el;
                         }}
-                        className={`absolute right-[-51px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center border-[#494949] text-[15px] rounded-md shadow_box z-99 ${
+                        className={`absolute right-[-51px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-[15px] rounded-md shadow_box z-99 ${
                           activeCommentId === comment.comment.id ? "" : "hidden"
                         }`}
                       >
                         <button
                           onClick={() => handleEditClick(comment.comment)}
                           type="button"
-                          className="w-[55px] h-[50%] border-b border-[#494949]"
+                          className="w-[55px] h-[50%] border-b "
                         >
                           수정
                         </button>
@@ -406,7 +406,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
               />
               <button
                 type="submit"
-                className="w-[46px] bor h-[30px] rounded ml-auto bg_hilight_2"
+                className="w-[46px] bor h-[30px] rounded ml-auto btn_hilight"
               >
                 등록
               </button>

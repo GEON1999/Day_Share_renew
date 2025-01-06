@@ -64,7 +64,7 @@ const EmotionItem = ({
   >
     <img className="w-[80px] h-[80px]" src={emotion.imgSrc} alt={emotion.id} />
     <p
-      className={`text-[15px] text-[#494949] rounded-full w-[65px] h-[20px] flex items-center justify-center ${emotion.hoverBg} transition-all duration-300`}
+      className={`text-[15px]  rounded-full w-[65px] h-[20px] flex items-center justify-center ${emotion.hoverBg} transition-all duration-300`}
     >
       {emotion.text}
     </p>

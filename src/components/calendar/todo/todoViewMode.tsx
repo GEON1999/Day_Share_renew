@@ -221,7 +221,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   // }, []);
 
   return (
-    <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px] text-[#494949] noto-sans-text overflow-y-auto overflow-x-visible">
+    <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px]  noto-sans-text overflow-y-auto overflow-x-visible">
       {isLoading ? (
         <div className="loading spinner " />
       ) : (
@@ -280,7 +280,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
             </div>
           </div>
           <div className="px-[10px]">
-            <div className="flex items-center space-x-[23px] mt-[15px] py-[15px]  border-t border-[#494949]">
+            <div className="flex items-center space-x-[23px] mt-[15px] py-[15px]  border-t ">
               <div className="flex items-center space-x-[4.7px]">
                 <IconHeart
                   onClick={handleToggleLike}
@@ -321,23 +321,23 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                         onSubmit={editHandleSubmit(onEditSubmit)}
                       >
                         <input
-                          className="w-full h-[37px] px-[10px] border-b border-[#494949] rounded-t-md outline-none"
+                          className="w-full h-[37px] px-[10px] border-b  rounded-t-md outline-none"
                           type="text"
                           {...editRegister(`content_${comment.comment.id}`, {
                             value: comment.comment.content,
                           })}
                         />
-                        <div className="w-full h-[37px] flex items-center justify-end px-[10px] space-x-[10px]">
+                        <div className="w-full h-[37px] flex items-center justify-end px-[10px] space-x-[4px]">
                           <button
                             onClick={() => setEditingCommentId(null)}
                             type="button"
-                            className="w-[40px] h-[25px] rounded-md bor"
+                            className="w-[40px] h-[25px] rounded-md bor btn_while"
                           >
                             취소
                           </button>
                           <button
                             type="submit"
-                            className="w-[40px] h-[25px] rounded-md bor"
+                            className="w-[40px] h-[25px] rounded-md bor btn_while"
                           >
                             등록
                           </button>
@@ -383,14 +383,14 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                         ref={(el) => {
                           menuRefs.current[comment.comment.id] = el;
                         }}
-                        className={`absolute right-[-51px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center border-[#494949] text-[15px] rounded-md shadow_box z-99 ${
+                        className={`absolute right-[-51px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-[15px] rounded-md shadow_box z-99 ${
                           activeCommentId === comment.comment.id ? "" : "hidden"
                         }`}
                       >
                         <button
                           onClick={() => handleEditClick(comment.comment)}
                           type="button"
-                          className="w-[55px] h-[50%] border-b border-[#494949]"
+                          className="w-[55px] h-[50%] border-b "
                         >
                           수정
                         </button>
@@ -422,7 +422,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
             />
             <button
               type="submit"
-              className="w-[60px] h-[35px] rounded-md bor text-[20px] bg_hilight_2"
+              className="w-[60px] h-[35px] rounded-md bor text-[20px] btn_hilight"
             >
               등록
             </button>

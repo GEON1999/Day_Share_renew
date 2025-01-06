@@ -8,11 +8,9 @@ import { IconCheck_o, IconCheck_x, IconKakao, IconLogo } from "@/icons";
 function LoginClientPage() {
   const [isAutoLogin, setIsAutoLogin] = React.useState(false);
   const router = useRouter();
-
   const { handleSubmit, register } = useForm();
 
   const onSubmit = async (formData: any) => {
-    console.log("formData:", formData);
     const result = await signIn("credentials", {
       redirect: false,
       id: formData.id,
@@ -20,11 +18,9 @@ function LoginClientPage() {
       callbackUrl: "/",
       auto: isAutoLogin,
     });
-    console.log("result:", result);
     if (result?.ok) {
       router.push("/");
     } else if (result?.error) {
-      console.log("error:", result.error);
       alert("로그인에 실패했습니다.");
     }
   };
@@ -39,27 +35,24 @@ function LoginClientPage() {
   const handleSignUp = () => router.push("/signup");
 
   return (
-    <div className="flex w-full h-screen bg_depp justify-center content-center items-center flex-col noto-sans-text">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center"
-      >
+    <div className="auth-container">
+      <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
         <IconLogo className="w-[150px] h-[150px]" />
         <div className="flex flex-col mt-[45px]">
-          <div className="w-[390px] h-[110px] text-[18px]">
+          <div className="w-[390px] h-[110px] text-[20px]">
             <input
-              className="w-[390px] h-[55px] bor px-[19px] rounded-md rounded-b-none placeholder:text-[#C2BFBC] focus:outline-none"
+              className="auth-input-top"
               {...register("id")}
               required
               autoFocus={true}
-              placeholder={"아이디"}
+              placeholder="아이디"
             />
             <input
-              className="w-[390px] h-[55px] bor px-[19px] border-t-0 rounded-md rounded-t-none placeholder:text-[#C2BFBC] focus:outline-none"
+              className="auth-input-bottom"
               {...register("password")}
               type="password"
               required
-              placeholder={"비밀번호"}
+              placeholder="비밀번호"
             />
           </div>
           <div className="flex justify-between items-center mt-[10px]">
@@ -75,20 +68,17 @@ function LoginClientPage() {
                   className="w-[13px] h-[13px] mb-[1px]"
                 />
               )}
-              <label className="text-[13px] text-[#494949]">자동 로그인</label>
+              <label className="text-[13px] ">자동 로그인</label>
             </div>
             <button
               onClick={handleSignUp}
-              className="text-[13px] text-[#494949]"
+              className="text-[13px]"
               type="button"
             >
               회원가입
             </button>
           </div>
-          <button
-            type="submit"
-            className="mt-[35px] text-[#494949] rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor"
-          >
+          <button type="submit" className="auth-submit-btn">
             로그인
           </button>
           <div className="flex items-center space-x-[7px] justify-center mt-5 cur">
@@ -98,7 +88,7 @@ function LoginClientPage() {
             >
               <IconKakao className="w-[16.88px] h-[15px] translate-y-[0.5px]" />
             </div>
-            <span onClick={handleKakao} className="text-[15px] text-[#494949]">
+            <span onClick={handleKakao} className="text-[15px] ">
               카카오 계정으로 로그인하기
             </span>
           </div>

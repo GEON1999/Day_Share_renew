@@ -21,18 +21,18 @@ const DeleteModal = ({
         </div>
         <h1 className="text-center mt-[5px] text-[20px] font-bold ">{title}</h1>
         <p className="text-center text-[15px]">{msg}</p>
-        <div className="flex mt-[20px] text-[#494949] text-[20px] space-x-[10px] mx-auto">
+        <div className="flex mt-[20px]  text-[20px] space-x-[10px] mx-auto">
           <button
             onClick={() => setIsOpen(false)}
             type="button"
-            className="text-[#494949] rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#EDEADF]"
+            className=" rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#EDEADF]"
           >
             취소
           </button>
           <button
             onClick={handleDelete}
             type="submit"
-            className="text-[#494949] rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
+            className=" rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
           >
             확인
           </button>

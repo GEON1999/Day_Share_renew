@@ -43,7 +43,7 @@ const ChangeProfile = () => {
 
   return (
     <div className="main_container">
-      <div className="flex w-full h-screen justify-center items-center flex-col text-[#494949]">
+      <div className="flex w-full h-screen justify-center items-center flex-col ">
         <IconSetting className="w-5 h-5 cur" onClick={handleSetting} />
         <h1 className="text-[25px] text-[#2D2D2E] cur" onClick={handleSetting}>
           달력 설정
@@ -63,18 +63,11 @@ const ChangeProfile = () => {
                 {...register("name")}
               />
             </div>
-            <div className="flex mt-[40px] text-[#494949] text-[20px] noto-sans-text space-x-[10px] mx-auto">
-              <button
-                onClick={handleSetting}
-                type="button"
-                className="text-[#494949] rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#49494910]"
-              >
+            <div className="confirm_btn_container mt-[40px]">
+              <button onClick={handleSetting} type="button" className="cancel">
                 취소
               </button>
-              <button
-                type="submit"
-                className="text-[#494949] rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
-              >
+              <button type="submit" className="confirm">
                 저장
               </button>
             </div>

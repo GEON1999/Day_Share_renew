@@ -141,7 +141,7 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
           >
             <IconX className="w-full h-full" />
           </div>
-          <h2 className="text-[20px] noto-sans-text font-bold text-[#494949] mb-[30px] ml-[5px] -mt-[5px]">
+          <h2 className="text-[20px] noto-sans-text font-bold  mb-[30px] ml-[5px] -mt-[5px]">
             이미지 자르기
           </h2>
           <div className="px-[5px]">
@@ -167,18 +167,12 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
               />
             </ReactCrop>
           </div>
-          <div className="flex justify-center mt-[30px] space-x-[10px]">
-            <button
-              className="bg-white w-[60px] h-[35px] bor rounded-md text-[#494949] "
-              onClick={handleCropUpload}
-            >
+          <div className="confirm_btn_container mt-[30px]">
+            <button className="cancel" onClick={handleCropUpload}>
               취소
             </button>
-            <button
-              className="bg-[#F6BEBE] w-[60px] h-[35px] bor rounded-md text-[#494949] "
-              onClick={handleCropUpload}
-            >
-              다음
+            <button className="confirm" onClick={handleCropUpload}>
+              확인
             </button>
           </div>
         </div>

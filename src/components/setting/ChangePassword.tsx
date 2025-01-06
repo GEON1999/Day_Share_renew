@@ -42,7 +42,7 @@ const ChangePassword = () => {
 
   return (
     <div className="main_container">
-      <div className="flex w-full h-screen justify-center items-center flex-col text-[#494949]">
+      <div className="flex w-full h-screen justify-center items-center flex-col ">
         <IconSetting onClick={handleSetting} className="w-5 h-5 cur" />
         <h1 onClick={handleSetting} className="text-[25px] cur text-[#2D2D2E]">
           설정
@@ -74,17 +74,17 @@ const ChangePassword = () => {
             required
             placeholder="새 비밀번호 확인"
           />
-          <div className="flex mt-[40px] text-[#494949] text-[20px] noto-sans-text space-x-[10px]">
+          <div className="flex mt-[40px]  text-[20px] noto-sans-text space-x-[10px]">
             <button
               onClick={handleSetting}
               type="button"
-              className="text-[#494949] rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#49494910]"
+              className=" rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#49494910]"
             >
               취소
             </button>
             <button
               type="submit"
-              className="text-[#494949] rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
+              className=" rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
             >
               저장
             </button>

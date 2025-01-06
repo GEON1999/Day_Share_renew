@@ -42,18 +42,18 @@ const LeaveCalendar = ({ setIsOpen }: any) => {
           서버를 나가시면 공유 달력 및 공유 일기등에 대한 <br />
           모든 정보가 삭제됩니다.
         </p>
-        <div className="flex mt-[20px] text-[#494949] text-[20px] space-x-[10px] mx-auto">
+        <div className="flex mt-[20px]  text-[20px] space-x-[10px] mx-auto">
           <button
             onClick={handleCancel}
             type="button"
-            className="text-[#494949] rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#EDEADF]"
+            className=" rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#EDEADF]"
           >
             취소
           </button>
           <button
             type="submit"
             onClick={handleLeaveCalendar}
-            className="text-[#494949] rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
+            className=" rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
           >
             확인
           </button>

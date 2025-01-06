@@ -54,7 +54,7 @@ const Setting = () => {
           className="flex flex-col items-center mt-[35px]"
         >
           <ImageCropComponent userImg={userImg} setUserImg={setUserImg} />
-          <div className="flex flex-col mt-[20px] text-[#494949] text-[20px] noto-sans-text">
+          <div className="flex flex-col mt-[20px]  text-[20px] noto-sans-text">
             <input
               disabled
               className="w-[390px] h-[55px] bor px-[19px] rounded-md rounded-b-none focus:outline-none bg-[#EDEADF] cursor-not-allowed"
@@ -70,20 +70,20 @@ const Setting = () => {
             />
             <button
               type="submit"
-              className="mt-[35px] text-[#494949] rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor hover:bg-[#F69D9D]"
+              className="mt-[35px]  rounded-md bg-[#F6BEBE] w-[390px] h-[50px] flex justify-center items-center bor hover:bg-[#F69D9D]"
             >
               저장
             </button>
           </div>
         </form>
         <button
-          className="text-[15px] text-[#494949] mt-[20px] noto-sans-text"
+          className="text-[15px]  mt-[20px] noto-sans-text"
           onClick={handleChangePassword}
         >
           비밀번호 변경
         </button>
         <button
-          className="text-[15px] text-[#494949] mt-[4px] noto-sans-text"
+          className="text-[15px]  mt-[4px] noto-sans-text"
           onClick={handleDeleteUser}
         >
           탈퇴하기

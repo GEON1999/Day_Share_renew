@@ -53,7 +53,7 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
     );
   };
   return (
-    <div className="min-w-[600px] mt-[86px] w-[870px] noto-sans-text text-[#494949]">
+    <div className="min-w-[600px] mt-[86px] w-[870px] noto-sans-text ">
       <div className="flex items-center space-x-[10px] ">
         <span className="text-[30px] dodum-text">일기 수정</span>
         <span className="text-[#999790] text-[16px]">|</span>
@@ -80,18 +80,15 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
             />
           </div>
         </div>
-        <div className="flex mx-auto items-center space-x-[10px] mt-[25px]">
+        <div className="confirm_btn_container mt-[25px]">
           <button
             onClick={() => setEditorMode(false)}
             type="button"
-            className="rounded-md w-[60px] h-[35px] bor text-[20px]"
+            className="cancel"
           >
             취소
           </button>
-          <button
-            type="submit"
-            className="bg_hilight rounded-md w-[60px] h-[35px] bor text-[20px]"
-          >
+          <button type="submit" className="confirm">
             저장
           </button>
         </div>

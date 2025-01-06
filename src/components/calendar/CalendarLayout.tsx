@@ -17,7 +17,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
       {/* Sidebar */}
       <aside
         className={
-          "side_container shadow-side border-r-[1.5px] border-[#494949] z-10"
+          "side_container shadow-side border-r-[1.5px]  z-10"
         }
       >
         <div>
@@ -33,7 +33,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
             {/* <SideTodoSection /> */}
             <button
               onClick={handleLogout}
-              className="flex items-center space-x-1 mt-[27px] w-[146px] h-[38px] justify-center rounded-full border-[1.5px] border-[#494949] border-opacity-50"
+              className="flex items-center space-x-1 mt-[27px] w-[146px] h-[38px] justify-center rounded-full border-[1.5px]  border-opacity-50"
             >
               <IconExit className="w-5 h-5 cur" />
               <p>로그아웃</p>

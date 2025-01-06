@@ -59,7 +59,7 @@ const CalendarImageSelect = ({
     setIsOpen(false);
   };
   return (
-    <div className="bor w-[982px] h-[805px] bg_depp rounded-md py-[30px] px-[25px] text-[20px] noto-sans-text text-[#494949]">
+    <div className="bor w-[982px] h-[805px] bg_depp rounded-md py-[30px] px-[25px] text-[20px] noto-sans-text ">
       <div
         className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
         onClick={handleCancel}
@@ -81,9 +81,7 @@ const CalendarImageSelect = ({
               key={item.id}
               src={item.src}
               className={`w-[300px] h-[200px]  rounded-md cur ${
-                calendarImg === item.src
-                  ? "border-[3px] border-[#494949]"
-                  : "bor"
+                calendarImg === item.src ? "border-[3px] " : "bor"
               }`}
               onClick={() => {
                 setCalendarImg(item.src);
@@ -98,13 +96,13 @@ const CalendarImageSelect = ({
       <div className="flex justify-center mt-[30px] space-x-[10px] text-[20px]">
         <button
           onClick={handleCancel}
-          className="bg-white w-[60px] h-[35px] bor rounded-md text-[#494949] hover:bg-[#EDEADF]"
+          className="bg-white w-[60px] h-[35px] bor rounded-md  hover:bg-[#EDEADF]"
         >
           취소
         </button>
         <button
           onClick={handleImageClick}
-          className="bg-[#F6BEBE] w-[60px] h-[35px] bor rounded-md text-[#494949] hover:bg-[#F69D9D]"
+          className="bg-[#F6BEBE] w-[60px] h-[35px] bor rounded-md  hover:bg-[#F69D9D]"
         >
           확인
         </button>

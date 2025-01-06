@@ -42,6 +42,7 @@ const config: Config = {
         ),
       },
       colors: {
+        default: "#494949",
         current: "currentColor",
         transparent: "transparent",
         white: "#FFFFFF",
@@ -79,6 +80,7 @@ const config: Config = {
         success: "#219653",
         danger: "#D34053",
         warning: "#FFA70B",
+        pink: "#F6BEBE",
       },
       fontSize: {
         "title-xxl": ["44px", "55px"],
