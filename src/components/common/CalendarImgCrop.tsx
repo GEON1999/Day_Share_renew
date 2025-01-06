@@ -43,11 +43,13 @@ function CalendarImgCrop({
   };
 
   const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
       reader.addEventListener("load", () => setSrc(reader.result as string));
       reader.readAsDataURL(e.target.files[0]);
       setIsOpen(true);
+      e.target.value = "";
     }
   };
 
@@ -161,6 +163,7 @@ function CalendarImgCrop({
       <input
         onChange={onSelectFile}
         type="file"
+        accept="image/*"
         className="hidden"
         id="imageUpload"
       />

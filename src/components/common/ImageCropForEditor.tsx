@@ -35,6 +35,7 @@ function ImageCropForEditor({ editor }: any) {
       reader.readAsDataURL(e.target.files[0]);
       console.log("clicked2");
       setIsOpen(true);
+      e.target.value = "";
     }
   };
 
@@ -125,6 +126,7 @@ function ImageCropForEditor({ editor }: any) {
       <input
         onChange={onSelectFile}
         type="file"
+        accept="image/*"
         className="hidden"
         id="imageUpload"
       />

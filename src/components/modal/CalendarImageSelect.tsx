@@ -70,7 +70,7 @@ const CalendarImageSelect = ({
       <div className="flex flex-wrap gap-[15px] mt-[25px]">
         <div
           onClick={handleImageUpload}
-          className="w-[300px] h-[200px] bg-[#D1D3D4] bor rounded-md flex flex-col items-center justify-center cur"
+          className="w-[300px] h-[200px] bg-[#D1D3D4] bor rounded-md flex flex-col items-center justify-center cur hover:bg-[#D1D3D480] transition-colors duration-200 ease-in-out"
         >
           <IconCamera className="w-[25px] h-[22.31px] mt-[32px]" />
           <p className="text-[15px] mt-[3px]">가져오기</p>
@@ -81,7 +81,7 @@ const CalendarImageSelect = ({
               key={item.id}
               src={item.src}
               className={`w-[300px] h-[200px]  rounded-md cur ${
-                calendarImg === item.src ? "border-[3px] " : "bor"
+                calendarImg === item.src ? "border-[3px] shadow_box" : "bor"
               }`}
               onClick={() => {
                 setCalendarImg(item.src);

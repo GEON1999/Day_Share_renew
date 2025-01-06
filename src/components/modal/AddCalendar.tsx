@@ -67,14 +67,14 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
           <h1 className="-mt-[5px] font-bold">달력 참여 방식</h1>
           <div className="flex flex-col w-full space-y-[10px] mt-[27px]">
             <div
-              className="flex items-center justify-between px-[14px] w-[470px] h-[50px] bor rounded-md cur hover:bg-[#f7eeab] transition-all duration-300"
+              className="flex items-center justify-between px-[14px] w-[470px] h-[50px] bor rounded-md cur hover:bg-[#f7eeab] transition-colors duration-200 ease-in-out"
               onClick={() => formChancher("create")}
             >
               <p className="ml-1">달력 생성</p>
               <IconNextBig className="w-[5px] h-[10px]" />
             </div>
             <div
-              className="flex items-center justify-between px-[14px] w-[470px] h-[50px] bor rounded-md cur hover:bg-[#f7eeab] transition-all duration-300"
+              className="flex items-center justify-between px-[14px] w-[470px] h-[50px] bor rounded-md cur hover:bg-[#f7eeab] transition-colors duration-200 ease-in-out"
               onClick={() => formChancher("invite")}
             >
               <p className="ml-1">달력 참가</p>

@@ -33,6 +33,7 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
       reader.addEventListener("load", () => setSrc(reader.result as string));
       reader.readAsDataURL(e.target.files[0]);
       setIsOpen(true);
+      e.target.value = "";
     }
   };
 
@@ -130,6 +131,7 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
       <input
         onChange={onSelectFile}
         type="file"
+        accept="image/*"
         className="hidden"
         id="imageUpload"
       />
@@ -168,7 +170,7 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
             </ReactCrop>
           </div>
           <div className="confirm_btn_container mt-[30px]">
-            <button className="cancel" onClick={handleCropUpload}>
+            <button className="cancel" onClick={() => setIsOpen(false)}>
               취소
             </button>
             <button className="confirm" onClick={handleCropUpload}>
