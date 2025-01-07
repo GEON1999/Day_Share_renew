@@ -13,6 +13,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import { IconNextGray } from "@/icons";
 import { throttle } from "lodash";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const DiaryCreate = () => {
   const [isSubmit, setIsSubmit] = useState(false);
@@ -39,6 +40,8 @@ const DiaryCreate = () => {
     mutationFn: useDiaryMutations.createDiary,
   });
 
+  const { showAlert } = useAlert();
+
   const onSubmit = (formData: any) => {
     if (isSubmit) return;
     setIsSubmit(true);
@@ -52,11 +55,12 @@ const DiaryCreate = () => {
       { calendarId: id, query: `date=${date}`, body: submitData },
       {
         onSuccess: (result: any) => {
+          showAlert("일기가 등록되었습니다.", "success");
           router.push(`/calendar/${id}/diary/${result.id}?date=${date}`);
           setIsSubmit(false);
         },
         onError: () => {
-          console.log("error");
+          showAlert("일기 등록에 실패했습니다.", "error");
           setIsSubmit(false);
         },
       }

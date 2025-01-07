@@ -8,19 +8,19 @@ import useUserMutations from "@/queries/user/useUserMutations";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import useSearch from "@/hooks/useSearch";
-import ModalWrapper from "@/components/modal/ModalWrapper";
-import AddCalendarModal from "@/components/modal/AddCalendar";
 import Helper from "@/helper/Helper";
 import { IconAdd, IconSettingOrder } from "@/icons";
 import ScrollingComponent from "@/components/common/ScrollingComponent";
 import ModalContainer from "../modal/ModalContainer";
 import ModalType from "@/keys/ModalType";
+import { useAlert } from "../alert/AlertContext";
 
 const CalendarListSection = () => {
   const router = useRouter();
   const currentPage = useSearch.useSearchPage();
   const [isEditMode, setIsEditMode] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const { showAlert } = useAlert();
 
   const { data: calendarData, isLoading } =
     useCalendarQueries.useGetCalendarList(
@@ -74,11 +74,11 @@ const CalendarListSection = () => {
       { orders },
       {
         onSuccess: () => {
-          alert("순서가 저장되었습니다.");
+          showAlert("순서가 저장되었습니다.", "success");
           setIsEditMode(false);
         },
         onError: () => {
-          alert("순서 저장에 실패했습니다.");
+          showAlert("순서 저장에 실패했습니다.", "error");
         },
       }
     );

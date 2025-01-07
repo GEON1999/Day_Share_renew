@@ -3,11 +3,11 @@ import { useRouter } from "next/navigation";
 import { IconX } from "@/icons";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import useSearch from "@/hooks/useSearch";
-
+import { useAlert } from "@/components/alert/AlertContext";
 const LeaveCalendar = ({ setIsOpen }: any) => {
   const router = useRouter();
   const id = useSearch.useSearchId();
-
+  const { showAlert } = useAlert();
   const { mutate: leaveCalendar } = useMutation({
     mutationFn: useCalendarMutations.leaveCalendar,
   });
@@ -15,11 +15,11 @@ const LeaveCalendar = ({ setIsOpen }: any) => {
   const handleLeaveCalendar = () => {
     leaveCalendar(id, {
       onSuccess: (result) => {
-        alert("서버 탈퇴에 성공하였습니다.");
+        showAlert("서버 탈퇴에 성공하였습니다.", "success");
         router.push("/");
       },
       onError: (error) => {
-        alert("서버 탈퇴에 실패하였습니다.");
+        showAlert("서버 탈퇴에 실패하였습니다.", "error");
       },
     });
   };

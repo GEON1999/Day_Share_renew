@@ -7,6 +7,8 @@ import SessionCheck from "./SessionCheck";
 import withTheme from "./ConfigProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import localFont from "next/font/local";
+import { AlertProvider } from "@/components/alert/AlertContext";
+import Alert from "@/components/alert/Alert";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -48,7 +50,10 @@ export default function RootLayout({
         <AuthSession>
           <Providers>
             <SessionCheck />
-            {children}
+            <AlertProvider>
+              <Alert />
+              {children}
+            </AlertProvider>
             <SpeedInsights />
           </Providers>
         </AuthSession>

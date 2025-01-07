@@ -8,9 +8,9 @@ import CalendarImgCrop from "@/components/common/CalendarImgCrop";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useSearch from "@/hooks/useSearch";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
-import StaticKeys from "@/keys/StaticKeys";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import LeaveCalendar from "@/components/modal/LeaveCalendar";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const CalendarSetting = () => {
   const router = useRouter();
@@ -24,6 +24,8 @@ const CalendarSetting = () => {
     useCalendarQueries.useGetCalendarBasic(id);
   const { data: inviteCode, isLoading: inviteCodeLoading } =
     useCalendarQueries.useGetInviteCode(id);
+
+  const { showAlert } = useAlert();
 
   const [calendarImg, setCalendarImg] = useState(calendarData?.img ?? "");
 
@@ -45,10 +47,10 @@ const CalendarSetting = () => {
       {
         onSuccess: (result) => {
           if (result) {
-            alert("달력이 수정 되었습니다.");
+            showAlert("달력이 수정 되었습니다.", "success");
             window.location.reload();
           } else {
-            alert(data?.data?.message ?? "달력 수정에 실패하였습니다.");
+            showAlert("달력 수정에 실패하였습니다.", "error");
           }
           setIsSubmit(false);
         },
@@ -66,14 +68,14 @@ const CalendarSetting = () => {
       onSuccess: (result) => {
         if (result) {
           document.getElementById("inviteCode")!.value = result.code;
-          alert("초대코드가 생성 되었습니다.");
+          showAlert("초대코드가 생성 되었습니다.", "success");
         } else {
-          alert("초대코드 생성에 실패하였습니다.");
+          showAlert("초대코드 생성에 실패하였습니다.", "error");
         }
         setIsInviteCodeSubmit(false);
       },
       onError: (error) => {
-        alert("초대코드 생성에 실패하였습니다.");
+        showAlert("초대코드 생성에 실패하였습니다.", "error");
         setIsInviteCodeSubmit(false);
       },
     });

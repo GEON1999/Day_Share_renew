@@ -15,6 +15,7 @@ import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import useDiaryMutations from "@/queries/diary/useDiaryMutations";
 import parse from "html-react-parser";
 import { IconComment, IconEdit, IconHeart, IconNextGray } from "@/icons";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   const router = useRouter();
@@ -29,7 +30,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   const query = `contentType=diary&contentId=${diaryId}`;
 
   const menuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
-
+  const { showAlert } = useAlert();
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (activeCommentId && menuRefs.current[activeCommentId]) {
@@ -113,14 +114,14 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       { calendarId: id, query, body: data },
       {
         onSuccess: () => {
+          showAlert("댓글이 등록되었습니다.", "success");
           refetch();
-          console.log("success");
           commentRefetch();
           commentReset();
           setIsCommentSubmit(false);
         },
         onError: () => {
-          console.log("error");
+          showAlert("댓글 등록에 실패했습니다.", "error");
           setIsCommentSubmit(false);
         },
       }
@@ -131,10 +132,9 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     toggleLike(query, {
       onSuccess: () => {
         refetch();
-        console.log("success");
       },
       onError: () => {
-        console.log("error");
+        showAlert("좋아요 등록에 실패했습니다.", "error");
       },
     });
   };
@@ -149,21 +149,21 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
         {
           onSuccess: (result) => {
             if (result) {
-              alert("댓글 삭제에 성공하였습니다.");
+              showAlert("댓글 삭제에 성공하였습니다.", "success");
               commentRefetch();
               setEditingCommentId(null);
               editReset();
             } else {
-              alert("댓글 삭제에 실패하였습니다.");
+              showAlert("댓글 삭제에 실패하였습니다.", "error");
             }
           },
           onError: () => {
-            console.log("실패");
+            showAlert("댓글 삭제에 실패하였습니다.", "error");
           },
         }
       );
     } else {
-      alert("본인의 댓글만 삭제할 수 있습니다.");
+      showAlert("본인의 댓글만 삭제할 수 있습니다.", "error");
     }
   };
 
@@ -181,12 +181,13 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       { calendarId: id, commentId: editingCommentId, body: formData },
       {
         onSuccess: () => {
+          showAlert("댓글이 수정되었습니다.", "success");
           commentRefetch();
           setEditingCommentId(null);
           editReset();
         },
         onError: () => {
-          console.log("실패");
+          showAlert("댓글 수정에 실패했습니다.", "error");
         },
       }
     );
@@ -198,10 +199,10 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       {
         onSuccess: () => {
           router.push(`/calendar/${id}?date=${Helper.getTodayMs()}`);
-          console.log("success");
+          showAlert("일기가 삭제되었습니다.", "success");
         },
         onError: () => {
-          console.log("error");
+          showAlert("일기 삭제에 실패했습니다.", "error");
         },
       }
     );
@@ -212,7 +213,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       setEditingCommentId(comment.id);
       setActiveCommentId(null);
     } else {
-      alert("본인의 댓글만 수정할 수 있습니다.");
+      showAlert("본인의 댓글만 수정할 수 있습니다.", "error");
     }
   };
 

@@ -5,8 +5,10 @@ import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import StaticKeys from "@/keys/StaticKeys";
 import { IconNextBig, IconX } from "@/icons";
 import CalendarImgCrop from "@/components/common/CalendarImgCrop";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const AddCalendarModal = ({ setIsOpen }: any) => {
+  const { showAlert } = useAlert();
   const [formSelect, setFormSelect] = useState("empty");
   const [image, setImage] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
@@ -29,10 +31,13 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
       onSuccess: (result) => {
         console.log("result:", result);
         if (result) {
-          alert("달력이 생성되었습니다.");
+          showAlert("달력이 생성되었습니다.", "success");
           window.location.reload();
         } else {
-          alert(data?.data?.message ?? "달력 생성에 실패하였습니다.");
+          showAlert(
+            data?.data?.message ?? "달력 생성에 실패하였습니다.",
+            "error"
+          );
         }
         setIsSubmit(false);
       },
@@ -47,10 +52,13 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
       onSuccess: (result) => {
         console.log("result:", result);
         if (result) {
-          alert("달력에 참가되었습니다.");
+          showAlert("달력에 참가되었습니다.", "success");
           window.location.reload();
         } else {
-          alert(data?.data?.message ?? "달력 참가에 실패하였습니다.");
+          showAlert(
+            data?.data?.message ?? "달력 참가에 실패하였습니다.",
+            "error"
+          );
         }
       },
     });

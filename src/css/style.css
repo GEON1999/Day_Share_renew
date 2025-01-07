@@ -323,3 +323,23 @@ div::-webkit-scrollbar-track {
 .ProseMirror p.is-editor-empty:first-child::before {
   opacity: 0.5;
 }
+
+.custom-alert {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.custom-alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}

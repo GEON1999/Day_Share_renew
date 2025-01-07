@@ -1,4 +1,5 @@
 import { IconClose } from "@/icons";
+import { useAlert } from "@/components/alert/AlertContext";
 import useUserMutations from "@/queries/user/useUserMutations";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useMutation } from "@tanstack/react-query";
@@ -75,6 +76,7 @@ const StatusSection = () => {
   const { data, refetch } = useUserQueries.useGetUser();
   const [isOpen, setIsOpen] = useState(data?.emotion === "EMPTY");
   const [hoverEmotion, setHoverEmotion] = useState<string | null>(null);
+  const { showAlert } = useAlert();
 
   const { mutate } = useMutation({
     mutationFn: useUserMutations.updateUserEmotion,
@@ -83,7 +85,7 @@ const StatusSection = () => {
       setIsOpen(false);
     },
     onError: () => {
-      alert("감정 업데이트 실패");
+      showAlert("감정 업데이트 실패", "error");
     },
   });
 

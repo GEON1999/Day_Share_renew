@@ -9,10 +9,11 @@ import SecessionConfirmModal from "@/components/modal/SecessionConfirmModal";
 import ImageCropComponent from "@/components/common/ImageCropComponent";
 import { IconSetting } from "@/icons";
 import { useRouter } from "next/navigation";
-
+import { useAlert } from "@/components/alert/AlertContext";
 const Setting = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const { showAlert } = useAlert();
   const { data: userData, isLoading: userIsLoading } =
     useUserQueries.useGetUser();
 
@@ -32,11 +33,11 @@ const Setting = () => {
 
     updateUser(submitData, {
       onSuccess: (result: any) => {
-        alert("성공");
+        showAlert("프로필 정보 업데이트에 성공하였습니다.", "success");
         window.location.reload();
       },
       onError: (error) => {
-        alert("실패");
+        showAlert("프로필 정보 업데이트에 실패하였습니다.", "error");
       },
     });
   };

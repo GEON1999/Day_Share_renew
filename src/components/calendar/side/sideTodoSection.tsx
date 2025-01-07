@@ -7,13 +7,14 @@ import { IconCheck_o, IconCheck_x, IconEmptyTodo } from "@/icons";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
 import Helper from "@/helper/Helper";
 import { useState } from "react";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const SideTodoSection = () => {
   const router = useRouter();
   const currentTodoPage = useSearch.useSearchTodoPage();
   const id = useSearch.useSearchId();
   const [isSubmit, setIsSubmit] = useState(false);
-
+  const { showAlert } = useAlert();
   const {
     data: todoData,
     isLoading: todoLoading,
@@ -35,12 +36,11 @@ const SideTodoSection = () => {
       { calendarId: calId, todoId },
       {
         onSuccess: () => {
-          console.log("성공");
           refetch();
           setIsSubmit(false);
         },
         onError: () => {
-          console.log("실패");
+          showAlert("일정 완료에 실패했습니다.", "error");
           setIsSubmit(false);
         },
       }

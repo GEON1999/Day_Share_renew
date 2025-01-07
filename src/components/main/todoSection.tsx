@@ -13,10 +13,12 @@ import {
   IconStar_x,
 } from "@/icons";
 import Helper from "@/helper/Helper";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const TodoSection = () => {
   const router = useRouter();
   const currentTodoPage = useSearch.useSearchTodoPage();
+  const { showAlert } = useAlert();
 
   const {
     data: todoData,
@@ -40,11 +42,10 @@ const TodoSection = () => {
       { calendarId: calId, todoId },
       {
         onSuccess: () => {
-          console.log("성공");
           refetch();
         },
         onError: () => {
-          console.log("실패");
+          showAlert("일정 완료에 실패했습니다.", "error");
         },
       }
     );

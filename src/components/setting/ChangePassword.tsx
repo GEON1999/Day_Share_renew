@@ -5,10 +5,11 @@ import { useMutation } from "@tanstack/react-query";
 import useUserMutations from "@/queries/user/useUserMutations";
 import { IconSetting } from "@/icons";
 import { useRouter } from "next/navigation";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const ChangePassword = () => {
   const router = useRouter();
-
+  const { showAlert } = useAlert();
   const { handleSubmit, register } = useForm();
 
   const { mutate: updatePassword } = useMutation({
@@ -17,7 +18,7 @@ const ChangePassword = () => {
 
   const onSubmit = async (formData: any) => {
     if (formData.password !== formData.password_check) {
-      alert("비밀번호가 일치하지 않습니다.");
+      showAlert("비밀번호가 일치하지 않습니다.", "error");
       return;
     }
     const submitData = {
@@ -27,11 +28,11 @@ const ChangePassword = () => {
 
     updatePassword(submitData, {
       onSuccess: (result: any) => {
-        alert("성공");
+        showAlert("비밀번호 변경에 성공하였습니다.", "success");
         router.push("/setting");
       },
       onError: (error: any) => {
-        alert("실패");
+        showAlert("비밀번호 변경에 실패하였습니다.", "error");
       },
     });
   };

@@ -8,6 +8,7 @@ import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useSearch from "@/hooks/useSearch";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import ImageCropComponent from "@/components/common/ImageCropComponent";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const ChangeProfile = () => {
   const router = useRouter();
@@ -16,7 +17,7 @@ const ChangeProfile = () => {
     useCalendarQueries.useGetCalendarUserInfo(id);
   const [userImg, setUserImg] = useState(calendarUserData?.img ?? "");
   const [isSubmit, setIsSubmit] = useState(false);
-
+  const { showAlert } = useAlert();
   const { handleSubmit, register } = useForm();
 
   const { mutate: updateCalendarUserInfo } = useMutation({
@@ -32,11 +33,11 @@ const ChangeProfile = () => {
       {
         onSuccess: (result) => {
           if (result) {
-            alert("달력이 수정 되었습니다.");
+            showAlert("달력 프로필이 수정 되었습니다.", "success");
             window.location.reload();
             setIsSubmit(false);
           } else {
-            alert(data?.data?.message ?? "달력 수정에 실패하였습니다.");
+            showAlert("달력 프로필 수정에 실패하였습니다.", "error");
             setIsSubmit(false);
           }
         },

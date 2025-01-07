@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import TodoDetailModal from "@/components/calendar/todo/todoDetailModal";
 import TodoCreate from "./todoCreate";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const TodoList = () => {
   const router = useRouter();
@@ -17,6 +18,7 @@ const TodoList = () => {
   const calendarTodoPage = useSearch.useSearchCalendarTodoPage();
   const [isOpen, setIsOpen] = useState(false);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     setIsOpen(false);
@@ -47,11 +49,10 @@ const TodoList = () => {
       { calendarId: calId, todoId },
       {
         onSuccess: () => {
-          console.log("성공");
           refetch();
         },
         onError: () => {
-          console.log("실패");
+          showAlert("일정 완료에 실패했습니다.", "error");
         },
       }
     );

@@ -10,12 +10,13 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import Image from "@tiptap/extension-image";
 import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "@/components/common/toolbar";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const DiaryEditMode = ({ setEditorMode }: any) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const id = useSearch.useSearchId();
   const diaryId = useSearch.useSearchDiaryId();
-
+  const { showAlert } = useAlert();
   const { register, handleSubmit } = useForm();
 
   const {
@@ -46,12 +47,13 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
       { calendarId: id, diaryId, body: submitData },
       {
         onSuccess: (result: any) => {
+          showAlert("일기가 수정되었습니다.", "success");
           diaryRefetch();
           setEditorMode(false);
           setIsSubmit(false);
         },
         onError: () => {
-          console.log("error");
+          showAlert("일기 수정에 실패했습니다.", "error");
           setIsSubmit(false);
         },
       }

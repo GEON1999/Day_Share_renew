@@ -8,11 +8,13 @@ import React, { useState } from "react";
 import "react-image-crop/dist/ReactCrop.css";
 import ImageCropComponent from "@/components/common/ImageCropComponent";
 import { IconKakao, IconLogoHoriz } from "@/icons";
+import { useAlert } from "@/components/alert/AlertContext";
 
 function SignupClientPage() {
   const [userImg, setUserImg] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
   const router = useRouter();
+  const { showAlert } = useAlert();
 
   const { handleSubmit, register } = useForm();
 
@@ -35,11 +37,12 @@ function SignupClientPage() {
     };
     mutate(submitData, {
       onSuccess: () => {
+        showAlert("회원가입이 완료되었습니다.", "success");
         router.push("/login");
         setIsSubmit(false);
       },
       onError: () => {
-        alert("회원가입에 실패했습니다.");
+        showAlert("회원가입에 실패했습니다.", "error");
         setIsSubmit(false);
       },
     });

@@ -7,12 +7,14 @@ import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import DeleteModal from "@/components/modal/DeleteModal";
 import CalendarUserPagination from "@/components/pagination/calendarUserPagination";
 import { emotionData } from "@/components/main/statusSection";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const SideUserList = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const id = useSearch.useSearchId();
   const currentUserPage = useSearch.useSearchUserPage();
   const [deleteUserId, setDeleteUserId] = useState<null | Number>(null);
+  const { showAlert } = useAlert();
 
   const { data: userList, isLoading: userListLoading } =
     useCalendarQueries.useGetCalendarPermissionList(
@@ -30,14 +32,14 @@ const SideUserList = () => {
       {
         onSuccess: (result) => {
           if (result) {
-            alert("유저 추방에 성공하였습니다.");
+            showAlert("유저 추방에 성공하였습니다.", "success");
           } else {
-            alert("유저 추방에 실패하였습니다.");
+            showAlert("유저 추방에 실패하였습니다.", "error");
           }
           window.location.reload();
         },
         onError: () => {
-          console.log("실패");
+          showAlert("유저 추방에 실패하였습니다.", "error");
         },
       }
     );

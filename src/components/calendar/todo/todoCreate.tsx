@@ -9,8 +9,7 @@ import { useForm } from "react-hook-form";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import { TimePicker } from "antd";
-import { throttle } from "lodash";
-import StaticKeys from "@/keys/StaticKeys";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const TodoCreate = ({ setIsOpen, refetch }: any) => {
   const id = useSearch.useSearchId();
@@ -22,6 +21,7 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
     dayjs(Number(date)).hour(11).minute(0)
   );
   const [isSubmit, setIsSubmit] = useState(false);
+  const { showAlert } = useAlert();
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -53,13 +53,14 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
       { calendarId: id, query: `date=${date}`, body: updatedData },
       {
         onSuccess: async (result: any) => {
+          showAlert("일정이 등록되었습니다.", "success");
           await refetch();
           reset();
           setIsOpen(false);
           setIsSubmit(false);
         },
         onError: () => {
-          console.log("error");
+          showAlert("일정 등록에 실패했습니다.", "error");
           setIsSubmit(false);
         },
       }

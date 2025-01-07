@@ -2,9 +2,10 @@ import { useMutation } from "@tanstack/react-query";
 import useSearch from "@/hooks/useSearch";
 import useCommentMutations from "@/queries/comment/useCommentMutations";
 import { useForm } from "react-hook-form";
-
+import { useAlert } from "@/components/alert/AlertContext";
 const EditCommentModal = ({ setIsOpen, commentData }: any) => {
   const id = useSearch.useSearchId();
+  const { showAlert } = useAlert();
 
   const { register, handleSubmit } = useForm();
 
@@ -18,14 +19,14 @@ const EditCommentModal = ({ setIsOpen, commentData }: any) => {
       {
         onSuccess: (result) => {
           if (result) {
-            alert("댓글 수정에 성공하였습니다.");
+            showAlert("댓글 수정에 성공하였습니다.", "success");
           } else {
-            alert("댓글 수정에 실패하였습니다.");
+            showAlert("댓글 수정에 실패하였습니다.", "error");
           }
           window.location.reload();
         },
         onError: () => {
-          console.log("실패");
+          showAlert("댓글 수정에 실패하였습니다.", "error");
         },
       }
     );

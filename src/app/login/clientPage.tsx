@@ -4,11 +4,13 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { IconCheck_o, IconCheck_x, IconKakao, IconLogo } from "@/icons";
+import { useAlert } from "@/components/alert/AlertContext";
 
 function LoginClientPage() {
   const [isAutoLogin, setIsAutoLogin] = React.useState(false);
   const router = useRouter();
   const { handleSubmit, register } = useForm();
+  const { showAlert } = useAlert();
 
   const onSubmit = async (formData: any) => {
     const result = await signIn("credentials", {
@@ -19,9 +21,10 @@ function LoginClientPage() {
       auto: isAutoLogin,
     });
     if (result?.ok) {
+      showAlert("로그인에 성공했습니다.", "success");
       router.push("/");
     } else if (result?.error) {
-      alert("로그인에 실패했습니다.");
+      showAlert("로그인에 실패했습니다.", "error");
     }
   };
 

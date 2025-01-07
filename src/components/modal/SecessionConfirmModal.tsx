@@ -1,12 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import useUserMutations from "@/queries/user/useUserMutations";
-import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { IconX } from "@/icons";
-
+import { useAlert } from "@/components/alert/AlertContext";
 const SecessionConfirmModal = ({ setIsOpen }: any) => {
-  const router = useRouter();
-
+  const { showAlert } = useAlert();
   const { mutate: deleteUser } = useMutation({
     mutationFn: useUserMutations.deleteUser,
   });
@@ -17,14 +15,14 @@ const SecessionConfirmModal = ({ setIsOpen }: any) => {
       {
         onSuccess: (result) => {
           if (result) {
-            alert("탈퇴에 성공하였습니다.");
+            showAlert("탈퇴에 성공하였습니다.", "success");
           } else {
-            alert("탈퇴에 실패하였습니다.");
+            showAlert("탈퇴에 실패하였습니다.", "error");
           }
           signOut();
         },
         onError: () => {
-          console.log("실패");
+          showAlert("탈퇴에 실패하였습니다.", "error");
         },
       }
     );

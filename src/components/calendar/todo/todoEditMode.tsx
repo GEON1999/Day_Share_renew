@@ -9,6 +9,7 @@ import { IconNext, IconX } from "@/icons";
 import { TimePicker } from "antd";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const TodoEditMode = ({ setEditorMode }: any) => {
   const id = useSearch.useSearchId();
@@ -24,6 +25,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [startTime, setStartTime] = useState<Dayjs>(dayjs(data?.startAt));
   const [endTime, setEndTime] = useState<Dayjs>(dayjs(data?.endAt));
+  const { showAlert } = useAlert();
 
   const handleStartTimeChange = (value: any) => {
     setStartTime(value);
@@ -36,7 +38,6 @@ const TodoEditMode = ({ setEditorMode }: any) => {
   const { mutate: updateTodo } = useMutation({
     mutationFn: useTodoMutations.updateTodo,
   });
-
   const onSubmit = (formData: any) => {
     if (isSubmit) return;
     setIsSubmit(true);
@@ -52,12 +53,13 @@ const TodoEditMode = ({ setEditorMode }: any) => {
       { calendarId: id, todoId, body: updatedData },
       {
         onSuccess: (result: any) => {
+          showAlert("일정이 수정되었습니다.", "success");
           todoReFetch();
           setEditorMode(false);
           setIsSubmit(false);
         },
         onError: () => {
-          console.log("error");
+          showAlert("일정 수정에 실패했습니다.", "error");
           setIsSubmit(false);
         },
       }

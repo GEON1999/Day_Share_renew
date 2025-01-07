@@ -13,8 +13,8 @@ import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
 import DeleteModal from "@/components/modal/DeleteModal";
 import { useRouter } from "next/navigation";
-import StaticKeys from "@/keys/StaticKeys";
 import { IconComment, IconEdit, IconHeart, IconX } from "@/icons";
+import { useAlert } from "@/components/alert/AlertContext";
 
 const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   const router = useRouter();
@@ -26,6 +26,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   const id = useSearch.useSearchId();
   const todoId = useSearch.useSearchQueryTodoId();
   const query = `contentType=todo&contentId=${todoId}`;
+  const { showAlert } = useAlert();
 
   const menuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
@@ -103,13 +104,14 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
       { calendarId: id, query, body: data },
       {
         onSuccess: () => {
+          showAlert("댓글이 등록되었습니다.", "success");
           commentRefetch();
           refetch();
           commentReset();
           setIsCommentSubmit(false);
         },
         onError: () => {
-          console.log("error");
+          showAlert("댓글 등록에 실패했습니다.", "error");
           setIsCommentSubmit(false);
         },
       }
@@ -120,10 +122,9 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
     toggleLike(query, {
       onSuccess: () => {
         refetch();
-        console.log("success");
       },
       onError: () => {
-        console.log("error");
+        showAlert("좋아요 등록에 실패했습니다.", "error");
       },
     });
   };
@@ -135,19 +136,19 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
         {
           onSuccess: (result) => {
             if (result) {
-              alert("댓글 삭제에 성공하였습니다.");
+              showAlert("댓글 삭제에 성공하였습니다.", "success");
             } else {
-              alert("댓글 삭제에 실패하였습니다.");
+              showAlert("댓글 삭제에 실패하였습니다.", "error");
             }
             commentRefetch();
           },
           onError: () => {
-            console.log("실패");
+            showAlert("댓글 삭제에 실패했습니다.", "error");
           },
         }
       );
     } else {
-      alert("본인의 댓글만 삭제할 수 있습니다.");
+      showAlert("본인의 댓글만 삭제할 수 있습니다.", "error");
     }
   };
 
@@ -159,11 +160,12 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
       { calendarId: id, todoId },
       {
         onSuccess: () => {
+          showAlert("일정이 삭제되었습니다.", "success");
           setIsDetailOpen(false);
           router.push(`/calendar/${id}?date=${Helper.getTodayMs()}`);
         },
         onError: () => {
-          console.log("error");
+          showAlert("일정 삭제에 실패했습니다.", "error");
         },
       }
     );
@@ -178,7 +180,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
       setEditingCommentId(comment.id);
       setActiveCommentId(null);
     } else {
-      alert("본인의 댓글만 수정할 수 있습니다.");
+      showAlert("본인의 댓글만 수정할 수 있습니다.", "error");
     }
   };
 
@@ -194,12 +196,13 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
       { calendarId: id, commentId: editingCommentId, body: formData },
       {
         onSuccess: () => {
+          showAlert("댓글이 수정되었습니다.", "success");
           commentRefetch();
           setEditingCommentId(null);
           editReset();
         },
         onError: () => {
-          console.log("실패");
+          showAlert("댓글 수정에 실패했습니다.", "error");
         },
       }
     );
