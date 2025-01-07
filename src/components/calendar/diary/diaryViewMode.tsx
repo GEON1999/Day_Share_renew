@@ -14,7 +14,13 @@ import { useRouter } from "next/navigation";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import useDiaryMutations from "@/queries/diary/useDiaryMutations";
 import parse from "html-react-parser";
-import { IconComment, IconEdit, IconHeart, IconNextGray } from "@/icons";
+import {
+  IconComment,
+  IconEdit,
+  IconHeart,
+  IconHeartEmpty,
+  IconNextGray,
+} from "@/icons";
 import { useAlert } from "@/components/alert/AlertContext";
 
 const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
@@ -65,6 +71,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     isLoading,
     refetch: diaryRefetch,
   } = useDiaryQueries.useGetDiaryDetail(id, diaryId);
+  console.log("diaryData", data);
   const { data: userData } = useCalendarQueries.useGetCalendarUserInfo(id);
   const { data: calendarData } = useCalendarQueries.useGetCalendarBasic(id);
   const options = {
@@ -268,8 +275,18 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       <div className="flex border-t space-x-4 mt-[75px]">
         <div className="flex items-center space-x-6 mt-[10px]">
           <div className="flex items-center space-x-2  ">
-            <IconHeart onClick={handleToggleLike} className="w-5 h-5 cur" />
-            <div>{likeData}</div>
+            {likeData?.is_liked ? (
+              <IconHeart
+                onClick={handleToggleLike}
+                className="w-[19.65px] h-[17.65px] cur"
+              />
+            ) : (
+              <IconHeartEmpty
+                onClick={handleToggleLike}
+                className="w-[19.65px] h-[17.65px] cur"
+              />
+            )}
+            <div>{likeData?.likes_count}</div>
           </div>
           <div className="flex items-center space-x-2">
             <IconComment onClick={handleOpenComment} className="w-5 h-5 cur" />

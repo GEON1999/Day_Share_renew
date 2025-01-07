@@ -13,7 +13,13 @@ import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
 import DeleteModal from "@/components/modal/DeleteModal";
 import { useRouter } from "next/navigation";
-import { IconComment, IconEdit, IconHeart, IconX } from "@/icons";
+import {
+  IconComment,
+  IconEdit,
+  IconHeart,
+  IconHeartEmpty,
+  IconX,
+} from "@/icons";
 import { useAlert } from "@/components/alert/AlertContext";
 
 const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
@@ -294,11 +300,18 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
             <div className="px-[10px]">
               <div className="flex items-center space-x-[23px] py-[15px]  border-t ">
                 <div className="flex items-center space-x-[4.7px]">
-                  <IconHeart
-                    onClick={handleToggleLike}
-                    className="w-[17.65px] h-[17.65px] cur"
-                  />
-                  <div>{likeData}</div>
+                  {likeData?.is_liked ? (
+                    <IconHeart
+                      onClick={handleToggleLike}
+                      className="w-[19.65px] h-[17.65px] cur"
+                    />
+                  ) : (
+                    <IconHeartEmpty
+                      onClick={handleToggleLike}
+                      className="w-[19.65px] h-[17.65px] cur"
+                    />
+                  )}
+                  <div>{likeData?.likes_count}</div>
                 </div>
                 <div className="flex items-center space-x-[7px]">
                   <IconComment

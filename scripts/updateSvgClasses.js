@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 // SVG 파일이 있는 디렉토리 경로
-const svgDirectory = "./src/icons";
+const svgDirectory = "../src/icons";
 
 // 디렉토리 내 모든 SVG 파일을 읽어 처리
 fs.readdir(svgDirectory, (err, files) => {
