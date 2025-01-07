@@ -14,7 +14,6 @@ import { useRouter } from "next/navigation";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import useDiaryMutations from "@/queries/diary/useDiaryMutations";
 import parse from "html-react-parser";
-import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
 import { IconComment, IconEdit, IconHeart, IconNextGray } from "@/icons";
 
@@ -107,7 +106,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
 
   const handleClickdeleteDiary = () => setIsDiaryModalOpen(true);
 
-  const onCommentSubmit = debounce((data: any) => {
+  const onCommentSubmit = (data: any) => {
     createComment(
       { calendarId: id, query, body: data },
       {
@@ -122,7 +121,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
         },
       }
     );
-  }, StaticKeys.DEBOUNCE_TIME);
+  };
 
   const handleToggleLike = () => {
     toggleLike(query, {

@@ -8,7 +8,6 @@ import Image from "@tiptap/extension-image";
 import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "@/components/common/toolbar";
 import { useRouter } from "next/navigation";
-import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
 import Placeholder from "@tiptap/extension-placeholder";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
@@ -38,7 +37,7 @@ const DiaryCreate = () => {
     mutationFn: useDiaryMutations.createDiary,
   });
 
-  const onSubmit = debounce((formData: any) => {
+  const onSubmit = (formData: any) => {
     const thumnail = editor?.getHTML().split("<img")[1]?.split('"')[1];
     const submitData = {
       ...formData,
@@ -57,7 +56,7 @@ const DiaryCreate = () => {
         },
       }
     );
-  }, StaticKeys.DEBOUNCE_TIME);
+  };
 
   return (
     <div className="main_container center">

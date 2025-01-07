@@ -9,7 +9,6 @@ import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useSearch from "@/hooks/useSearch";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import StaticKeys from "@/keys/StaticKeys";
-import { debounce } from "lodash";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import LeaveCalendar from "@/components/modal/LeaveCalendar";
 
@@ -52,7 +51,7 @@ const CalendarSetting = () => {
     );
   };
 
-  const reloadInviteCode = debounce(() => {
+  const reloadInviteCode = () => {
     createInviteCode(id, {
       onSuccess: (result) => {
         if (result) {
@@ -66,7 +65,7 @@ const CalendarSetting = () => {
         alert("초대코드 생성에 실패하였습니다.");
       },
     });
-  }, StaticKeys.DEBOUNCE_TIME);
+  };
 
   const handleChangeProfile = () =>
     router.push(`/calendar/${id}/setting/changeProfile`);

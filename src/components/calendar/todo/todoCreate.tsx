@@ -2,10 +2,8 @@
 import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
 import { IconNext, IconX } from "@/icons";
-import StaticKeys from "@/keys/StaticKeys";
 import useTodoMutations from "@/queries/todo/useTodoMutations";
 import { useMutation } from "@tanstack/react-query";
-import { debounce } from "lodash";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { Dayjs } from "dayjs";
@@ -36,7 +34,7 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
     setEndTime(value);
   };
 
-  const onSubmit = debounce((formData: any) => {
+  const onSubmit = async (formData: any) => {
     const startAtUTC = dayjs(startTime).format();
     const endAtUTC = dayjs(endTime).format();
 
@@ -45,6 +43,7 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
       startAt: startAtUTC,
       endAt: endAtUTC,
     };
+
     createTodo(
       { calendarId: id, query: `date=${date}`, body: updatedData },
       {
@@ -58,7 +57,7 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
         },
       }
     );
-  }, StaticKeys.DEBOUNCE_TIME);
+  };
 
   const handleClose = () => {
     setIsOpen(false);

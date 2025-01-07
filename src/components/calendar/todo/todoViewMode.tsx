@@ -13,7 +13,6 @@ import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
 import DeleteModal from "@/components/modal/DeleteModal";
 import { useRouter } from "next/navigation";
-import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
 import { IconComment, IconEdit, IconHeart, IconX } from "@/icons";
 
@@ -96,7 +95,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
 
   const handleClickDeleteTodo = () => setIsTodoModalOpen(true);
 
-  const onCommentSubmit = debounce((data: any) => {
+  const onCommentSubmit = (data: any) => {
     createComment(
       { calendarId: id, query, body: data },
       {
@@ -110,7 +109,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
         },
       }
     );
-  }, StaticKeys.DEBOUNCE_TIME);
+  };
 
   const handleToggleLike = () => {
     toggleLike(query, {

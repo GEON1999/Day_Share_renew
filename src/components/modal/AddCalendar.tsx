@@ -2,7 +2,6 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
-import { debounce } from "lodash";
 import StaticKeys from "@/keys/StaticKeys";
 import { IconNextBig, IconX } from "@/icons";
 import CalendarImgCrop from "@/components/common/CalendarImgCrop";
@@ -21,7 +20,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
   const { register: inviteRegister, handleSubmit: inviteHandleSubmit } =
     useForm();
 
-  const onSubmit = debounce((data: any) => {
+  const onSubmit = (data: any) => {
     const formData = { ...data, img: image };
     createCalendar(formData, {
       onSuccess: (result) => {
@@ -34,7 +33,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
         }
       },
     });
-  }, StaticKeys.DEBOUNCE_TIME);
+  };
 
   const onInviteSubmit = (data: any) => {
     getInvtedCalendar(data.code, {
