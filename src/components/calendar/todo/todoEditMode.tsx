@@ -21,7 +21,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
     isLoading,
     refetch: todoReFetch,
   } = useTodoQueries.useGetTodoDetail(id, todoId ?? "");
-  console.log("data", data);
+  console.log("data", dayjs(data?.startAt));
 
   const [startTime, setStartTime] = useState<Dayjs>(dayjs(data?.startAt));
   const [endTime, setEndTime] = useState<Dayjs>(dayjs(data?.endAt));
@@ -39,12 +39,13 @@ const TodoEditMode = ({ setEditorMode }: any) => {
   });
 
   const onSubmit = (formData: any) => {
-    const { startAt, endAt } = Helper.setAt({ data, formData });
+    const startAtUTC = dayjs(startTime).format();
+    const endAtUTC = dayjs(endTime).format();
 
     const updatedData = {
       ...formData,
-      startAt: startAt,
-      endAt: endAt,
+      startAt: startAtUTC,
+      endAt: endAtUTC,
     };
     updateTodo(
       { calendarId: id, todoId, body: updatedData },
