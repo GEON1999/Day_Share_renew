@@ -220,142 +220,150 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   // }, []);
 
   return (
-    <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px]  noto-sans-text overflow-y-auto overflow-x-visible">
+    <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px] noto-sans-text flex flex-col justify-between">
       {isLoading ? (
         <div className="loading spinner " />
       ) : (
         <>
-          <div
-            className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
-            onClick={handleCancel}
-          >
-            <IconX className="w-full h-full" />
-          </div>
-          <h1 className="-mt-[10px] text-[20px] flex items-center space-x-[10px]">
-            <span>{Helper.formatDateForTodoDetail(data?.date)}</span>
-            <span className="text-[15px] mb-[3px]">|</span>
-            <span>
-              {Helper.formatTimeForTodoDetail(data?.startAt, data?.endAt)}
-            </span>
-          </h1>
-          <div className="flex items-center mt-[20px] space-x-[13px] ml-[15px]">
-            <div className="w-[10px] h-[10px] rounded-full bg-[#494949]" />
-            <p className="text-[30px] dodum-text">{data?.title}</p>
-          </div>
-          <div className="ml-[20px] -mt-[10px] border-l py-[28px] pl-[18px] w-[440px]">
-            <p className="text-[20px]">{data?.content}</p>
-          </div>
-          <div className="flex items-center justify-between mt-[5px] px-[10px]">
-            <div className="flex items-center">
-              <img
-                src={
-                  calendarProfile?.img == "" || calendarProfile?.img == null
-                    ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                    : calendarProfile?.img
-                }
-                className="w-[20px] h-[20px] rounded-full bor object-cover"
-              />
-              <p className="text-[20px] ml-[8px] mr-[12px]">
-                {calendarProfile?.name ?? "탈퇴한 유저"}
-              </p>
-              <p className="text-[15px] opacity-50">
-                {Helper.formatDateForComment(data?.createdAt)} 등록
-              </p>
+          <div>
+            <div
+              className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
+              onClick={handleCancel}
+            >
+              <IconX className="w-full h-full" />
             </div>
-            <div className="flex items-center space-x-[4px] text-[15px]">
-              <button onClick={handleEditorMode} className="btn_transparent_sm">
-                수정
-              </button>
-              <button
-                onClick={handleClickDeleteTodo}
-                className="btn_transparent_sm"
-              >
-                삭제
-              </button>
-              {/* <button className="rounded w-[40px] h-[25px] bor">공유</button> */}
-            </div>
-          </div>
-          <div className="px-[10px]">
-            <div className="flex items-center space-x-[23px] mt-[15px] py-[15px]  border-t ">
-              <div className="flex items-center space-x-[4.7px]">
-                <IconHeart
-                  onClick={handleToggleLike}
-                  className="w-[17.65px] h-[17.65px] cur"
-                />
-                <div>{likeData}</div>
+            <h1 className="-mt-[10px] text-[20px] flex items-center space-x-[10px]">
+              <span>{Helper.formatDateForTodoDetail(data?.date)}</span>
+              <span className="text-[15px] mb-[3px]">|</span>
+              <span>
+                {Helper.formatTimeForTodoDetail(data?.startAt, data?.endAt)}
+              </span>
+            </h1>
+            <div className="overflow-y-auto h-[220px]">
+              <div className="flex items-center mt-[20px] space-x-[13px] ml-[15px]">
+                <div className="w-[10px] h-[10px] rounded-full bg-[#494949]" />
+                <p className="text-[30px] dodum-text">{data?.title}</p>
               </div>
-              <div className="flex items-center space-x-[7px]">
-                <IconComment
-                  onClick={handleOpenComment}
-                  className="w-[17.65px] h-[17.65px]"
-                />
-                <div>{commentData ? commentData.length : "0"}</div>
+              <div className="ml-[20px] -mt-[10px] border-l py-[28px] pl-[18px] w-[440px]">
+                <p className="text-[20px]">{data?.content}</p>
+              </div>
+              <div className="flex items-center justify-between mt-[5px] px-[10px]">
+                <div className="flex items-center">
+                  <img
+                    src={
+                      calendarProfile?.img == "" || calendarProfile?.img == null
+                        ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                        : calendarProfile?.img
+                    }
+                    className="w-[20px] h-[20px] rounded-full bor object-cover"
+                  />
+                  <p className="text-[20px] ml-[8px] mr-[12px]">
+                    {calendarProfile?.name ?? "탈퇴한 유저"}
+                  </p>
+                  <p className="text-[15px] opacity-50">
+                    {Helper.formatDateForComment(data?.createdAt)} 등록
+                  </p>
+                </div>
+                <div className="flex items-center space-x-[4px] text-[15px]">
+                  <button
+                    onClick={handleEditorMode}
+                    className="btn_transparent_sm"
+                  >
+                    수정
+                  </button>
+                  <button
+                    onClick={handleClickDeleteTodo}
+                    className="btn_transparent_sm"
+                  >
+                    삭제
+                  </button>
+                  {/* <button className="rounded w-[40px] h-[25px] bor">공유</button> */}
+                </div>
               </div>
             </div>
           </div>
-          <div className="mt-[5px] space-y-[26px] text-[15px] px-[10px]">
-            {commentData?.map((comment: any) => {
-              console.log(comment);
-              return (
-                <div
-                  key={comment.comment.id}
-                  className="flex justify-between items-center relative"
-                >
-                  <div className="flex items-start space-x-[15px]">
-                    <img
-                      className="w-[45px] h-[45px] rounded-full bor object-cover"
-                      src={
-                        comment?.profile?.img == "" ||
-                        comment?.profile?.img == null
-                          ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                          : comment?.profile?.img
-                      }
-                    />
-                    {editingCommentId === comment.comment.id ? (
-                      <form
-                        className="w-[432px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
-                        onSubmit={editHandleSubmit(onEditSubmit)}
-                      >
-                        <input
-                          className="w-full h-[37px] px-[10px] border-b  rounded-t-md outline-none"
-                          type="text"
-                          {...editRegister(`content_${comment.comment.id}`, {
-                            value: comment.comment.content,
-                          })}
-                        />
-                        <div className="w-full h-[37px] flex items-center justify-end px-[10px] space-x-[4px]">
-                          <button
-                            onClick={() => setEditingCommentId(null)}
-                            type="button"
-                            className="w-[40px] h-[25px] rounded-md bor btn_while"
-                          >
-                            취소
-                          </button>
-                          <button
-                            type="submit"
-                            className="w-[40px] h-[25px] rounded-md bor btn_while"
-                          >
-                            등록
-                          </button>
+          <div>
+            <div className="px-[10px]">
+              <div className="flex items-center space-x-[23px] py-[15px]  border-t ">
+                <div className="flex items-center space-x-[4.7px]">
+                  <IconHeart
+                    onClick={handleToggleLike}
+                    className="w-[17.65px] h-[17.65px] cur"
+                  />
+                  <div>{likeData}</div>
+                </div>
+                <div className="flex items-center space-x-[7px]">
+                  <IconComment
+                    onClick={handleOpenComment}
+                    className="w-[17.65px] h-[17.65px]"
+                  />
+                  <div>{commentData ? commentData.length : "0"}</div>
+                </div>
+              </div>
+            </div>
+            <div className="mt-[5px] space-y-[26px] text-[15px] px-[10px] overflow-y-auto h-[300px]">
+              {commentData?.map((comment: any) => {
+                console.log(comment);
+                return (
+                  <div
+                    key={comment.comment.id}
+                    className="flex justify-between items-center relative"
+                  >
+                    <div className="flex items-start space-x-[15px]">
+                      <img
+                        className="w-[45px] h-[45px] rounded-full bor object-cover"
+                        src={
+                          comment?.profile?.img == "" ||
+                          comment?.profile?.img == null
+                            ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                            : comment?.profile?.img
+                        }
+                      />
+                      {editingCommentId === comment.comment.id ? (
+                        <form
+                          className="w-[432px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
+                          onSubmit={editHandleSubmit(onEditSubmit)}
+                        >
+                          <input
+                            className="w-full h-[37px] px-[10px] border-b  rounded-t-md outline-none"
+                            type="text"
+                            {...editRegister(`content_${comment.comment.id}`, {
+                              value: comment.comment.content,
+                            })}
+                          />
+                          <div className="w-full h-[37px] flex items-center justify-end px-[10px] space-x-[4px]">
+                            <button
+                              onClick={() => setEditingCommentId(null)}
+                              type="button"
+                              className="w-[40px] h-[25px] rounded-md bor btn_while"
+                            >
+                              취소
+                            </button>
+                            <button
+                              type="submit"
+                              className="w-[40px] h-[25px] rounded-md bor btn_while"
+                            >
+                              등록
+                            </button>
+                          </div>
+                        </form>
+                      ) : (
+                        <div className="space-y-[5px]">
+                          <div className="flex items-center space-x-[10px]">
+                            <h1 className="font-bold">
+                              {comment?.profile?.name}
+                            </h1>
+                            <p className="opacity-50">
+                              {Helper.formatDateForComment(
+                                comment?.comment?.createdAt
+                              )}
+                            </p>
+                          </div>
+                          <p className="w-[375px]">{comment.comment.content}</p>
                         </div>
-                      </form>
-                    ) : (
-                      <div className="space-y-[5px]">
-                        <div className="flex items-center space-x-[10px]">
-                          <h1 className="font-bold">
-                            {comment?.profile?.name}
-                          </h1>
-                          <p className="opacity-50">
-                            {Helper.formatDateForComment(
-                              comment?.comment?.createdAt
-                            )}
-                          </p>
-                        </div>
-                        <p>{comment.comment.content}</p>
-                      </div>
-                    )}
-                  </div>
-                  {/* <img
+                      )}
+                    </div>
+                    {/* <img
                 onClick={() => {
                   handleClickEditComment(comment.comment);
                 }}
@@ -367,62 +375,65 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                 src="https://s3.ap-northeast-2.amazonaws.com/geon.com/test_1729079615050.png"
                 className="w-5 h-5 cur"
               /> */}
-                  {editingCommentId === comment.comment.id ? null : (
-                    <>
-                      <div
-                        className="w-[30px] h-[30px] rounded-full flex items-center justify-center hover:bg-[#49494910] cur "
-                        onClick={() => handleSettingComment(comment)}
-                      >
-                        <IconEdit className="w-[6px] h-[18px]" />
-                      </div>
-                      <div
-                        ref={(el) => {
-                          menuRefs.current[comment.comment.id] = el;
-                        }}
-                        className={`absolute right-[-51px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-[15px] rounded-md shadow_box z-99 ${
-                          activeCommentId === comment.comment.id ? "" : "hidden"
-                        }`}
-                      >
-                        <button
-                          onClick={() => handleEditClick(comment.comment)}
-                          type="button"
-                          className="w-[55px] h-[50%] border-b "
+                    {editingCommentId === comment.comment.id ? null : (
+                      <>
+                        <div
+                          className=" relative w-[30px] h-[30px] rounded-full flex items-center justify-center hover:bg-[#49494910] cur "
+                          onClick={() => handleSettingComment(comment)}
                         >
-                          수정
-                        </button>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleClickDeleteComment();
-                          }}
-                          className="w-[55px] h-[50%]"
-                        >
-                          삭제
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          <form
-            onSubmit={commentHandleSubmit(onCommentSubmit)}
-            className="mt-[35px] flex items-center space-x-[10px] px-[10px]"
-          >
-            <input
-              className="w-[420px] h-[35px] rounded-md px-[10px] bor text-[15px] focus:outline-none"
-              placeholder="댓글을 남겨보세요."
-              {...commentRegister("content")}
-            />
-            <button
-              type="submit"
-              className="w-[60px] h-[35px] rounded-md bor text-[20px] btn_hilight"
+                          <IconEdit className="w-[6px] h-[18px]" />
+                          <div
+                            ref={(el) => {
+                              menuRefs.current[comment.comment.id] = el;
+                            }}
+                            className={`absolute right-[30px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-[15px] rounded-md shadow_box z-99 ${
+                              activeCommentId === comment.comment.id
+                                ? ""
+                                : "hidden"
+                            }`}
+                          >
+                            <button
+                              onClick={() => handleEditClick(comment.comment)}
+                              type="button"
+                              className="w-[55px] h-[50%] border-b "
+                            >
+                              수정
+                            </button>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleClickDeleteComment();
+                              }}
+                              className="w-[55px] h-[50%]"
+                            >
+                              삭제
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <form
+              onSubmit={commentHandleSubmit(onCommentSubmit)}
+              className="mt-[35px] flex items-center space-x-[10px] px-[10px]"
             >
-              등록
-            </button>
-          </form>
+              <input
+                className="w-[420px] h-[35px] rounded-md px-[10px] bor text-[15px] focus:outline-none"
+                placeholder="댓글을 남겨보세요."
+                {...commentRegister("content")}
+              />
+              <button
+                type="submit"
+                className="w-[60px] h-[35px] rounded-md bor text-[20px] btn_hilight"
+              >
+                등록
+              </button>
+            </form>
+          </div>
         </>
       )}
       <ModalWrapper isOpen={isTodoModalOpen} setIsOpen={setIsTodoModalOpen}>

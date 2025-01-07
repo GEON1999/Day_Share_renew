@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import { TimePicker } from "antd";
+import { throttle } from "lodash";
+import StaticKeys from "@/keys/StaticKeys";
 
 const TodoCreate = ({ setIsOpen, refetch }: any) => {
   const id = useSearch.useSearchId();
@@ -34,30 +36,34 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
     setEndTime(value);
   };
 
-  const onSubmit = async (formData: any) => {
-    const startAtUTC = dayjs(startTime).format();
-    const endAtUTC = dayjs(endTime).format();
+  const onSubmit = throttle(
+    async (formData: any) => {
+      const startAtUTC = dayjs(startTime).format();
+      const endAtUTC = dayjs(endTime).format();
 
-    const updatedData = {
-      ...formData,
-      startAt: startAtUTC,
-      endAt: endAtUTC,
-    };
+      const updatedData = {
+        ...formData,
+        startAt: startAtUTC,
+        endAt: endAtUTC,
+      };
 
-    createTodo(
-      { calendarId: id, query: `date=${date}`, body: updatedData },
-      {
-        onSuccess: async (result: any) => {
-          await refetch();
-          reset();
-          setIsOpen(false);
-        },
-        onError: () => {
-          console.log("error");
-        },
-      }
-    );
-  };
+      createTodo(
+        { calendarId: id, query: `date=${date}`, body: updatedData },
+        {
+          onSuccess: async (result: any) => {
+            await refetch();
+            reset();
+            setIsOpen(false);
+          },
+          onError: () => {
+            console.log("error");
+          },
+        }
+      );
+    },
+    StaticKeys.THROTTLE_TIME,
+    { leading: true, trailing: false }
+  );
 
   const handleClose = () => {
     setIsOpen(false);
