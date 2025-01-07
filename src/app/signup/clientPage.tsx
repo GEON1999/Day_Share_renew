@@ -8,8 +8,6 @@ import React, { useState } from "react";
 import "react-image-crop/dist/ReactCrop.css";
 import ImageCropComponent from "@/components/common/ImageCropComponent";
 import { IconKakao, IconLogoHoriz } from "@/icons";
-import { throttle } from "lodash";
-import StaticKeys from "@/keys/StaticKeys";
 
 function SignupClientPage() {
   const [userImg, setUserImg] = useState("");

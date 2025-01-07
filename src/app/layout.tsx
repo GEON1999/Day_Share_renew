@@ -5,6 +5,7 @@ import AuthSession from "@/app/AuthSession";
 import { Gowun_Dodum, Noto_Sans, Noto_Serif } from "next/font/google";
 import SessionCheck from "./SessionCheck";
 import withTheme from "./ConfigProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // Google Fonts에서 원하는 폰트를 불러옵니다.
 
@@ -48,6 +49,7 @@ export default function RootLayout({
           <Providers>
             <SessionCheck />
             {children}
+            <SpeedInsights />
           </Providers>
         </AuthSession>
       </body>
