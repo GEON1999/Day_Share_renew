@@ -21,6 +21,7 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
   const [endTime, setEndTime] = useState<Dayjs>(
     dayjs(Number(date)).hour(11).minute(0)
   );
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -36,34 +37,34 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
     setEndTime(value);
   };
 
-  const onSubmit = throttle(
-    async (formData: any) => {
-      const startAtUTC = dayjs(startTime).format();
-      const endAtUTC = dayjs(endTime).format();
+  const onSubmit = (formData: any) => {
+    if (isSubmit) return;
+    setIsSubmit(true);
+    const startAtUTC = dayjs(startTime).format();
+    const endAtUTC = dayjs(endTime).format();
 
-      const updatedData = {
-        ...formData,
-        startAt: startAtUTC,
-        endAt: endAtUTC,
-      };
+    const updatedData = {
+      ...formData,
+      startAt: startAtUTC,
+      endAt: endAtUTC,
+    };
 
-      createTodo(
-        { calendarId: id, query: `date=${date}`, body: updatedData },
-        {
-          onSuccess: async (result: any) => {
-            await refetch();
-            reset();
-            setIsOpen(false);
-          },
-          onError: () => {
-            console.log("error");
-          },
-        }
-      );
-    },
-    StaticKeys.THROTTLE_TIME,
-    { leading: true, trailing: false }
-  );
+    createTodo(
+      { calendarId: id, query: `date=${date}`, body: updatedData },
+      {
+        onSuccess: async (result: any) => {
+          await refetch();
+          reset();
+          setIsOpen(false);
+          setIsSubmit(false);
+        },
+        onError: () => {
+          console.log("error");
+          setIsSubmit(false);
+        },
+      }
+    );
+  };
 
   const handleClose = () => {
     setIsOpen(false);

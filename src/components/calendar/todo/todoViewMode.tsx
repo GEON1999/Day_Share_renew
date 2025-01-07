@@ -22,6 +22,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   const [openComment, setOpenComment] = useState(true);
   const [activeCommentId, setActiveCommentId] = useState<string | null>(null);
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
+  const [isCommentSubmit, setIsCommentSubmit] = useState(false);
   const id = useSearch.useSearchId();
   const todoId = useSearch.useSearchQueryTodoId();
   const query = `contentType=todo&contentId=${todoId}`;
@@ -96,6 +97,8 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   const handleClickDeleteTodo = () => setIsTodoModalOpen(true);
 
   const onCommentSubmit = (data: any) => {
+    if (isCommentSubmit) return;
+    setIsCommentSubmit(true);
     createComment(
       { calendarId: id, query, body: data },
       {
@@ -103,9 +106,11 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
           commentRefetch();
           refetch();
           commentReset();
+          setIsCommentSubmit(false);
         },
         onError: () => {
           console.log("error");
+          setIsCommentSubmit(false);
         },
       }
     );

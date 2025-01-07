@@ -14,6 +14,8 @@ import LeaveCalendar from "@/components/modal/LeaveCalendar";
 
 const CalendarSetting = () => {
   const router = useRouter();
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [isInviteCodeSubmit, setIsInviteCodeSubmit] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const id = useSearch.useSearchId();
   const { data: calendarUserData, isLoading: calendarUserIsLoading } =
@@ -35,6 +37,8 @@ const CalendarSetting = () => {
   });
 
   const onSubmit = (data: any) => {
+    if (isSubmit) return;
+    setIsSubmit(true);
     const formData = { name: data.name, img: calendarImg };
     updateCalendar(
       { calendarId: id, body: formData },
@@ -46,12 +50,18 @@ const CalendarSetting = () => {
           } else {
             alert(data?.data?.message ?? "달력 수정에 실패하였습니다.");
           }
+          setIsSubmit(false);
+        },
+        onError: () => {
+          setIsSubmit(false);
         },
       }
     );
   };
 
   const reloadInviteCode = () => {
+    if (isInviteCodeSubmit) return;
+    setIsInviteCodeSubmit(true);
     createInviteCode(id, {
       onSuccess: (result) => {
         if (result) {
@@ -60,9 +70,11 @@ const CalendarSetting = () => {
         } else {
           alert("초대코드 생성에 실패하였습니다.");
         }
+        setIsInviteCodeSubmit(false);
       },
       onError: (error) => {
         alert("초대코드 생성에 실패하였습니다.");
+        setIsInviteCodeSubmit(false);
       },
     });
   };

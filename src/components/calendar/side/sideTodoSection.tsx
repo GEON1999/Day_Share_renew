@@ -6,11 +6,13 @@ import { useRouter } from "next/navigation";
 import { IconCheck_o, IconCheck_x, IconEmptyTodo } from "@/icons";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
 import Helper from "@/helper/Helper";
+import { useState } from "react";
 
 const SideTodoSection = () => {
   const router = useRouter();
   const currentTodoPage = useSearch.useSearchTodoPage();
   const id = useSearch.useSearchId();
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const {
     data: todoData,
@@ -26,6 +28,8 @@ const SideTodoSection = () => {
   });
 
   const handleTodoClick = (calId: number, todoId: number, e: any) => {
+    if (isSubmit) return;
+    setIsSubmit(true);
     e.stopPropagation();
     checkTodo(
       { calendarId: calId, todoId },
@@ -33,9 +37,11 @@ const SideTodoSection = () => {
         onSuccess: () => {
           console.log("성공");
           refetch();
+          setIsSubmit(false);
         },
         onError: () => {
           console.log("실패");
+          setIsSubmit(false);
         },
       }
     );

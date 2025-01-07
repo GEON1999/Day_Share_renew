@@ -15,6 +15,7 @@ const ChangeProfile = () => {
   const { data: calendarUserData, isLoading: calendarUserIsLoading } =
     useCalendarQueries.useGetCalendarUserInfo(id);
   const [userImg, setUserImg] = useState(calendarUserData?.img ?? "");
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const { handleSubmit, register } = useForm();
 
@@ -23,6 +24,8 @@ const ChangeProfile = () => {
   });
 
   const onSubmit = (data: any) => {
+    if (isSubmit) return;
+    setIsSubmit(true);
     const formData = { name: data.name, img: userImg };
     updateCalendarUserInfo(
       { calendarId: id, body: formData },
@@ -31,9 +34,14 @@ const ChangeProfile = () => {
           if (result) {
             alert("달력이 수정 되었습니다.");
             window.location.reload();
+            setIsSubmit(false);
           } else {
             alert(data?.data?.message ?? "달력 수정에 실패하였습니다.");
+            setIsSubmit(false);
           }
+        },
+        onError: () => {
+          setIsSubmit(false);
         },
       }
     );

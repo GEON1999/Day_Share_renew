@@ -14,11 +14,11 @@ import { useRouter } from "next/navigation";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import useDiaryMutations from "@/queries/diary/useDiaryMutations";
 import parse from "html-react-parser";
-import StaticKeys from "@/keys/StaticKeys";
 import { IconComment, IconEdit, IconHeart, IconNextGray } from "@/icons";
 
 const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   const router = useRouter();
+  const [isCommentSubmit, setIsCommentSubmit] = useState(false);
   const [isDiaryModalOpen, setIsDiaryModalOpen] = useState(false);
   const [openComment, setOpenComment] = useState(true);
   const [activeCommentId, setActiveCommentId] = useState<string | null>(null);
@@ -107,6 +107,8 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   const handleClickdeleteDiary = () => setIsDiaryModalOpen(true);
 
   const onCommentSubmit = (data: any) => {
+    if (isCommentSubmit) return;
+    setIsCommentSubmit(true);
     createComment(
       { calendarId: id, query, body: data },
       {
@@ -115,9 +117,11 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
           console.log("success");
           commentRefetch();
           commentReset();
+          setIsCommentSubmit(false);
         },
         onError: () => {
           console.log("error");
+          setIsCommentSubmit(false);
         },
       }
     );

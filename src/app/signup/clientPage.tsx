@@ -7,10 +7,13 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import "react-image-crop/dist/ReactCrop.css";
 import ImageCropComponent from "@/components/common/ImageCropComponent";
-import { IconKakao, IconLogo, IconLogoHoriz } from "@/icons";
+import { IconKakao, IconLogoHoriz } from "@/icons";
+import { throttle } from "lodash";
+import StaticKeys from "@/keys/StaticKeys";
 
 function SignupClientPage() {
   const [userImg, setUserImg] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
   const router = useRouter();
 
   const { handleSubmit, register } = useForm();
@@ -20,6 +23,8 @@ function SignupClientPage() {
   });
 
   const onSubmit = (formData: any) => {
+    if (isSubmit) return;
+    setIsSubmit(true);
     if (formData.password !== formData.password_check) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
@@ -33,9 +38,11 @@ function SignupClientPage() {
     mutate(submitData, {
       onSuccess: () => {
         router.push("/login");
+        setIsSubmit(false);
       },
       onError: () => {
         alert("회원가입에 실패했습니다.");
+        setIsSubmit(false);
       },
     });
   };

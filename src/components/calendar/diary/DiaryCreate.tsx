@@ -1,6 +1,6 @@
 import useSearch from "@/hooks/useSearch";
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useDiaryMutations from "@/queries/diary/useDiaryMutations";
 import { EditorContent, useEditor } from "@tiptap/react";
@@ -12,8 +12,10 @@ import StaticKeys from "@/keys/StaticKeys";
 import Placeholder from "@tiptap/extension-placeholder";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import { IconNextGray } from "@/icons";
+import { throttle } from "lodash";
 
 const DiaryCreate = () => {
+  const [isSubmit, setIsSubmit] = useState(false);
   const router = useRouter();
   const id = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
@@ -38,6 +40,8 @@ const DiaryCreate = () => {
   });
 
   const onSubmit = (formData: any) => {
+    if (isSubmit) return;
+    setIsSubmit(true);
     const thumnail = editor?.getHTML().split("<img")[1]?.split('"')[1];
     const submitData = {
       ...formData,
@@ -49,10 +53,11 @@ const DiaryCreate = () => {
       {
         onSuccess: (result: any) => {
           router.push(`/calendar/${id}/diary/${result.id}?date=${date}`);
-          console.log("success", result);
+          setIsSubmit(false);
         },
         onError: () => {
           console.log("error");
+          setIsSubmit(false);
         },
       }
     );

@@ -9,6 +9,7 @@ import CalendarImgCrop from "@/components/common/CalendarImgCrop";
 const AddCalendarModal = ({ setIsOpen }: any) => {
   const [formSelect, setFormSelect] = useState("empty");
   const [image, setImage] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
   const { mutate: createCalendar } = useMutation({
     mutationFn: useCalendarMutations.createCalendar,
   });
@@ -21,6 +22,8 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
     useForm();
 
   const onSubmit = (data: any) => {
+    if (isSubmit) return;
+    setIsSubmit(true);
     const formData = { ...data, img: image };
     createCalendar(formData, {
       onSuccess: (result) => {
@@ -31,6 +34,10 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
         } else {
           alert(data?.data?.message ?? "달력 생성에 실패하였습니다.");
         }
+        setIsSubmit(false);
+      },
+      onError: () => {
+        setIsSubmit(false);
       },
     });
   };

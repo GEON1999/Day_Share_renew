@@ -1,6 +1,6 @@
 import useSearch from "@/hooks/useSearch";
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
@@ -12,6 +12,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "@/components/common/toolbar";
 
 const DiaryEditMode = ({ setEditorMode }: any) => {
+  const [isSubmit, setIsSubmit] = useState(false);
   const id = useSearch.useSearchId();
   const diaryId = useSearch.useSearchDiaryId();
 
@@ -38,6 +39,8 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
   });
 
   const onSubmit = (formData: any) => {
+    if (isSubmit) return;
+    setIsSubmit(true);
     const submitData = { ...formData, content: editor?.getHTML() };
     updateDiary(
       { calendarId: id, diaryId, body: submitData },
@@ -45,9 +48,11 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
         onSuccess: (result: any) => {
           diaryRefetch();
           setEditorMode(false);
+          setIsSubmit(false);
         },
         onError: () => {
           console.log("error");
+          setIsSubmit(false);
         },
       }
     );

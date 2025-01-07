@@ -21,8 +21,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
     isLoading,
     refetch: todoReFetch,
   } = useTodoQueries.useGetTodoDetail(id, todoId ?? "");
-  console.log("data", dayjs(data?.startAt));
-
+  const [isSubmit, setIsSubmit] = useState(false);
   const [startTime, setStartTime] = useState<Dayjs>(dayjs(data?.startAt));
   const [endTime, setEndTime] = useState<Dayjs>(dayjs(data?.endAt));
 
@@ -39,6 +38,8 @@ const TodoEditMode = ({ setEditorMode }: any) => {
   });
 
   const onSubmit = (formData: any) => {
+    if (isSubmit) return;
+    setIsSubmit(true);
     const startAtUTC = dayjs(startTime).format();
     const endAtUTC = dayjs(endTime).format();
 
@@ -53,9 +54,11 @@ const TodoEditMode = ({ setEditorMode }: any) => {
         onSuccess: (result: any) => {
           todoReFetch();
           setEditorMode(false);
+          setIsSubmit(false);
         },
         onError: () => {
           console.log("error");
+          setIsSubmit(false);
         },
       }
     );
