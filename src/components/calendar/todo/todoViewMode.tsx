@@ -239,14 +239,13 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                 {Helper.formatTimeForTodoDetail(data?.startAt, data?.endAt)}
               </span>
             </h1>
-            <div className=" h-[220px]">
+            <div className="">
               <div className="flex items-center mt-[20px] space-x-[13px] ml-[15px]">
                 <div className="w-[10px] h-[10px] rounded-full bg-[#494949]" />
                 <p className="text-[30px] dodum-text">{data?.title}</p>
               </div>
-              {/** content 줄바꿈 */}
-              <div className="ml-[20px] -mt-[10px] border-l py-[28px] mb-[10px] pl-[18px] w-[440px] break-all overflow-y-auto h-[120px]">
-                <p className="text-[20px] ">{data?.content}</p>
+              <div className="ml-[20px] border-l mb-[10px] pl-[18px] w-[440px] break-all overflow-y-auto h-[100px]">
+                <p className="text-[20px] py-[28px]">{data?.content}</p>
               </div>
               <div className="flex items-center justify-between mt-[5px] px-[10px]">
                 <div className="flex items-center">
