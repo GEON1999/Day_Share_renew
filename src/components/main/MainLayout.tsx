@@ -33,18 +33,16 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 className="w-[30px] h-[30px] absolute top-[300px] left-[160px] cur"
               />
             </div>
-            <div className="rounded-full bg-gray-200 w-[140px] h-[140px] bor mt-[36px] shadow_box">
-              <img
-                src={
-                  userData?.img == ""
-                    ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                    : userData?.img
-                }
-                alt="profile"
-                className="rounded-full w-full h-full object-cover"
-              />
-            </div>
-            <p className={`text-[20px] mt-[13px] `}>{userData?.name}</p>
+            <img
+              src={
+                userData?.img == ""
+                  ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                  : userData?.img
+              }
+              alt="profile"
+              className="w-[140px] h-[140px] object-cover rounded-full bg-gray-200 bor mt-[36px] shadow_box"
+            />
+            <p className={`text-[20px] mt-[8px] `}>{userData?.name}</p>
             <button onClick={handleLogout} className="btn_logout">
               <IconExit className="w-5 h-5 cur" />
               <p>로그아웃</p>

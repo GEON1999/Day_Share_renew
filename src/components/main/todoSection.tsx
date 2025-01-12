@@ -83,12 +83,12 @@ const TodoSection = () => {
     );
   };
 
-  const handleClickTodo = (calId: number, todoId: number) =>
-    router.push(`/calendar/${calId}/todo/${todoId}`);
+  const handleClickTodo = (calId: number, date: string) =>
+    router.push(`/calendar/${calId}?date=${date}`);
 
   return (
     <section className="mt-[38px] side_todo_container">
-      <ul className="space-y-2">
+      <ul>
         <div
           className={`flex items-center justify-between content-center mb-[10px] text-[20px]`}
         >
@@ -102,11 +102,14 @@ const TodoSection = () => {
                   {Helper.formatWithoutYear(todo_group.date)}
                 </h4>
                 {todo_group.todos.map((todo: any) => {
+                  console.log(todo);
                   return (
                     <li
                       key={todo.id}
                       className="flex items-center justify-between p-1 rounded-md  cursor-pointer"
-                      onClick={() => handleClickTodo(todo.calendarId, todo.id)}
+                      onClick={() =>
+                        handleClickTodo(todo.calendarId, todo.date)
+                      }
                     >
                       <div className="flex items-center ">
                         {todo.isCompleted ? (
@@ -145,10 +148,11 @@ const TodoSection = () => {
           })
         ) : (
           <div className="flex flex-col items-center">
-            <IconEmptyTodo className={"text-white"} />
-            <p className="mt-[15px] mb-[30px]">
-              일정이 없어요. <br /> 추가해 볼까요?
-            </p>
+            <IconEmptyTodo
+              className={"text-white h-[205.98px] w-[170px] mt-[10px]"}
+            />
+            <p className="mt-[7px]">일정이 없어요.</p>
+            <p className="mt-[2px]">추가해 볼까요?</p>
           </div>
         )}
       </ul>
