@@ -107,7 +107,8 @@ const SideUserList = () => {
           <DeleteModal
             setIsOpen={setIsConfirmOpen}
             mutateFn={handleDeletePermission}
-            msg=" 정말 해당 유저를 추방하시겠습니까?"
+            title="정말 해당 유저를 추방하시겠습니까?"
+            msg="추방하시면 해당 유저는 더이상 달력에 접근할 수 없습니다."
           />
         </ModalWrapper>
       </div>

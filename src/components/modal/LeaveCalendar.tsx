@@ -28,7 +28,7 @@ const LeaveCalendar = ({ setIsOpen }: any) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bor relative flex flex-col w-[520px] h-[200px] bg_depp rounded-xl p-[20px] noto-sans-text">
+      <div className="bor relative flex flex-col w-[520px] h-[200px] bg_depp rounded-md p-[20px] noto-sans-text">
         <div
           className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
           onClick={handleCancel}
@@ -38,11 +38,11 @@ const LeaveCalendar = ({ setIsOpen }: any) => {
         <h1 className="text-center mt-[5px] text-[20px] font-bold ">
           정말 서버를 나가시겠습니까?
         </h1>
-        <p className="text-center text-[15px]">
+        <p className="text-center text-[15px] mt-[6px]">
           서버를 나가시면 공유 달력 및 공유 일기등에 대한 <br />
           모든 정보가 삭제됩니다.
         </p>
-        <div className="flex mt-[20px]  text-[20px] space-x-[10px] mx-auto">
+        <div className="flex mt-[15px]  text-[20px] space-x-[10px] mx-auto">
           <button
             onClick={handleCancel}
             type="button"
