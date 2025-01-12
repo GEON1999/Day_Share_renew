@@ -45,10 +45,10 @@ const DiarySection = () => {
                     />
                   )}
                 </div>
-                <div className="text-[20px] text-[#2D2D2E] text-opacity-80 flex space-x-2 items-center">
+                <div className="text-[20px] text-[#2D2D2E] text-opacity-80 flex space-x-1 items-center justify-center">
                   <span>{diary.userName}</span>
-                  <span className="mb-[3px]">|</span>
-                  <span className="font-semibold">{diary.calendarName}</span>
+                  <span className="mb-[5px] text-[15px]">|</span>
+                  <span className="font-[500]">{diary.calendarName}</span>
                 </div>
               </li>
             );

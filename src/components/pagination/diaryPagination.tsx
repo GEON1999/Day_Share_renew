@@ -24,7 +24,7 @@ const DiaryPagination = ({ total_count }: any) => {
     router.push(`${pathName}?${params.toString()}`);
   };
   return (
-    <div className="pagination">
+    <div className="pagination mr-1">
       <div>
         {Number(currentDiaryPage) <= 1 ? (
           <IconPrev_disabled className="pagination_btn_disabled" />

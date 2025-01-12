@@ -78,7 +78,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
           >
             <IconX className="w-full h-full" />
           </div>
-          <h1 className="-mt-[5px] font-bold">달력 참여 방식</h1>
+          <h1 className="-mt-[5px] font-bold">달력 추가하기</h1>
           <div className="flex flex-col w-full space-y-[10px] mt-[27px]">
             <div
               className="flex items-center justify-between px-[14px] w-[470px] h-[50px] bor rounded-md cur hover:bg-[#f7eeab] transition-colors duration-200 ease-in-out"
@@ -124,7 +124,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
               type={StaticKeys.ADD_TYPE}
             />
             <input
-              className="w-[300px] h-[50px] text-[20px] bor rounded-md p-3 outline-none text-black my-[10px] text-center placeholder:text-[#C2BFBC]"
+              className="w-[300px] h-[50px] text-[20px] bor rounded-md p-3 outline-none my-[10px] text-center placeholder:text-[#C2BFBC]"
               {...register("name", { required: true })}
               type="text"
               placeholder="달력 이름"
@@ -167,7 +167,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
             />
             <button
               type="submit"
-              className="btn_hilight bor w-[300px] h-[50px] rounded-md mt-[10px]  "
+              className="btn_hilight bor w-[300px] h-[50px] rounded-md"
             >
               참가
             </button>
