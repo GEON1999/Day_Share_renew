@@ -236,7 +236,7 @@
   }
 
   .auth-kakao-btn {
-    @apply flex bg-[#FEE500] justify-center items-center rounded-md space-x-5  mt-[10px] w-[390px] h-[50px] bor hover:bg-[#F5D101] transition-colors duration-200 ease-in-out;
+    @apply flex bg-[#FEE500] justify-center items-center rounded-md space-x-[10px]  mt-[10px] w-[390px] h-[50px] bor hover:bg-[#F5D101] transition-colors duration-200 ease-in-out;
   }
 
   .auth-link-btn {

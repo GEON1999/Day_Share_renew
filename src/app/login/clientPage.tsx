@@ -58,7 +58,7 @@ function LoginClientPage() {
               placeholder="비밀번호"
             />
           </div>
-          <div className="flex justify-between items-center mt-[10px]">
+          <div className="flex justify-between items-center ">
             <div className="flex items-center space-x-[5px]">
               {isAutoLogin ? (
                 <IconCheck_o
@@ -84,17 +84,10 @@ function LoginClientPage() {
           <button type="submit" className="auth-submit-btn">
             로그인
           </button>
-          <div className="flex items-center space-x-[7px] justify-center mt-5 cur">
-            <div
-              onClick={handleKakao}
-              className="w-[30px] h-[30px] rounded-full bg-transparent grid place-items-center border"
-            >
-              <IconKakao className="w-[16.88px] h-[15px] translate-y-[0.5px]" />
-            </div>
-            <span onClick={handleKakao} className="text-[15px] ">
-              카카오 계정으로 로그인하기
-            </span>
-          </div>
+          <button onClick={handleKakao} className="auth-kakao-btn">
+            <IconKakao className="w-[24px] h-[22px]" />
+            <span>카카오 계정으로 간편 로그인</span>
+          </button>
         </div>
       </form>
     </div>
