@@ -188,6 +188,10 @@ const getTodayMs = () => {
   );
 };
 
+const cutString = (str: string, maxLength: number) => {
+  return str.length > maxLength ? `${str.slice(0, maxLength)} ...` : str;
+};
+
 export default {
   CURRENT_URL,
   queryToString,
@@ -206,4 +210,5 @@ export default {
   formatTimeForTodo,
   formatTimeForTodoDetail,
   formatDateForTodoDetail,
+  cutString,
 };

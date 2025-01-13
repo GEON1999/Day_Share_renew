@@ -89,9 +89,11 @@ const TodoList = () => {
                   index != 2 ? "border-b border-[#49494950]" : ""
                 }`}
               >
-                <div className={`flex items-center space-x-[15px]`}>
+                <div
+                  className={`flex items-center space-x-[15px] w-[350px] overflow-hidden whitespace-nowrap`}
+                >
                   <div>{Helper.formatTimeForTodo(todo.startAt)}</div>
-                  <div>{todo.title}</div>
+                  <div>{Helper.cutString(todo.title, 18)}</div>
                 </div>
                 <div className="flex items-center space-x-[15px]">
                   <div>{todo.userProfile.name}</div>

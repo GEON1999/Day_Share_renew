@@ -122,12 +122,12 @@ const Calendar = ({}) => {
   return (
     <div className={`main_container flex space-x-[70px]`}>
       <div className="w-[631.5px]">
-        <h1 className="text-[25px] mt-[75px]">
+        <h1 className="text-[25px] mt-[54px]">
           {calendarBasic?.name ?? "달력"}
         </h1>
         <div className="flex justify-between w-[1255px] items-center mb-2">
           <div className="flex w-[626px] space-x-4 justify-between">
-            <span className="text-[46px] ">
+            <span className="text-[46px] -mt-[10px]">
               {year}. {month + 1}
             </span>
             <div className="flex items-center ">
@@ -250,8 +250,8 @@ const Calendar = ({}) => {
                                         >
                                           <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
                                           {/* 텍스트 가로 중앙 */}
-                                          <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
-                                            {title}
+                                          <div className=" bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
+                                            {Helper.cutString(title, 5)}
                                           </div>
                                         </div>
                                       ) : todoCount === 2 ? (
@@ -260,8 +260,8 @@ const Calendar = ({}) => {
                                           className="h-[33px] flex"
                                         >
                                           <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-                                          <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
-                                            {title}
+                                          <div className=" bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
+                                            {Helper.cutString(title, 5)}
                                           </div>
                                         </div>
                                       ) : todoCount >= 3 ? (
@@ -271,8 +271,8 @@ const Calendar = ({}) => {
                                             className="h-[33px] flex"
                                           >
                                             <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-                                            <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
-                                              {title}
+                                            <div className=" bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
+                                              {Helper.cutString(title, 5)}
                                             </div>
                                           </div>
                                         ) : index === 1 ? (
@@ -281,7 +281,7 @@ const Calendar = ({}) => {
                                             className="h-[33px] flex"
                                           >
                                             <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-                                            <div className="truncate bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center">
+                                            <div className=" bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
                                               +{todoCount - 1}
                                             </div>
                                           </div>
