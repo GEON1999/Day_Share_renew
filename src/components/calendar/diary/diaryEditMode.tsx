@@ -42,7 +42,12 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
   const onSubmit = (formData: any) => {
     if (isSubmit) return;
     setIsSubmit(true);
-    const submitData = { ...formData, content: editor?.getHTML() };
+    const thumnail = editor?.getHTML().split("<img")[1]?.split('"')[1];
+    const submitData = {
+      ...formData,
+      content: editor?.getHTML(),
+      img: thumnail ?? null,
+    };
     updateDiary(
       { calendarId: id, diaryId, body: submitData },
       {

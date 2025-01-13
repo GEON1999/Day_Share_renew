@@ -1,4 +1,5 @@
 import CalendarDiaryPagination from "@/components/pagination/calendarDiaryPagination";
+import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
 import { IconAdd, IconComment, IconEmptyDiary, IconHeart } from "@/icons";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
@@ -49,7 +50,7 @@ const DiaryList = () => {
         </div>
       </div>
 
-      <div className="mt-[10px] bg_deep_2 h-[480px] w-[480px] rounded-md shadow_box bor overflow-hidden px-[25px]">
+      <div className="mt-[10px] bg_deep_2 h-[480px] w-[480px] rounded-md shadow_box bor overflow-hidden px-[25px] noto-sans-text">
         {diaryData?.diaries?.length === 0 || !diaryData ? (
           <div className="flex h-full flex-col items-center">
             <p className="text-[#2D2D2E] text-[20px]">
@@ -63,10 +64,11 @@ const DiaryList = () => {
           </div>
         ) : (
           diaryData?.diaries?.map((diary: any, index: number) => {
+            console.log("diary :", diary);
             return (
               <div onClick={() => handleClickDiary(diary.id)} key={diary.id}>
                 <div
-                  className={`w-full h-[160px]  py-[16px] text-[20px] flex justify-between cur ${
+                  className={`w-full h-[160px]  py-[19px] text-[20px] flex justify-between cur ${
                     index != 2 ? "border-b border-[#49494950]" : ""
                   }`}
                 >
@@ -80,16 +82,16 @@ const DiaryList = () => {
                             : diary.userProfile?.img
                         }
                         alt="profile"
-                        className="w-5 h-5 rounded-full bor object-cover"
+                        className="w-[25px] h-[25px] rounded-full bor object-cover"
                       />
                       <p>{diary.userProfile?.name}</p>
                     </div>
                     <p
-                      className={`font-light pb-[21px] ${
+                      className={`font-light text-[#2D2D2E] pb-[27px] ${
                         diary.img ? "w-[300px]" : "w-[428px]"
                       } border-b border-[#49494920]`}
                     >
-                      {diary.title}
+                      {Helper.cutString(diary.title, diary.img ? 18 : 22)}
                     </p>
                     <div className="flex space-x-3 text-[15px] mt-3">
                       <div className="flex items-center space-x-2">

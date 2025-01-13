@@ -155,12 +155,30 @@ const Calendar = ({}) => {
             <table className="w-full h-full text-center">
               <thead className="bg_light_pink h-[34px] w-full border-b-[1.5px] ">
                 <tr className="text-black text-md">
-                  <th className="text_red">SUN</th>
-                  <th>MON</th>
-                  <th>TUE</th>
-                  <th>WED</th>
-                  <th>THU</th>
-                  <th>FRI</th>
+                  <th className="text_red relative">
+                    SUN
+                    <span className="bor_right" />
+                  </th>
+                  <th className="relative">
+                    MON
+                    <span className="bor_right" />
+                  </th>
+                  <th className="relative">
+                    TUE
+                    <span className="bor_right" />
+                  </th>
+                  <th className="relative">
+                    WED
+                    <span className="bor_right" />
+                  </th>
+                  <th className="relative">
+                    THU
+                    <span className="bor_right" />
+                  </th>
+                  <th className="relative">
+                    FRI
+                    <span className="bor_right" />
+                  </th>
                   <th>SAT</th>
                 </tr>
               </thead>
