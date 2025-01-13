@@ -8,13 +8,15 @@ import DeleteModal from "@/components/modal/DeleteModal";
 import CalendarUserPagination from "@/components/pagination/calendarUserPagination";
 import { emotionData } from "@/components/main/statusSection";
 import { useAlert } from "@/components/alert/AlertContext";
-
+import useGetUserQueries from "@/queries/user/useUserQueries";
 const SideUserList = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const id = useSearch.useSearchId();
   const currentUserPage = useSearch.useSearchUserPage();
   const [deleteUserId, setDeleteUserId] = useState<null | Number>(null);
   const { showAlert } = useAlert();
+
+  const { data: userData } = useGetUserQueries.useGetUser();
 
   const { data: userList, isLoading: userListLoading } =
     useCalendarQueries.useGetCalendarPermissionList(
@@ -46,6 +48,10 @@ const SideUserList = () => {
   };
 
   const handleClickDeletePermission = (userId: number) => {
+    if (userData?.id === userId) {
+      showAlert("자신은 추방할 수 없습니다.", "error");
+      return;
+    }
     setIsConfirmOpen(true);
     setDeleteUserId(userId);
   };
@@ -91,14 +97,16 @@ const SideUserList = () => {
                     />
                   )}
                 </div>
-                <button
-                  onClick={() => {
-                    handleClickDeletePermission(user.userId);
-                  }}
-                  className="border-[0.8px] border-[#49494950] rounded-full w-[38px] h-[20px] text-[12px] noto-sans-text text-[#2D2D2E] hidden group-hover:block"
-                >
-                  추방
-                </button>
+                {userData?.id !== user.userId && (
+                  <button
+                    onClick={() => {
+                      handleClickDeletePermission(user.userId);
+                    }}
+                    className="border-[0.8px] border-[#49494950] rounded-full w-[38px] h-[20px] text-[12px] noto-sans-text text-[#2D2D2E] hidden group-hover:block"
+                  >
+                    추방
+                  </button>
+                )}
               </div>
             );
           })}
