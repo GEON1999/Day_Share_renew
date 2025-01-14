@@ -23,7 +23,12 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const { showAlert } = useAlert();
 
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const { mutate: createTodo } = useMutation({
     mutationFn: useTodoMutations.createTodo,
@@ -91,12 +96,21 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
               제목
             </label>
             <input
-              {...register("title", { required: true })}
+              {...register("title", {
+                required: true,
+                maxLength: {
+                  value: 12,
+                  message: "제목은 12자 이하로 입력해주세요.",
+                },
+              })}
               type="text"
               className="w-[441px] h-[30px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
               placeholder="제목을 입력해 보세요."
             />
           </div>
+          <p className="text-[15px] text-red mt-[10px]">
+            {errors.title?.message?.toString()}
+          </p>
           <div className="flex items-center my-[13px]">
             <label htmlFor="date" className="text-[20px]">
               일시
