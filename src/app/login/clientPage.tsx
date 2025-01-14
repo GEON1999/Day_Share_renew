@@ -84,7 +84,11 @@ function LoginClientPage() {
           <button type="submit" className="auth-submit-btn">
             로그인
           </button>
-          <button onClick={handleKakao} className="auth-kakao-btn">
+          <button
+            type="button"
+            onClick={handleKakao}
+            className="auth-kakao-btn"
+          >
             <IconKakao className="w-[24px] h-[22px]" />
             <span>카카오 계정으로 간편 로그인</span>
           </button>

@@ -127,25 +127,32 @@ function CalendarImgCrop({
     <div>
       <div
         onClick={handleOpenImgSelectModal}
-        className={`rounded-md bg-gray-200 bor cur bg-[#D9D9D9] flex justify-center items-center ${
+        className={`rounded-md cur bg-[#D9D9D9] flex justify-center items-center ${
           type === StaticKeys.EDIT_TYPE
             ? "w-[195px] h-[130px]"
             : "w-[299.42px] h-[200px]"
         }`}
       >
         {calendarImg ? (
-          <img
-            src={calendarImg}
-            alt="profile"
-            className="rounded-md w-full h-full object-cover"
-          />
+          <div className="relative">
+            <img
+              src={calendarImg}
+              alt="profile"
+              className={`rounded-md object-cover bor ${
+                type === StaticKeys.EDIT_TYPE
+                  ? "w-[195px] h-[130px]"
+                  : "w-[299.42px] h-[200px]"
+              }`}
+            />
+            <IconCameraRounded className="w-[30px] h-[30px] absolute bottom-[12px] right-[17px] transform translate-x-1/4 translate-y-1 /4" />
+          </div>
         ) : (
           <div className="relative">
             <div
-              className={`overflow-hidden rounded-full flex justify-center items-center ${
+              className={`overflow-hidden rounded-md flex justify-center items-center bor ${
                 type === StaticKeys.EDIT_TYPE
                   ? "w-[195px] h-[130px]"
-                  : "w-[299.42px] h-[195px]"
+                  : "w-[299.42px] h-[200px]"
               }`}
             >
               <IconAddCalendar

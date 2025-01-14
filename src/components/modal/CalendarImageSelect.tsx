@@ -59,7 +59,7 @@ const CalendarImageSelect = ({
     setIsOpen(false);
   };
   return (
-    <div className="bor w-[982px] h-[805px] bg_depp rounded-md py-[30px] px-[25px] text-[20px] noto-sans-text ">
+    <div className="bor w-[985px] h-[805px] bg_depp rounded-md py-[30px] px-[25px] text-[20px] noto-sans-text ">
       <div
         className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
         onClick={handleCancel}

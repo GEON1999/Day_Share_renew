@@ -111,17 +111,20 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
     <div>
       <div
         onClick={handleImageUpload}
-        className={`rounded-full w-[140px] h-[140px] bor cur bg-[#D9D9D9] flex justify-center items-center `}
+        className={`rounded-full w-[140px] h-[140px] cur bg-[#D9D9D9] flex justify-center items-center `}
       >
         {userImg ? (
-          <img
-            src={userImg}
-            alt="profile"
-            className="rounded-full w-full h-full object-cover"
-          />
+          <div className="relative ">
+            <img
+              src={userImg}
+              alt="profile"
+              className="rounded-full w-[140px] h-[140px] object-cover bor"
+            />
+            <IconCameraRounded className="w-[30px] h-[30px] absolute bottom-0 right-[18px] transform translate-x-1/4 translate-y-1 /4" />
+          </div>
         ) : (
           <div className="relative">
-            <div className="overflow-hidden w-[140px] h-[136px] rounded-full flex justify-center items-center">
+            <div className="overflow-hidden w-[140px] h-[140px] rounded-full flex justify-center items-center bor">
               <IconAddCalendar className="w-[100.95px] h-[128.88px] mt-[13px]" />
             </div>
             <IconCameraRounded className="w-[30px] h-[30px] absolute bottom-0 right-[18px] transform translate-x-1/4 translate-y-1 /4" />
