@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import commonMutation from "@/queries/commonMutation";
 import StaticKeys from "@/keys/StaticKeys";
-import { IconAddPhoto } from "@/icons";
+import { IconAddPhoto, IconX } from "@/icons";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import React, { useState, useRef, ChangeEvent } from "react";
 import ReactCrop, { Crop, PixelCrop } from "react-image-crop";
@@ -131,31 +131,45 @@ function ImageCropForEditor({ editor }: any) {
         id="imageUpload"
       />
       <ModalWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
-        <div className="flex flex-col items-center bg-[#FFFCF0] py-15 px-40 rounded-md bor">
-          <ReactCrop
-            crop={crop}
-            onChange={(c) => setCrop({ ...c, aspect: 1 })}
-            onComplete={onCropComplete}
-            ruleOfThirds={true}
+        <div className="bg_depp p-[20px] rounded-md bor">
+          <div
+            className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
+            onClick={() => setIsOpen(false)}
           >
-            <img
-              src={src ?? ""}
-              onLoad={onImageLoad}
-              alt="Source"
-              style={{
-                maxWidth: `${StaticKeys.MAX_WIDTH}px`,
-                maxHeight: `${StaticKeys.MAX_HEIGHT}px`,
-                width: "auto",
-                height: "auto",
-              }}
-            />
-          </ReactCrop>
-          <button
-            className="bg-[#F6BEBE] w-20 h-12 bor rounded-md text-white mt-15"
-            onClick={handleCropUpload}
-          >
-            다음
-          </button>
+            <IconX className="w-full h-full" />
+          </div>
+          <h2 className="text-[20px] noto-sans-text font-bold  mb-[30px] ml-[5px] -mt-[5px]">
+            이미지 자르기
+          </h2>
+          <div className="px-[5px]">
+            <ReactCrop
+              crop={crop}
+              onChange={(c) => setCrop({ ...c, aspect: 1 })}
+              onComplete={onCropComplete}
+              ruleOfThirds={true}
+            >
+              <img
+                onClick={handleImageUpload}
+                src={src ?? ""}
+                onLoad={onImageLoad}
+                alt="Source"
+                style={{
+                  maxWidth: `${StaticKeys.MAX_WIDTH}px`,
+                  maxHeight: `${StaticKeys.MAX_HEIGHT}px`,
+                  width: "auto",
+                  height: "auto",
+                }}
+              />
+            </ReactCrop>
+          </div>
+          <div className="confirm_btn_container mt-[30px]">
+            <button className="cancel" onClick={() => setIsOpen(false)}>
+              취소
+            </button>
+            <button className="confirm" onClick={handleCropUpload}>
+              확인
+            </button>
+          </div>
         </div>
       </ModalWrapper>
     </div>

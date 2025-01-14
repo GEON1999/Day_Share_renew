@@ -267,9 +267,9 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
           {/* <button className="rounded w-15 h-10 bor">공유</button> */}
         </div>
       </div>
-      <div className="flex flex-col space-y-2 mt-[26px]">
-        <div className="max-h-[700px] overflow-auto">
-          <div>{diaryContent}</div>
+      <div className="flex flex-col space-y-2 mt-[26px] whitespace-pre-wrap">
+        <div className="max-h-[700px] overflow-auto whitespace-pre-wrap">
+          <div className="text-[20px]">{diaryContent}</div>
         </div>
       </div>
       <div className="flex border-t space-x-4 mt-[75px]">
@@ -301,11 +301,11 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
               return (
                 <div
                   key={comment.comment.id}
-                  className="flex justify-between items-center relative"
+                  className="flex justify-between items-start relative"
                 >
-                  <div className="flex items-center space-x-[10px] space-y-2">
+                  <div className="flex items-start space-x-[10px] space-y-2">
                     <img
-                      className={`w-[45px] h-[45px] rounded-full object-cover ${
+                      className={`w-[45px] h-[45px] mt-[10px] rounded-full object-cover ${
                         comment?.profile?.id === 0 ? "" : "bor"
                       }`}
                       src={
@@ -315,15 +315,14 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                           : comment?.profile?.img
                       }
                     />
-                    <div className=" space-y-[2px]">
+                    <div className=" space-y-[2px] ">
                       {editingCommentId === comment.comment.id ? (
                         <form
                           className="w-[818px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
                           onSubmit={editHandleSubmit(onEditSubmit)}
                         >
-                          <input
-                            className="w-full h-[37px] px-[10px] border-b  rounded-t-md outline-none"
-                            type="text"
+                          <textarea
+                            className="w-full h-[37px] px-[10px] border-b  rounded-t-md outline-none resize-none"
                             {...editRegister(`content_${comment.comment.id}`, {
                               value: comment.comment.content,
                             })}
@@ -345,7 +344,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                           </div>
                         </form>
                       ) : (
-                        <div className="space-y-[5px]">
+                        <div className="space-y-[5px] whitespace-pre-wrap">
                           <div className="flex items-center space-x-[10px]">
                             <h1 className="font-bold">
                               {comment?.profile?.name}
@@ -364,16 +363,16 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                   {editingCommentId === comment.comment.id ? null : (
                     <>
                       <div
-                        className="w-[30px] h-[30px] rounded-full flex items-center justify-center hover:bg-[#49494910] cur"
+                        className="w-[30px] h-[30px] rounded-full flex items-center justify-center hover:bg-[#49494910] cur mt-[17px]"
                         onClick={() => handleSettingComment(comment)}
                       >
-                        <IconEdit className="w-[6px] h-[18px]" />
+                        <IconEdit className="w-[6px] h-[18px] " />
                       </div>
                       <div
                         ref={(el) => {
                           menuRefs.current[comment.comment.id] = el;
                         }}
-                        className={`absolute right-[-51px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-[15px] rounded-md shadow_box z-99 ${
+                        className={`absolute right-[-59px] w-[55px] top-[17px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-[15px] rounded-md shadow_box z-99 ${
                           activeCommentId === comment.comment.id ? "" : "hidden"
                         }`}
                       >
@@ -417,9 +416,11 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                 />
                 <h1 className="text-[16px] text-[#2D2D2E]">{userData?.name}</h1>
               </div>
-              <input
-                {...commentRegister("content")}
-                className="w-full outline-none rounded bg-transparent text-[20px] placeholder:opacity-50 px-[1px] focus:outline-none"
+              <textarea
+                {...commentRegister("content", {
+                  required: "내용을 입력해 주세요.",
+                })}
+                className="w-full outline-none rounded bg-transparent text-[20px] placeholder:opacity-50 px-[1px] focus:outline-none resize-none"
                 placeholder="댓글을 남겨보세요."
               />
               <button
@@ -436,7 +437,8 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
         <DeleteModal
           setIsOpen={setIsDiaryModalOpen}
           mutateFn={handledeleteDiary}
-          msg="정말 해당 기록을 삭제하시겠습니까?"
+          title="정말 일기를 삭제하시겠습니까?"
+          msg="삭제하시면 일기에 대한 모든 내용이 삭제됩니다."
         />
       </ModalWrapper>
     </div>

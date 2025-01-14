@@ -322,6 +322,8 @@ div::-webkit-scrollbar-track {
   float: left;
   height: 0;
   pointer-events: none;
+  font-family: var(--font-noto-sans);
+  font-size: 20px;
 }
 
 .ProseMirror p.is-editor-empty:first-child::before {
