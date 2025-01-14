@@ -36,7 +36,9 @@ const DiarySection = () => {
                 }`}
               >
                 <div className="flex space-x-2 items-center">
-                  <span className="text-[20px]">{diary.title}</span>
+                  <span className="text-[20px]">
+                    {Helper.cutString(diary.title, 30)}
+                  </span>
                   {Helper.isDateOlderThanOneDay(diary.createdAt) ? null : (
                     <img
                       className="h-[23.6px] w-[23.6px]"

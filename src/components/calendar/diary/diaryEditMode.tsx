@@ -65,8 +65,8 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
     );
   };
   return (
-    <div className="min-w-[600px] mt-[86px] w-[870px] noto-sans-text ">
-      <div className="flex items-center space-x-[10px] ">
+    <div className="min-w-[600px] mt-[86px] w-[870px]">
+      <div className="flex items-center space-x-[10px]">
         <span className="text-[30px] dodum-text">일기 수정</span>
         <span className="text-[#999790] text-[16px]">|</span>
         <span

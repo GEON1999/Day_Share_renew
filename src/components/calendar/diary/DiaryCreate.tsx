@@ -70,7 +70,7 @@ const DiaryCreate = () => {
   return (
     <div className="main_container center">
       <div className="w-[1670px] px-[100px] pb-[80px] flex justify-center">
-        <div className="min-w-[600px] mt-[86px] w-[870px] noto-sans-text">
+        <div className="min-w-[600px] mt-[86px] w-[870px]">
           <div
             className="flex items-center space-x-[10px] cur"
             onClick={() => router.push(`/calendar/${id}?date=${date}`)}
@@ -80,7 +80,10 @@ const DiaryCreate = () => {
           </div>
           <span className="text-[30px] dodum-text">일기 등록</span>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col noto-sans-text"
+          >
             <div className="flex flex-col mt-[26px]">
               <input
                 {...register("title")}
@@ -94,7 +97,7 @@ const DiaryCreate = () => {
                 <Toolbar editor={editor} />
                 <EditorContent
                   editor={editor}
-                  className="w-full flex-1 outline-none rounded bg-transparent text-[20px] py-[15px] px-[20px] focus:outline-none focus:ring-0"
+                  className="w-full h-[595px] outline-none rounded bg-transparent text-[20px] py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"
                 />
               </div>
             </div>

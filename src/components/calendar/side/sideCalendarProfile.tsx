@@ -1,3 +1,4 @@
+import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
 import { IconCircleSetting } from "@/icons";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
@@ -12,7 +13,7 @@ const SideCalendarProfile = () => {
   const handleClickSetting = () => router.push(`/calendar/${id}/setting`);
 
   const handleCalendarProfileClick = () =>
-    router.push(`/calendar/${id}?date=${date}`);
+    router.push(`/calendar/${id}?date=${Helper.getTodayMs()}`);
 
   return (
     <div className="flex flex-col items-center mt-[42px] ">
