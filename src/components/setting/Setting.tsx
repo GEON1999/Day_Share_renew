@@ -69,6 +69,22 @@ const Setting = () => {
               placeholder={"name"}
               defaultValue={userData?.name}
             />
+            <div className="relative">
+              <input
+                type="password"
+                value={"123453453"}
+                disabled
+                className="mt-[10px] rounded-md w-[390px] h-[50px] px-[19px] flex justify-center items-center bor cursor-not-allowed bg-[#ffffff] text-[#49494950] border-[#494949]"
+              />
+              <button
+                type="button"
+                className="absolute w-[131px] h-[30px] right-[17px] top-[20px] text-[15px] noto-sans-text border-[0.8px] border-[#49494950] rounded-full bg-[#49494910]"
+                onClick={handleChangePassword}
+              >
+                비밀번호 변경
+              </button>
+            </div>
+
             <button
               type="submit"
               className="mt-[35px] rounded-md w-[390px] h-[50px] flex justify-center items-center bor btn_hilight"
@@ -77,14 +93,9 @@ const Setting = () => {
             </button>
           </div>
         </form>
+
         <button
           className="text-[15px]  mt-[20px] noto-sans-text"
-          onClick={handleChangePassword}
-        >
-          비밀번호 변경
-        </button>
-        <button
-          className="text-[15px]  mt-[4px] noto-sans-text"
           onClick={handleDeleteUser}
         >
           탈퇴하기

@@ -52,7 +52,7 @@ const ChangePassword = () => {
         <h1 className="text-[20px] noto-sans-text">비밀번호 변경</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center mt-[35px]"
+          className="flex flex-col items-center mt-[35px] noto-sans-text"
         >
           <input
             className="w-[390px] h-[50px] outline-none border border-b-0 rounded-t-md px-[19px] placeholder-[#C2BFBC] focus:outline-none"
