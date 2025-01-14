@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import useAuthMutations from "@/queries/auth/useAuthMutations";
 import { useMutation } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-image-crop/dist/ReactCrop.css";
 import ImageCropComponent from "@/components/common/ImageCropComponent";
 import { IconKakao, IconLogoHoriz } from "@/icons";
@@ -16,7 +16,11 @@ function SignupClientPage() {
   const router = useRouter();
   const { showAlert } = useAlert();
 
-  const { handleSubmit, register } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
 
   const { mutate } = useMutation({
     mutationFn: useAuthMutations.signup,
@@ -48,6 +52,12 @@ function SignupClientPage() {
     });
   };
 
+  useEffect(() => {
+    if (errors.name) {
+      showAlert(errors.name?.message?.toString(), "error");
+    }
+  }, [errors]);
+
   const handleKakao = async () => {
     await signIn("kakao", {
       redirect: true,
@@ -69,7 +79,13 @@ function SignupClientPage() {
         <div className="flex flex-col mt-[20px] text-[20px]">
           <input
             className="auth-input-top"
-            {...register("name")}
+            {...register("name", {
+              required: "이름을 입력해주세요.",
+              maxLength: {
+                value: 10,
+                message: "이름은 10자 이하로 입력해주세요.",
+              },
+            })}
             required
             placeholder="이름"
           />

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { IconSetting } from "@/icons";
@@ -18,7 +18,11 @@ const ChangeProfile = () => {
   const [userImg, setUserImg] = useState(calendarUserData?.img ?? "");
   const [isSubmit, setIsSubmit] = useState(false);
   const { showAlert } = useAlert();
-  const { handleSubmit, register } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
 
   const { mutate: updateCalendarUserInfo } = useMutation({
     mutationFn: useCalendarMutations.updateCalendarUserInfo,
@@ -48,6 +52,12 @@ const ChangeProfile = () => {
     );
   };
 
+  useEffect(() => {
+    if (errors.name) {
+      showAlert(errors.name?.message?.toString(), "error");
+    }
+  }, [errors]);
+
   const handleSetting = () => router.push(`/calendar/${id}/setting`);
 
   return (
@@ -69,7 +79,13 @@ const ChangeProfile = () => {
               <input
                 className="w-[390px] h-[50px] bor px-[19px] rounded-md focus:outline-none"
                 defaultValue={calendarUserData?.name}
-                {...register("name")}
+                {...register("name", {
+                  required: "이름을 입력해주세요.",
+                  maxLength: {
+                    value: 10,
+                    message: "이름은 10자 이하로 입력해주세요.",
+                  },
+                })}
               />
             </div>
             <div className="confirm_btn_container mt-[40px]">

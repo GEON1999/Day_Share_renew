@@ -99,8 +99,8 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
               {...register("title", {
                 required: true,
                 maxLength: {
-                  value: 12,
-                  message: "제목은 12자 이하로 입력해주세요.",
+                  value: 10,
+                  message: "제목은 10자 이하로 입력해주세요.",
                 },
               })}
               type="text"

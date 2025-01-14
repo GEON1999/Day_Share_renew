@@ -1,6 +1,6 @@
 "use client";
 import useUserQueries from "@/queries/user/useUserQueries";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
@@ -19,7 +19,11 @@ const Setting = () => {
 
   const [userImg, setUserImg] = useState(userData?.img ?? "");
 
-  const { handleSubmit, register } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
 
   const { mutate: updateUser } = useMutation({
     mutationFn: useUserMutations.updateUser,
@@ -42,6 +46,12 @@ const Setting = () => {
     });
   };
 
+  useEffect(() => {
+    if (errors.name) {
+      showAlert(errors.name?.message?.toString(), "error");
+    }
+  }, [errors]);
+
   const handleChangePassword = () => router.push("/setting/changePW");
   const handleDeleteUser = () => setIsOpen(true);
 
@@ -63,7 +73,13 @@ const Setting = () => {
             />
             <input
               className="w-[390px] h-[55px] bor px-[19px] border-t-0 rounded-md rounded-t-none focus:outline-none"
-              {...register("name")}
+              {...register("name", {
+                required: "이름을 입력해주세요.",
+                maxLength: {
+                  value: 10,
+                  message: "이름은 10자 이하로 입력해주세요.",
+                },
+              })}
               required
               autoFocus={true}
               placeholder={"name"}
