@@ -43,6 +43,7 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
     if (isSubmit) return;
     setIsSubmit(true);
     const thumnail = editor?.getHTML().split("<img")[1]?.split('"')[1];
+    const submitContent = editor?.getHTML().replace(/<p><\/p>/g, "<p><br></p>");
     const submitData = {
       ...formData,
       content: editor?.getHTML(),

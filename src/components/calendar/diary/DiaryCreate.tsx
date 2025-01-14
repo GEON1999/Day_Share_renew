@@ -8,11 +8,9 @@ import Image from "@tiptap/extension-image";
 import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "@/components/common/toolbar";
 import { useRouter } from "next/navigation";
-import StaticKeys from "@/keys/StaticKeys";
 import Placeholder from "@tiptap/extension-placeholder";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import { IconNextGray } from "@/icons";
-import { throttle } from "lodash";
 import { useAlert } from "@/components/alert/AlertContext";
 
 const DiaryCreate = () => {
@@ -46,9 +44,11 @@ const DiaryCreate = () => {
     if (isSubmit) return;
     setIsSubmit(true);
     const thumnail = editor?.getHTML().split("<img")[1]?.split('"')[1];
+    const submitContent = editor?.getHTML().replace(/<p><\/p>/g, "<p><br></p>");
+
     const submitData = {
       ...formData,
-      content: editor?.getHTML(),
+      content: submitContent,
       img: thumnail ?? null,
     };
     createDiary(
