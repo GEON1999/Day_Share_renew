@@ -135,8 +135,8 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
     });
   };
 
-  const handleClickDeleteComment = () => {
-    if (userData?.userId === activeCommentId) {
+  const handleClickDeleteComment = (userId: string) => {
+    if (userData?.userId === userId) {
       deleteComment(
         { calendarId: id, commentId: activeCommentId },
         {
@@ -234,7 +234,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   // }, []);
 
   return (
-    <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px] noto-sans-text flex flex-col justify-between">
+    <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px] pb-[30px] flex flex-col justify-between">
       {isLoading ? (
         <div className="loading spinner " />
       ) : (
@@ -246,22 +246,25 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
             >
               <IconX className="w-full h-full" />
             </div>
-            <h1 className="-mt-[10px] text-[20px] flex items-center space-x-[10px]">
+            <h1 className="-mt-[10px] text-[20px] flex items-center space-x-[10px] noto-sans-text">
               <span>{Helper.formatDateForTodoDetail(data?.date)}</span>
               <span className="text-[15px] mb-[3px]">|</span>
               <span>
                 {Helper.formatTimeForTodoDetail(data?.startAt, data?.endAt)}
               </span>
             </h1>
-            <div className="">
+            <div className="relative">
               <div className="flex items-center mt-[20px] space-x-[13px] ml-[15px]">
                 <div className="w-[10px] h-[10px] rounded-full bg-[#494949]" />
                 <p className="text-[30px] dodum-text">{data?.title}</p>
               </div>
-              <div className="ml-[20px] border-l mb-[10px] pl-[18px] w-[440px] break-all overflow-y-auto h-[100px]">
-                <p className="text-[20px] py-[28px]">{data?.content}</p>
+              <div className="ml-[20px] mb-[10px] w-[488px] break-all overflow-y-auto h-[100px] noto-sans-text whitespace-pre-wrap">
+                <p className="text-[20px] pl-[18px] py-[5px] pr-[5px] w-[468px]">
+                  {data?.content}
+                </p>
               </div>
-              <div className="flex items-center justify-between mt-[5px] px-[10px]">
+              <div className="border-l absolute left-[20px] top-[30px] h-[128px] w-[1px]" />
+              <div className="flex items-center justify-between mt-[5px] px-[10px] noto-sans-text">
                 <div className="flex items-center">
                   <img
                     src={
@@ -296,7 +299,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="noto-sans-text">
             <div className="px-[10px]">
               <div className="flex items-center space-x-[23px] py-[15px]  border-t ">
                 <div className="flex items-center space-x-[4.7px]">
@@ -322,12 +325,12 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                 </div>
               </div>
             </div>
-            <div className="mt-[5px] space-y-[26px] text-[15px] px-[10px] overflow-y-auto h-[300px]">
+            <div className="mt-[12px] space-y-[26px] text-[15px] px-[10px] overflow-y-auto h-[300px]">
               {commentData?.map((comment: any) => {
                 return (
                   <div
                     key={comment.comment.id}
-                    className="flex justify-between items-center relative"
+                    className="flex justify-between items-start relative"
                   >
                     <div className="flex items-start space-x-[15px]">
                       <img
@@ -379,7 +382,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                               )}
                             </p>
                           </div>
-                          <p className="w-[375px]">{comment.comment.content}</p>
+                          <p className="w-[390px]">{comment.comment.content}</p>
                         </div>
                       )}
                     </div>
@@ -406,7 +409,7 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                             ref={(el) => {
                               menuRefs.current[comment.comment.id] = el;
                             }}
-                            className={`absolute right-[30px] top-[10px] w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-[15px] rounded-md shadow_box z-99 ${
+                            className={`absolute right-[34px] top-0 w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-[15px] rounded-md shadow_box z-99 ${
                               activeCommentId === comment.comment.id
                                 ? ""
                                 : "hidden"
@@ -423,7 +426,9 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleClickDeleteComment();
+                                handleClickDeleteComment(
+                                  comment.profile.userId
+                                );
                               }}
                               className="w-[55px] h-[50%]"
                             >
