@@ -142,6 +142,14 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
               suffixIcon={<IconNext className="w-[7px] h-[12px] rotate-90" />}
               allowClear={false}
               placeholder="종료 시간"
+              disabledTime={() => ({
+                disabledHours: () =>
+                  Array.from({ length: startTime.hour() }, (_, i) => i),
+                disabledMinutes: (hour) =>
+                  hour === startTime.hour()
+                    ? Array.from({ length: startTime.minute() }, (_, i) => i)
+                    : [],
+              })}
             />
           </div>
           <div className="flex items-start space-x-[12px]">
