@@ -275,7 +275,7 @@ div::-webkit-scrollbar-track {
 
 /* Ant Design TimePicker Styles */
 .ant-picker {
-  width: 123px !important;
+  width: 113px !important;
   height: 30px !important;
   border: 1.5px solid #494949 !important;
   border-radius: 0.375rem !important;
@@ -308,7 +308,6 @@ div::-webkit-scrollbar-track {
   max-width: 100%;
   height: auto;
   display: block;
-  margin: 0 auto;
 }
 
 .ProseMirror:focus {

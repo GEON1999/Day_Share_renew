@@ -90,11 +90,13 @@ const DiaryCreate = () => {
                 className="border w-full h-[40px] outline-none rounded-md bg-transparent text-[20px] placeholder:opacity-50 px-5 mb-5"
                 placeholder="제목을 입력해주세요"
               />
-              <div
-                className="border rounded-md flex flex-col h-[595px] overflow-y-auto"
-                onClick={() => editor?.commands.focus()}
-              >
+              <div className="relative">
                 <Toolbar editor={editor} />
+              </div>
+              <div
+                onClick={() => editor?.commands.focus()}
+                className="border border-t-0 rounded-md rounded-t-none flex flex-col h-[560px] overflow-y-scroll relative mt-[35px]"
+              >
                 <EditorContent
                   editor={editor}
                   className="w-full h-[595px] outline-none rounded bg-transparent text-[20px] py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"

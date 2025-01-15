@@ -87,7 +87,7 @@ const DiaryList = () => {
                       <p>{diary.userProfile?.name}</p>
                     </div>
                     <p
-                      className={`font-light text-[#2D2D2E] pb-[27px] ${
+                      className={`font-light mt-[2px] text-[#2D2D2E] pb-[27px] ${
                         diary.img ? "w-[300px]" : "w-[428px]"
                       } border-b border-[#49494920]`}
                     >

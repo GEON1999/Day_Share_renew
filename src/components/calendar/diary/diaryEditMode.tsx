@@ -46,7 +46,7 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
     const submitContent = editor?.getHTML().replace(/<p><\/p>/g, "<p><br></p>");
     const submitData = {
       ...formData,
-      content: editor?.getHTML(),
+      content: submitContent,
       img: thumnail ?? null,
     };
     updateDiary(
@@ -81,12 +81,17 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
         <div className="flex flex-col mt-[26px]">
           <input
             {...register("title")}
-            className="border w-full h-[40px] outline-none rounded-md bg-transparent text-[20px] placeholder:opacity-50 px-5 mb-5"
+            className="border w-full h-[40px] outline-none rounded-md bg-transparent text-[20px] placeholder:opacity-50 px-5 mb-5 noto-sans-text"
             placeholder="제목을 입력해주세요"
             defaultValue={data?.title}
           />
-          <div className="border rounded-md flex flex-col h-[595px] overflow-y-auto">
+          <div className="relative">
             <Toolbar editor={editor} />
+          </div>
+          <div
+            onClick={() => editor?.commands.focus()}
+            className="border border-t-0 rounded-md rounded-t-none flex flex-col h-[560px] overflow-y-scroll relative mt-[35px]"
+          >
             <EditorContent
               editor={editor}
               className="w-full h-[595px] outline-none rounded bg-transparent text-[20px] py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"
