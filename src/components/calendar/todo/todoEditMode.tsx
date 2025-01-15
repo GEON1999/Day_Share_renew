@@ -75,7 +75,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
   };
 
   return (
-    <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px]  noto-sans-text">
+    <div className="absolute w-[490px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px]  noto-sans-text">
       <div
         className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
         onClick={handleCancel}
@@ -102,7 +102,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
               })}
               defaultValue={data?.title}
               type="text"
-              className="w-[441px] h-[30px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
+              className="w-[381px] h-[30px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
               placeholder="제목을 입력해 보세요."
             />
           </div>
@@ -114,7 +114,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
               일시
             </label>
             <input
-              className="ml-[12px] w-[164px] h-[30px] text-[15px] bor rounded-md px-[8px] py-[6px] outline-none placeholder:text-[#C2BFBC] mr-[8px] disabled cursor-not-allowed text-center"
+              className="ml-[12px] w-[124px] h-[30px] text-[15px] bor rounded-md px-[8px] py-[6px] outline-none placeholder:text-[#C2BFBC] mr-[8px] disabled cursor-not-allowed text-center"
               disabled
               value={Helper.formatDateForTodoDetail(data?.date, true)}
             />
@@ -157,7 +157,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
             <textarea
               {...register("content", { required: true })}
               defaultValue={data?.content}
-              className="w-[441px] h-[133px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
+              className="w-[381px] h-[133px] text-[15px] bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
               placeholder="일정에 필요한 설명을 남겨보세요."
             />
           </div>
