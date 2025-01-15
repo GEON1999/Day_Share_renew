@@ -233,7 +233,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
         <p className="opacity-50 text-[20px]">{calendarData?.name}</p>
         <IconNextGray className="w-[5px] h-[10px]" />
       </div>
-      <div className="flex justify-between items-center mt-3">
+      <div className="flex justify-between items-center -mt-[5px]">
         <h2 className="text-[30px] dodum-text">{data?.title}</h2>
       </div>
       <div className="flex items-center mt-3 justify-between">
@@ -404,31 +404,44 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
             onSubmit={commentHandleSubmit(onCommentSubmit)}
             className="flex items-center mt-8 space-x-2"
           >
-            <div className="bor w-full h-[162px] rounded py-[15px] px-[20px] flex flex-col space-y-[10px] justify-between">
-              <div className="flex items-center space-x-[10px]">
-                <img
-                  className="w-10 h-10 rounded-full bor object-cover"
-                  src={
-                    userData?.img == "" || userData?.img == null
-                      ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                      : userData?.img
-                  }
-                />
-                <h1 className="text-[16px] text-[#2D2D2E]">{userData?.name}</h1>
+            <div className="bor w-full h-[162px] rounded pt-[15px]  bg-white flex flex-col space-y-[10px] justify-between">
+              <div>
+                <div className="flex items-center space-x-[8px] px-[18px]">
+                  <img
+                    className="w-[20px] h-[20px] rounded-full bor object-cover"
+                    src={
+                      userData?.img == "" || userData?.img == null
+                        ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                        : userData?.img
+                    }
+                  />
+                  <h1 className="text-[15px]">{userData?.name}</h1>
+                </div>
+                <div className="pr-1">
+                  <textarea
+                    {...commentRegister("content", {
+                      required: "내용을 입력해 주세요.",
+                    })}
+                    className="w-full px-[18px] h-[64px] mt-[5px] outline-none rounded bg-transparent text-[15px] placeholder:opacity-50 focus:outline-none resize-none"
+                    placeholder="댓글을 남겨보세요."
+                  />
+                </div>
               </div>
-              <textarea
-                {...commentRegister("content", {
-                  required: "내용을 입력해 주세요.",
-                })}
-                className="w-full outline-none rounded bg-transparent text-[20px] placeholder:opacity-50 px-[1px] focus:outline-none resize-none"
-                placeholder="댓글을 남겨보세요."
-              />
-              <button
-                type="submit"
-                className="w-[46px] bor h-[30px] rounded ml-auto btn_hilight"
-              >
-                등록
-              </button>
+              <div className="flex items-center justify-end space-x-[4px] h-[37px] border-t px-[10px]">
+                <button
+                  onClick={() => commentReset()}
+                  type="button"
+                  className="w-[40px] bor h-[25px] rounded ml-auto btn_while"
+                >
+                  취소
+                </button>
+                <button
+                  type="submit"
+                  className="w-[40px] bor h-[25px] rounded ml-auto btn_while"
+                >
+                  등록
+                </button>
+              </div>
             </div>
           </form>
         </div>
