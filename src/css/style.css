@@ -72,7 +72,7 @@
   }
 
   .btn_logout {
-    @apply flex items-center space-x-1 mt-[15px] w-[146px] h-[38px] justify-center rounded-full border-[1.5px] border-[#49494950] bg-transparent hover:bg-[#49494950] transition-colors duration-200 ease-in-out;
+    @apply flex items-center space-x-1 w-[146px] h-[38px] justify-center rounded-full border-[1.5px] border-[#49494950] bg-transparent hover:bg-[#49494950] transition-colors duration-200 ease-in-out;
   }
 
   .btn_transparent_sm {
@@ -102,7 +102,7 @@
   }
 
   .side_user_container {
-    @apply py-[8px] w-[216px] h-[392px] border-opacity-50 flex flex-col justify-between border-t border-b;
+    @apply py-[8px] w-[216px] h-[392px] flex flex-col justify-between border-t border-b border-[#49494950];
   }
 
   /* Confirm Button */

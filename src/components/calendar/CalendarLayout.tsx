@@ -27,7 +27,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
             <SideCalendarProfile />
             <SideUserList />
             {/* <SideTodoSection /> */}
-            <button onClick={handleLogout} className="btn_logout">
+            <button onClick={handleLogout} className="btn_logout mt-[27px]">
               <IconExit className="w-5 h-5 cur" />
               <p>로그아웃</p>
             </button>

@@ -57,7 +57,7 @@ const SideUserList = () => {
   };
 
   return (
-    <section className="mt-[28px] side_user_container">
+    <section className="mt-[23px] side_user_container">
       <div>
         <div className="flex items-center justify-between mb-[10px] mt-[4px] px-[18px]">
           <h1 className={`text-[20px]`}>참여</h1>
@@ -65,13 +65,13 @@ const SideUserList = () => {
             {userList?.total_users}/000
           </p>
         </div>
-        <div className="flex justify-center items-center flex-col">
+        <div className="flex justify-center items-center flex-col space-y-[3px]">
           {userList?.permissions?.map((user: any) => {
             console.log(user);
             return (
               <div
                 key={user.id}
-                className="flex items-center justify-between my-[8px] w-[194px] h-[35px] rounded-full group hover:bg-[#00000010] pl-[9px] pr-[6px] "
+                className="flex items-center justify-between w-[194px] h-[35px] rounded-full group hover:bg-[#00000010] pl-[9px] pr-[6px] "
               >
                 <div className="flex items-center">
                   <img

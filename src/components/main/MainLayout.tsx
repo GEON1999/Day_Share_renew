@@ -43,7 +43,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               className="w-[140px] h-[140px] object-cover rounded-full bg-gray-200 bor mt-[36px] shadow_box"
             />
             <p className={`text-[20px] mt-[8px] `}>{userData?.name}</p>
-            <button onClick={handleLogout} className="btn_logout">
+            <button onClick={handleLogout} className="btn_logout mt-[15px]">
               <IconExit className="w-5 h-5 cur" />
               <p>로그아웃</p>
             </button>

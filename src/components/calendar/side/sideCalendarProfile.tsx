@@ -27,7 +27,7 @@ const SideCalendarProfile = () => {
         onClick={handleClickSetting}
         className="w-[30px] h-[30px] absolute top-[302px] left-[203px] cur"
       />
-      <p className="mt-[19px] text-[20px]">{data?.name}</p>
+      <p className="mt-[14px] text-[20px]">{data?.name}</p>
     </div>
   );
 };
