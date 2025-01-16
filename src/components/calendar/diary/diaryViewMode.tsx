@@ -112,7 +112,13 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     mutationFn: useCommentMutations.updateComment,
   });
 
-  const handleClickdeleteDiary = () => setIsDiaryModalOpen(true);
+  const handleClickdeleteDiary = () => {
+    if (userData?.userId === data?.userId) {
+      setIsDiaryModalOpen(true);
+    } else {
+      showAlert("본인의 일기만 삭제할 수 있습니다.", "error");
+    }
+  };
 
   const onCommentSubmit = (data: any) => {
     if (isCommentSubmit) return;

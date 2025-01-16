@@ -83,7 +83,8 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
   const { data: calendarProfile, isLoading: calendarProfileIsLoading } =
     useCalendarQueries.useGetCalendarProfile(id, `userId=${data?.userId}`);
 
-  const { data: userData } = useCalendarQueries.useGetCalendarUserInfo(id);
+  const { data: userData, isLoading: userDataIsLoading } =
+    useCalendarQueries.useGetCalendarUserInfo(id);
 
   const { mutate: toggleLike } = useMutation({
     mutationFn: useLikeMutations.toggleLike,
@@ -101,7 +102,13 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
     mutationFn: useCommentMutations.updateComment,
   });
 
-  const handleClickDeleteTodo = () => setIsTodoModalOpen(true);
+  const handleClickDeleteTodo = () => {
+    if (userData?.userId === data?.userId) {
+      setIsTodoModalOpen(true);
+    } else {
+      showAlert("본인의 일정만 삭제할 수 있습니다.", "error");
+    }
+  };
 
   const onCommentSubmit = (data: any) => {
     if (isCommentSubmit) return;
@@ -235,7 +242,11 @@ const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
 
   return (
     <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px] pb-[30px] flex flex-col justify-between">
-      {isLoading ? (
+      {isLoading ||
+      userDataIsLoading ||
+      calendarProfileIsLoading ||
+      likeIsLoading ||
+      commentIsLoading ? (
         <div className="loading spinner " />
       ) : (
         <>

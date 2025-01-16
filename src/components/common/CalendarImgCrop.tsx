@@ -210,7 +210,7 @@ function CalendarImgCrop({
             </ReactCrop>
           </div>
           <div className="confirm_btn_container mt-[30px]">
-            <button className="cancel" onClick={handleCropUpload}>
+            <button className="cancel" onClick={() => setIsOpen(false)}>
               취소
             </button>
             <button className="confirm" onClick={handleCropUpload}>
