@@ -30,6 +30,14 @@ const Setting = () => {
   });
 
   const onSubmit = async (formData: any) => {
+    if (formData?.name === "") {
+      showAlert("이름을 입력해주세요.", "error");
+      return;
+    }
+    if (formData?.name.length > 5) {
+      showAlert("이름은 5자 이하로 입력해주세요.", "error");
+      return;
+    }
     const submitData = {
       name: formData.name,
       img: userImg,
@@ -75,10 +83,6 @@ const Setting = () => {
               className="w-[390px] h-[55px] bor px-[19px] border-t-0 rounded-md rounded-t-none focus:outline-none"
               {...register("name", {
                 required: "이름을 입력해주세요.",
-                maxLength: {
-                  value: 10,
-                  message: "이름은 10자 이하로 입력해주세요.",
-                },
               })}
               required
               autoFocus={true}

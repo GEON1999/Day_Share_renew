@@ -25,6 +25,14 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
 
   const onSubmit = (data: any) => {
     if (isSubmit) return;
+    if (data?.name === "") {
+      showAlert("달력 이름을 입력해주세요.", "error");
+      return;
+    }
+    if (data?.name.length > 8) {
+      showAlert("달력 이름은 8자 이하로 입력해주세요.", "error");
+      return;
+    }
     setIsSubmit(true);
     const formData = { ...data, img: image };
     createCalendar(formData, {

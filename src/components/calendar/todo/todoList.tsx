@@ -95,8 +95,10 @@ const TodoList = () => {
                   <div>{Helper.formatTimeForTodo(todo.startAt)}</div>
                   <div>{Helper.cutString(todo.title, 18)}</div>
                 </div>
-                <div className="flex items-center space-x-[15px]">
-                  <div>{todo.userProfile.name}</div>
+                <div className="flex items-center space-x-[15px] ">
+                  <div className="w-[100px] text-right">
+                    {todo.userProfile.name}
+                  </div>
                   <div
                     className="w-5 h-5 cur"
                     onClick={(e) =>

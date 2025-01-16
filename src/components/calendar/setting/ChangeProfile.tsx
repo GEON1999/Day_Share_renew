@@ -30,6 +30,14 @@ const ChangeProfile = () => {
 
   const onSubmit = (data: any) => {
     if (isSubmit) return;
+    if (data?.name === "") {
+      showAlert("이름을 입력해주세요.", "error");
+      return;
+    }
+    if (data?.name.length > 5) {
+      showAlert("이름은 5자 이하로 입력해주세요.", "error");
+      return;
+    }
     setIsSubmit(true);
     const formData = { name: data.name, img: userImg };
     updateCalendarUserInfo(
@@ -81,10 +89,6 @@ const ChangeProfile = () => {
                 defaultValue={calendarUserData?.name}
                 {...register("name", {
                   required: "이름을 입력해주세요.",
-                  maxLength: {
-                    value: 10,
-                    message: "이름은 10자 이하로 입력해주세요.",
-                  },
                 })}
               />
             </div>

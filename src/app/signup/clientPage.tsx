@@ -28,6 +28,10 @@ function SignupClientPage() {
 
   const onSubmit = (formData: any) => {
     if (isSubmit) return;
+    if (formData?.name > 5) {
+      showAlert("이름은 5자 이하로 입력해주세요.", "error");
+      return;
+    }
     setIsSubmit(true);
     if (formData.password !== formData.password_check) {
       alert("비밀번호가 일치하지 않습니다.");
@@ -81,10 +85,6 @@ function SignupClientPage() {
             className="auth-input-top"
             {...register("name", {
               required: "이름을 입력해주세요.",
-              maxLength: {
-                value: 10,
-                message: "이름은 10자 이하로 입력해주세요.",
-              },
             })}
             required
             placeholder="이름"
