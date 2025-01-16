@@ -17,6 +17,9 @@ const SideUserList = () => {
   const { showAlert } = useAlert();
 
   const { data: userData } = useGetUserQueries.useGetUser();
+  const { data: calendarUser } =
+    useCalendarQueries.useGetCalendarPermission(id);
+  console.log("calendarUser", calendarUser);
 
   const { data: userList, isLoading: userListLoading } =
     useCalendarQueries.useGetCalendarPermissionList(
@@ -50,6 +53,10 @@ const SideUserList = () => {
   const handleClickDeletePermission = (userId: number) => {
     if (userData?.id === userId) {
       showAlert("자신은 추방할 수 없습니다.", "error");
+      return;
+    }
+    if (calendarUser?.role !== "OWNER") {
+      showAlert("추방 권한이 없습니다.", "error");
       return;
     }
     setIsConfirmOpen(true);
