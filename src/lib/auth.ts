@@ -73,34 +73,50 @@ export const authOptions = {
 
   callbacks: {
     async jwt({ token, user, account }: any) {
-      async function refreshAccessToken(token: any) {
-        try {
-          const response = await axios.post(
-            `${process.env.BASE_URL}/api/refresh`,
-            {
-              refresh_token: token.refreshToken,
-            }
-          );
-          const refreshedTokens = response.data;
-          if (!refreshedTokens.access_token) {
-            throw new Error(
-              "리프레시 토큰으로 새로운 액세스 토큰을 받지 못했습니다."
-            );
-          }
+      let isRefreshing = false;
+      let refreshPromise: Promise<any> | null = null;
 
-          return {
-            ...token,
-            accessToken: refreshedTokens.access_token,
-            accessTokenExpires: Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES,
-            refreshToken: refreshedTokens.refresh_token || token.refreshToken,
-          };
-        } catch (error) {
-          console.error("액세스 토큰 갱신 오류:", error);
-          return {
-            ...token,
-            error: "RefreshAccessTokenError",
-          };
+      async function refreshAccessToken(token: any) {
+        if (isRefreshing) {
+          return refreshPromise;
         }
+
+        isRefreshing = true;
+        refreshPromise = (async () => {
+          try {
+            const response = await axios.post(
+              `${process.env.BASE_URL}/api/refresh`,
+              {
+                refresh_token: token.refreshToken,
+              }
+            );
+
+            const refreshedTokens = response.data;
+            if (!refreshedTokens.access_token) {
+              throw new Error(
+                "리프레시 토큰으로 새로운 액세스 토큰을 받지 못했습니다."
+              );
+            }
+
+            return {
+              ...token,
+              accessToken: refreshedTokens.access_token,
+              accessTokenExpires: Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES,
+              refreshToken: refreshedTokens.refresh_token || token.refreshToken,
+            };
+          } catch (error) {
+            console.error("액세스 토큰 갱신 오류:", error);
+            return {
+              ...token,
+              error: "RefreshAccessTokenError",
+            };
+          } finally {
+            isRefreshing = false;
+            refreshPromise = null;
+          }
+        })();
+
+        return refreshPromise;
       }
 
       if (account && user) {
@@ -158,6 +174,17 @@ export const authOptions = {
         return token;
       }
 
+      if (token.isAuto === "false" && timeNow > token.accessTokenExpires) {
+        return {
+          redirect: "/login",
+          error: "AccessTokenExpired",
+          isAuto: "false",
+          user: {
+            id: token.user?.id,
+          },
+        };
+      }
+
       if (token.isAuto === "true") {
         try {
           const refreshedToken = await refreshAccessToken(token);
@@ -181,14 +208,6 @@ export const authOptions = {
             error: "RefreshAccessTokenError",
           };
         }
-      } else if (
-        token.isAuto === "false" &&
-        timeNow > token.accessTokenExpires
-      ) {
-        return {
-          ...token,
-          error: "AccessTokenExpired",
-        };
       }
 
       return token;
@@ -202,10 +221,29 @@ export const authOptions = {
         };
       }
 
-      session.user = token.user;
-      session.accessToken = token.accessToken;
+      if (token.redirect) {
+        return {
+          redirect: token.redirect,
+          error: token.error,
+          isAuto: token.isAuto,
+          user: token.user,
+        };
+      }
+
+      session.user = {
+        ...token.user,
+        accessToken: token.accessToken,
+        refreshToken: token.refreshToken,
+        accessTokenExpires: token.accessTokenExpires,
+        isAuto: token.isAuto,
+        provider: token.provider,
+      };
       session.error = token.error;
+      session.accessToken = token.accessToken;
+      session.accessTokenExpires = token.accessTokenExpires;
+      session.isAuto = token.isAuto;
       session.provider = token.provider;
+
       return session;
     },
     pages: {
