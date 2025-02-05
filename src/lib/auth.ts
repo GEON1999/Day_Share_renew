@@ -110,11 +110,13 @@ export const authOptions = {
               accessTokenExpires: Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES,
               refreshToken: refreshedTokens.refresh_token || token.refreshToken,
             };
-          } catch (error) {
-            console.error("액세스 토큰 갱신 오류:", error);
+          } catch (error: any) {
             return {
               ...token,
-              error: "RefreshAccessTokenError",
+              error: "RefreshTokenExpired",
+              redirect: "/login",
+              accessToken: null,
+              refreshToken: null,
             };
           } finally {
             isRefreshing = false;
@@ -216,10 +218,26 @@ export const authOptions = {
         }
       }
 
+      if (token.error === "RefreshTokenExpired") {
+        return {
+          ...token,
+          redirect: "/login",
+          error: "RefreshTokenExpired",
+        };
+      }
+
       return token;
     },
 
     async session({ session, token }: any) {
+      if (token.error === "RefreshTokenExpired") {
+        return {
+          ...session,
+          error: token.error,
+          redirect: token.redirect,
+        };
+      }
+
       if (!token) {
         return {
           ...session,
