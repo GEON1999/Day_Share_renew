@@ -44,8 +44,8 @@ const CalendarSetting = () => {
       showAlert("달력 이름을 입력해주세요.", "error");
       return;
     }
-    if (data?.name.length > 8) {
-      showAlert("달력 이름은 8자 이하로 입력해주세요.", "error");
+    if (data?.name.length > 10) {
+      showAlert("달력 이름은 10자 이하로 입력해주세요.", "error");
       return;
     }
     setIsSubmit(true);
