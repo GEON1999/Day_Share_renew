@@ -18,6 +18,12 @@ export const authOptions = {
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID!,
       clientSecret: process.env.KAKAO_CLIENT_SECRET!,
+      profile(profile) {
+        return {
+          id: String(profile.id),
+          isAuto: "false",
+        };
+      },
     }),
     CredentialsProvider({
       name: "Credentials",
