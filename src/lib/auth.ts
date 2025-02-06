@@ -5,6 +5,10 @@ import API from "@/server/API";
 import KakaoProvider from "next-auth/providers/kakao";
 import StaticKeys from "@/keys/StaticKeys";
 
+// 전역 변수로 refresh promise와 마지막 갱신 토큰을 공유
+let globalRefreshPromise: Promise<any> | null = null;
+let lastRefreshedToken: any = null;
+
 export const authOptions = {
   site: process.env.NEXTAUTH_URL,
   secret: process.env.NEXTAUTH_SECRET,
@@ -47,7 +51,6 @@ export const authOptions = {
               },
             }
           );
-          console.log("data", data);
 
           if (data?.access_token && data?.refresh_token) {
             return {
@@ -79,55 +82,57 @@ export const authOptions = {
 
   callbacks: {
     async jwt({ token, user, account }: any) {
-      let isRefreshing = false;
-      let refreshPromise: Promise<any> | null = null;
-
+      // 토큰 갱신 함수를 수정하여 전역 promise와 마지막 갱신 토큰을 활용
       async function refreshAccessToken(token: any) {
-        if (isRefreshing) {
-          return refreshPromise;
-        }
+        if (globalRefreshPromise) return globalRefreshPromise;
 
-        isRefreshing = true;
-        refreshPromise = (async () => {
+        globalRefreshPromise = (async () => {
           try {
             const response = await axios.post(
               `${process.env.BASE_URL}/api/refresh`,
-              {
-                refresh_token: token.refreshToken,
-              }
+              { refresh_token: token.refreshToken }
             );
 
-            const refreshedTokens = response.data;
-            if (!refreshedTokens.access_token) {
-              throw new Error(
-                "리프레시 토큰으로 새로운 액세스 토큰을 받지 못했습니다."
-              );
-            }
-
-            return {
+            const newToken = {
               ...token,
-              accessToken: refreshedTokens.access_token,
+              accessToken: response.data.access_token,
+              refreshToken: response.data.refresh_token,
               accessTokenExpires: Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES,
-              refreshToken: refreshedTokens.refresh_token || token.refreshToken,
+              user: {
+                ...token.user,
+                accessToken: response.data.access_token,
+                refreshToken: response.data.refresh_token,
+              },
+              // 갱신 시각 업데이트 (추후 비교용)
+              iat: Date.now(),
             };
+            // 전역에 최신 갱신 토큰 저장
+            lastRefreshedToken = newToken;
+            return newToken;
           } catch (error: any) {
-            return {
-              ...token,
-              error: "RefreshTokenExpired",
-              redirect: "/login",
-              accessToken: null,
-              refreshToken: null,
-            };
+            console.error("갱신 실패:", error.response?.status);
+            if (error.response?.status === 401) {
+              return {
+                redirect: "/login",
+                error: "RefreshTokenExpired",
+                accessToken: null,
+                refreshToken: null,
+                accessTokenExpires: null,
+              };
+            }
+            return token;
           } finally {
-            isRefreshing = false;
-            refreshPromise = null;
+            globalRefreshPromise = null;
           }
         })();
 
-        return refreshPromise;
+        return globalRefreshPromise;
       }
 
+      const timeNow = Date.now();
+
       if (account && user) {
+        // 새 로그인 시 provider의 정보를 토큰에 업데이트
         token.accessToken = user.accessToken || token.accessToken;
         token.refreshToken = user.refreshToken || token.refreshToken;
         token.accessTokenExpires = Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES;
@@ -169,60 +174,45 @@ export const authOptions = {
                 Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES;
             }
           }
+          return token;
         }
 
         return token;
       }
 
-      const timeNow = Date.now();
+      // 이미 토큰이 유효한 경우 그대로 반환
       const shouldRefreshTime =
         token.accessTokenExpires - StaticKeys.TOKEN_REFRESH_THRESHOLD;
-
       if (timeNow < shouldRefreshTime) {
         return token;
       }
 
+      // 자동 로그인인 경우 만료된 토큰에 대해 갱신
+      if (token.isAuto === "true" && timeNow > token.accessTokenExpires) {
+        // 만약 마지막 갱신 토큰이 있다면(이미 갱신된 새 토큰)
+        if (
+          lastRefreshedToken &&
+          lastRefreshedToken.refreshToken !== token.refreshToken &&
+          timeNow < lastRefreshedToken.accessTokenExpires
+        ) {
+          return lastRefreshedToken;
+        }
+        const refreshedToken = await refreshAccessToken(token);
+        if (refreshedToken.error === "RefreshTokenExpired") {
+          return {
+            ...refreshedToken,
+            user: { id: token.user?.id },
+          };
+        }
+        return refreshedToken;
+      }
+
+      // 수동 로그인인 경우 만료되면 로그인 페이지로 리다이렉트
       if (token.isAuto === "false" && timeNow > token.accessTokenExpires) {
         return {
           redirect: "/login",
           error: "AccessTokenExpired",
-          isAuto: "false",
-          user: {
-            id: token.user?.id,
-          },
-        };
-      }
-
-      if (token.isAuto === "true") {
-        try {
-          const refreshedToken = await refreshAccessToken(token);
-          return refreshedToken;
-        } catch (error: any) {
-          if (
-            error?.response?.status === 401 ||
-            error?.response?.status === 403
-          ) {
-            return {
-              ...token,
-              accessToken: null,
-              refreshToken: null,
-              accessTokenExpires: null,
-              error: "RefreshTokenExpired",
-              destroy: true,
-            };
-          }
-          return {
-            ...token,
-            error: "RefreshAccessTokenError",
-          };
-        }
-      }
-
-      if (token.error === "RefreshTokenExpired") {
-        return {
-          ...token,
-          redirect: "/login",
-          error: "RefreshTokenExpired",
+          user: { id: token.user?.id },
         };
       }
 
