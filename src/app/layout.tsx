@@ -3,9 +3,7 @@ import "@/css/style.css";
 import Providers from "@/app/Providers";
 import AuthSession from "@/app/AuthSession";
 import { Noto_Sans, Noto_Serif } from "next/font/google";
-import SessionCheck from "./SessionCheck";
 import withTheme from "./ConfigProvider";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import localFont from "next/font/local";
 import { AlertProvider } from "@/components/alert/AlertContext";
 import Alert from "@/components/alert/Alert";
@@ -32,6 +30,28 @@ const gowunDodum = localFont({
 export const metadata: Metadata = {
   title: "Day Share",
   description: "소중한 기록을 함께",
+  openGraph: {
+    title: "Day Share",
+    description: "소중한 기록을 함께",
+    url: "https://day-share.vercel.app/",
+    siteName: "Day Share",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Day Share 대표 이미지",
+      },
+    ],
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Day Share",
+    description: "소중한 기록을 함께",
+    images: ["/logo.png"],
+  },
 };
 
 export default function RootLayout({
@@ -49,12 +69,10 @@ export default function RootLayout({
       >
         <AuthSession>
           <Providers>
-            <SessionCheck />
             <AlertProvider>
               <Alert />
               {children}
             </AlertProvider>
-            <SpeedInsights />
           </Providers>
         </AuthSession>
       </body>

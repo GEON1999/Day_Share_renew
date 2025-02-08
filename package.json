@@ -24,7 +24,6 @@
     "@tiptap/html": "^2.8.0",
     "@tiptap/react": "^2.0.0",
     "@tiptap/starter-kit": "^2.0.0",
-    "@vercel/speed-insights": "^1.1.0",
     "antd": "^5.22.6",
     "axios": "^1.6.7",
     "cookies-next": "^4.1.1",
