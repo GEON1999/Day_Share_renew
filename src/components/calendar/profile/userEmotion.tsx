@@ -17,7 +17,7 @@ const UserEmotion = () => {
   return (
     <section>
       <div
-        className={`flex justify-between w-[580px] bor rounded-[30px] px-10 mt-[20px] mb-[43px] shadow_box ${
+        className={`flex justify-between w-[580px] bor rounded-[30px] px-10 mt-[50px] mb-[40px] shadow_box ${
           calendarUser?.user_profile?.emotion === "EMPTY"
             ? "bg-white"
             : calendarUser?.user_profile?.emotion === "JOY"
@@ -31,10 +31,7 @@ const UserEmotion = () => {
       >
         {emotionData.map((emotion) => {
           return (
-            <div
-              key={emotion.id}
-              className="flex flex-col items-center py-[6px]"
-            >
+            <div key={emotion.id} className="flex flex-col items-center py-2">
               <img
                 className="w-[70px] h-[70px] object-cover "
                 src={emotion.imgSrc}

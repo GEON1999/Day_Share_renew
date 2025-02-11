@@ -16,8 +16,10 @@ const UserTodoSection = () => {
     profileId,
     query
   );
+
+  console.log(calendarUser);
   return (
-    <section className="w-[580px]">
+    <section className="w-[580px] ">
       <div className="relative">
         <div className="flex justify-between">
           <div className="flex items-center space-x-3">
@@ -53,8 +55,8 @@ const UserTodoSection = () => {
                     <div>{Helper.cutString(todo.title, 18)}</div>
                   </div>
                   <div className="flex items-center space-x-[15px] ">
-                    <div className="w-[100px] text-right">
-                      {calendarUser?.user_profile?.name}
+                    <div className="w-[200px] text-right text-[#49494950] text-[15px]">
+                      {Helper.formatDate(todo.createdAt)} 등록
                     </div>
                   </div>
                 </div>

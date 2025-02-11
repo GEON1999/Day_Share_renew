@@ -1,8 +1,9 @@
 import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
-
+import { useRouter } from "next/navigation";
 const UserProfileSection = () => {
+  const router = useRouter();
   const calendarId = useSearch.useSearchId();
   const profileId = useSearch.useSearchProfileId();
   const diaryPage = useSearch.useSearchDiaryPage() ?? "1";
@@ -15,7 +16,7 @@ const UserProfileSection = () => {
   );
 
   return (
-    <section className="flex justify-between space-x-20 items-center mb-[37px]">
+    <section className="flex justify-between space-x-20 items-center noto-sans-text">
       <div className="flex flex-col items-center space-y-4">
         <img
           src={
@@ -25,11 +26,16 @@ const UserProfileSection = () => {
               : calendarUser?.user_profile?.img
           }
           alt="user"
-          className="w-[200px] h-[200px] object-cover rounded-full bor shadow_box"
+          className="w-[150px] h-[150px] object-cover rounded-full bor shadow_box"
         />
-        {/* <button className="btn_hilight w-[200px] h-[37px] rounded-md bor">
-                  채팅하기
-                </button> */}
+        <button
+          onClick={() => {
+            router.push(`/calendar/${calendarId}/profile/${profileId}/chat`);
+          }}
+          className="btn_hilight w-[150px] h-[37px] rounded-md bor"
+        >
+          채팅하기
+        </button>
       </div>
       <div className="flex flex-col items-center space-y-5 text-[20px] w-[300px] ">
         <div className="flex items-center justify-between w-full">
