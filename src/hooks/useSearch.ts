@@ -42,6 +42,11 @@ const useSearchPage = () => {
   return searchParams.get("page") ?? "1";
 };
 
+const useSearchCreateContentHomePage = () => {
+  const searchParams = useSearchParams();
+  return searchParams.get("create_content_home_page") ?? "1";
+};
+
 const useSearchCalendarTodoPage = () => {
   const searchParams = useSearchParams();
   return searchParams.get("calendar_todo_page") ?? "1";
@@ -77,6 +82,11 @@ const useSearchUserPage = () => {
   return searchParams.get("user_page") ?? "1";
 };
 
+const useSearchContentType = () => {
+  const searchParams = useSearchParams();
+  return searchParams.get("content_type") ?? "";
+};
+
 export default {
   useSearchQueries,
   useSearchId,
@@ -84,6 +94,7 @@ export default {
   useSearchQueryTodoId,
   useSearchDiaryId,
   useSearchPage,
+  useSearchCreateContentHomePage,
   useSearchDiaryPage,
   useParamsAll,
   useSearchTodoPage,
@@ -91,4 +102,5 @@ export default {
   useSearchCalendarTodoPage,
   useSearchCalendarDiaryPage,
   useSearchUserPage,
+  useSearchContentType,
 };

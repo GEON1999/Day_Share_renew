@@ -1,10 +1,16 @@
 import DiaryPagination from "@/components/pagination/diaryPagination";
 import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
+import { IconAdd } from "@/icons";
+import ModalType from "@/keys/ModalType";
 import useUserQueries from "@/queries/user/useUserQueries";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import ModalContainer from "@/components/modal/ModalContainer";
+import StaticKeys from "@/keys/StaticKeys";
 
 const DiarySection = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const currentDiaryPage = useSearch.useSearchDiaryPage();
 
@@ -16,10 +22,17 @@ const DiarySection = () => {
     router.push(`/calendar/${calId}/diary/${diaryId}`);
   };
 
+  const handleAddBtn = () => {
+    setIsOpen(true);
+  };
+
   return (
     <section className="">
       <div className="flex justify-between">
-        <h2 className={`dashboard_title`}>공유 일기</h2>
+        <div className="flex items-center space-x-2">
+          <h2 className={`dashboard_title`}>공유 일기</h2>
+          <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur mb-[10px]" />
+        </div>
         <DiaryPagination total_count={diaryData?.total_count} />
       </div>
       {diaryData?.diaries && diaryData.diaries.length > 0 ? (
@@ -68,6 +81,13 @@ const DiarySection = () => {
             일기가 없어......................
           </p>
         </div>
+      )}
+      {isOpen && (
+        <ModalContainer
+          setIsOpen={setIsOpen}
+          initialModal={ModalType.CREATE_CONTENT_HOME}
+          contentType={StaticKeys.DIARY}
+        />
       )}
     </section>
   );

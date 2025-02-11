@@ -6,7 +6,6 @@ const ClientPage = () => {
   return (
     <MainLayout>
       <div className="w-full h-full bg_main px-[200px] mt-0">
-        {/* 메인 컨텐츠 */}
         <Dashboard />
       </div>
     </MainLayout>

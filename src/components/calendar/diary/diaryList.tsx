@@ -2,6 +2,7 @@ import CalendarDiaryPagination from "@/components/pagination/calendarDiaryPagina
 import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
 import { IconAdd, IconComment, IconEmptyDiary, IconHeart } from "@/icons";
+import StaticKeys from "@/keys/StaticKeys";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import parse from "html-react-parser";
 import { useRouter } from "next/navigation";
@@ -11,6 +12,7 @@ const DiaryList = () => {
   const calendarId = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
   const calendarDiaryPage = useSearch.useSearchCalendarDiaryPage();
+  const contentType = useSearch.useSearchContentType();
 
   const { data: diaryData, isLoading: diaryIsLoading } =
     useDiaryQueries.useGetDiaries(
@@ -43,7 +45,14 @@ const DiaryList = () => {
       <div className="flex justify-between">
         <div className="flex items-center space-x-3">
           <h1 className="text-2xl">공유 일기</h1>
-          <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
+          {contentType === StaticKeys.DIARY ? (
+            <IconAdd
+              onClick={handleAddBtn}
+              className="w-5 h-5 cur transition-transform duration-200 transform hover:scale-110 animate-pulse"
+            />
+          ) : (
+            <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
+          )}
         </div>
         <div>
           <CalendarDiaryPagination total_count={diaryData?.total_count} />

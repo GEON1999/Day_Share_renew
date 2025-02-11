@@ -8,6 +8,8 @@ const REFRESH_TOKEN_EXPIRES = 86400 * 14 * 1000;
 const TOKEN_REFRESH_THRESHOLD = 43200 * 1000;
 const ADD_TYPE = "ADD_TYPE";
 const EDIT_TYPE = "EDIT_TYPE";
+const DIARY = "DIARY";
+const TODO = "TODO";
 
 export default {
   THROTTLE_TIME,
@@ -20,4 +22,6 @@ export default {
   TOKEN_REFRESH_THRESHOLD,
   ADD_TYPE,
   EDIT_TYPE,
+  DIARY,
+  TODO,
 };

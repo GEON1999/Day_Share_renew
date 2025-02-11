@@ -2,7 +2,7 @@
 import useUserQueries from "@/queries/user/useUserQueries";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 import TodoSection from "@/components/main/todoSection";
 import { IconCircleSetting, IconExit, IconLogo } from "@/icons";
 
@@ -51,24 +51,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           <TodoSection />
         </div>
         <div>
-          <nav className="mt-2 mb-[73px] tet-[20px]">
-            {/* <ul>
-              <li
-                className="flex items-center cur"
-                onClick={handleClickSetting}
-              >
-                <IconSetting className="w-8 h-8" />
-                <span className={`ml-[16px] `}>설정</span>
-              </li>
-              <li
-                className="flex items-center cur mt-[20px]"
-                onClick={handleLogout}
-              >
-                
-                <span className={`ml-[17px] `}>나가기</span>
-              </li>
-            </ul> */}
-          </nav>
+          <nav className="mt-2 mb-[73px] tet-[20px]"></nav>
         </div>
       </aside>
       <main className="flex-grow bg-gray-50">{children}</main>
