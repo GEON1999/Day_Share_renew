@@ -47,11 +47,7 @@ const CreateContentHome = ({
         </h1>
         {calendarData?.calendars?.length === 0 ? (
           <div className="flex items-center justify-center h-[300px] flex-col">
-            {contentType === StaticKeys.DIARY ? (
-              <IconEmptyDiary className="w-[200px] h-[200px]" />
-            ) : (
-              <IconEmptyTodo className="w-[200px] h-[200px]" />
-            )}
+            <IconEmptyDiary className="w-[200px] h-[200px]" />
             <p>달력을 먼저 만들어주세요.</p>
             <button
               className="rounded-md btn_hilight w-[300px] h-[50px] flex justify-center items-center bor mt-[30px]"

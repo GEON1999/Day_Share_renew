@@ -10,12 +10,14 @@ import { useEffect, useState } from "react";
 import TodoDetailModal from "@/components/calendar/todo/todoDetailModal";
 import TodoCreate from "./todoCreate";
 import { useAlert } from "@/components/alert/AlertContext";
+import StaticKeys from "@/keys/StaticKeys";
 
 const TodoList = () => {
   const router = useRouter();
   const calendarId = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
   const calendarTodoPage = useSearch.useSearchCalendarTodoPage();
+  const contentType = useSearch.useSearchContentType();
   const [isOpen, setIsOpen] = useState(false);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const { showAlert } = useAlert();
@@ -65,7 +67,14 @@ const TodoList = () => {
       <div className="flex justify-between">
         <div className="flex items-center space-x-3">
           <h1 className="text-2xl">공유 일정</h1>
-          <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
+          {contentType === StaticKeys.TODO ? (
+            <IconAdd
+              onClick={handleAddBtn}
+              className="w-5 h-5 cur transition-transform duration-200 transform hover:scale-110 animate-pulse"
+            />
+          ) : (
+            <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
+          )}
         </div>
         <div>
           <CalendarTodoPagination total_count={todoData?.total_count} />
