@@ -87,6 +87,13 @@ const useSearchContentType = () => {
   return searchParams.get("content_type") ?? "";
 };
 
+const useSearchProfileId = () => {
+  const params = useParams();
+  return Array.isArray(params.profileId)
+    ? params.profileId[0]
+    : params.profileId;
+};
+
 export default {
   useSearchQueries,
   useSearchId,
@@ -103,4 +110,5 @@ export default {
   useSearchCalendarDiaryPage,
   useSearchUserPage,
   useSearchContentType,
+  useSearchProfileId,
 };

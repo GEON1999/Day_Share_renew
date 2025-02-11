@@ -63,6 +63,9 @@ const GET_COMMENTS = "GET_COMMENTS";
 // 좋아요 수 조회
 const GET_LIKES = "GET_LIKES";
 
+// 캘린더 유저 조회
+const GET_CALENDAR_USER = "GET_CALENDAR_USER";
+
 export default {
   GET_USER,
   GET_USER_TODOS,
@@ -85,4 +88,5 @@ export default {
   GET_TODO_DETAIL,
   GET_COMMENTS,
   GET_LIKES,
+  GET_CALENDAR_USER,
 };

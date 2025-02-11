@@ -4,7 +4,6 @@ import useSearch from "@/hooks/useSearch";
 import { IconAdd, IconComment, IconEmptyDiary, IconHeart } from "@/icons";
 import StaticKeys from "@/keys/StaticKeys";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
-import parse from "html-react-parser";
 import { useRouter } from "next/navigation";
 
 const DiaryList = () => {
@@ -73,7 +72,6 @@ const DiaryList = () => {
           </div>
         ) : (
           diaryData?.diaries?.map((diary: any, index: number) => {
-            console.log("diary :", diary);
             return (
               <div onClick={() => handleClickDiary(diary.id)} key={diary.id}>
                 <div
@@ -97,7 +95,7 @@ const DiaryList = () => {
                     </div>
                     <p
                       className={`font-light mt-[2px] text-[#2D2D2E] pb-[27px] ${
-                        diary.img ? "w-[300px]" : "w-[428px]"
+                        diary.img ? "w-[300px]" : "w-[430px]"
                       } border-b border-[#49494920]`}
                     >
                       {Helper.cutString(diary.title, diary.img ? 18 : 22)}

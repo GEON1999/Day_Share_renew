@@ -9,7 +9,10 @@ import CalendarUserPagination from "@/components/pagination/calendarUserPaginati
 import { emotionData } from "@/components/main/statusSection";
 import { useAlert } from "@/components/alert/AlertContext";
 import useGetUserQueries from "@/queries/user/useUserQueries";
+import { useRouter } from "next/navigation";
+
 const SideUserList = () => {
+  const router = useRouter();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const id = useSearch.useSearchId();
   const currentUserPage = useSearch.useSearchUserPage();
@@ -19,7 +22,6 @@ const SideUserList = () => {
   const { data: userData } = useGetUserQueries.useGetUser();
   const { data: calendarUser } =
     useCalendarQueries.useGetCalendarPermission(id);
-  console.log("calendarUser", calendarUser);
 
   const { data: userList, isLoading: userListLoading } =
     useCalendarQueries.useGetCalendarPermissionList(
@@ -63,6 +65,10 @@ const SideUserList = () => {
     setDeleteUserId(userId);
   };
 
+  const handleClickUser = (userId: number) => {
+    router.push(`/calendar/${id}/profile/${userId}`);
+  };
+
   return (
     <section className="mt-[23px] side_user_container">
       <div>
@@ -74,11 +80,11 @@ const SideUserList = () => {
         </div>
         <div className="flex justify-center items-center flex-col space-y-[3px]">
           {userList?.permissions?.map((user: any) => {
-            console.log(user);
             return (
               <div
                 key={user.id}
-                className="flex items-center justify-between w-[194px] h-[35px] rounded-full group hover:bg-[#00000010] pl-[9px] pr-[6px] "
+                onClick={() => handleClickUser(user.userId)}
+                className="flex items-center justify-between w-[194px] h-[35px] rounded-full group hover:bg-[#00000010] pl-[9px] pr-[6px] cur"
               >
                 <div className="flex items-center">
                   <img
@@ -106,7 +112,8 @@ const SideUserList = () => {
                 </div>
                 {userData?.id !== user.userId && (
                   <button
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       handleClickDeletePermission(user.userId);
                     }}
                     className="border-[0.8px] border-[#49494950] rounded-full w-[38px] h-[20px] text-[12px] noto-sans-text text-[#2D2D2E] hidden group-hover:block"

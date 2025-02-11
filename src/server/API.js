@@ -202,6 +202,10 @@ const GET_LIKES = (query) => `/api/like${query ? `?${query}` : ""}`;
 // 좋아요 토글(query)
 const TOGGLE_LIKE = (query) => `/api/like${query ? `?${query}` : ""}`;
 
+// 캘린더 유저 조회
+const GET_CALENDAR_USER = (calendarId, userId, query) =>
+  `/api/calendar/${calendarId}/profile/${userId}${query ? `?${query}` : ""}`;
+
 // image upload API
 
 // 이미지 업로드
@@ -264,4 +268,5 @@ export default {
   GET_LIKES,
   TOGGLE_LIKE,
   UPLOAD_IMAGE,
+  GET_CALENDAR_USER,
 };
