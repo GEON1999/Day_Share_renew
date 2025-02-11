@@ -6,11 +6,10 @@ import ModalWrapper from "@/components/modal/ModalWrapper";
 import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import DeleteModal from "@/components/modal/DeleteModal";
 import CalendarUserPagination from "@/components/pagination/calendarUserPagination";
-import { emotionData } from "@/components/main/statusSection";
 import { useAlert } from "@/components/alert/AlertContext";
 import useGetUserQueries from "@/queries/user/useUserQueries";
 import { useRouter } from "next/navigation";
-
+import { emotionData } from "@/app/data/emotionData";
 const SideUserList = () => {
   const router = useRouter();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);

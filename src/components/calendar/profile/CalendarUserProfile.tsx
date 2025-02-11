@@ -1,14 +1,12 @@
-import CalendarDiaryPagination from "@/components/pagination/calendarDiaryPagination";
 import Helper from "@/helper/Helper";
 import { IconEmptyDiary, IconEmptyTodo } from "@/icons";
 import useSearch from "@/hooks/useSearch";
-import { IconAdd } from "@/icons";
-import StaticKeys from "@/keys/StaticKeys";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import { useRouter } from "next/navigation";
 import { IconHeart, IconComment } from "@/icons";
 import DiaryPagination from "@/components/pagination/diaryPagination";
 import TodoPagination from "@/components/pagination/todoPagination";
+import { emotionData } from "@/app/data/emotionData";
 
 const CalendarUserProfile = () => {
   const router = useRouter();
@@ -43,9 +41,9 @@ const CalendarUserProfile = () => {
         <span className=" bg_hilight px-1">{user?.name}</span> &nbsp;님의 프로필
       </h1>
       <div className="flex justify-between mt-20">
-        <div className="flex flex-col  space-y-[157px]">
+        <div className="flex flex-col  ">
           {/* 유저 프로필 */}
-          <section className="flex justify-between space-x-20">
+          <section className="flex justify-between space-x-20 items-center mb-[37px]">
             <div className="flex flex-col items-center space-y-4">
               <img
                 src={
@@ -56,11 +54,11 @@ const CalendarUserProfile = () => {
                 alt="user"
                 className="w-[200px] h-[200px] object-cover rounded-full bor shadow_box"
               />
-              <button className="btn_hilight w-[200px] h-[37px] rounded-md bor">
-                채팅하기
-              </button>
+              {/* <button className="btn_hilight w-[200px] h-[37px] rounded-md bor">
+                  채팅하기
+                </button> */}
             </div>
-            <div className="flex flex-col items-center space-y-5 text-[20px] w-[300px] mt-[30px]">
+            <div className="flex flex-col items-center space-y-5 text-[20px] w-[300px] ">
               <div className="flex items-center justify-between w-full">
                 <p>이름 :</p>
                 <p className="">{user?.name}</p>
@@ -75,6 +73,46 @@ const CalendarUserProfile = () => {
                   {calendarUser?.total_diaries + calendarUser?.total_todos} 개
                 </p>
               </div>
+            </div>
+          </section>
+          {/* 유저 감정 */}
+          <section>
+            <div
+              className={`flex justify-between w-[580px] bor rounded-[30px] px-10 mt-[20px] mb-[43px] shadow_box ${
+                calendarUser?.user_profile?.emotion === "EMPTY"
+                  ? "bg-white"
+                  : calendarUser?.user_profile?.emotion === "JOY"
+                  ? "bg-[#FFF8C6]"
+                  : calendarUser?.user_profile?.emotion === "SAD"
+                  ? "bg-[#E6FFCD]"
+                  : calendarUser?.user_profile?.emotion === "ANGRY"
+                  ? "bg-[#FFDCDC]"
+                  : "bg-[#CDE4F9]"
+              }`}
+            >
+              {emotionData.map((emotion) => {
+                return (
+                  <div
+                    key={emotion.id}
+                    className="flex flex-col items-center py-[6px]"
+                  >
+                    <img
+                      className="w-[70px] h-[70px] object-cover "
+                      src={emotion.imgSrc}
+                      alt="emotion"
+                    />
+                    <p
+                      className={`py-[2px] px-1 rounded-full w-[80px] text-center ${
+                        calendarUser?.user_profile?.emotion === emotion.id
+                          ? emotion.hoverTextColor
+                          : "text-[#2D2D2E]"
+                      }`}
+                    >
+                      {emotion.text}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </section>
 
