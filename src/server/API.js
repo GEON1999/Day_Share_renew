@@ -124,6 +124,10 @@ const GET_CALENDAR_PERMISSION_LIST = (calendarId, query) =>
 const GET_CALENDAR_PROFILE = (calendarId, query) =>
   `/api/calendar/${calendarId}/profile${query ? `?${query}` : ""}`;
 
+// 캘린더 유저 조회
+const GET_CALENDAR_USER = (calendarId, userId, query) =>
+  `/api/calendar/${calendarId}/profile/${userId}${query ? `?${query}` : ""}`;
+
 // diary API
 
 // 일기 생성
@@ -202,9 +206,13 @@ const GET_LIKES = (query) => `/api/like${query ? `?${query}` : ""}`;
 // 좋아요 토글(query)
 const TOGGLE_LIKE = (query) => `/api/like${query ? `?${query}` : ""}`;
 
-// 캘린더 유저 조회
-const GET_CALENDAR_USER = (calendarId, userId, query) =>
-  `/api/calendar/${calendarId}/profile/${userId}${query ? `?${query}` : ""}`;
+// chat API
+
+// 채팅 룸 조회 or 생성
+const GET_CHAT_ROOM = (query) => `/api/chat/rooms${query ? `?${query}` : ""}`;
+
+// 채팅 조회
+const GET_CHAT_MESSAGES = (chatId) => `/api/chat/messages/${chatId}`;
 
 // image upload API
 
@@ -269,4 +277,6 @@ export default {
   TOGGLE_LIKE,
   UPLOAD_IMAGE,
   GET_CALENDAR_USER,
+  GET_CHAT_ROOM,
+  GET_CHAT_MESSAGES,
 };

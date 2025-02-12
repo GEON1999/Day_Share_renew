@@ -2,6 +2,9 @@ import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useMutation } from "@tanstack/react-query";
+import useChatQueries from "@/queries/chat/useChatQueries";
 const UserProfileSection = () => {
   const router = useRouter();
   const calendarId = useSearch.useSearchId();
@@ -14,6 +17,23 @@ const UserProfileSection = () => {
     profileId,
     query
   );
+  const session = useSession();
+
+  const { mutate: getChatRoom } = useMutation({
+    mutationFn: useChatQueries.getChatRoom,
+  });
+
+  const handleClickChat = async () => {
+    getChatRoom(
+      `calendarId=${calendarId}&user_a=${session.data?.user?.id}&user_b=${profileId}`,
+      {
+        onSuccess: (data) => {
+          console.log("data :", data);
+          router.push(`/calendar/${calendarId}/chat/${data.chat_room_id}`);
+        },
+      }
+    );
+  };
 
   return (
     <section className="flex justify-between space-x-20 items-center noto-sans-text">
@@ -29,9 +49,7 @@ const UserProfileSection = () => {
           className="w-[150px] h-[150px] object-cover rounded-full bor shadow_box"
         />
         <button
-          onClick={() => {
-            router.push(`/calendar/${calendarId}/profile/${profileId}/chat`);
-          }}
+          onClick={handleClickChat}
           className="btn_hilight w-[150px] h-[37px] rounded-md bor"
         >
           채팅하기

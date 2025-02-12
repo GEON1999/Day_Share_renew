@@ -94,6 +94,11 @@ const useSearchProfileId = () => {
     : params.profileId;
 };
 
+const useSearchChatId = () => {
+  const params = useParams();
+  return Array.isArray(params.chatId) ? params.chatId[0] : params.chatId;
+};
+
 export default {
   useSearchQueries,
   useSearchId,
@@ -111,4 +116,5 @@ export default {
   useSearchUserPage,
   useSearchContentType,
   useSearchProfileId,
+  useSearchChatId,
 };

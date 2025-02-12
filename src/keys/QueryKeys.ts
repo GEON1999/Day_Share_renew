@@ -66,6 +66,9 @@ const GET_LIKES = "GET_LIKES";
 // 캘린더 유저 조회
 const GET_CALENDAR_USER = "GET_CALENDAR_USER";
 
+// 채팅 메시지 조회
+const GET_CHAT_MESSAGES = "GET_CHAT_MESSAGES";
+
 export default {
   GET_USER,
   GET_USER_TODOS,
@@ -89,4 +92,5 @@ export default {
   GET_COMMENTS,
   GET_LIKES,
   GET_CALENDAR_USER,
+  GET_CHAT_MESSAGES,
 };
