@@ -15,7 +15,7 @@ type ChatMessage = {
   img?: string;
 };
 
-export default function ChatPage() {
+const ClientPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isComposing, setIsComposing] = useState(false);
@@ -228,4 +228,6 @@ export default function ChatPage() {
       </div>
     </CalendarLayout>
   );
-}
+};
+
+export default ClientPage;

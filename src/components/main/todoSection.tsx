@@ -111,7 +111,6 @@ const TodoSection = () => {
                   {Helper.formatWithoutYear(todo_group.date)}
                 </h4>
                 {todo_group.todos.map((todo: any) => {
-                  console.log(todo);
                   return (
                     <li
                       key={todo.id}

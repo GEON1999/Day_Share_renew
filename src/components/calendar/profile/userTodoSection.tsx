@@ -41,6 +41,7 @@ const UserTodoSection = () => {
             </div>
           ) : (
             calendarUser?.todos?.map((todo: any, index: number) => {
+              const dateString = new Date(Number(todo.date));
               return (
                 <div
                   key={todo.id}
@@ -56,7 +57,7 @@ const UserTodoSection = () => {
                   </div>
                   <div className="flex items-center space-x-[15px] ">
                     <div className="w-[200px] text-right text-[#49494950] text-[15px]">
-                      {Helper.formatDate(todo.createdAt)} 등록
+                      {Helper.formatDate(String(dateString))}
                     </div>
                   </div>
                 </div>

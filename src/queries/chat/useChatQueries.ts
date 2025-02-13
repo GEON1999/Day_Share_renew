@@ -25,7 +25,22 @@ const useGetChatMessages = (chatId: string) => {
   });
 };
 
+const getChatRooms = async (queries: string) => {
+  const { data } = await axios.get(
+    Helper.CURRENT_URL() + API.GET_CHAT_ROOMS(queries)
+  );
+  return data;
+};
+
+const useGetChatRooms = (queries: string) => {
+  return useQuery({
+    queryKey: [QueryKeys.GET_CHAT_ROOMS, queries],
+    queryFn: () => getChatRooms(queries),
+  });
+};
+
 export default {
   getChatRoom,
   useGetChatMessages,
+  useGetChatRooms,
 };

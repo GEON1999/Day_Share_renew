@@ -69,6 +69,9 @@ const GET_CALENDAR_USER = "GET_CALENDAR_USER";
 // 채팅 메시지 조회
 const GET_CHAT_MESSAGES = "GET_CHAT_MESSAGES";
 
+// 채팅 룸 리스트 조회
+const GET_CHAT_ROOMS = "GET_CHAT_ROOMS";
+
 export default {
   GET_USER,
   GET_USER_TODOS,
@@ -93,4 +96,5 @@ export default {
   GET_LIKES,
   GET_CALENDAR_USER,
   GET_CHAT_MESSAGES,
+  GET_CHAT_ROOMS,
 };

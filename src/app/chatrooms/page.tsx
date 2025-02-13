@@ -12,14 +12,6 @@ import API from "@/server/API";
 import axios from "axios";
 import rqOption from "@/server/rqOption";
 
-const getChatMessages = async (chatId: string, accessToken: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CHAT_MESSAGES(chatId)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
 const getUser = async (accessToken: string) => {
   const { data } = await axios.get(
     `${process.env.BASE_URL}${API.GET_USER}`,
@@ -28,21 +20,17 @@ const getUser = async (accessToken: string) => {
   return data;
 };
 
-const getCalendarPermissionList = async (
-  accessToken: any,
-  id: string,
-  query: string
-) => {
+const getUserTodos = async (accessToken: any, query: string) => {
   const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id, query)}`,
+    `${process.env.BASE_URL}${API.GET_USER_TODOS(query)}`,
     rqOption.apiHeader(accessToken)
   );
   return data;
 };
 
-const getCalendarBasic = async (accessToken: any, id: string) => {
+const getChatRooms = async (accessToken: any, query: string) => {
   const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_BASIC(id)}`,
+    `${process.env.BASE_URL}${API.GET_CHAT_ROOMS(query)}`,
     rqOption.apiHeader(accessToken)
   );
   return data;
@@ -57,27 +45,27 @@ export default async function Home(req: any) {
   }
 
   const queryClient = new QueryClient();
-  const calendarId = req.params.id;
-  const id = req.params.chatId;
-  const userPage = `user_page=${req.searchParams.user_page ?? "1"}`;
+  const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
+  const chatRoomPage = `chat_room_page=${
+    req.searchParams.chat_room_page ?? "1"
+  }`;
+  const chatRoomSize = `chat_room_size=${
+    req.searchParams.chat_room_size ?? "10"
+  }`;
+  const queries = `${chatRoomPage}&${chatRoomSize}`;
 
   Promise.all([
-    await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CHAT_MESSAGES, id],
-      queryFn: () => getChatMessages(id, accessToken),
-    }),
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],
       queryFn: () => getUser(accessToken),
     }),
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, calendarId, userPage],
-      queryFn: () =>
-        getCalendarPermissionList(accessToken, calendarId, userPage),
+      queryKey: [QueryKeys.GET_CHAT_ROOMS, queries],
+      queryFn: () => getChatRooms(accessToken, queries),
     }),
     await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CALENDAR_BASIC, calendarId],
-      queryFn: () => getCalendarBasic(accessToken, calendarId),
+      queryKey: [QueryKeys.GET_USER_TODOS, todoPage],
+      queryFn: () => getUserTodos(accessToken, todoPage),
     }),
   ]);
 
