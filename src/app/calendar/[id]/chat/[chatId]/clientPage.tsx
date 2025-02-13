@@ -16,6 +16,7 @@ type ChatMessage = {
 export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [isComposing, setIsComposing] = useState(false);
   const [input, setInput] = useState("");
   const messageEndRef = useRef<HTMLDivElement>(null);
   const chatRoomId = useSearch.useSearchChatId();
@@ -74,6 +75,7 @@ export default function ChatPage() {
   }, [chatRoomId]);
 
   const sendMessage = () => {
+    console.log(input);
     if (!input.trim()) return;
 
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
@@ -95,6 +97,13 @@ export default function ChatPage() {
       minute: "2-digit",
       hour12: true,
     });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && !e.shiftKey && !isComposing) {
+      e.preventDefault();
+      sendMessage();
+    }
   };
 
   return (
@@ -174,12 +183,9 @@ export default function ChatPage() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-              }
-            }}
+            onKeyDown={handleKeyDown}
+            onCompositionStart={() => setIsComposing(true)}
+            onCompositionEnd={() => setIsComposing(false)}
             placeholder="메시지를 입력하세요..."
             className="flex-1 bg-[#333333] text-white rounded-full px-4 py-2 outline-none"
           />
