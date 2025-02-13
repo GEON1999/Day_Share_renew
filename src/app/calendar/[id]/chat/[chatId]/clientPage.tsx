@@ -4,6 +4,8 @@ import React, { useEffect, useState, useRef } from "react";
 import useSearch from "@/hooks/useSearch";
 import useChatQueries from "@/queries/chat/useChatQueries";
 import useUserQueries from "@/queries/user/useUserQueries";
+import Helper from "@/helper/Helper";
+import CalendarLayout from "@/components/calendar/CalendarLayout";
 
 type ChatMessage = {
   sender: string;
@@ -20,6 +22,7 @@ export default function ChatPage() {
   const [input, setInput] = useState("");
   const messageEndRef = useRef<HTMLDivElement>(null);
   const chatRoomId = useSearch.useSearchChatId();
+  const calendarId = useSearch.useSearchId();
 
   const { data: user } = useUserQueries.useGetUser();
 
@@ -52,10 +55,10 @@ export default function ChatPage() {
       setIsLoading(false);
     };
 
-    ws.onmessage = async (event) => {
+    ws.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        await setMessages((prev) => [...prev, data]);
+        setMessages((prev) => [...prev, data]);
       } catch (error) {
         console.error("메시지 처리 에러:", error);
       }
@@ -89,16 +92,6 @@ export default function ChatPage() {
     }
   };
 
-  const formatTime = (dateString?: string) => {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    return date.toLocaleTimeString("ko-KR", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.shiftKey && !isComposing) {
       e.preventDefault();
@@ -107,96 +100,132 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#191919]">
-      <div className="flex-1 overflow-y-auto p-4">
-        {isLoading ? (
-          <div className="loading spinner " />
-        ) : (
-          <>
-            {messages.map((msg, index) => {
-              const isMyMessage = msg.sender == user.id;
-              const showTime = true;
+    <CalendarLayout>
+      <div className="flex flex-col h-screen bg-[#FFFCF0] px-[6px]">
+        <div className="flex-1 overflow-y-auto p-4">
+          {isLoading ? (
+            <div className="loading spinner " />
+          ) : (
+            <>
+              {messages.map((msg, index) => {
+                const isMyMessage = msg.sender == user.id;
+                const showTime = true;
+                const dateString = Helper.formatDateForChat(
+                  msg.created_at ?? ""
+                );
+                const prevMessage = index > 0 ? messages[index - 1] : null;
 
-              return (
-                <div
-                  key={index}
-                  className={`flex items-center mb-4 ${
-                    isMyMessage ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  {!isMyMessage && (
-                    <div className="flex-shrink-0 mr-2">
-                      <img
-                        src={
-                          msg.img === "" || msg.img === null
-                            ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                            : msg.img
-                        }
-                        alt="Profile"
-                        className="rounded-full w-[35px] h-[35px]"
-                      />
-                    </div>
-                  )}
-                  <div
-                    className={`flex flex-col ${
-                      isMyMessage ? "items-end" : "items-start"
-                    }`}
-                  >
-                    {!isMyMessage && (
-                      <span className="text-sm text-gray-300 mb-[2px]">
-                        {msg.name}
-                      </span>
+                const currentDate = new Date(
+                  new Date(msg.created_at ?? "").getTime() + 9 * 60 * 60 * 1000
+                );
+                const prevDate = prevMessage
+                  ? new Date(
+                      new Date(prevMessage.created_at ?? "").getTime() +
+                        9 * 60 * 60 * 1000
+                    )
+                  : null;
+
+                // 날짜가 바뀌었는지 확인
+                const showDateHeader =
+                  !prevDate ||
+                  currentDate.getFullYear() !== prevDate.getFullYear() ||
+                  currentDate.getMonth() !== prevDate.getMonth() ||
+                  currentDate.getDate() !== prevDate.getDate();
+
+                return (
+                  <>
+                    {showDateHeader && (
+                      <div className="flex justify-center my-4">
+                        <div className="bg-[#49494930] text-[#494949] text-xs px-3 py-1 my-[10px] rounded-full">
+                          {currentDate.getFullYear()}년{" "}
+                          {currentDate.getMonth() + 1}월 {currentDate.getDate()}
+                          일
+                        </div>
+                      </div>
                     )}
-                    <div className="flex items-end gap-2">
-                      {isMyMessage && showTime && (
-                        <span className="text-xs text-gray-400 mb-1">
-                          {formatTime(msg.created_at)}
-                        </span>
+                    <div
+                      key={index}
+                      className={`flex items-center mb-4 ${
+                        isMyMessage ? "justify-end" : "justify-start"
+                      }`}
+                    >
+                      {!isMyMessage && (
+                        <div className="flex-shrink-0 mr-2">
+                          <img
+                            src={
+                              msg.img === "" || msg.img === null
+                                ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                                : msg.img
+                            }
+                            alt="Profile"
+                            className="rounded-full w-[35px] h-[35px]"
+                          />
+                        </div>
                       )}
                       <div
-                        className={`rounded-2xl px-4 py-2 max-w-[70%] break-words ${
-                          isMyMessage
-                            ? "bg-[#FEE500] text-black"
-                            : "bg-[#333333] text-white"
+                        className={`flex flex-col ${
+                          isMyMessage ? "items-end" : "items-start"
                         }`}
                       >
-                        {msg.content}
+                        {!isMyMessage && (
+                          <span className="text-sm text-gray-300 mb-[2px]">
+                            {msg.name}
+                          </span>
+                        )}
+                        <div className="flex items-end gap-2">
+                          {isMyMessage && showTime && (
+                            <span className="text-xs text-gray-400 mb-1">
+                              {dateString}
+                            </span>
+                          )}
+                          <div
+                            className={`rounded-2xl px-4 py-2 break-words text-[#494949] max-w-[50vw] whitespace-pre-wrap ${
+                              isMyMessage ? "bg-[#F6BEBE]" : "bg-[#F8F3CE]"
+                            }`}
+                          >
+                            {msg.content}
+                          </div>
+                          {!isMyMessage && showTime && (
+                            <span className="text-xs text-gray-400 mb-1">
+                              {dateString}
+                            </span>
+                          )}
+                        </div>
                       </div>
-                      {!isMyMessage && showTime && (
-                        <span className="text-xs text-gray-400 mb-1">
-                          {formatTime(msg.created_at)}
-                        </span>
-                      )}
                     </div>
-                  </div>
-                </div>
-              );
-            })}
-          </>
-        )}
-        <div ref={messageEndRef} />
-      </div>
+                  </>
+                );
+              })}
+            </>
+          )}
+          <div ref={messageEndRef} />
+        </div>
 
-      <div className="bg-[#222222] p-4">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            onCompositionStart={() => setIsComposing(true)}
-            onCompositionEnd={() => setIsComposing(false)}
-            placeholder="메시지를 입력하세요..."
-            className="flex-1 bg-[#333333] text-white rounded-full px-4 py-2 outline-none"
-          />
-          <button
-            onClick={sendMessage}
-            className="bg-[#FEE500] text-black px-6 rounded-full font-medium"
-          >
-            전송
-          </button>
+        <div className="px-4 pb-4">
+          <div className="bor w-full h-[162px] rounded pt-[15px] bg-white flex flex-col space-y-[10px] justify-between">
+            <div>
+              <div className="pr-1">
+                <textarea
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onCompositionStart={() => setIsComposing(true)}
+                  onCompositionEnd={() => setIsComposing(false)}
+                  placeholder="메시지를 입력하세요..."
+                  className="w-full px-[18px] h-[64px] mt-[5px] outline-none rounded bg-transparent text-[15px] placeholder:opacity-50 focus:outline-none resize-none"
+                />
+              </div>
+            </div>
+            <div className="flex items-center justify-end space-x-[4px] h-[37px] border-t px-[10px]">
+              <button
+                onClick={sendMessage}
+                className="w-[40px] bor h-[25px] rounded ml-auto btn_while"
+              >
+                전송
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </CalendarLayout>
   );
 }

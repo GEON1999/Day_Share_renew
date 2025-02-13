@@ -29,6 +29,26 @@ const getUser = async (accessToken: string) => {
   return data;
 };
 
+const getCalendarPermissionList = async (
+  accessToken: any,
+  id: string,
+  query: string
+) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id, query)}`,
+    rqOption.apiHeader(accessToken)
+  );
+  return data;
+};
+
+const getCalendarBasic = async (accessToken: any, id: string) => {
+  const { data } = await axios.get(
+    `${process.env.BASE_URL}${API.GET_CALENDAR_BASIC(id)}`,
+    rqOption.apiHeader(accessToken)
+  );
+  return data;
+};
+
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
   const accessToken = session?.accessToken;
@@ -38,7 +58,9 @@ export default async function Home(req: any) {
   }
 
   const queryClient = new QueryClient();
+  const calendarId = req.params.id;
   const id = req.params.chatId;
+  const userPage = `user_page=${req.searchParams.user_page ?? "1"}`;
 
   Promise.all([
     await queryClient.prefetchQuery({
@@ -48,6 +70,15 @@ export default async function Home(req: any) {
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],
       queryFn: () => getUser(accessToken),
+    }),
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, calendarId, userPage],
+      queryFn: () =>
+        getCalendarPermissionList(accessToken, calendarId, userPage),
+    }),
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_CALENDAR_BASIC, calendarId],
+      queryFn: () => getCalendarBasic(accessToken, calendarId),
     }),
   ]);
 

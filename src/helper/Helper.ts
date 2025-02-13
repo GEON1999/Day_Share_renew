@@ -117,6 +117,17 @@ const formatTimeForTodoDetail = (start: string, end: string): string => {
   return `${startAmpm} ${startHours}:${startMinutes} ~ ${endAmpm} ${endHours}:${endMinutes}`;
 };
 
+const formatDateForChat = (dateString: string): string => {
+  const utcDate = new Date(dateString);
+  const korDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000);
+
+  const hours = korDate.getHours() % 12 || 12;
+  const minutes = korDate.getMinutes().toString().padStart(2, "0");
+  const ampm = korDate.getHours() >= 12 ? "오후" : "오전";
+
+  return `${ampm} ${hours}:${minutes}`;
+};
+
 const formatTimeForTodo = (dateString: string): string => {
   const date = new Date(dateString);
   const hours = date.getHours().toString().padStart(2, "0");
@@ -211,4 +222,5 @@ export default {
   formatTimeForTodoDetail,
   formatDateForTodoDetail,
   cutString,
+  formatDateForChat,
 };
