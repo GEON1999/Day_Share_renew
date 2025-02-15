@@ -94,7 +94,7 @@
   }
 
   .side_container {
-    @apply w-[250px] min-w-[250px] bg_depp px-[17px] transition-all duration-300 flex flex-col justify-between;
+    @apply w-[65px] lg:w-[250px] lg:min-w-[250px] bg_depp px-[17px] transition-all duration-300 flex flex-col justify-between;
   }
 
   .side_todo_container {
