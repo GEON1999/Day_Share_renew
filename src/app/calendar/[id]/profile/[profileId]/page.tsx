@@ -12,46 +12,6 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-const getDiaryDetail = async (
-  accessToken: any,
-  id: string,
-  diaryId: string
-) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_DIARY_DETAIL(id, diaryId)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getComments = async (accessToken: any, id: string, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_COMMENTS(id, query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getLikes = async (accessToken: any, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_LIKES(query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarProfile = async (
-  accessToken: any,
-  id: string,
-  userId: string
-) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_PROFILE(id, userId)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
 const getCalendarPermissionList = async (
   accessToken: any,
   id: string,

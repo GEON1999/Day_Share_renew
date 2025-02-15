@@ -18,11 +18,9 @@ type ChatMessage = {
 const ClientPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [isComposing, setIsComposing] = useState(false);
   const [input, setInput] = useState("");
   const messageEndRef = useRef<HTMLDivElement>(null);
   const chatRoomId = useSearch.useSearchChatId();
-  const calendarId = useSearch.useSearchId();
 
   const { data: user } = useUserQueries.useGetUser();
 
@@ -89,13 +87,6 @@ const ClientPage = () => {
       };
       wsRef.current.send(JSON.stringify(messagePayload));
       setInput("");
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && !e.shiftKey && !isComposing) {
-      e.preventDefault();
-      sendMessage();
     }
   };
 
@@ -208,8 +199,6 @@ const ClientPage = () => {
                 <textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onCompositionStart={() => setIsComposing(true)}
-                  onCompositionEnd={() => setIsComposing(false)}
                   placeholder="메시지를 입력하세요..."
                   className="w-full px-[18px] h-[64px] mt-[5px] outline-none rounded bg-transparent text-[15px] placeholder:opacity-50 focus:outline-none resize-none"
                 />

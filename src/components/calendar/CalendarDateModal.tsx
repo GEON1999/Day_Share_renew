@@ -1,5 +1,3 @@
-import useSearch from "@/hooks/useSearch";
-import { useRouter } from "next/navigation";
 import TodoList from "@/components/calendar/todo/todoList";
 import DiaryList from "@/components/calendar/diary/diaryList";
 
