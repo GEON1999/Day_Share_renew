@@ -216,11 +216,11 @@
   }
 
   .auth-title {
-    @apply text-[20px] mt-[9.25px] font-bold  mb-[40px];
+    @apply text-[20px] mt-[9.25px] font-bold mb-[40px];
   }
 
   .auth-input {
-    @apply w-[390px] h-[50px] outline-none bor px-[19px] placeholder-[#C2BFBC] focus:outline-none;
+    @apply w-[360px] lg:w-[390px] h-[50px] outline-none bor px-[19px] placeholder-[#C2BFBC] focus:outline-none;
   }
 
   .auth-input-top {
@@ -236,11 +236,11 @@
   }
 
   .auth-submit-btn {
-    @apply rounded-md btn_hilight mt-[40px] w-[390px] h-[50px] flex justify-center items-center bor;
+    @apply rounded-md btn_hilight mt-[40px] w-[360px] lg:w-[390px] h-[50px] flex justify-center items-center bor;
   }
 
   .auth-kakao-btn {
-    @apply flex bg-[#FEE500] justify-center items-center rounded-md space-x-[10px]  mt-[10px] w-[390px] h-[50px] bor hover:bg-[#F5D101] transition-colors duration-200 ease-in-out;
+    @apply flex bg-[#FEE500] justify-center items-center rounded-md space-x-[10px]  mt-[10px] w-[360px] lg:w-[390px] h-[50px] bor hover:bg-[#F5D101] transition-colors duration-200 ease-in-out;
   }
 
   .auth-link-btn {

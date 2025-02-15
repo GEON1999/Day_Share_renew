@@ -41,8 +41,8 @@ function LoginClientPage() {
     <div className="auth-container">
       <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
         <IconLogo className="w-[150px] h-[150px]" />
-        <div className="flex flex-col mt-[45px]">
-          <div className="w-[390px] h-[110px] text-[20px]">
+        <div className="flex items-center flex-col mt-[45px]">
+          <div className="w-[360px] lg:w-[390px] h-[110px] text-[20px]">
             <input
               className="auth-input-top"
               {...register("id")}
@@ -58,7 +58,7 @@ function LoginClientPage() {
               placeholder="비밀번호"
             />
           </div>
-          <div className="flex justify-between items-center ">
+          <div className="flex justify-between items-center w-[360px] lg:w-[390px]">
             <div className="flex items-center space-x-[5px]">
               {isAutoLogin ? (
                 <IconCheck_o
