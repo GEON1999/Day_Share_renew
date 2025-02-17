@@ -4,13 +4,13 @@ const GreetingSection = () => {
   const { data: favoriteTodoData } = useUserQueries.useGetUserFavoriteTodo();
   const { data: userData } = useUserQueries.useGetUser();
   return (
-    <section className={`mt-[5px] text-[40px]`}>
+    <section className={`mt-[5px] text-[20px] lg:text-[40px]`}>
       <h1>안녕하세요, {userData?.name}님.</h1>
       {favoriteTodoData?.title ? (
         <p>
           혹시 &nbsp;
           <span className=" bg_hilight px-1">{favoriteTodoData?.title}</span>
-          &nbsp; 잊지 않으셨나요?
+          &nbsp; <br className="lg:hidden" /> 잊지 않으셨나요?
         </p>
       ) : (
         <p>주요 일정을 설정해 보세요!</p>
