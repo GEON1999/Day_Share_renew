@@ -34,23 +34,23 @@ const CreateContentHome = ({
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center noto-sans-text">
-      <div className="w-[520px] h-[390px] bg_depp rounded-md p-[20px] text-[20px] relative">
+      <div className="w-[300px] lg:w-[520px] h-[350px] lg:h-[390px] bg_depp rounded-md p-[20px] text-[20px] relative">
         <div
           className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
           onClick={() => setIsOpen(false)}
         >
           <IconX className="w-full h-full" />
         </div>
-        <h1 className="-mt-[5px] font-bold">
+        <h1 className="-mt-[17px] lg:-mt-[5px] font-bold">
           {contentType === StaticKeys.DIARY ? "일기" : "일정"}를 추가할 달력
           선택
         </h1>
         {calendarData?.calendars?.length === 0 ? (
-          <div className="flex items-center justify-center h-[300px] flex-col">
-            <IconEmptyDiary className="w-[200px] h-[200px]" />
+          <div className="flex items-center justify-center h-[250px] lg:h-[300px] flex-col mt-[15px] lg:mt-[0px]">
+            <IconEmptyDiary className="w-[180px] h-[180px] lg:w-[200px] lg:h-[200px]" />
             <p>달력을 먼저 만들어주세요.</p>
             <button
-              className="rounded-md btn_hilight w-[300px] h-[50px] flex justify-center items-center bor mt-[30px]"
+              className="rounded-md btn_hilight w-[260px] lg:w-[300px] h-[40px] lg:h-[50px] flex justify-center items-center bor mt-[10px] lg:mt-[30px]"
               onClick={handleCreateCalendar}
             >
               달력 만들기
@@ -65,7 +65,7 @@ const CreateContentHome = ({
                 <>
                   {calendarData?.calendars.map((calendar: any) => (
                     <div
-                      className="flex items-center justify-between px-[14px] w-[470px] h-[50px] bor rounded-md cur hover:bg-[#f7eeab] transition-colors duration-200 ease-in-out"
+                      className="flex items-center justify-between px-[14px] w-[260px] lg:w-[470px] h-[50px] bor rounded-md cur hover:bg-[#f7eeab] transition-colors duration-200 ease-in-out"
                       key={calendar.id}
                       onClick={() => handleClickCalendar(calendar.id)}
                     >
@@ -76,7 +76,7 @@ const CreateContentHome = ({
                 </>
               )}
             </div>
-            <div className="absolute bottom-[25px] left-[50%] translate-x-[-50%]">
+            <div className="absolute bottom-[10px] lg:bottom-[25px] left-[50%] translate-x-[-50%]">
               <CalendarCreateContentPagination
                 total_count={calendarData?.total_calendars}
               />
