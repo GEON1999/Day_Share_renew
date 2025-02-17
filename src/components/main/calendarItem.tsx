@@ -71,8 +71,8 @@ const CalendarItem = memo(
               <img
                 className={`object-cover rounded-md bor ${
                   isEditMode
-                    ? "cursor-move w-[170px] h-[113px]"
-                    : "cursor-pointer w-[300px] h-[200px]"
+                    ? "cursor-move w-[100px] h-[66.66px] lg:w-[170px] lg:h-[113px]"
+                    : "cursor-pointer w-[140px] h-[93.06px] lg:w-[300px] lg:h-[200px]"
                 }`}
                 src={
                   calendar.img == ""
@@ -83,7 +83,13 @@ const CalendarItem = memo(
               />
             </div>
             <div className="flex items-center space-x-1 mt-2  mb-[23px]">
-              <p className={`${isEditMode ? "text-[20px]" : "text-[23px]"}`}>
+              <p
+                className={`${
+                  isEditMode
+                    ? "text-[15px] lg:text-[20px]"
+                    : "text-[15px] lg:text-[23px]"
+                }`}
+              >
                 {calendar.name}
               </p>
               {calendar.isRead ? null : (

@@ -24,7 +24,7 @@ const CalendarPagination = ({ total_count }: any) => {
     router.push(`${pathName}?${params.toString()}`);
   };
   return (
-    <div className="pagination mr-[15px]">
+    <div className="pagination lg:mr-[15px]">
       <div>
         {Number(currentPage) <= 1 ? (
           <IconPrev_disabled className="pagination_btn_disabled" />
@@ -32,7 +32,6 @@ const CalendarPagination = ({ total_count }: any) => {
           <IconPrev className="pagination_btn" onClick={handlePrevBtn} />
         )}
       </div>
-
       <p>{currentPage}</p>
       <div>
         {total_count <= Number(currentPage) * 4 ? (

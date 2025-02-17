@@ -93,15 +93,18 @@ const CalendarListSection = () => {
 
   return (
     <section>
-      <div className="flex justify-between w-[1260px] items-center mt-[47px]">
+      <div className="flex justify-between w-[300px] lg:w-[1260px] items-center mt-[20px] lg:mt-[47px]">
         <div className="flex items-center mb-[10px] space-x-2">
-          <h2 className={`text-[25px]`}>공유 달력</h2>
-          <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
+          <h2 className={`text-[18px] lg:text-[25px]`}>공유 달력</h2>
+          <IconAdd
+            onClick={handleAddBtn}
+            className="w-[15px] h-[15px] lg:w-5 lg:h-5 cur"
+          />
         </div>
         {!calendarData || calendarData?.total_calendars === 0 ? null : (
           <div className="flex items-center  text-[15px]">
             <div
-              className={`mr-[7px] ${
+              className={`hidden lg:block mr-[7px] ${
                 isEditMode
                   ? "w-[32px] h-[32px] rounded-full flex items-center justify-center bg-[#49494920]"
                   : ""
@@ -138,7 +141,7 @@ const CalendarListSection = () => {
         <DndProvider backend={HTML5Backend}>
           <ScrollingComponent
             ref={scrollContainerRef}
-            className="overflow-auto max-w-[1260px] flex space-x-4"
+            className="overflow-auto w-[300px] grid grid-cols-2 gap-2 lg:w-[1260px] lg:flex lg:space-x-4"
           >
             {(isEditMode ? calendars : combineData.slice(0, 5)).map(
               (calendar, index) => (
