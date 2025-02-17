@@ -6,7 +6,7 @@ import GreetingSection from "./greetingSection";
 
 const Dashboard = () => {
   return (
-    <div className="main_container py-[20px] lg:py-[30px] flex flex-col items-center justify-center lg:block">
+    <div className="main_container lg:py-[30px] flex flex-col items-center justify-center lg:block">
       <div className="flex items-center space-x-[10px] lg:space-x-0 lg:flex-none">
         <div className="lg:hidden block">
           <StatusSection />

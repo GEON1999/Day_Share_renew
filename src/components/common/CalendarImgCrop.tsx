@@ -130,7 +130,7 @@ function CalendarImgCrop({
         className={`rounded-md cur bg-[#D9D9D9] flex justify-center items-center ${
           type === StaticKeys.EDIT_TYPE
             ? "w-[195px] h-[130px]"
-            : "w-[299.42px] h-[200px]"
+            : "w-[250px] h-[170px] lg:w-[299.42px] lg:h-[200px]"
         }`}
       >
         {calendarImg ? (
@@ -152,14 +152,14 @@ function CalendarImgCrop({
               className={`overflow-hidden rounded-md flex justify-center items-center bor ${
                 type === StaticKeys.EDIT_TYPE
                   ? "w-[195px] h-[130px]"
-                  : "w-[299.42px] h-[200px]"
+                  : "w-[250px] h-[170px] lg:w-[299.42px] lg:h-[200px]"
               }`}
             >
               <IconAddCalendar
                 className={`mt-[28px] ${
                   type === StaticKeys.EDIT_TYPE
                     ? "w-[100.95px] h-[128.88px]"
-                    : "w-[170px] h-[189.46px]"
+                    : "w-[141.64px] h-[181.18px] lg:w-[170px] lg:h-[189.46px]"
                 }`}
               />
             </div>
