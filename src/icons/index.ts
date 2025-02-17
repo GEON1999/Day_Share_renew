@@ -40,3 +40,5 @@ export { default as IconLogoHoriz } from "./logo_horiz.svg";
 export { default as IconReload } from "./reload.svg";
 export { default as IconEdit } from "./edit.svg";
 export { default as IconSelectCheck } from "./select_check.svg";
+export { default as IconTodo } from "./todo.svg";
+export { default as IconExitMobile } from "./exit_m.svg";

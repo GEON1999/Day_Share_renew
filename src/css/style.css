@@ -72,7 +72,7 @@
   }
 
   .btn_logout {
-    @apply flex items-center space-x-1 w-[146px] h-[38px] justify-center rounded-full border-[1.5px] border-[#49494950] bg-transparent hover:bg-[#49494950] transition-colors duration-200 ease-in-out;
+    @apply flex items-center space-x-1 w-[120px] lg:w-[146px] h-[34px] lg:h-[38px] justify-center rounded-full border-[1.5px] border-[#49494950] bg-transparent hover:bg-[#49494950] transition-colors duration-200 ease-in-out;
   }
 
   .btn_transparent_sm {
@@ -94,7 +94,7 @@
   }
 
   .side_container {
-    @apply w-[50px] lg:w-[250px] lg:min-w-[250px] bg_depp px-[17px] transition-all duration-300 flex flex-col justify-between;
+    @apply bg_depp px-[17px] transition-all duration-300 flex flex-col justify-between;
   }
 
   .side_todo_container {

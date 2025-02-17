@@ -2,11 +2,19 @@
 import useUserQueries from "@/queries/user/useUserQueries";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TodoSection from "@/components/main/todoSection";
-import { IconCircleSetting, IconExit, IconLogo, IconLogo_sm } from "@/icons";
+import {
+  IconCircleSetting,
+  IconExit,
+  IconExitMobile,
+  IconLogo,
+  IconLogo_sm,
+  IconTodo,
+} from "@/icons";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { data: userData } = useUserQueries.useGetUser();
 
@@ -16,26 +24,40 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     await signOut();
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener("resize", () => {
+        window.innerWidth > 1024 ? setIsOpen(false) : null;
+      });
+    }
+  }, [isOpen]);
+
   return (
-    <div className="flex h-screen lg:min-h-[900px]">
+    <div className="flex h-screen lg:min-h-[900px] relative">
       {/* Sidebar */}
-      <aside className="side_container shadow-side border-r-[1.5px] z-10">
+      <aside
+        className={`side_container lg:w-[250px] lg:min-w-[250px] ${
+          isOpen ? "w-[250px]" : "w-[50px]"
+        } shadow-side border-r-[1.5px] z-10`}
+      >
         <div className="flex flex-col items-center">
           <div className="flex flex-col items-center">
             <div className="mt-[45px] flex flex-col items-center">
-              <div className="hidden lg:block">
+              <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
                 <IconLogo
                   onClick={handleClickMain}
-                  className="w-[108px] h-[108px] cur"
+                  className="w-[80px] lg:w-[108px] h-[80px] lg:h-[108px] cur"
                 />
               </div>
-              <div className="block lg:hidden">
+              <div className={`${isOpen ? "hidden" : "block lg:hidden"}`}>
                 <IconLogo_sm
                   onClick={handleClickMain}
                   className="w-[25px] h-[25px] cur"
                 />
               </div>
-              <div className="block lg:hidden mt-[50px]">
+              <div
+                className={`${isOpen ? "hidden" : "block lg:hidden mt-[50px]"}`}
+              >
                 <img
                   src={
                     userData?.img === "" || !userData?.img
@@ -48,10 +70,20 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               </div>
               <IconCircleSetting
                 onClick={handleClickSetting}
-                className="w-[30px] h-[30px] mt-[50px] lg:mt-0 lg:absolute top-[300px] left-[160px] cur"
+                className={`w-[30px] h-[30px] lg:mt-0 lg:absolute lg:top-[300px] lg:left-[160px] cur ${
+                  isOpen
+                    ? "mt-0 absolute top-[210px] left-[145px]"
+                    : "mt-[50px]"
+                }`}
               />
             </div>
-            <div className="hidden lg:flex flex-col items-center">
+            <div
+              className={`${
+                isOpen
+                  ? "flex flex-col items-center"
+                  : "hidden lg:flex flex-col items-center"
+              }`}
+            >
               <img
                 src={
                   userData?.img === "" || !userData?.img
@@ -59,34 +91,51 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     : userData?.img
                 }
                 alt="profile"
-                className="w-[140px] h-[140px] object-cover rounded-full bg-gray-200 bor mt-[36px] shadow_box"
+                className="w-[100px] lg:w-[140px] h-[100px] lg:h-[140px] object-cover rounded-full bg-gray-200 bor mt-[10px] lg:mt-[36px] shadow_box"
               />
               <p className="text-[20px] mt-[8px]">{userData?.name}</p>
             </div>
-            <div className="hidden lg:block">
-              <button onClick={handleLogout} className="btn_logout mt-[15px]">
+            <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
+              <button
+                onClick={handleLogout}
+                className="btn_logout mt-[7px] lg:mt-[15px]"
+              >
                 <IconExit className="w-5 h-5 cur" />
                 <p>로그아웃</p>
               </button>
             </div>
-            <div className="block lg:hidden mt-[50px]">
-              <div className="bor w-[30px] h-[30px] rounded-full flex justify-center items-center">
-                <IconExit
-                  onClick={handleLogout}
-                  className="w-5 h-5 cur ml-[3px]"
-                />
-              </div>
-            </div>
+            <IconExitMobile
+              onClick={handleLogout}
+              className={`${
+                isOpen
+                  ? "hidden"
+                  : "cur w-[30px] h-[30px] rounded-full flex justify-center items-center lg:hidden mt-[50px]"
+              }`}
+            />
+
+            <IconTodo
+              onClick={() => setIsOpen(true)}
+              className={`${
+                isOpen
+                  ? "hidden"
+                  : "cur w-[30px] h-[30px] rounded-full flex justify-center items-center lg:hidden mt-[50px]"
+              }`}
+            />
           </div>
-          <div className="hidden lg:block">
+          <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
             <TodoSection />
           </div>
         </div>
-        <div>
-          <nav className="mt-2 mb-[73px] tet-[20px]"></nav>
-        </div>
       </aside>
-      <main className="flex-grow bg-gray-50">{children}</main>
+      <main className={`flex-grow bg-gray-50 ${isOpen ? "blur-sm" : ""}`}>
+        {children}
+        {isOpen && (
+          <div
+            onClick={() => setIsOpen(false)}
+            className=" absolute inset-0 z-[50] cursor-default"
+          />
+        )}
+      </main>
     </div>
   );
 };

@@ -95,7 +95,7 @@ const TodoSection = () => {
     router.push(`/calendar/${calId}?date=${date}`);
 
   return (
-    <section className="mt-[38px] side_todo_container">
+    <section className="mt-[15px] lg:mt-[38px] side_todo_container">
       <ul>
         <div
           className={`flex items-center space-x-[6px] content-center mb-[10px] text-[20px]`}
