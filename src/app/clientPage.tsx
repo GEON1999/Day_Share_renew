@@ -5,7 +5,7 @@ import MainLayout from "@/components/main/MainLayout";
 const ClientPage = () => {
   return (
     <MainLayout>
-      <div className="w-full h-full bg_main px-[200px] mt-0">
+      <div className="lg:w-full h-full bg_main px-[20px] lg:px-[200px] mt-0">
         <Dashboard />
       </div>
     </MainLayout>

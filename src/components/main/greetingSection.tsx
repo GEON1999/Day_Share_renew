@@ -4,7 +4,7 @@ const GreetingSection = () => {
   const { data: favoriteTodoData } = useUserQueries.useGetUserFavoriteTodo();
   const { data: userData } = useUserQueries.useGetUser();
   return (
-    <section className={`mt-[5px] text-[20px] lg:text-[40px]`}>
+    <section className={`mt-[5px] text-[17px] lg:text-[40px]`}>
       <h1>안녕하세요, {userData?.name}님.</h1>
       {favoriteTodoData?.title ? (
         <p>

@@ -68,7 +68,7 @@ const StatusSection = () => {
   };
 
   return (
-    <section className={`flex flex-col items-center w-[256px]`}>
+    <section className={`flex flex-col items-center lg:w-[256px]`}>
       <h2 className={`dashboard_title hidden lg:block`}>현재의 감정</h2>
       <div
         className={`status_box bor transition-colors duration-300 w-[98px] h-[102.85px] lg:w-[255.86px] lg:h-[268.51px] ${getBackgroundColor(

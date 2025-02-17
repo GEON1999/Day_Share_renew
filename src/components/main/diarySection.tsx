@@ -27,16 +27,19 @@ const DiarySection = () => {
   };
 
   return (
-    <section className="">
+    <section className="w-[300px] lg:w-[950px]">
       <div className="flex justify-between">
         <div className="flex items-center space-x-2">
           <h2 className={`dashboard_title`}>공유 일기</h2>
-          <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur mb-[10px]" />
+          <IconAdd
+            onClick={handleAddBtn}
+            className="w-[15px] h-[15px] lg:w-5 lg:h-5 cur mb-[10px]"
+          />
         </div>
         <DiaryPagination total_count={diaryData?.total_count} />
       </div>
       {diaryData?.diaries && diaryData.diaries.length > 0 ? (
-        <ul className="bg-[#F9F4CF] px-[10px] bor rounded-md w-[950px] h-[270px] shadow_box noto-serif-text">
+        <ul className="bg-[#F9F4CF] px-[10px] bor rounded-md w-[300px] lg:w-[950px] h-[270px] shadow_box noto-serif-text">
           {diaryData?.diaries?.map((diary: any, idx: number) => {
             return (
               <li
@@ -49,18 +52,21 @@ const DiarySection = () => {
                 }`}
               >
                 <div className="flex space-x-2 items-center">
-                  <span className="text-[20px]">
+                  <span className="hidden lg:block text-[20px]">
                     {Helper.cutString(diary.title, 30)}
+                  </span>
+                  <span className="block lg:hidden text-[15px]">
+                    {Helper.cutString(diary.title, 5)}
                   </span>
                   {Helper.isDateOlderThanOneDay(diary.createdAt) ? null : (
                     <img
-                      className="h-[23.6px] w-[23.6px]"
+                      className="h-[15px] w-[15px] lg:h-[23.6px] lg:w-[23.6px]"
                       src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241029163920_430d6b2ba39e4a05819e9c943b8b3461.png"
                       alt="new"
                     />
                   )}
                 </div>
-                <div className="text-[20px] text-[#2D2D2E] text-opacity-80 flex space-x-1 items-center justify-center">
+                <div className="text-[11px] lg:text-[20px] text-[#2D2D2E] text-opacity-80 flex space-x-1 items-center justify-center">
                   <span>{diary.userName}</span>
                   <span className="mb-[5px] text-[15px]">|</span>
                   <span className="font-[500]">{diary.calendarName}</span>
@@ -76,7 +82,7 @@ const DiarySection = () => {
             src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241024150301_23db0106b82f4323b8f03cef66282fe7.png"
           />
           <p
-            className={`text-center text-[25px] absolute top-[116px] left-[505px]`}
+            className={`text-center text-[12px] lg:text-[25px] absolute top-[30px] left-[150px] lg:top-[116px] lg:left-[505px]`}
           >
             일기가 없어......................
           </p>

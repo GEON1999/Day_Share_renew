@@ -90,11 +90,11 @@
 
   /* Container Classes */
   .main_container {
-    @apply bg-[#FFFCF0] w-[1270px] h-full mx-auto;
+    @apply bg-[#FFFCF0] w-[300px] lg:w-[1270px] h-full mx-auto;
   }
 
   .side_container {
-    @apply w-[65px] lg:w-[250px] lg:min-w-[250px] bg_depp px-[17px] transition-all duration-300 flex flex-col justify-between;
+    @apply w-[50px] lg:w-[250px] lg:min-w-[250px] bg_depp px-[17px] transition-all duration-300 flex flex-col justify-between;
   }
 
   .side_todo_container {
@@ -119,21 +119,20 @@
 
   /* Pagination Classes */
   .pagination {
-    @apply flex items-center space-x-[10px];
+    @apply flex items-center space-x-[5px] lg:space-x-[10px] text-[12px] lg:text-[16px];
   }
 
   .pagination_btn {
-    @apply w-[7px] h-[12px] cursor-pointer;
+    @apply w-[5px] h-[10px] lg:w-[7px] lg:h-[12px] cursor-pointer;
   }
 
   .pagination_btn_disabled {
-    @apply w-[7px] h-[12px] cursor-not-allowed;
+    @apply w-[5px] h-[10px] lg:w-[7px] lg:h-[12px] cursor-not-allowed;
   }
 
   /* Dashboard Classes */
   .dashboard_title {
-    font-size: 25px;
-    margin-bottom: 10px;
+    @apply text-[18px] lg:text-[25px] mb-[10px];
   }
 
   /* Loading Classes */
@@ -180,15 +179,7 @@
 
   /* Status Box */
   .status_box {
-    border-radius: 50% 50% 6px 6px;
-    text-align: center;
-    display: flex;
-    width: 255.86px;
-    height: 268.51px;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.15) !important;
+    @apply rounded-tl-[50%] rounded-tr-[50%] rounded-br-[6px] rounded-bl-[6px] text-center flex flex-col justify-between items-center shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)];
   }
 
   /* Shadow Box */
