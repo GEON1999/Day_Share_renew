@@ -94,11 +94,11 @@
   }
 
   .side_container {
-    @apply bg_depp px-[17px] transition-all duration-300 flex flex-col justify-between;
+    @apply bg_depp px-[17px] transition-all duration-300 flex flex-col lg:justify-between;
   }
 
   .side_todo_container {
-    @apply px-[17px] pt-[15px] pb-[13px] w-[216px] h-[392px] border-opacity-50 flex flex-col justify-between border-t border-b;
+    @apply px-[17px] pt-[15px] pb-[13px] w-[216px] h-[330px] lg:h-[392px] border-opacity-50 flex flex-col justify-between border-t border-b;
   }
 
   .side_user_container {

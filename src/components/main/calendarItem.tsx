@@ -82,7 +82,7 @@ const CalendarItem = memo(
                 alt={calendar.img}
               />
             </div>
-            <div className="flex items-center space-x-1 mt-2  mb-[23px]">
+            <div className="flex items-center space-x-1 mt-2  lg:mb-[23px]">
               <p
                 className={`${
                   isEditMode

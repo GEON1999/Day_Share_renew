@@ -37,12 +37,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       {/* Sidebar */}
       <aside
         className={`side_container lg:w-[250px] lg:min-w-[250px] ${
-          isOpen ? "w-[250px]" : "w-[50px]"
-        } shadow-side border-r-[1.5px] z-10`}
+          isOpen ? "" : "w-[50px]"
+        } shadow-side border-r-[1.5px] z-10 ease-in-out`}
       >
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center justify-around">
           <div className="flex flex-col items-center">
-            <div className="mt-[45px] flex flex-col items-center">
+            <div className="mt-[20px] lg:mt-[45px] flex flex-col items-center">
               <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
                 <IconLogo
                   onClick={handleClickMain}
@@ -70,9 +70,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               </div>
               <IconCircleSetting
                 onClick={handleClickSetting}
-                className={`w-[30px] h-[30px] lg:mt-0 lg:absolute lg:top-[300px] lg:left-[160px] cur ${
+                className={`w-[30px] h-[30px] cur transition-all duration-300 lg:mt-0 lg:absolute lg:top-[300px] lg:left-[160px] ${
                   isOpen
-                    ? "mt-0 absolute top-[210px] left-[145px]"
+                    ? "mt-0 absolute top-[185px] left-[145px]"
                     : "mt-[50px]"
                 }`}
               />

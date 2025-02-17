@@ -100,14 +100,14 @@ const TodoSection = () => {
         <div
           className={`flex items-center space-x-[6px] content-center mb-[10px] text-[20px]`}
         >
-          <h1>전체 일정</h1>
+          <h1 className="text-[18px] lg:text-[20px]">전체 일정</h1>
           <IconAdd onClick={handleAddBtn} className="w-4 h-4 cur" />
         </div>
         {todoData?.todos && todoData.todos.length > 0 ? (
           todoData?.todos?.map((todo_group: any) => {
             return (
               <div key={todo_group.date} className="noto-sans-text">
-                <h4 className="bg_hilight inline-block mb-1 text-[15px] font-medium px-1">
+                <h4 className="inline-block bg_hilight mb-1 text-[15px] font-medium px-1">
                   {Helper.formatWithoutYear(todo_group.date)}
                 </h4>
                 {todo_group.todos.map((todo: any) => {

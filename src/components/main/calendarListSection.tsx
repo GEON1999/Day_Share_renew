@@ -141,7 +141,7 @@ const CalendarListSection = () => {
         <DndProvider backend={HTML5Backend}>
           <ScrollingComponent
             ref={scrollContainerRef}
-            className="overflow-auto w-[300px] grid grid-cols-2 gap-2 lg:w-[1260px] lg:flex lg:space-x-4"
+            className="overflow-auto w-[300px] grid grid-cols-2 gap-2 lg:gap-0 lg:w-[1260px] lg:flex lg:space-x-4"
           >
             {(isEditMode ? calendars : combineData.slice(0, 5)).map(
               (calendar, index) => (
