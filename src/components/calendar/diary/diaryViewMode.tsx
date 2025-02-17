@@ -22,6 +22,7 @@ import {
   IconNextGray,
 } from "@/icons";
 import { useAlert } from "@/components/alert/AlertContext";
+import useUserQueries from "@/queries/user/useUserQueries";
 
 const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   const router = useRouter();
@@ -71,8 +72,8 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     isLoading,
     refetch: diaryRefetch,
   } = useDiaryQueries.useGetDiaryDetail(id, diaryId);
-  console.log("diaryData", data);
   const { data: userData } = useCalendarQueries.useGetCalendarUserInfo(id);
+  const { data: user } = useUserQueries.useGetUser();
   const { data: calendarData } = useCalendarQueries.useGetCalendarBasic(id);
   const options = {
     replace: (node: any) => {
@@ -113,7 +114,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   });
 
   const handleClickdeleteDiary = () => {
-    if (userData?.userId === data?.userId) {
+    if (user?.id === data?.userId) {
       setIsDiaryModalOpen(true);
     } else {
       showAlert("본인의 일기만 삭제할 수 있습니다.", "error");
@@ -152,11 +153,17 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     });
   };
 
-  const handleEditorMode = () => setEditorMode(!editorMode);
+  const handleEditorMode = () => {
+    if (user?.id === data?.userId) {
+      setEditorMode(!editorMode);
+    } else {
+      showAlert("본인의 일기만 수정할 수 있습니다.", "error");
+    }
+  };
   const handleOpenComment = () => setOpenComment(!openComment);
 
   const handleDeleteComment = (comment: any) => {
-    if (userData?.userId === comment.profile.userId) {
+    if (user?.id === comment.comment.userId) {
       deleteComment(
         { calendarId: id, commentId: comment.comment.id },
         {
@@ -222,7 +229,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   };
 
   const handleEditClick = (comment: any) => {
-    if (userData?.userId === comment.userId) {
+    if (user?.id === comment.userId) {
       setEditingCommentId(comment.id);
       setActiveCommentId(null);
     } else {
