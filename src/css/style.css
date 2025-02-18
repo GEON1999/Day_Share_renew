@@ -107,7 +107,7 @@
 
   /* Confirm Button */
   .confirm_btn_container {
-    @apply flex mx-auto items-center space-x-[10px] text-[20px] noto-sans-text w-[130px] h-[35px];
+    @apply flex mx-auto items-center space-x-[10px] text-[15px] lg:text-[20px] noto-sans-text w-[100px] h-[30px] lg:w-[130px] lg:h-[35px];
   }
   .cancel {
     @apply rounded-md w-[60px] h-[35px] bor bg-white hover:bg-[#49494910] transition-colors duration-200 ease-in-out;
@@ -357,6 +357,11 @@ div::-webkit-scrollbar-track {
   @apply text-[18px];
 }
 
+.crop-max-size {
+  max-width: 250px !important;
+  max-height: 250px !important;
+}
+
 @media (min-width: 1024px) {
   .text-base {
     @apply text-[15px];
@@ -368,5 +373,10 @@ div::-webkit-scrollbar-track {
 
   .text-xl {
     @apply text-[25px];
+  }
+
+  .crop-max-size {
+    max-width: 500px !important;
+    max-height: 500px !important;
   }
 }

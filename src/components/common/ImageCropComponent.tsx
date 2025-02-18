@@ -139,17 +139,17 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
         id="imageUpload"
       />
       <ModalWrapper isOpen={isOpen} setIsOpen={setIsOpen}>
-        <div className="bg_depp p-[20px] rounded-md bor">
+        <div className="bg_depp p-[10px] lg:p-[20px] rounded-md bor">
           <div
             className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
             onClick={() => setIsOpen(false)}
           >
             <IconX className="w-full h-full" />
           </div>
-          <h2 className="text-[20px] noto-sans-text font-bold  mb-[30px] ml-[5px] -mt-[5px]">
+          <h2 className="text-lg noto-sans-text font-bold  mb-[30px] ml-[5px] -mt-[5px]">
             이미지 자르기
           </h2>
-          <div className="px-[5px]">
+          <div className="px-[5px] flex justify-center items-center">
             <ReactCrop
               crop={crop}
               onChange={(c) => setCrop({ ...c, aspect: 1 })}
@@ -159,16 +159,10 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
             >
               <img
                 onClick={handleImageUpload}
-                className="w-[140px] h-[140px] object-contain bor bg-white"
+                className=" object-contain bor bg-white crop-max-size"
                 src={src ?? ""}
                 onLoad={onImageLoad}
                 alt="Source"
-                style={{
-                  maxWidth: `${StaticKeys.MAX_WIDTH}px`,
-                  maxHeight: `${StaticKeys.MAX_HEIGHT}px`,
-                  width: "auto",
-                  height: "auto",
-                }}
               />
             </ReactCrop>
           </div>

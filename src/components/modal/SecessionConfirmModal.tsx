@@ -32,7 +32,7 @@ const SecessionConfirmModal = ({ setIsOpen }: any) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bor relative flex flex-col w-[520px] h-[200px] bg_depp rounded-md p-[20px] noto-sans-text">
+      <div className="bor relative flex flex-col w-[300px] lg:w-[520px] h-[200px] bg_depp rounded-md p-[20px] noto-sans-text">
         <div
           className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
           onClick={handleCancel}
