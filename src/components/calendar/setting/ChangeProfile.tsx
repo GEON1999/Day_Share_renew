@@ -72,27 +72,27 @@ const ChangeProfile = () => {
     <div className="main_container">
       <div className="flex w-full h-screen justify-center items-center flex-col ">
         <IconSetting className="w-5 h-5 cur" onClick={handleSetting} />
-        <h1 className="text-[25px] text-[#2D2D2E] cur" onClick={handleSetting}>
+        <h1 className="text-xl text-[#2D2D2E] cur" onClick={handleSetting}>
           달력 설정
         </h1>
-        <span className="text-[15px] font-satoshi font-[100] mt-[5px]">|</span>
-        <h1 className="text-[20px] noto-sans-text">서버 프로필 변경</h1>
+        <span className="text-base font-satoshi font-[100] mt-[5px]">|</span>
+        <h1 className="text-lg noto-sans-text">서버 프로필 변경</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center mt-[35px] noto-sans-text"
+          className="flex flex-col items-center mt-[15px] lg:mt-[35px] noto-sans-text"
         >
           <ImageCropComponent userImg={userImg} setUserImg={setUserImg} />
-          <div className="flex flex-col mt-[20px] text-[20px] noto-sans-text ">
+          <div className="flex flex-col mt-[15px] lg:mt-[20px] text-lg noto-sans-text ">
             <div className="flex flex-col space-y-[13px]">
               <input
-                className="w-[390px] h-[50px] bor px-[19px] rounded-md focus:outline-none"
+                className="w-[260px] lg:w-[390px] h-[40px] lg:h-[50px] bor px-[19px] rounded-md focus:outline-none"
                 defaultValue={calendarUserData?.name}
                 {...register("name", {
                   required: "이름을 입력해주세요.",
                 })}
               />
             </div>
-            <div className="confirm_btn_container mt-[40px]">
+            <div className="confirm_btn_container mt-[20px] lg:mt-[40px]">
               <button onClick={handleSetting} type="button" className="cancel">
                 취소
               </button>
