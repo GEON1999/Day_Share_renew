@@ -81,24 +81,27 @@ const TodoList = ({}) => {
       >
         <div className="flex justify-between">
           <div className="flex items-center space-x-3">
-            <h1 className="text-2xl">공유 일정</h1>
+            <h1 className="text-xl">공유 일정</h1>
             {contentType === StaticKeys.TODO ? (
               <IconAdd
                 onClick={handleAddBtn}
-                className="w-5 h-5 cur transition-transform duration-200 transform hover:scale-110 animate-pulse"
+                className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px] cur transition-transform duration-200 transform hover:scale-110 animate-pulse"
               />
             ) : (
-              <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
+              <IconAdd
+                onClick={handleAddBtn}
+                className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px] cur"
+              />
             )}
           </div>
           <div>
             <CalendarTodoPagination total_count={todoData?.total_count} />
           </div>
         </div>
-        <div className="flex-grow overflow-hidden px-[25px] bor w-[480px] h-[140px] mt-[10px] rounded-md bg_deep_2 py-[10px] shadow_box">
+        <div className="flex-grow overflow-hidden px-[25px] bor w-[300px] lg:w-[480px] h-[120px] lg:h-[140px] mt-[10px] rounded-md bg_deep_2 py-[5] lg:py-[10px] shadow_box">
           {todoData?.todos?.length === 0 || !todoData ? (
             <div className="flex justify-between items-center h-full px-[13px]">
-              <p className="text-[#2D2D2E] text-[20px]">
+              <p className="text-[#2D2D2E] text-lg">
                 일정이 없어요. 추가해 볼까요?
               </p>
               <IconEmptyTodo className="w-[134px] h-[162.36px] mt-12" />
@@ -109,7 +112,7 @@ const TodoList = ({}) => {
                 <div
                   onClick={() => handleClickTodo(todo.id)}
                   key={todo.id}
-                  className={`h-[40px] cur flex justify-between items-center py-[10px] text-[20px] ${
+                  className={`h-[40px] cur flex justify-between items-center py-[10px] text-lg ${
                     index != 2 ? "border-b border-[#49494950]" : ""
                   }`}
                 >
@@ -124,12 +127,16 @@ const TodoList = ({}) => {
                       {todo.userProfile.name}
                     </div>
                     <div
-                      className="w-5 h-5 cur"
+                      className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px] cur"
                       onClick={(e) =>
                         handleTodoComplete(todo.calendarId, todo.id, e)
                       }
                     >
-                      {todo.isCompleted ? <IconCheck_o /> : <IconCheck_x />}
+                      {todo.isCompleted ? (
+                        <IconCheck_o className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px]" />
+                      ) : (
+                        <IconCheck_x className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px]" />
+                      )}
                     </div>
                   </div>
                 </div>

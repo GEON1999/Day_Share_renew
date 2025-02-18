@@ -187,7 +187,8 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
     }
   };
 
-  const handleClickCalendar = () => router.push(`/calendar/${id}?date=${date}`);
+  const handleClickCalendar = () =>
+    router.push(`/calendar/${id}?date=${Helper.getTodayMs()}`);
 
   const handleSettingComment = (comment: any) => {
     setActiveCommentId(

@@ -21,19 +21,6 @@ const DiaryList = () => {
       `date=${date}&calendar_diary_page=${calendarDiaryPage}`
     );
 
-  const options = {
-    replace: (node: any) => {
-      if (node.type === "tag" && node.name === "img") {
-        return (
-          <img
-            {...node.attribs}
-            className="max-w-[500px] max-h-[300px] rounded-lg"
-          />
-        );
-      }
-    },
-  };
-
   const handleClickDiary = (id: number) => {
     router.push(`/calendar/${calendarId}/diary/${id}?date=${date}`);
   };
@@ -45,14 +32,17 @@ const DiaryList = () => {
     <div className={`${isCalendarDateModalOpen ? "block" : "hidden"} lg:block`}>
       <div className="flex justify-between">
         <div className="flex items-center space-x-3">
-          <h1 className="text-2xl">공유 일기</h1>
+          <h1 className="text-xl">공유 일기</h1>
           {contentType === StaticKeys.DIARY ? (
             <IconAdd
               onClick={handleAddBtn}
-              className="w-5 h-5 cur transition-transform duration-200 transform hover:scale-110 animate-pulse"
+              className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px] cur transition-transform duration-200 transform hover:scale-110 animate-pulse"
             />
           ) : (
-            <IconAdd onClick={handleAddBtn} className="w-5 h-5 cur" />
+            <IconAdd
+              onClick={handleAddBtn}
+              className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px] cur"
+            />
           )}
         </div>
         <div>
@@ -60,7 +50,7 @@ const DiaryList = () => {
         </div>
       </div>
 
-      <div className="mt-[10px] bg_deep_2 h-[480px] w-[480px] rounded-md shadow_box bor overflow-hidden px-[25px] noto-sans-text">
+      <div className="mt-[10px] bg_deep_2 h-[390px] w-[300px] lg:h-[480px] lg:w-[480px] rounded-md shadow_box bor overflow-hidden px-[12px] lg:px-[25px] noto-sans-text">
         {diaryData?.diaries?.length === 0 || !diaryData ? (
           <div className="flex h-full flex-col items-center">
             <p className="text-[#2D2D2E] text-[20px]">
@@ -77,7 +67,7 @@ const DiaryList = () => {
             return (
               <div onClick={() => handleClickDiary(diary.id)} key={diary.id}>
                 <div
-                  className={`w-full h-[160px]  py-[19px] text-[20px] flex justify-between cur ${
+                  className={`w-full h-[130px] lg:h-[160px] py-[10px] lg:py-[19px] text-lg flex justify-between cur ${
                     index != 2 ? "border-b border-[#49494950]" : ""
                   }`}
                 >
@@ -96,19 +86,21 @@ const DiaryList = () => {
                       <p>{diary.userProfile?.name}</p>
                     </div>
                     <p
-                      className={`font-light mt-[2px] text-[#2D2D2E] pb-[27px] ${
-                        diary.img ? "w-[300px]" : "w-[430px]"
+                      className={`font-light mt-[2px] text-[#2D2D2E] pb-[10px] lg:pb-[27px] ${
+                        diary.img
+                          ? "w-[150px] lg:w-[300px]"
+                          : "w-[274px] lg:w-[430px]"
                       } border-b border-[#49494920]`}
                     >
                       {Helper.cutString(diary.title, diary.img ? 18 : 22)}
                     </p>
-                    <div className="flex space-x-3 text-[15px] mt-3">
+                    <div className="flex space-x-3 text-base mt-3">
                       <div className="flex items-center space-x-2">
-                        <IconHeart className="w-5 h-5 cur" />
+                        <IconHeart className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px] cur" />
                         <div>{diary.likeCount}</div>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <IconComment className="w-5 h-5 cur" />
+                        <IconComment className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px] cur" />
                         <div>{diary.commentCount}</div>
                       </div>
                     </div>
@@ -118,7 +110,7 @@ const DiaryList = () => {
                       <img
                         src={diary.img}
                         alt="diary"
-                        className="w-[118px] h-[118px] object-cover rounded-md bor"
+                        className="w-[100px] h-[100px] lg:w-[118px] lg:h-[118px] object-cover rounded-md bor"
                       />
                     ) : null
                     // <div className="w-[118px] h-[118px] rounded-md bor bg-[#D9D9D9]" />
