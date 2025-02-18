@@ -6,7 +6,13 @@ import StaticKeys from "@/keys/StaticKeys";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import { useRouter } from "next/navigation";
 
-const DiaryList = () => {
+const DiaryList = ({
+  isCalendarDateModalOpen,
+  setIsCalendarDateModalOpen,
+}: {
+  isCalendarDateModalOpen: boolean;
+  setIsCalendarDateModalOpen: (isCalendarDateModalOpen: boolean) => void;
+}) => {
   const router = useRouter();
   const calendarId = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
@@ -40,7 +46,7 @@ const DiaryList = () => {
     router.push(`/calendar/${calendarId}/diary/create?date=${date}`);
 
   return (
-    <div className="">
+    <div className={`${isCalendarDateModalOpen ? "block" : "hidden"} lg:block`}>
       <div className="flex justify-between">
         <div className="flex items-center space-x-3">
           <h1 className="text-2xl">공유 일기</h1>

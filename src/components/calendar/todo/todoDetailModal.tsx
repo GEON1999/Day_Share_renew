@@ -5,8 +5,10 @@ import TodoViewMode from "./todoViewMode";
 import TodoEditMode from "./todoEditMode";
 
 const TodoDetailModal = ({
+  setIsCalendarDateModalOpen,
   setIsDetailOpen,
 }: {
+  setIsCalendarDateModalOpen: (isCalendarDateModalOpen: boolean) => void;
   setIsDetailOpen: (isOpen: boolean) => void;
 }) => {
   const [editorMode, setEditorMode] = useState(false);
@@ -18,11 +20,13 @@ const TodoDetailModal = ({
           <TodoEditMode
             setEditorMode={setEditorMode}
             setIsDetailOpen={setIsDetailOpen}
+            setIsCalendarDateModalOpen={setIsCalendarDateModalOpen}
           />
         ) : (
           <TodoViewMode
             setEditorMode={setEditorMode}
             setIsDetailOpen={setIsDetailOpen}
+            setIsCalendarDateModalOpen={setIsCalendarDateModalOpen}
           />
         )}
       </div>

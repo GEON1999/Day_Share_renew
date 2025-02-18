@@ -44,6 +44,7 @@ const generateCalendar = (year: number, month: number) => {
 };
 
 const Calendar = ({}) => {
+  const [isCalendarDateModalOpen, setIsCalendarDateModalOpen] = useState(false);
   const router = useRouter();
   const date = useSearch.useSearchDate();
   const calendarId = useSearch.useSearchId();
@@ -83,6 +84,7 @@ const Calendar = ({}) => {
 
   const handleClickDate = (day: number | null) => {
     if (day === null) return;
+    setIsCalendarDateModalOpen(true);
     const ms = new Date(Date.UTC(year, month, day)).getTime();
     router.push(`/calendar/${calendarId}/?date=${ms}`);
   };
@@ -110,8 +112,6 @@ const Calendar = ({}) => {
     const ms = utcDate.getTime();
     router.push(`/calendar/${calendarId}?date=${ms}`);
   };
-
-  console.log("calendarDate", calendarDate);
 
   const handleClickToday = () => {
     router.push(`/calendar/${calendarId}?date=${Helper.getTodayMs()}`);
@@ -320,7 +320,10 @@ const Calendar = ({}) => {
           </div>
         </div>
       </div>
-      <CalendarDateModal />
+      <CalendarDateModal
+        isCalendarDateModalOpen={isCalendarDateModalOpen}
+        setIsCalendarDateModalOpen={setIsCalendarDateModalOpen}
+      />
     </div>
   );
 };
