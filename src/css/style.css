@@ -102,7 +102,7 @@
   }
 
   .side_user_container {
-    @apply py-[8px] w-[216px] h-[392px] flex flex-col justify-between border-t border-b border-[#49494950];
+    @apply py-[8px] w-[216px] h-[330px] lg:h-[392px] flex flex-col justify-between border-t border-b border-[#49494950];
   }
 
   /* Confirm Button */

@@ -33,7 +33,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   }, [isOpen]);
 
   return (
-    <div className="flex h-screen lg:min-h-[900px] relative">
+    <div className="flex h-screen lg:min-h-[900px]">
       {/* Sidebar */}
       <aside
         className={`side_container lg:w-[250px] lg:min-w-[250px] ${

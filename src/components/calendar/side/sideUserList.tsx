@@ -10,7 +10,8 @@ import { useAlert } from "@/components/alert/AlertContext";
 import useGetUserQueries from "@/queries/user/useUserQueries";
 import { useRouter } from "next/navigation";
 import { emotionData } from "@/app/data/emotionData";
-const SideUserList = () => {
+
+const SideUserList = ({ isSideOpen }: { isSideOpen: boolean }) => {
   const router = useRouter();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const id = useSearch.useSearchId();
@@ -69,11 +70,15 @@ const SideUserList = () => {
   };
 
   return (
-    <section className="mt-[23px] side_user_container">
+    <section
+      className={`mt-[10px] lg:mt-[23px] side_user_container lg:flex ${
+        isSideOpen ? "flex" : "hidden"
+      }`}
+    >
       <div>
         <div className="flex items-center justify-between mb-[10px] mt-[4px] px-[18px]">
-          <h1 className={`text-[20px]`}>참여</h1>
-          <p className="text-[15px] noto-sans-text text-[#2D2D2E50]">
+          <h1 className="text-lg">참여</h1>
+          <p className="text-base noto-sans-text text-[#2D2D2E50]">
             {userList?.total_users}/000
           </p>
         </div>
@@ -94,7 +99,7 @@ const SideUserList = () => {
                         : user.img
                     }
                   />
-                  <span className="ml-2 text-[15px] noto-sans-text text-[#2D2D2E]">
+                  <span className="ml-2 text-base noto-sans-text text-[#2D2D2E]">
                     {user.name}
                   </span>
                   {user?.emotion === "EMPTY" ? null : (
