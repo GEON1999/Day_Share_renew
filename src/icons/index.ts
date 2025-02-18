@@ -43,3 +43,4 @@ export { default as IconSelectCheck } from "./select_check.svg";
 export { default as IconTodo } from "./todo.svg";
 export { default as IconExitMobile } from "./exit_m.svg";
 export { default as IconProfile } from "./profile.svg";
+export { default as IconBackspace } from "./backspace.svg";

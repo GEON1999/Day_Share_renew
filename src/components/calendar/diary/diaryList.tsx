@@ -36,12 +36,12 @@ const DiaryList = () => {
           {contentType === StaticKeys.DIARY ? (
             <IconAdd
               onClick={handleAddBtn}
-              className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px] cur transition-transform duration-200 transform hover:scale-110 animate-pulse"
+              className="w-[18px] h-[18px] lg:w-[20px] lg:h-[20px] cur transition-transform duration-200 transform hover:scale-110 animate-pulse"
             />
           ) : (
             <IconAdd
               onClick={handleAddBtn}
-              className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px] cur"
+              className="w-[18px] h-[18px] lg:w-[20px] lg:h-[20px] cur"
             />
           )}
         </div>

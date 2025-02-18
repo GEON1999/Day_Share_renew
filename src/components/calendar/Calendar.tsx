@@ -123,13 +123,6 @@ const Calendar = ({}) => {
     setMonth(today.getMonth());
   };
 
-  useEffect(() => {
-    if (isCalendarDateModalOpen) {
-      window.addEventListener("resize", () => {
-        window.innerWidth > 1024 ? setCalendarDateModalOpen(true) : null;
-      });
-    }
-  }, [isCalendarDateModalOpen, setCalendarDateModalOpen]);
   return (
     <div className={`main_container flex lg:space-x-[70px] py-14 lg:py-0`}>
       <div
