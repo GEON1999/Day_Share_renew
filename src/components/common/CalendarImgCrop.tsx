@@ -141,7 +141,7 @@ function CalendarImgCrop({
               className={`rounded-md object-cover bor ${
                 type === StaticKeys.EDIT_TYPE
                   ? "w-[195px] h-[130px]"
-                  : "w-[299.42px] h-[200px]"
+                  : "w-[250px] h-[170px] lg:w-[299.42px] lg:h-[200px]"
               }`}
             />
             <IconCameraRounded className="w-[30px] h-[30px] absolute bottom-[12px] right-[17px] transform translate-x-1/4 translate-y-1 /4" />
@@ -196,16 +196,10 @@ function CalendarImgCrop({
             >
               <img
                 onClick={handleImageUpload}
-                className="w-[140px] h-[140px] object-contain bor bg-white"
+                className="object-contain bor bg-white crop-max-size"
                 src={src ?? ""}
                 onLoad={onImageLoad}
                 alt="Source"
-                style={{
-                  maxWidth: `${StaticKeys.MAX_WIDTH}px`,
-                  maxHeight: `${StaticKeys.MAX_HEIGHT}px`,
-                  width: "auto",
-                  height: "auto",
-                }}
               />
             </ReactCrop>
           </div>

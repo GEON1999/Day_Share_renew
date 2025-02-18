@@ -59,20 +59,20 @@ const CalendarImageSelect = ({
     setIsOpen(false);
   };
   return (
-    <div className="bor w-[985px] h-[805px] bg_depp rounded-md py-[30px] px-[25px] text-[20px] noto-sans-text ">
+    <div className="bor w-[320px] lg:w-[985px] h-[600px] lg:h-[805px] bg_depp rounded-md py-[10px] lg:py-[30px] px-[10px] lg:px-[25px] text-[20px] noto-sans-text ">
       <div
         className="w-[10px] h-[10px] ml-auto cur flex items-center justify-center"
         onClick={handleCancel}
       >
         <IconX className="w-full h-full" />
       </div>
-      <h1 className="-mt-[15px] font-bold">달력 이미지 변경</h1>
-      <div className="flex flex-wrap gap-[15px] mt-[25px]">
+      <h1 className="-mt-[15px] text-lg font-bold">달력 이미지 변경</h1>
+      <div className="flex justify-center flex-wrap gap-[15px] mt-[10px] lg:mt-[25px]">
         <div
           onClick={handleImageUpload}
-          className="w-[300px] h-[200px] bg-[#D1D3D4] bor rounded-md flex flex-col items-center justify-center cur hover:bg-[#D1D3D480] transition-colors duration-200 ease-in-out"
+          className="w-[283.0px] h-[90px] lg:w-[300px] lg:h-[200px] bg-[#D1D3D4] bor rounded-md flex flex-col items-center justify-center cur hover:bg-[#D1D3D480] transition-colors duration-200 ease-in-out"
         >
-          <IconCamera className="w-[25px] h-[22.31px] mt-[32px]" />
+          <IconCamera className="w-[25px] h-[22.31px] mt-[10px] lg:mt-[32px]" />
           <p className="text-[15px] mt-[3px]">가져오기</p>
         </div>
         {calendarImageData.map((item) => (
@@ -80,7 +80,7 @@ const CalendarImageSelect = ({
             <img
               key={item.id}
               src={item.src}
-              className={`w-[300px] h-[200px]  rounded-md cur ${
+              className={`w-[135.4px] h-[90px] lg:w-[300px] lg:h-[200px]  rounded-md cur ${
                 calendarImg === item.src ? "border-[3px] shadow_box" : "bor"
               }`}
               onClick={() => {
@@ -93,16 +93,16 @@ const CalendarImageSelect = ({
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-[30px] space-x-[10px] text-[20px]">
+      <div className="flex justify-center mt-[10px] lg:mt-[30px] space-x-[10px] text-[20px]">
         <button
           onClick={handleCancel}
-          className="bg-white w-[60px] h-[35px] bor rounded-md  hover:bg-[#EDEADF]"
+          className="bg-white w-[40px] h-[30px] text-lg lg:w-[60px] lg:h-[35px] bor rounded-md  hover:bg-[#EDEADF]"
         >
           취소
         </button>
         <button
           onClick={handleImageClick}
-          className="bg-[#F6BEBE] w-[60px] h-[35px] bor rounded-md  hover:bg-[#F69D9D]"
+          className="bg-[#F6BEBE] w-[40px] h-[30px] text-lg lg:w-[60px] lg:h-[35px] bor rounded-md  hover:bg-[#F69D9D]"
         >
           확인
         </button>
