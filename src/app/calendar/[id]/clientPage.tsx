@@ -11,7 +11,7 @@ const ClientPage = () => {
 
   return (
     <CalendarLayout>
-      <div className="w-full h-full bg_main px-[200px] ">
+      <div className="w-full h-full bg_main px-[10px] lg:px-[200px]">
         <Calendar />
       </div>
     </CalendarLayout>

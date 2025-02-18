@@ -94,7 +94,7 @@
   }
 
   .side_container {
-    @apply bg_depp px-[17px] transition-all duration-300 flex flex-col lg:justify-between;
+    @apply bg_depp px-[10px] lg:px-[17px] transition-all duration-300 flex flex-col lg:justify-between;
   }
 
   .side_todo_container {
@@ -357,9 +357,34 @@ div::-webkit-scrollbar-track {
   @apply text-[18px];
 }
 
+/* Calendar Classes */
 .crop-max-size {
   max-width: 250px !important;
   max-height: 250px !important;
+}
+.day-sun {
+  @apply text_red relative;
+}
+.day-sun::before {
+  content: "S";
+}
+.day-mon::before {
+  content: "M";
+}
+.day-tue::before {
+  content: "T";
+}
+.day-wed::before {
+  content: "W";
+}
+.day-thu::before {
+  content: "T";
+}
+.day-fri::before {
+  content: "F";
+}
+.day-sat::before {
+  content: "S";
 }
 
 @media (min-width: 1024px) {
@@ -378,5 +403,33 @@ div::-webkit-scrollbar-track {
   .crop-max-size {
     max-width: 500px !important;
     max-height: 500px !important;
+  }
+
+  .day-sun::before {
+    content: "SUN";
+  }
+
+  .day-mon::before {
+    content: "MON";
+  }
+
+  .day-tue::before {
+    content: "TUE";
+  }
+
+  .day-wed::before {
+    content: "WED";
+  }
+
+  .day-thu::before {
+    content: "THU";
+  }
+
+  .day-fri::before {
+    content: "FRI";
+  }
+
+  .day-sat::before {
+    content: "SAT";
   }
 }

@@ -37,7 +37,11 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className={"side_container shadow-side border-r-[1.5px]  z-10"}>
+      <aside
+        className={
+          "side_container w-[50px] lg:w-[250px] shadow-side border-r-[1.5px]  z-10"
+        }
+      >
         <div>
           <div className={`flex flex-col items-center`}>
             <div className="mt-[20px] lg:mt-[45px]">

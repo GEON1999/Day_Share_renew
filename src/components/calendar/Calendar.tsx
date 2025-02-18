@@ -37,8 +37,6 @@ const generateCalendar = (year: number, month: number) => {
       }
     }
     calendar.push(week);
-
-    if (day > daysInMonth) break;
   }
 
   return calendar;
@@ -125,10 +123,17 @@ const Calendar = ({}) => {
     setMonth(today.getMonth());
   };
 
+  useEffect(() => {
+    if (isCalendarDateModalOpen) {
+      window.addEventListener("resize", () => {
+        window.innerWidth > 1024 ? setCalendarDateModalOpen(true) : null;
+      });
+    }
+  }, [isCalendarDateModalOpen, setCalendarDateModalOpen]);
   return (
-    <div className={`main_container flex space-x-[70px]`}>
+    <div className={`main_container flex lg:space-x-[70px] py-14 lg:py-0`}>
       <div
-        className={`w-[631.5px] ${
+        className={`w-[300px] h-[500px] lg:w-[631.5px] lg:h-full ${
           isCalendarDateModalOpen ||
           isTodoDetailModalOpen ||
           isTodoCreateModalOpen
@@ -136,67 +141,70 @@ const Calendar = ({}) => {
             : "block"
         } lg:block`}
       >
-        <h1 className="text-[25px] mt-[54px]">
+        <h1 className="text-xl lg:mt-[54px]">
           {calendarBasic?.name ?? "달력"}
         </h1>
-        <div className="flex justify-between w-[1255px] items-center mb-2">
-          <div className="flex w-[626px] space-x-4 justify-between">
-            <span className="text-[46px] -mt-[10px]">
+        <div className="flex justify-between w-[300px] lg:w-[1255px] mb-2">
+          <div className="flex w-[300px] lg:w-[626px] items-center space-x-4 justify-between">
+            <span className="text-[30px] lg:text-[46px] lg:-mt-[10px]">
               {year}. {month + 1}
             </span>
             <div className="flex items-center ">
               <button
                 onClick={handleClickToday}
-                className="w-[109px] h-[34px] text-[20px] bor rounded-full mr-6 btn_transparent"
+                className="lg:block hidden w-[109px] h-[34px] text-[20px] bor rounded-full mr-6 btn_transparent"
               >
                 TODAY
               </button>
-              <div className="flex items-center space-x-[34px]">
+              <button
+                onClick={handleClickToday}
+                className="lg:hidden flex justify-center items-center w-[30px] h-[30px] text-[20px] border-[0.8px] border-[#49494950] rounded-full btn_transparent mr-[20px]"
+              >
+                T
+              </button>
+              <div className="flex items-center space-x-[10px] lg:space-x-[34px]">
                 <IconPrevBig
                   onClick={handlePrevBtn}
-                  className="w-[12.5px] h-[25px] cur"
+                  className="w-[10px] h-[20px] lg:w-[12.5px] lg:h-[25px] cur"
                 />
                 <IconNextBig
                   onClick={handleNextBtn}
-                  className="w-[12.5px] h-[25px] cur"
+                  className="w-[10px] h-[20px] lg:w-[12.5px] lg:h-[25px] cur"
                 />
               </div>
             </div>
           </div>
         </div>
         <div className="flex items-center">
-          <div className="w-[629px] h-[675px] overflow-hidden border-y-[1.5px] border-y-[#494949]">
+          <div className="w-[300px] lg:w-[629px] h-[410px] lg:h-[675px] overflow-hidden border-y-[1.5px] border-y-[#494949]">
             <table className="w-full h-full text-center">
-              <thead className="bg_light_pink h-[34px] w-full border-b-[1.5px] ">
-                <tr className="text-black text-md">
-                  <th className="text_red relative">
-                    SUN
+              <thead className="bg_light_pink h-[20px] lg:h-[34px] w-[300px] lg:w-full border-b-[1.5px] ">
+                <tr className="text-black text-[14px] lg:text-md">
+                  <th className="day-sun">
                     <span className="bor_right" />
                   </th>
-                  <th className="relative">
-                    MON
+                  <th className="day-mon relative">
                     <span className="bor_right" />
                   </th>
-                  <th className="relative">
-                    TUE
+                  <th className="day-tue relative">
                     <span className="bor_right" />
                   </th>
-                  <th className="relative">
-                    WED
+                  <th className="day-wed relative">
                     <span className="bor_right" />
                   </th>
-                  <th className="relative">
-                    THU
+                  <th className="day-thu relative">
                     <span className="bor_right" />
                   </th>
-                  <th className="relative">
-                    FRI
+                  <th className="day-fri relative">
                     <span className="bor_right" />
                   </th>
-                  <th>SAT</th>
+                  <th className="day-sat"></th>
                 </tr>
               </thead>
-              <tbody className="w-full" style={{ borderCollapse: "collapse" }}>
+              <tbody
+                className="w-[300px] lg:w-full"
+                style={{ borderCollapse: "collapse" }}
+              >
                 {calendar.map((week, index) => (
                   <tr key={index} className="">
                     {week.map((dateObj, dayIndex) => {
@@ -237,11 +245,11 @@ const Calendar = ({}) => {
                           className="p-0 space-x-0 space-y-0"
                         >
                           <div
-                            className={`mx-auto w-[89.86px] h-[129px] transition-all duration-300 ease-in-out bor_light_pink border px-2 py-1 cur`}
+                            className={`mx-auto w-[42.85px] h-[64.5px] lg:w-[89.86px] lg:h-[129px] transition-all duration-300 ease-in-out bor_light_pink border px-1lg:px-2 py-1 cur`}
                           >
-                            <div className="flex flex-col items-center justify-center ml-[51px] relative">
+                            <div className="flex flex-col items-center justify-center lg:ml-[51px] relative">
                               <span
-                                className={`flex items-center justify-center w-[30px] h-[30px] text-[18px] ${
+                                className={`flex items-center justify-center w-[20px] h-[20px] lg:w-[30px] lg:h-[30px] text-[12px] lg:text-[18px] ${
                                   currentMonth && dayIndex === 0
                                     ? "text_red"
                                     : !currentMonth && dayIndex === 0
@@ -267,53 +275,65 @@ const Calendar = ({}) => {
                                 } w-1 h-1 rounded-full`}
                               ></div>
                               <div
-                                className={`absolute w-[89.86px] overflow-hidden -right-[10px] space-y-[5px] text-left text-[13px] text-[#E55A5A] noto-sans-text ${
-                                  todoCount >= 2 ? "top-[52px]" : "top-[90px]"
+                                className={`absolute w-[42.85px] lg:w-[89.86px] overflow-hidden -right-[0px] space-y-[5px] text-left text-[10px] lg:text-[13px] text-[#E55A5A] noto-sans-text ${
+                                  todoCount >= 2
+                                    ? "top-[44px] lg:top-[52px]"
+                                    : "top-[44px] lg:top-[90px]"
                                 }`}
                               >
                                 {currentMonth &&
                                   todoTitles.map(
-                                    // todocount가 1개 일 때, 2개일 때, 3개 이상일 때
                                     (title: string, index: number) => {
                                       return todoCount === 1 ? (
                                         <div
                                           key={index}
-                                          className="h-[33px] flex"
+                                          className="h-[15px] lg:h-[33px] flex"
                                         >
                                           <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-                                          {/* 텍스트 가로 중앙 */}
-                                          <div className=" bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
+                                          <div className=" bg-[#F6BEBE50] w-full h-full pl-[3px] lg:pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
                                             {Helper.cutString(title, 5)}
                                           </div>
                                         </div>
                                       ) : todoCount === 2 ? (
-                                        <div
-                                          key={index}
-                                          className="h-[33px] flex"
-                                        >
-                                          <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-                                          <div className=" bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
-                                            {Helper.cutString(title, 5)}
+                                        index === 0 ? (
+                                          <div
+                                            key={index}
+                                            className="h-[15px] lg:h-[33px] flex"
+                                          >
+                                            <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
+                                            <div className=" bg-[#F6BEBE50] w-full h-full pl-[3px] lg:pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
+                                              {Helper.cutString(title, 5)}
+                                            </div>
                                           </div>
-                                        </div>
+                                        ) : (
+                                          <div
+                                            key={index}
+                                            className="h-[15px] lg:h-[33px] hidden lg:flex"
+                                          >
+                                            <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
+                                            <div className=" bg-[#F6BEBE50] w-full h-full pl-[3px] lg:pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
+                                              {Helper.cutString(title, 5)}
+                                            </div>
+                                          </div>
+                                        )
                                       ) : todoCount >= 3 ? (
                                         index === 0 ? (
                                           <div
                                             key={index}
-                                            className="h-[33px] flex"
+                                            className="h-[15px] lg:h-[33px] flex"
                                           >
                                             <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-                                            <div className=" bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
+                                            <div className=" bg-[#F6BEBE50] w-full h-full pl-[3px] lg:pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
                                               {Helper.cutString(title, 5)}
                                             </div>
                                           </div>
                                         ) : index === 1 ? (
                                           <div
                                             key={index}
-                                            className="h-[33px] flex"
+                                            className="h-[15px] lg:h-[33px] hidden lg:flex"
                                           >
                                             <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-                                            <div className=" bg-[#F6BEBE50] w-full h-full pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
+                                            <div className=" bg-[#F6BEBE50] w-full h-full pl-[3px] lg:pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
                                               +{todoCount - 1}
                                             </div>
                                           </div>
@@ -334,7 +354,17 @@ const Calendar = ({}) => {
           </div>
         </div>
       </div>
-      <CalendarDateModal />
+      <div
+        className={`lg:block ${
+          isCalendarDateModalOpen ||
+          isTodoCreateModalOpen ||
+          isTodoDetailModalOpen
+            ? "block"
+            : "hidden"
+        }`}
+      >
+        <CalendarDateModal />
+      </div>
     </div>
   );
 };
