@@ -19,14 +19,18 @@ const TodoList = ({}) => {
   const date = useSearch.useSearchDate();
   const calendarTodoPage = useSearch.useSearchCalendarTodoPage();
   const contentType = useSearch.useSearchContentType();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isDetailOpen, setIsDetailOpen] = useState(false);
   const { showAlert } = useAlert();
-  const { isCalendarDateModalOpen, setCalendarDateModalOpen } = useModalStore();
-
+  const {
+    isCalendarDateModalOpen,
+    setCalendarDateModalOpen,
+    isTodoDetailModalOpen,
+    setTodoDetailModalOpen,
+    isTodoCreateModalOpen,
+    setTodoCreateModalOpen,
+  } = useModalStore();
   useEffect(() => {
-    setIsOpen(false);
-    setIsDetailOpen(false);
+    setTodoCreateModalOpen(false);
+    setTodoDetailModalOpen(false);
   }, [date]);
 
   const {
@@ -45,7 +49,7 @@ const TodoList = ({}) => {
   const handleClickTodo = (id: number) => {
     router.push(`/calendar/${calendarId}?date=${date}&todoId=${id}`);
     setCalendarDateModalOpen(false);
-    setIsDetailOpen(true);
+    setTodoDetailModalOpen(true);
   };
 
   const handleTodoComplete = (calId: number, todoId: number, e: any) => {
@@ -65,7 +69,7 @@ const TodoList = ({}) => {
 
   const handleAddBtn = () => {
     setCalendarDateModalOpen(false);
-    setIsOpen(true);
+    setTodoCreateModalOpen(true);
   };
 
   return (
@@ -134,8 +138,8 @@ const TodoList = ({}) => {
           )}
         </div>
       </div>
-      {isOpen && <TodoCreate setIsOpen={setIsOpen} refetch={refetch} />}
-      {isDetailOpen && <TodoDetailModal setIsDetailOpen={setIsDetailOpen} />}
+      {isTodoCreateModalOpen && <TodoCreate refetch={refetch} />}
+      {isTodoDetailModalOpen && <TodoDetailModal />}
     </div>
   );
 };

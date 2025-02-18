@@ -45,7 +45,12 @@ const generateCalendar = (year: number, month: number) => {
 };
 
 const Calendar = ({}) => {
-  const { isCalendarDateModalOpen, setCalendarDateModalOpen } = useModalStore();
+  const {
+    isCalendarDateModalOpen,
+    setCalendarDateModalOpen,
+    isTodoDetailModalOpen,
+    isTodoCreateModalOpen,
+  } = useModalStore();
   const router = useRouter();
   const date = useSearch.useSearchDate();
   const calendarId = useSearch.useSearchId();
@@ -122,7 +127,15 @@ const Calendar = ({}) => {
 
   return (
     <div className={`main_container flex space-x-[70px]`}>
-      <div className="w-[631.5px]">
+      <div
+        className={`w-[631.5px] ${
+          isCalendarDateModalOpen ||
+          isTodoDetailModalOpen ||
+          isTodoCreateModalOpen
+            ? "hidden"
+            : "block"
+        } lg:block`}
+      >
         <h1 className="text-[25px] mt-[54px]">
           {calendarBasic?.name ?? "달력"}
         </h1>

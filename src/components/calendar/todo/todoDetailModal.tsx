@@ -4,26 +4,16 @@ import React, { useState } from "react";
 import TodoViewMode from "./todoViewMode";
 import TodoEditMode from "./todoEditMode";
 
-const TodoDetailModal = ({
-  setIsDetailOpen,
-}: {
-  setIsDetailOpen: (isOpen: boolean) => void;
-}) => {
+const TodoDetailModal = () => {
   const [editorMode, setEditorMode] = useState(false);
 
   return (
     <div>
       <div>
         {editorMode ? (
-          <TodoEditMode
-            setEditorMode={setEditorMode}
-            setIsDetailOpen={setIsDetailOpen}
-          />
+          <TodoEditMode setEditorMode={setEditorMode} />
         ) : (
-          <TodoViewMode
-            setEditorMode={setEditorMode}
-            setIsDetailOpen={setIsDetailOpen}
-          />
+          <TodoViewMode setEditorMode={setEditorMode} />
         )}
       </div>
     </div>

@@ -12,8 +12,8 @@ import { TimePicker } from "antd";
 import { useAlert } from "@/components/alert/AlertContext";
 import { useModalStore } from "@/store/modalStore";
 
-const TodoCreate = ({ setIsOpen, refetch }: any) => {
-  const { setCalendarDateModalOpen } = useModalStore();
+const TodoCreate = ({ refetch }: any) => {
+  const { setCalendarDateModalOpen, setTodoCreateModalOpen } = useModalStore();
   const id = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
   const [startTime, setStartTime] = useState<Dayjs>(
@@ -63,7 +63,7 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
           showAlert("일정이 등록되었습니다.", "success");
           await refetch();
           reset();
-          setIsOpen(false);
+          setTodoCreateModalOpen(false);
           setCalendarDateModalOpen(true);
           setIsSubmit(false);
         },
@@ -77,7 +77,7 @@ const TodoCreate = ({ setIsOpen, refetch }: any) => {
 
   const handleClose = () => {
     setCalendarDateModalOpen(true);
-    setIsOpen(false);
+    setTodoCreateModalOpen(false);
     reset();
   };
 
