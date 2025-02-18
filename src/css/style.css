@@ -339,3 +339,34 @@ div::-webkit-scrollbar-track {
   background-color: #f8d7da;
   color: #721c24;
 }
+
+/* Text Size Classes */
+.text-sm {
+  @apply text-[12px];
+}
+
+.text-base {
+  @apply text-[12px];
+}
+
+.text-lg {
+  @apply text-[15px];
+}
+
+.text-xl {
+  @apply text-[18px];
+}
+
+@media (min-width: 1024px) {
+  .text-base {
+    @apply text-[15px];
+  }
+
+  .text-lg {
+    @apply text-[20px];
+  }
+
+  .text-xl {
+    @apply text-[25px];
+  }
+}

@@ -10,6 +10,7 @@ import ImageCropComponent from "@/components/common/ImageCropComponent";
 import { IconSetting } from "@/icons";
 import { useRouter } from "next/navigation";
 import { useAlert } from "@/components/alert/AlertContext";
+
 const Setting = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -64,23 +65,23 @@ const Setting = () => {
   const handleDeleteUser = () => setIsOpen(true);
 
   return (
-    <div className="main_container">
+    <div className="main_container px-[20px]">
       <div className="flex w-full h-screen justify-center items-center flex-col">
         <IconSetting className="w-5 h-5" />
-        <h1 className="text-[25px] ">설정</h1>
+        <h1 className="text-xl mt-2 lg:mt-0">설정</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center mt-[35px]"
+          className="flex flex-col items-center mt-[15px] lg:mt-[35px]"
         >
           <ImageCropComponent userImg={userImg} setUserImg={setUserImg} />
-          <div className="flex flex-col mt-[20px]  text-[20px] noto-sans-text">
+          <div className="flex flex-col mt-[20px] text-lg noto-sans-text">
             <input
               disabled
-              className="w-[390px] h-[55px] bor px-[19px] rounded-md rounded-b-none focus:outline-none bg-[#EDEADF] cursor-not-allowed"
+              className="w-[260px] lg:w-[390px] h-[40px] lg:h-[55px] bor px-[19px] rounded-md rounded-b-none focus:outline-none bg-[#EDEADF] cursor-not-allowed"
               defaultValue={userData?.email}
             />
             <input
-              className="w-[390px] h-[55px] bor px-[19px] border-t-0 rounded-md rounded-t-none focus:outline-none"
+              className="w-[260px] lg:w-[390px] h-[40px] lg:h-[55px] bor px-[19px] border-t-0 rounded-md rounded-t-none focus:outline-none"
               {...register("name", {
                 required: "이름을 입력해주세요.",
               })}
@@ -94,11 +95,11 @@ const Setting = () => {
                 type="password"
                 value={"123453453"}
                 disabled
-                className="mt-[10px] rounded-md w-[390px] h-[50px] px-[19px] flex justify-center items-center bor cursor-not-allowed bg-[#ffffff] text-[#49494950] border-[#494949]"
+                className="mt-[10px] rounded-md w-[260px] lg:w-[390px] h-[40px] lg:h-[50px] px-[19px] flex justify-center items-center bor cursor-not-allowed bg-[#ffffff] text-[#49494950] border-[#494949]"
               />
               <button
                 type="button"
-                className="absolute w-[131px] h-[30px] right-[17px] top-[20px] text-[15px] noto-sans-text border-[0.8px] border-[#49494950] rounded-full bg-[#49494910]"
+                className="absolute w-[100px] lg:w-[131px] h-[30px] right-[10px] lg:right-[17px] top-[15px] lg:top-[20px] text-base noto-sans-text border-[0.8px] border-[#49494950] rounded-full bg-[#49494910]"
                 onClick={handleChangePassword}
               >
                 비밀번호 변경
@@ -107,7 +108,7 @@ const Setting = () => {
 
             <button
               type="submit"
-              className="mt-[35px] rounded-md w-[390px] h-[50px] flex justify-center items-center bor btn_hilight"
+              className="text-lg mt-[35px] rounded-md w-[260px] lg:w-[390px] h-[40px] lg:h-[50px] flex justify-center items-center bor btn_hilight"
             >
               저장
             </button>
@@ -115,7 +116,7 @@ const Setting = () => {
         </form>
 
         <button
-          className="text-[15px]  mt-[20px] noto-sans-text"
+          className="text-base mt-[20px] noto-sans-text"
           onClick={handleDeleteUser}
         >
           탈퇴하기
