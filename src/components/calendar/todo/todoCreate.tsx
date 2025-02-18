@@ -10,12 +10,10 @@ import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import { TimePicker } from "antd";
 import { useAlert } from "@/components/alert/AlertContext";
+import { useModalStore } from "@/store/modalStore";
 
-const TodoCreate = ({
-  setIsCalendarDateModalOpen,
-  setIsOpen,
-  refetch,
-}: any) => {
+const TodoCreate = ({ setIsOpen, refetch }: any) => {
+  const { setCalendarDateModalOpen } = useModalStore();
   const id = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
   const [startTime, setStartTime] = useState<Dayjs>(
@@ -66,7 +64,7 @@ const TodoCreate = ({
           await refetch();
           reset();
           setIsOpen(false);
-          setIsCalendarDateModalOpen(true);
+          setCalendarDateModalOpen(true);
           setIsSubmit(false);
         },
         onError: () => {
@@ -78,8 +76,8 @@ const TodoCreate = ({
   };
 
   const handleClose = () => {
+    setCalendarDateModalOpen(true);
     setIsOpen(false);
-    setIsCalendarDateModalOpen(true);
     reset();
   };
 

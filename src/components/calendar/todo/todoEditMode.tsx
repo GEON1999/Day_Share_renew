@@ -10,11 +10,12 @@ import { TimePicker } from "antd";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import { useAlert } from "@/components/alert/AlertContext";
+import { useModalStore } from "@/store/modalStore";
 
 const TodoEditMode = ({ setEditorMode }: any) => {
   const id = useSearch.useSearchId();
   const todoId = useSearch.useSearchQueryTodoId();
-
+  const { setCalendarDateModalOpen } = useModalStore();
   const {
     register,
     handleSubmit,
@@ -60,6 +61,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
           showAlert("일정이 수정되었습니다.", "success");
           todoReFetch();
           setEditorMode(false);
+          setCalendarDateModalOpen(true);
           setIsSubmit(false);
         },
         onError: () => {
@@ -72,6 +74,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
 
   const handleCancel = () => {
     setEditorMode(false);
+    setCalendarDateModalOpen(true);
   };
 
   return (

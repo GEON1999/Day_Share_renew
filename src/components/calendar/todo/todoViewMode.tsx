@@ -21,12 +21,9 @@ import {
   IconX,
 } from "@/icons";
 import { useAlert } from "@/components/alert/AlertContext";
-
-const TodoViewMode = ({
-  setEditorMode,
-  setIsDetailOpen,
-  setIsCalendarDateModalOpen,
-}: any) => {
+import { useModalStore } from "@/store/modalStore";
+const TodoViewMode = ({ setEditorMode, setIsDetailOpen }: any) => {
+  const { setCalendarDateModalOpen } = useModalStore();
   const router = useRouter();
   const [isTodoModalOpen, setIsTodoModalOpen] = useState(false);
   const [openComment, setOpenComment] = useState(true);
@@ -179,7 +176,7 @@ const TodoViewMode = ({
         onSuccess: () => {
           showAlert("일정이 삭제되었습니다.", "success");
           setIsDetailOpen(false);
-          setIsCalendarDateModalOpen(true);
+          setCalendarDateModalOpen(true);
           router.push(`/calendar/${id}?date=${Helper.getTodayMs()}`);
         },
         onError: () => {
@@ -191,7 +188,7 @@ const TodoViewMode = ({
 
   const handleCancel = () => {
     setIsDetailOpen(false);
-    setIsCalendarDateModalOpen(true);
+    setCalendarDateModalOpen(true);
   };
 
   const handleEditClick = (comment: any) => {

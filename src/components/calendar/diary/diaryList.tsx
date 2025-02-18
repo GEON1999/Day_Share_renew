@@ -4,15 +4,11 @@ import useSearch from "@/hooks/useSearch";
 import { IconAdd, IconComment, IconEmptyDiary, IconHeart } from "@/icons";
 import StaticKeys from "@/keys/StaticKeys";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
+import { useModalStore } from "@/store/modalStore";
 import { useRouter } from "next/navigation";
 
-const DiaryList = ({
-  isCalendarDateModalOpen,
-  setIsCalendarDateModalOpen,
-}: {
-  isCalendarDateModalOpen: boolean;
-  setIsCalendarDateModalOpen: (isCalendarDateModalOpen: boolean) => void;
-}) => {
+const DiaryList = () => {
+  const { isCalendarDateModalOpen } = useModalStore();
   const router = useRouter();
   const calendarId = useSearch.useSearchId();
   const date = useSearch.useSearchDate();

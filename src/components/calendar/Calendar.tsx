@@ -5,6 +5,7 @@ import CalendarDateModal from "./CalendarDateModal";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import Helper from "@/helper/Helper";
 import { IconNextBig, IconPrevBig } from "@/icons";
+import { useModalStore } from "@/store/modalStore";
 
 const generateCalendar = (year: number, month: number) => {
   const firstDay = new Date(year, month, 1);
@@ -44,7 +45,7 @@ const generateCalendar = (year: number, month: number) => {
 };
 
 const Calendar = ({}) => {
-  const [isCalendarDateModalOpen, setIsCalendarDateModalOpen] = useState(false);
+  const { isCalendarDateModalOpen, setCalendarDateModalOpen } = useModalStore();
   const router = useRouter();
   const date = useSearch.useSearchDate();
   const calendarId = useSearch.useSearchId();
@@ -84,7 +85,7 @@ const Calendar = ({}) => {
 
   const handleClickDate = (day: number | null) => {
     if (day === null) return;
-    setIsCalendarDateModalOpen(true);
+    setCalendarDateModalOpen(true);
     const ms = new Date(Date.UTC(year, month, day)).getTime();
     router.push(`/calendar/${calendarId}/?date=${ms}`);
   };
@@ -320,10 +321,7 @@ const Calendar = ({}) => {
           </div>
         </div>
       </div>
-      <CalendarDateModal
-        isCalendarDateModalOpen={isCalendarDateModalOpen}
-        setIsCalendarDateModalOpen={setIsCalendarDateModalOpen}
-      />
+      <CalendarDateModal />
     </div>
   );
 };

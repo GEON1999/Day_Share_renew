@@ -11,14 +11,9 @@ import TodoDetailModal from "@/components/calendar/todo/todoDetailModal";
 import TodoCreate from "./todoCreate";
 import { useAlert } from "@/components/alert/AlertContext";
 import StaticKeys from "@/keys/StaticKeys";
+import { useModalStore } from "@/store/modalStore";
 
-const TodoList = ({
-  isCalendarDateModalOpen,
-  setIsCalendarDateModalOpen,
-}: {
-  isCalendarDateModalOpen: boolean;
-  setIsCalendarDateModalOpen: (isCalendarDateModalOpen: boolean) => void;
-}) => {
+const TodoList = ({}) => {
   const router = useRouter();
   const calendarId = useSearch.useSearchId();
   const date = useSearch.useSearchDate();
@@ -27,6 +22,7 @@ const TodoList = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const { showAlert } = useAlert();
+  const { isCalendarDateModalOpen, setCalendarDateModalOpen } = useModalStore();
 
   useEffect(() => {
     setIsOpen(false);
@@ -48,7 +44,7 @@ const TodoList = ({
 
   const handleClickTodo = (id: number) => {
     router.push(`/calendar/${calendarId}?date=${date}&todoId=${id}`);
-    setIsCalendarDateModalOpen(false);
+    setCalendarDateModalOpen(false);
     setIsDetailOpen(true);
   };
 
@@ -68,7 +64,7 @@ const TodoList = ({
   };
 
   const handleAddBtn = () => {
-    setIsCalendarDateModalOpen(false);
+    setCalendarDateModalOpen(false);
     setIsOpen(true);
   };
 
@@ -138,19 +134,8 @@ const TodoList = ({
           )}
         </div>
       </div>
-      {isOpen && (
-        <TodoCreate
-          setIsCalendarDateModalOpen={setIsCalendarDateModalOpen}
-          setIsOpen={setIsOpen}
-          refetch={refetch}
-        />
-      )}
-      {isDetailOpen && (
-        <TodoDetailModal
-          setIsCalendarDateModalOpen={setIsCalendarDateModalOpen}
-          setIsDetailOpen={setIsDetailOpen}
-        />
-      )}
+      {isOpen && <TodoCreate setIsOpen={setIsOpen} refetch={refetch} />}
+      {isDetailOpen && <TodoDetailModal setIsDetailOpen={setIsDetailOpen} />}
     </div>
   );
 };
