@@ -93,7 +93,7 @@ const CalendarListSection = () => {
     <section>
       <div className="flex justify-between w-[300px] lg:w-[1260px] items-center mt-[20px] lg:mt-[47px]">
         <div className="flex items-center mb-[10px] space-x-2">
-          <h2 className={`text-[18px] lg:text-[25px]`}>공유 달력</h2>
+          <h2 className={`text-xl`}>공유 달력</h2>
           <IconAdd
             onClick={handleAddBtn}
             className="w-[15px] h-[15px] lg:w-5 lg:h-5 cur"

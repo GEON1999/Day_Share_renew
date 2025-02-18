@@ -45,47 +45,47 @@ const ChangePassword = () => {
     <div className="main_container">
       <div className="flex w-full h-screen justify-center items-center flex-col ">
         <IconSetting onClick={handleSetting} className="w-5 h-5 cur" />
-        <h1 onClick={handleSetting} className="text-[25px] cur text-[#2D2D2E]">
+        <h1 onClick={handleSetting} className="text-xl cur text-[#2D2D2E]">
           설정
         </h1>
-        <span className="text-[15px] font-satoshi font-[100] mt-[5px]">|</span>
-        <h1 className="text-[20px] noto-sans-text">비밀번호 변경</h1>
+        <span className="text-base font-satoshi font-[100] mt-[5px]">|</span>
+        <h1 className="text-lg noto-sans-text">비밀번호 변경</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center mt-[35px] noto-sans-text"
+          className="flex flex-col items-center mt-[15px] lg:mt-[35px] noto-sans-text"
         >
           <input
-            className="w-[390px] h-[50px] outline-none border border-b-0 rounded-t-md px-[19px] placeholder-[#C2BFBC] focus:outline-none"
+            className="w-[260px] lg:w-[390px] h-[40px] lg:h-[55px] outline-none border border-b-0 rounded-t-md px-[19px] placeholder-[#C2BFBC] focus:outline-none"
             {...register("oldPassword")}
             required
             placeholder="기존 비밀번호"
           />
 
           <input
-            className="w-[390px] h-[50px] outline-none border border-b-0 px-[19px] placeholder-[#C2BFBC] focus:outline-none"
+            className="w-[260px] lg:w-[390px] h-[40px] lg:h-[55px] outline-none border border-b-0 px-[19px] placeholder-[#C2BFBC] focus:outline-none"
             {...register("password")}
             type="password"
             required
             placeholder="새 비밀번호"
           />
           <input
-            className="w-[390px] h-[50px] outline-none border rounded-b-md px-[19px] placeholder-[#C2BFBC] focus:outline-none"
+            className="w-[260px] lg:w-[390px] h-[40px] lg:h-[55px] outline-none border rounded-b-md px-[19px] placeholder-[#C2BFBC] focus:outline-none"
             {...register("password_check")}
             type="password"
             required
             placeholder="새 비밀번호 확인"
           />
-          <div className="flex mt-[40px]  text-[20px] noto-sans-text space-x-[10px]">
+          <div className="flex mt-[20px] lg:mt-[40px] text-lg noto-sans-text space-x-[10px]">
             <button
               onClick={handleSetting}
               type="button"
-              className=" rounded-md bg-white w-[60px] h-[35px] bor hover:bg-[#49494910]"
+              className=" rounded-md bg-white w-[50px] h-[30px] lg:w-[60px] lg:h-[35px] bor hover:bg-[#49494910]"
             >
               취소
             </button>
             <button
               type="submit"
-              className=" rounded-md bg-[#F6BEBE] w-[60px] h-[35px] bor hover:bg-[#F69D9D]"
+              className=" rounded-md bg-[#F6BEBE] w-[50px] h-[30px] lg:w-[60px] lg:h-[35px] bor hover:bg-[#F69D9D]"
             >
               저장
             </button>
