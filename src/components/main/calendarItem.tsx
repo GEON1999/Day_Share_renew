@@ -49,15 +49,15 @@ const CalendarItem = memo(
     return (
       <>
         {calendar.isEmpty ? (
-          <div className="cur flex flex-col" onClick={() => setIsOpen(true)}>
-            <div className="shadow_box rounded-md">
-              <div
-                className={`object-cover rounded-md bor bg-[#C5C5C5] flex justify-center items-center ${
-                  isEditMode ? "hidden" : "cursor-pointer w-[300px] h-[200px]"
-                }`}
-              >
-                <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241026130254_02c164ef3ab7406da90da5bbd373da9a.png" />
-              </div>
+          <div className="cur" onClick={() => setIsOpen(true)}>
+            <div
+              className={`object-cover bor bg-[#C5C5C5] flex justify-center items-center shadow_box rounded-md mb-2 ${
+                isEditMode
+                  ? "hidden"
+                  : "cur w-[140px] h-[93.06px] lg:w-[300px] lg:h-[200px]"
+              }`}
+            >
+              <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241026130254_02c164ef3ab7406da90da5bbd373da9a.png" />
             </div>
           </div>
         ) : (
@@ -94,7 +94,7 @@ const CalendarItem = memo(
               </p>
               {calendar.isRead ? null : (
                 <img
-                  className="h-[23.6px] w-[23.6px]"
+                  className="h-[15px] w-[15px] lg:h-[23.6px] lg:w-[23.6px]"
                   src="https://s3.ap-northeast-2.amazonaws.com/geon.com/20241029163920_430d6b2ba39e4a05819e9c943b8b3461.png"
                   alt="new"
                 />

@@ -84,8 +84,6 @@ const CalendarListSection = () => {
     );
   };
 
-  const handleCancelOrder = () => setIsEditMode(false);
-
   const handleClickCalendar = (id: number) =>
     router.push(`/calendar/${id}?date=${Helper.getTodayMs()}`);
 
