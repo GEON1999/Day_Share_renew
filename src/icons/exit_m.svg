@@ -1,6 +1,25 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M16 31C24.2843 31 31 24.2843 31 16C31 7.71573 24.2843 1 16 1C7.71573 1 1 7.71573 1 16C1 24.2843 7.71573 31 16 31Z" fill="#F8F3CE" stroke="#494949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M20 7H8V23.3867H20V7Z" fill="#F9F4CF" stroke="#494949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M27.9999 15.1935L22.3066 9.91342V13.3134H17.7733V17.0734H22.3066V20.4668L27.9999 15.1935Z" fill="#F6BEBE" stroke="#494949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M15.3133 27L8 23.5333V7L15.3133 10.4667V27Z" fill="#F6BEBE" stroke="#494949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_선깸" data-name="선깸" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 30 30">
+  <!-- Generator: Adobe Illustrator 29.3.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 146)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #494949;
+      }
+
+      .st1 {
+        fill: #f6bebe;
+      }
+    </style>
+  </defs>
+  <path class="st0" d="M15,30C6.73,30,0,23.27,0,15S6.73,0,15,0s15,6.73,15,15-6.73,15-15,15ZM15,1.43C7.52,1.43,1.43,7.52,1.43,15s6.09,13.57,13.57,13.57,13.57-6.09,13.57-13.57S22.48,1.43,15,1.43Z"/>
+  <path class="st0" d="M18.81,22.75H7.38c-.39,0-.71-.32-.71-.71V6.43c0-.39.32-.71.71-.71h11.43c.39,0,.71.32.71.71v15.61c0,.39-.32.71-.71.71ZM8.1,21.32h10V7.14h-10v14.18Z"/>
+  <g>
+    <path class="st1" d="M26.43,14.23l-5.42-5.03v3.24h-4.32v3.58h4.32v3.23l5.42-5.02Z"/>
+    <path class="st0" d="M21.01,19.97c-.1,0-.19-.02-.29-.06-.26-.11-.43-.37-.43-.65v-2.52h-3.6c-.39,0-.71-.32-.71-.71v-3.58c0-.39.32-.71.71-.71h3.6v-2.52c0-.28.17-.54.43-.65.26-.11.56-.06.77.13l5.42,5.03c.15.13.23.32.23.52s-.08.39-.23.52l-5.42,5.02c-.13.13-.31.19-.49.19ZM17.4,15.31h3.6c.39,0,.71.32.71.71v1.6l3.66-3.39-3.66-3.39v1.6c0,.39-.32.71-.71.71h-3.6v2.15Z"/>
+  </g>
+  <g>
+    <path class="st1" d="M14.35,25.48l-6.97-3.3V6.43l6.97,3.3v15.75Z"/>
+    <path class="st0" d="M14.35,26.19c-.1,0-.21-.02-.31-.07l-6.97-3.3c-.25-.12-.41-.37-.41-.65V6.43c0-.24.13-.47.33-.6.21-.13.47-.15.69-.04l6.97,3.3c.25.12.41.37.41.65v15.75c0,.24-.13.47-.33.6-.12.07-.25.11-.38.11ZM8.1,21.72l5.54,2.62v-14.16l-5.54-2.62v14.16Z"/>
+  </g>
 </svg>
