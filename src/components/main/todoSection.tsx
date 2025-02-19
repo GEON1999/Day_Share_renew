@@ -32,6 +32,9 @@ const TodoSection = () => {
     refetch,
   } = useUserQueries.useGetUserTodos(`todo_page=${currentTodoPage}`);
 
+  const { data: favoriteTodoData, refetch: refetchFavoriteTodo } =
+    useUserQueries.useGetUserFavoriteTodo();
+
   const { mutate: checkTodo } = useMutation({
     mutationFn: useTodoMutations.toggleTodoComplete,
   });
@@ -65,6 +68,7 @@ const TodoSection = () => {
         onSuccess: () => {
           console.log("성공");
           refetch();
+          refetchFavoriteTodo();
         },
         onError: () => {
           console.log("실패");
@@ -81,6 +85,7 @@ const TodoSection = () => {
         onSuccess: () => {
           console.log("성공");
           refetch();
+          refetchFavoriteTodo();
         },
         onError: () => {
           console.log("실패");
