@@ -110,11 +110,11 @@
     @apply flex mx-auto items-center space-x-[10px] text-[15px] lg:text-[20px] noto-sans-text w-[100px] h-[30px] lg:w-[130px] lg:h-[35px];
   }
   .cancel {
-    @apply rounded-md w-[60px] h-[35px] bor bg-white hover:bg-[#49494910] transition-colors duration-200 ease-in-out;
+    @apply rounded-md w-[40px] h-[25px] lg:w-[60px] lg:h-[35px] bor bg-white hover:bg-[#49494910] transition-colors duration-200 ease-in-out;
   }
 
   .confirm {
-    @apply rounded-md w-[60px] h-[35px] bor bg-[#F6BEBE] hover:bg-[#F69D9D] transition-colors duration-200 ease-in-out;
+    @apply rounded-md w-[40px] h-[25px] lg:w-[60px] lg:h-[35px] bor bg-[#F6BEBE] hover:bg-[#F69D9D] transition-colors duration-200 ease-in-out;
   }
 
   /* Pagination Classes */
@@ -266,7 +266,7 @@ div::-webkit-scrollbar-track {
 
 /* Ant Design TimePicker Styles */
 .ant-picker {
-  width: 113px !important;
+  width: 100px !important;
   height: 30px !important;
   border: 1.5px solid #494949 !important;
   border-radius: 0.375rem !important;
@@ -431,5 +431,34 @@ div::-webkit-scrollbar-track {
 
   .day-sat::before {
     content: "SAT";
+  }
+
+  .ant-picker {
+    width: 113px !important;
+    height: 30px !important;
+    border: 1.5px solid #494949 !important;
+    border-radius: 0.375rem !important;
+    background-color: #ffffff !important;
+    cursor: pointer !important;
+  }
+
+  .ant-picker:hover {
+    border-color: #494949 !important;
+  }
+
+  .ant-picker:hover,
+  .ant-picker:focus,
+  .ant-picker-focused {
+    border-color: #494949 !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  .ant-picker-panel-container {
+    margin-top: 4px !important;
+  }
+
+  .custom-timepicker-dropdown {
+    z-index: 1100 !important;
   }
 }

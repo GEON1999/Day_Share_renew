@@ -328,17 +328,17 @@ const TodoViewMode = ({ setEditorMode }: any) => {
           </div>
           <div className="noto-sans-text">
             <div className="px-[5px] lg:px-[10px]">
-              <div className="flex items-center space-x-[10px] lg:space-x-[23px] py-[15px] border-t mt-2 lg:mt-0">
+              <div className="flex items-center space-x-[10px] lg:space-x-[23px] py-[10px] lg:py-[15px] border-t mt-2 lg:mt-0">
                 <div className="flex items-center space-x-[4.7px]">
                   {likeData?.is_liked ? (
                     <IconHeart
                       onClick={handleToggleLike}
-                      className="w-[19.65px] h-[17.65px] cur"
+                      className="w-[15px] h-[15px] lg:w-[19.65px] lg:h-[17.65px] cur"
                     />
                   ) : (
                     <IconHeartEmpty
                       onClick={handleToggleLike}
-                      className="w-[19.65px] h-[17.65px] cur"
+                      className="w-[15px] h-[15px] lg:w-[19.65px] lg:h-[17.65px] cur"
                     />
                   )}
                   <div>{likeData?.likes_count}</div>
@@ -346,7 +346,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
                 <div className="flex items-center space-x-[7px]">
                   <IconComment
                     onClick={handleOpenComment}
-                    className="w-[17.65px] h-[17.65px]"
+                    className="w-[15px] h-[15px] lg:w-[17.65px] lg:h-[17.65px]"
                   />
                   <div>{commentData ? commentData.length : "0"}</div>
                 </div>
