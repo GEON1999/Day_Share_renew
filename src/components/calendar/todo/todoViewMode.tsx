@@ -482,7 +482,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
               />
               <button
                 type="submit"
-                className="w-[60px] h-[35px] rounded-md bor text-lg btn_hilight"
+                className="w-[50px] lg:w-[60px] h-[35px] rounded-md bor text-lg btn_hilight"
               >
                 등록
               </button>

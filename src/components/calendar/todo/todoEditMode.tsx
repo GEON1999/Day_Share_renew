@@ -74,7 +74,6 @@ const TodoEditMode = ({ setEditorMode }: any) => {
 
   const handleCancel = () => {
     setEditorMode(false);
-    setCalendarDateModalOpen(true);
   };
 
   return (
