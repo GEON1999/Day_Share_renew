@@ -94,7 +94,7 @@ const DiaryList = () => {
                           : "w-[274px] lg:w-[430px]"
                       } border-b border-[#49494920]`}
                     >
-                      {Helper.cutString(diary.title, diary.img ? 18 : 22)}
+                      {Helper.cutString(diary.title, diary.img ? 12 : 22)}
                     </p>
                     <div className="flex space-x-3 text-base mt-3">
                       <div className="flex items-center space-x-2">

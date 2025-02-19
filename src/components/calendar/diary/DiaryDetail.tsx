@@ -9,7 +9,7 @@ const DiaryDetail = () => {
 
   return (
     <div className="main_container center">
-      <div className="w-[1670px] px-[100px] pb-[80px] flex justify-center">
+      <div className="w-[300px] lg:w-[1670px] lg:px-[100px] lg:pb-[80px] flex justify-center items-center lg:items-start">
         {editorMode ? (
           <DiaryEditMode setEditorMode={setEditorMode} />
         ) : (

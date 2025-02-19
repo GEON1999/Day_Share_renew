@@ -239,16 +239,16 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   };
 
   return (
-    <div className="min-w-[600px] mt-[86px] w-[870px] noto-sans-text">
+    <div className="w-[300px] lg:min-w-[600px] lg:mt-[86px] lg:w-[870px] noto-sans-text py-[10px] lg:py-[0px]">
       <div
         className="flex items-center space-x-[10px] cur"
         onClick={handleClickCalendar}
       >
-        <p className="opacity-50 text-[20px]">{calendarData?.name}</p>
+        <p className="opacity-50 text-lg">{calendarData?.name}</p>
         <IconNextGray className="w-[5px] h-[10px]" />
       </div>
       <div className="flex justify-between items-center -mt-[5px]">
-        <h2 className="text-[30px] dodum-text">{data?.title}</h2>
+        <h2 className="text-[25px] lg:text-[30px] dodum-text">{data?.title}</h2>
       </div>
       <div className="flex items-center mt-3 justify-between">
         <div className="flex items-center">
@@ -260,10 +260,10 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                 : calendarProfile?.img
             }
           />
-          <h1 className="text-[20px] mr-[10px]">
+          <h1 className="text-lg mr-[10px]">
             {calendarProfile?.name ?? "탈퇴한 유저"}
           </h1>
-          <p className="text-[15px] text-[#969696]">
+          <p className="text-base text-[#969696]">
             {Helper.formatDateForContent(data?.createdAt)} 등록
           </p>
         </div>
@@ -281,29 +281,34 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
           {/* <button className="rounded w-15 h-10 bor">공유</button> */}
         </div>
       </div>
-      <div className="flex flex-col space-y-2 mt-[26px] whitespace-pre-wrap">
+      <div className="flex flex-col space-y-2 mt-[10px] lg:mt-[26px] whitespace-pre-wrap">
         <div className="max-h-[700px] overflow-auto whitespace-pre-wrap">
-          <div className="text-[20px]">{diaryContent}</div>
+          <div className="text-lg [&_img]:max-w-[300px] lg:[&_img]:max-w-none [&_img]:w-full [&_img]:h-auto">
+            {diaryContent}
+          </div>
         </div>
       </div>
-      <div className="flex border-t space-x-4 mt-[75px]">
+      <div className="flex border-t space-x-4 mt-[30px] lg:mt-[75px]">
         <div className="flex items-center space-x-6 mt-[10px]">
           <div className="flex items-center space-x-2  ">
             {likeData?.is_liked ? (
               <IconHeart
                 onClick={handleToggleLike}
-                className="w-[19.65px] h-[17.65px] cur"
+                className="w-[15px] h-[15px] lg:w-[19.65px] lg:h-[17.65px] cur"
               />
             ) : (
               <IconHeartEmpty
                 onClick={handleToggleLike}
-                className="w-[19.65px] h-[17.65px] cur"
+                className="w-[15px] h-[15px] lg:w-[19.65px] lg:h-[17.65px] cur"
               />
             )}
             <div>{likeData?.likes_count}</div>
           </div>
           <div className="flex items-center space-x-2">
-            <IconComment onClick={handleOpenComment} className="w-5 h-5 cur" />
+            <IconComment
+              onClick={handleOpenComment}
+              className="w-[15px] h-[15px] lg:w-5 lg:h-5 cur"
+            />
             <div>{commentData ? commentData.length : "0"}</div>
           </div>
         </div>
@@ -319,7 +324,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                 >
                   <div className="flex items-start space-x-[10px] space-y-2">
                     <img
-                      className={`w-[45px] h-[45px] mt-[10px] rounded-full object-cover ${
+                      className={`w-[25px] h-[25px] lg:w-[45px] lg:h-[45px] mt-[10px] rounded-full object-cover ${
                         comment?.profile?.id === 0 ? "" : "bor"
                       }`}
                       src={
@@ -332,7 +337,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                     <div className=" space-y-[2px] ">
                       {editingCommentId === comment.comment.id ? (
                         <form
-                          className="w-[818px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
+                          className="w-[300px] lg:w-[818px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
                           onSubmit={editHandleSubmit(onEditSubmit)}
                         >
                           <textarea
@@ -369,7 +374,9 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                               )}
                             </p>
                           </div>
-                          <p className="w-[700px]">{comment.comment.content}</p>
+                          <p className="w-[240px] lg:w-[700px]">
+                            {comment.comment.content}
+                          </p>
                         </div>
                       )}
                     </div>
@@ -386,7 +393,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                         ref={(el) => {
                           menuRefs.current[comment.comment.id] = el;
                         }}
-                        className={`absolute right-[-59px] w-[55px] top-[17px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-[15px] rounded-md shadow_box z-99 ${
+                        className={`absolute right-[-59px] w-[55px] top-[17px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-base rounded-md shadow_box z-99 ${
                           activeCommentId === comment.comment.id ? "" : "hidden"
                         }`}
                       >
@@ -418,7 +425,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
             onSubmit={commentHandleSubmit(onCommentSubmit)}
             className="flex items-center mt-8 space-x-2"
           >
-            <div className="bor w-full h-[162px] rounded pt-[15px]  bg-white flex flex-col space-y-[10px] justify-between">
+            <div className="bor w-full h-[140px] lg:h-[162px] rounded pt-[15px] bg-white flex flex-col space-y-[10px] justify-between">
               <div>
                 <div className="flex items-center space-x-[8px] px-[18px]">
                   <img
@@ -429,14 +436,14 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                         : userData?.img
                     }
                   />
-                  <h1 className="text-[15px]">{userData?.name}</h1>
+                  <h1 className="text-base">{userData?.name}</h1>
                 </div>
                 <div className="pr-1">
                   <textarea
                     {...commentRegister("content", {
                       required: "내용을 입력해 주세요.",
                     })}
-                    className="w-full px-[18px] h-[64px] mt-[5px] outline-none rounded bg-transparent text-[15px] placeholder:opacity-50 focus:outline-none resize-none"
+                    className="w-full px-[18px] h-[40px] lg:h-[64px] mt-[5px] outline-none rounded bg-transparent text-base placeholder:opacity-50 focus:outline-none resize-none"
                     placeholder="댓글을 남겨보세요."
                   />
                 </div>
