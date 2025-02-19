@@ -22,6 +22,7 @@ import {
 } from "@/icons";
 import { useAlert } from "@/components/alert/AlertContext";
 import { useModalStore } from "@/store/modalStore";
+import { useSession } from "next-auth/react";
 
 const TodoViewMode = ({ setEditorMode }: any) => {
   const { setCalendarDateModalOpen, setTodoDetailModalOpen } = useModalStore();
@@ -35,6 +36,8 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   const todoId = useSearch.useSearchQueryTodoId();
   const query = `contentType=todo&contentId=${todoId}`;
   const { showAlert } = useAlert();
+  const { data: session } = useSession();
+  const sessionId = Number(session?.user?.id);
 
   const menuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
@@ -105,7 +108,8 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   });
 
   const handleClickDeleteTodo = () => {
-    if (userData?.userId === data?.userId) {
+    console.log(sessionId, data?.userId);
+    if (sessionId === data?.userId) {
       setIsTodoModalOpen(true);
     } else {
       showAlert("본인의 일정만 삭제할 수 있습니다.", "error");
@@ -145,7 +149,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   };
 
   const handleClickDeleteComment = (userId: string) => {
-    if (userData?.userId === userId) {
+    if (sessionId === userId) {
       deleteComment(
         { calendarId: id, commentId: activeCommentId },
         {
@@ -167,7 +171,13 @@ const TodoViewMode = ({ setEditorMode }: any) => {
     }
   };
 
-  const handleEditorMode = () => setEditorMode(true);
+  const handleEditorMode = () => {
+    if (sessionId === data?.userId) {
+      setEditorMode(true);
+    } else {
+      showAlert("본인의 일정만 수정할 수 있습니다.", "error");
+    }
+  };
   const handleOpenComment = () => setOpenComment(!openComment);
 
   const handleDeleteTodo = () => {
@@ -193,7 +203,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   };
 
   const handleEditClick = (comment: any) => {
-    if (userData?.userId === comment.userId) {
+    if (sessionId === comment.userId) {
       setEditingCommentId(comment.id);
       setActiveCommentId(null);
     } else {
