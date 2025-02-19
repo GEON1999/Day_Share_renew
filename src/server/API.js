@@ -67,9 +67,6 @@ const GET_CALENDAR_LIST = (query) => `/api/calendar${query ? `?${query}` : ""}`;
 // 달력 선택 리스트 조회
 const GET_CALENDAR_SELECT_LIST = "/api/calendars";
 
-// 달력 상세 정보 조회
-const GET_CALENDAR_DETAIL = (calendarId) => `/api/calendar/${calendarId}`;
-
 // 달력에 작성된 글이 있는 dates 조회
 const GET_CALENDAR_DATES = (calendarId, query) =>
   `/api/calendar/${calendarId}/dates${query ? `?${query}` : ""}`;
@@ -244,7 +241,6 @@ export default {
   DELETE_CALENDAR,
   GET_CALENDAR_LIST,
   GET_CALENDAR_SELECT_LIST,
-  GET_CALENDAR_DETAIL,
   GET_CALENDAR_DATES,
   GET_CALENDAR_BASIC,
   UPDATE_CALENDAR,

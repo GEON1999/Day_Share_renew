@@ -121,46 +121,39 @@ const TodoEditMode = ({ setEditorMode }: any) => {
                 disabled
                 value={Helper.formatDateForTodoDetail(data?.date, true)}
               />
-              <div className="flex ml-[35px] lg:ml-0 mt-[10px] lg:mt-0">
-                <TimePicker
-                  value={startTime}
-                  format="A hh:mm"
-                  onChange={handleStartTimeChange}
-                  minuteStep={5}
-                  popupClassName="custom-timepicker-dropdown"
-                  placement="bottomLeft"
-                  suffixIcon={
-                    <IconNext className="w-[7px] h-[12px] rotate-90" />
-                  }
-                  allowClear={false}
-                  placeholder="시작 시간"
-                />
-                <p className="mx-[6px] text-lg font-medium font-satoshi">-</p>
-                <TimePicker
-                  value={endTime}
-                  format="A hh:mm"
-                  onChange={handleEndTimeChange}
-                  minuteStep={5}
-                  popupClassName="custom-timepicker-dropdown"
-                  placement="bottomLeft"
-                  suffixIcon={
-                    <IconNext className="w-[7px] h-[12px] rotate-90" />
-                  }
-                  allowClear={false}
-                  placeholder="종료 시간"
-                  disabledTime={() => ({
-                    disabledHours: () =>
-                      Array.from({ length: startTime.hour() }, (_, i) => i),
-                    disabledMinutes: (hour) =>
-                      hour === startTime.hour()
-                        ? Array.from(
-                            { length: startTime.minute() },
-                            (_, i) => i
-                          )
-                        : [],
-                  })}
-                />
-              </div>
+            </div>
+            <div className="flex ml-[35px] lg:ml-0 mt-[10px] lg:mt-0">
+              <TimePicker
+                value={startTime}
+                format="A hh:mm"
+                onChange={handleStartTimeChange}
+                minuteStep={5}
+                popupClassName="custom-timepicker-dropdown"
+                placement="bottomLeft"
+                suffixIcon={<IconNext className="w-[7px] h-[12px] rotate-90" />}
+                allowClear={false}
+                placeholder="시작 시간"
+              />
+              <p className="mx-[6px] text-lg font-medium font-satoshi">-</p>
+              <TimePicker
+                value={endTime}
+                format="A hh:mm"
+                onChange={handleEndTimeChange}
+                minuteStep={5}
+                popupClassName="custom-timepicker-dropdown"
+                placement="bottomLeft"
+                suffixIcon={<IconNext className="w-[7px] h-[12px] rotate-90" />}
+                allowClear={false}
+                placeholder="종료 시간"
+                disabledTime={() => ({
+                  disabledHours: () =>
+                    Array.from({ length: startTime.hour() }, (_, i) => i),
+                  disabledMinutes: (hour) =>
+                    hour === startTime.hour()
+                      ? Array.from({ length: startTime.minute() }, (_, i) => i)
+                      : [],
+                })}
+              />
             </div>
           </div>
           <div className="flex items-start space-x-[12px]">

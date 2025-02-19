@@ -45,14 +45,6 @@ const getCalendarList = async (accessToken: any, query: string) => {
   return data;
 };
 
-const getCalendarDetail = async (accessToken: any, id: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_DETAIL(id)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
 const getCalendarDates = async (
   accessToken: any,
   id: string,
@@ -130,10 +122,6 @@ export default async function Home(req: any) {
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id, userPage],
       queryFn: () => getCalendarPermissionList(accessToken, id, userPage),
     }),
-    // await queryClient.prefetchQuery({
-    //   queryKey: [QueryKeys.GET_CALENDAR_DETAIL, id],
-    //   queryFn: () => getCalendarDetail(accessToken, id),
-    // }),
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_DATES, id, timestamp],
       queryFn: () => getCalendarDates(accessToken, id, timestamp),
