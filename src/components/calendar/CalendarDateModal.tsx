@@ -4,6 +4,7 @@ import useSearch from "@/hooks/useSearch";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import { IconBackspace } from "@/icons";
 import { useModalStore } from "@/store/modalStore";
+import Helper from "@/helper/Helper";
 
 const CalendarDateModal = ({}) => {
   const {
@@ -11,6 +12,7 @@ const CalendarDateModal = ({}) => {
     setTodoCreateModalOpen,
     setTodoDetailModalOpen,
   } = useModalStore();
+  const date = useSearch.useSearchDate();
   const calendarId = useSearch.useSearchId();
   const { data: calendarBasic, isLoading: calendarBasicLoading } =
     useCalendarQueries.useGetCalendarBasic(calendarId);
@@ -28,7 +30,9 @@ const CalendarDateModal = ({}) => {
           <h1 className="text-xl">{calendarBasic?.name ?? "달력"}</h1>
           <div className="flex justify-between items-center w-[300px] mb-2">
             <div className="flex w-[300px] items-center space-x-4 justify-between">
-              <span className="text-[30px]">2024. 10. 12</span>
+              <span className="text-[30px]">
+                {Helper.formatDateForTodo(date)}
+              </span>
             </div>
             <IconBackspace
               onClick={handleClickUndo}
