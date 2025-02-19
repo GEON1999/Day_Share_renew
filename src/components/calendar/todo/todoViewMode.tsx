@@ -255,7 +255,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   // }, []);
 
   return (
-    <div className="lg:absolute w-[300px] lg:w-[550px] h-[600px] lg:h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-5 lg:p-[20px] lg:pb-[30px] flex flex-col justify-between">
+    <div className="lg:absolute w-[300px] lg:w-[550px] h-[600px] lg:h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-5 lg:p-[20px] lg:pb-[30px] flex flex-col lg:justify-between">
       {isLoading ||
       userDataIsLoading ||
       calendarProfileIsLoading ||
