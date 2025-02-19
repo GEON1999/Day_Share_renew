@@ -66,22 +66,22 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
     );
   };
   return (
-    <div className="min-w-[600px] mt-[86px] w-[870px]">
+    <div className="w-[300px] lg:min-w-[600px] lg:mt-[86px] lg:w-[870px] py-[10px] lg:py-[0px]">
       <div className="flex items-center space-x-[10px]">
-        <span className="text-[30px] dodum-text">일기 수정</span>
+        <span className="text-[25px] lg:text-[30px] dodum-text">일기 수정</span>
         <span className="text-[#999790] text-[16px]">|</span>
         <span
           onClick={() => setEditorMode(false)}
-          className="text-[#999790] text-[16px] cur mt-[1px]"
+          className="text-[#999790] text-base cur mt-[1px]"
         >
           이전으로 돌아가기
         </span>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-        <div className="flex flex-col mt-[26px]">
+        <div className="flex flex-col mt-[10px] lg:mt-[26px]">
           <input
             {...register("title")}
-            className="border w-full h-[40px] outline-none rounded-md bg-transparent text-[20px] placeholder:opacity-50 px-5 mb-5 noto-sans-text"
+            className="border w-[300px] lg:w-full h-[40px] outline-none rounded-md bg-transparent text-lg placeholder:opacity-50 px-5 mb-5 noto-sans-text"
             placeholder="제목을 입력해주세요"
             defaultValue={data?.title}
           />
@@ -90,15 +90,15 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
           </div>
           <div
             onClick={() => editor?.commands.focus()}
-            className="border border-t-0 rounded-md rounded-t-none flex flex-col h-[560px] overflow-y-scroll relative mt-[35px]"
+            className="border border-t-0 rounded-md rounded-t-none flex flex-col h-[400px] lg:h-[560px] overflow-y-scroll relative mt-[35px]"
           >
             <EditorContent
               editor={editor}
-              className="w-full h-[595px] outline-none rounded bg-transparent text-[20px] py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"
+              className="w-full h-[300px] lg:h-[595px] outline-none rounded bg-transparent text-lg py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"
             />
           </div>
         </div>
-        <div className="confirm_btn_container mt-[25px]">
+        <div className="confirm_btn_container mt-[10px] lg:mt-[25px]">
           <button
             onClick={() => setEditorMode(false)}
             type="button"
