@@ -102,9 +102,9 @@ const CalendarListSection = () => {
         {!calendarData || calendarData?.total_calendars === 0 ? null : (
           <div className="flex items-center  text-[15px]">
             <div
-              className={`hidden lg:block mr-[7px] ${
+              className={`hidden lg:flex mr-[7px] ${
                 isEditMode
-                  ? "w-[32px] h-[32px] rounded-full flex items-center justify-center bg-[#49494920]"
+                  ? "w-[32px] h-[32px] rounded-full flex items-center justify-center bg-[#49494920] mb-[2px]"
                   : ""
               }`}
             >

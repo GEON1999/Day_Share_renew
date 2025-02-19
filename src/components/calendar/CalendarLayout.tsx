@@ -60,7 +60,7 @@ const CalendarLayout = ({ children }: { children: React.ReactNode }) => {
             {/* <SideTodoSection /> */}
             <button
               onClick={handleLogout}
-              className={`${
+              className={`lg:flex${
                 isOpen ? "flex" : "hidden"
               } btn_logout mt-[10px] lg:mt-[27px]`}
             >
