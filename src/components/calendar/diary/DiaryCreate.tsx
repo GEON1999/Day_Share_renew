@@ -69,25 +69,26 @@ const DiaryCreate = () => {
 
   return (
     <div className="main_container center">
-      <div className="w-[1670px] px-[100px] pb-[80px] flex justify-center">
-        <div className="min-w-[600px] mt-[86px] w-[870px]">
+      <div className="w-[300px] lg:w-[1670px] px-[10px] lg:px-[100px] lg:pb-[80px] flex justify-center items-center lg:items-start">
+        <div className="w-[300px] lg:min-w-[600px] lg:mt-[86px] lg:w-[870px] py-[10px] lg:py-[0px]">
           <div
             className="flex items-center space-x-[10px] cur"
             onClick={() => router.push(`/calendar/${id}?date=${date}`)}
           >
-            <p className="opacity-50 text-[20px]">{calendarData?.name}</p>
+            <p className="opacity-50 text-lg">{calendarData?.name}</p>
             <IconNextGray className="w-[5px] h-[10px]" />
           </div>
-          <span className="text-[30px] dodum-text">일기 등록</span>
-
+          <span className="text-[25px] lg:text-[30px] dodum-text">
+            일기 등록
+          </span>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col noto-sans-text"
           >
-            <div className="flex flex-col mt-[26px]">
+            <div className="flex flex-col mt-[10px] lg:mt-[26px]">
               <input
                 {...register("title")}
-                className="border w-full h-[40px] outline-none rounded-md bg-transparent text-[20px] placeholder:opacity-50 px-5 mb-5"
+                className="border w-[300px] lg:w-full h-[40px] outline-none rounded-md bg-transparent text-lg placeholder:opacity-50 px-5 mb-5"
                 placeholder="제목을 입력해주세요"
               />
               <div className="relative">
@@ -95,15 +96,15 @@ const DiaryCreate = () => {
               </div>
               <div
                 onClick={() => editor?.commands.focus()}
-                className="border border-t-0 rounded-md rounded-t-none flex flex-col h-[560px] overflow-y-scroll relative mt-[35px]"
+                className="border border-t-0 rounded-md rounded-t-none flex flex-col h-[400px] lg:h-[560px] overflow-y-scroll relative mt-[35px]"
               >
                 <EditorContent
                   editor={editor}
-                  className="w-full h-[595px] outline-none rounded bg-transparent text-[20px] py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"
+                  className="w-full h-[300px] lg:h-[595px] outline-none rounded bg-transparent text-lg py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"
                 />
               </div>
             </div>
-            <div className="confirm_btn_container mt-[25px]">
+            <div className="confirm_btn_container mt-[10px] lg:mt-[25px]">
               <button
                 onClick={() => router.push(`/calendar/${id}?date=${date}`)}
                 type="button"
