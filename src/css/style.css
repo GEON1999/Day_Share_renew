@@ -76,7 +76,7 @@
   }
 
   .btn_transparent_sm {
-    @apply rounded w-[40px] h-[25px] text-[15px] border-[1.5px] bg-transparent hover:bg-[#49494950] transition-colors duration-200 ease-in-out;
+    @apply rounded w-[35px] h-[23px] flex justify-center items-center lg:block lg:w-[40px] lg:h-[25px] text-[12px] lg:text-[15px] border-[1.5px] bg-transparent hover:bg-[#49494950] transition-colors duration-200 ease-in-out;
   }
 
   /* Border Classes */

@@ -245,7 +245,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   // }, []);
 
   return (
-    <div className="absolute w-[550px] h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-[20px] pb-[30px] flex flex-col justify-between">
+    <div className="lg:absolute w-[300px] lg:w-[550px] h-[600px] lg:h-[737px] bg_depp bor rounded-md shadow_box top-0 z-50 p-5 lg:p-[20px] lg:pb-[30px] flex flex-col justify-between">
       {isLoading ||
       userDataIsLoading ||
       calendarProfileIsLoading ||
@@ -261,25 +261,27 @@ const TodoViewMode = ({ setEditorMode }: any) => {
             >
               <IconX className="w-full h-full" />
             </div>
-            <h1 className="-mt-[10px] text-[20px] flex items-center space-x-[10px] noto-sans-text">
+            <h1 className="-mt-[10px] text-lg flex items-center space-x-[10px] noto-sans-text">
               <span>{Helper.formatDateForTodoDetail(data?.date)}</span>
-              <span className="text-[15px] mb-[3px]">|</span>
+              <span className="text-base mb-[3px]">|</span>
               <span>
                 {Helper.formatTimeForTodoDetail(data?.startAt, data?.endAt)}
               </span>
             </h1>
             <div className="relative">
-              <div className="flex items-center mt-[20px] space-x-[13px] ml-[15px]">
+              <div className="flex items-center mt-[5px] lg:mt-[20px] space-x-[13px] ml-[5px] lg:ml-[15px]">
                 <div className="w-[10px] h-[10px] rounded-full bg-[#494949]" />
-                <p className="text-[30px] dodum-text">{data?.title}</p>
+                <p className="text-[25px] lg:text-[30px] dodum-text">
+                  {data?.title}
+                </p>
               </div>
-              <div className="ml-[20px] mb-[10px] w-[488px] break-all overflow-y-auto h-[100px] noto-sans-text whitespace-pre-wrap">
-                <p className="text-[20px] pl-[18px] py-[5px] pr-[5px] w-[468px]">
+              <div className="ml-[25px] lg:ml-[20px] mb-[10px] w-[240px] lg:w-[488px] break-all overflow-y-auto h-[100px] noto-sans-text whitespace-pre-wrap">
+                <p className="text-lg lg:pl-[18px] py-[5px] pr-[5px] w-[240px] lg:w-[468px]">
                   {data?.content}
                 </p>
               </div>
-              <div className="border-l absolute left-[20px] top-[30px] h-[128px] w-[1px]" />
-              <div className="flex items-center justify-between mt-[5px] px-[10px] noto-sans-text">
+              <div className="border-l absolute left-[10px] top-[30px] h-[128px] w-[1px]" />
+              <div className="flex items-center justify-between mt-[5px] px-[3px] lg:px-[10px] noto-sans-text">
                 <div className="flex items-center">
                   <img
                     src={
@@ -289,14 +291,14 @@ const TodoViewMode = ({ setEditorMode }: any) => {
                     }
                     className="w-[20px] h-[20px] rounded-full bor object-cover"
                   />
-                  <p className="text-[20px] ml-[8px] mr-[12px]">
+                  <p className="text-[13px] lg:text-[20px] ml-[8px] mr-[12px]">
                     {calendarProfile?.name ?? "탈퇴한 유저"}
                   </p>
-                  <p className="text-[15px] opacity-50">
+                  <p className="text-base opacity-50 flex-wrap w-[100px] lg:w-[220px]">
                     {Helper.formatDateForComment(data?.createdAt)} 등록
                   </p>
                 </div>
-                <div className="flex items-center space-x-[4px] text-[15px]">
+                <div className="flex items-center space-x-[2px] lg:space-x-[4px] text-base">
                   <button
                     onClick={handleEditorMode}
                     className="btn_transparent_sm"
@@ -315,8 +317,8 @@ const TodoViewMode = ({ setEditorMode }: any) => {
             </div>
           </div>
           <div className="noto-sans-text">
-            <div className="px-[10px]">
-              <div className="flex items-center space-x-[23px] py-[15px]  border-t ">
+            <div className="px-[5px] lg:px-[10px]">
+              <div className="flex items-center space-x-[10px] lg:space-x-[23px] py-[15px] border-t mt-2 lg:mt-0">
                 <div className="flex items-center space-x-[4.7px]">
                   {likeData?.is_liked ? (
                     <IconHeart
@@ -340,16 +342,16 @@ const TodoViewMode = ({ setEditorMode }: any) => {
                 </div>
               </div>
             </div>
-            <div className="mt-[12px] space-y-[26px] text-[15px] px-[10px] overflow-y-auto h-[300px]">
+            <div className="mt-[5px] lg:mt-[12px] space-y-[10px] lg:space-y-[26px] text-base px-[5px] lg:px-[10px] overflow-y-auto h-[200px] lg:h-[300px]">
               {commentData?.map((comment: any) => {
                 return (
                   <div
                     key={comment.comment.id}
                     className="flex justify-between items-start relative"
                   >
-                    <div className="flex items-start space-x-[15px]">
+                    <div className="flex items-start space-x-[10px] lg:space-x-[15px]">
                       <img
-                        className="w-[45px] h-[45px] rounded-full bor object-cover"
+                        className="w-[30px] h-[30px] lg:w-[45px] lg:h-[45px] rounded-full bor object-cover"
                         src={
                           comment?.profile?.img == "" ||
                           comment?.profile?.img == null
@@ -359,7 +361,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
                       />
                       {editingCommentId === comment.comment.id ? (
                         <form
-                          className="w-[432px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
+                          className="w-[250px] lg:w-[432px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
                           onSubmit={editHandleSubmit(onEditSubmit)}
                         >
                           <input
@@ -397,7 +399,9 @@ const TodoViewMode = ({ setEditorMode }: any) => {
                               )}
                             </p>
                           </div>
-                          <p className="w-[390px]">{comment.comment.content}</p>
+                          <p className="w-[180px] lg:w-[390px]">
+                            {comment.comment.content}
+                          </p>
                         </div>
                       )}
                     </div>
@@ -424,7 +428,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
                             ref={(el) => {
                               menuRefs.current[comment.comment.id] = el;
                             }}
-                            className={`absolute right-[34px] top-0 w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-[15px] rounded-md shadow_box z-99 ${
+                            className={`absolute right-[34px] top-0 w-[55px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-base rounded-md shadow_box z-99 ${
                               activeCommentId === comment.comment.id
                                 ? ""
                                 : "hidden"
@@ -459,16 +463,16 @@ const TodoViewMode = ({ setEditorMode }: any) => {
             </div>
             <form
               onSubmit={commentHandleSubmit(onCommentSubmit)}
-              className="mt-[35px] flex items-center space-x-[10px] px-[10px]"
+              className="mt-[10px] lg:mt-[35px] flex items-center space-x-[10px] px-[10px]"
             >
               <input
-                className="w-[420px] h-[35px] rounded-md px-[10px] bor text-[15px] focus:outline-none"
+                className="w-[250px] lg:w-[420px] h-[35px] rounded-md px-[10px] bor text-base focus:outline-none"
                 placeholder="댓글을 남겨보세요."
                 {...commentRegister("content")}
               />
               <button
                 type="submit"
-                className="w-[60px] h-[35px] rounded-md bor text-[20px] btn_hilight"
+                className="w-[60px] h-[35px] rounded-md bor text-lg btn_hilight"
               >
                 등록
               </button>

@@ -53,14 +53,16 @@ const DiaryList = () => {
       <div className="mt-[10px] bg_deep_2 h-[390px] w-[300px] lg:h-[480px] lg:w-[480px] rounded-md shadow_box bor overflow-hidden px-[12px] lg:px-[25px] noto-sans-text">
         {diaryData?.diaries?.length === 0 || !diaryData ? (
           <div className="flex h-full flex-col items-center">
-            <p className="text-[#2D2D2E] text-[20px]">
-              <span className="relative top-[130px] right-[45px]">
+            <p className="text-[#2D2D2E] text-lg">
+              <span className="relative top-[100px] lg:top-[130px] right-[45px]">
                 일기가...
               </span>
-              <span className="relative top-[167px] left-[45px]">없어...?</span>
+              <span className="relative top-[137px] lg:top-[167px] left-[45px]">
+                없어...?
+              </span>
             </p>
             <p></p>
-            <IconEmptyDiary className="w-[220px] h-[161.21px] mt-[154px]" />
+            <IconEmptyDiary className="w-[150px] lg:w-[220px] h-[110px] lg:h-[161.21px] mt-[124px] lg:mt-[154px]" />
           </div>
         ) : (
           diaryData?.diaries?.map((diary: any, index: number) => {

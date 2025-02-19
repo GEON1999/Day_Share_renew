@@ -124,7 +124,9 @@ const Calendar = ({}) => {
   };
 
   return (
-    <div className={`main_container flex lg:space-x-[70px] py-14 lg:py-0`}>
+    <div
+      className={`main_container flex items-center lg:items-start lg:space-x-[70px] py-5 lg:py-0`}
+    >
       <div
         className={`w-[300px] h-[500px] lg:w-[631.5px] lg:h-full ${
           isCalendarDateModalOpen ||

@@ -6,10 +6,20 @@ import { IconBackspace } from "@/icons";
 import { useModalStore } from "@/store/modalStore";
 
 const CalendarDateModal = ({}) => {
-  const { setCalendarDateModalOpen } = useModalStore();
+  const {
+    setCalendarDateModalOpen,
+    setTodoCreateModalOpen,
+    setTodoDetailModalOpen,
+  } = useModalStore();
   const calendarId = useSearch.useSearchId();
   const { data: calendarBasic, isLoading: calendarBasicLoading } =
     useCalendarQueries.useGetCalendarBasic(calendarId);
+
+  const handleClickUndo = () => {
+    setCalendarDateModalOpen(false);
+    setTodoCreateModalOpen(false);
+    setTodoDetailModalOpen(false);
+  };
 
   return (
     <div>
@@ -21,7 +31,7 @@ const CalendarDateModal = ({}) => {
               <span className="text-[30px]">2024. 10. 12</span>
             </div>
             <IconBackspace
-              onClick={() => setCalendarDateModalOpen(false)}
+              onClick={handleClickUndo}
               className="w-[30px] h-[30px]  cur"
             />
           </div>
