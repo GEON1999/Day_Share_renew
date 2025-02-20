@@ -12,11 +12,18 @@
 ---
 
 ## 📚 목차
-
+- [팀원](#-팀원)
 - [미리보기](#-미리보기)
 - [기술스택](#기술스택)
 
 ---
+<a id="팀원"></a>
+## 👥 팀원
+| **박건[개발자]** | **차민경[헤드 디자이너]** | **강보희[디자이너]** | **박예지[디자이너]** |
+| :------: |  :------: | :------: | :------: |
+| <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/profile+(1).jpg" height=200 width=150>  | <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/default.webp" height=200 width=150>  | <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/default.webp" height=200 width=150> <br/> | <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/default.webp" height=200 width=150>  |
+
+<hr/>
 
 <br />
 
