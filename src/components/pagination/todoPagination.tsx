@@ -26,7 +26,7 @@ const TodoPagination = ({ total_count }: any) => {
     router.push(`${pathName}?${params.toString()}`);
   };
   return (
-    <div className="pagination justify-center mt-[20px]">
+    <div className="pagination justify-center">
       <div>
         {Number(currentTodoPage) <= 1 ? (
           <IconPrev_disabled className="pagination_btn_disabled" />

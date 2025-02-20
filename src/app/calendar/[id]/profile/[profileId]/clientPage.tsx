@@ -5,7 +5,7 @@ import CalendarUserProfile from "@/components/calendar/profile/CalendarUserProfi
 const ClientPage = () => {
   return (
     <CalendarLayout>
-      <div className="w-full h-full bg_main px-[200px] mt-0">
+      <div className="w-full h-full bg_main px-[10px] lg:px-[200px] mt-0">
         <CalendarUserProfile />
       </div>
     </CalendarLayout>

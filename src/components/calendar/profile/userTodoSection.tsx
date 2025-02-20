@@ -19,22 +19,20 @@ const UserTodoSection = () => {
 
   console.log(calendarUser);
   return (
-    <section className="w-[580px] ">
+    <section className="w-[300px] lg:w-[580px] mt-[15px] lg:mt-0">
       <div className="relative">
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center lg:items-start">
           <div className="flex items-center space-x-3">
-            <h1 className="text-2xl">
+            <h1 className="text-[20px] lg:text-2xl">
               {calendarUser?.user_profile?.name}님의 일정
             </h1>
           </div>
-          <div>
-            <TodoPagination total_count={calendarUser?.total_todos} />
-          </div>
+          <TodoPagination total_count={calendarUser?.total_todos} />
         </div>
-        <div className="flex-grow overflow-hidden px-[25px] bor w-[580px] h-[220px] mt-[10px] rounded-md bg_deep_2 py-[10px] shadow_box">
+        <div className="flex-grow overflow-hidden px-[25px] bor w-[300px] lg:w-[580px] h-[220px] mt-[10px] rounded-md bg_deep_2 py-[10px] shadow_box">
           {calendarUser?.todos?.length === 0 || !calendarUser?.todos ? (
             <div className="flex justify-between items-center h-full px-[13px]">
-              <p className="text-[#2D2D2E] text-[20px]">
+              <p className="text-[#2D2D2E] text-lg">
                 일정이 없어요. 추가해 볼까요?
               </p>
               <IconEmptyTodo className="w-[134px] h-[162.36px] mt-12" />
@@ -45,7 +43,7 @@ const UserTodoSection = () => {
               return (
                 <div
                   key={todo.id}
-                  className={`h-[50px] flex justify-between items-center py-[10px] text-[20px] ${
+                  className={`h-[50px] flex justify-between items-center py-[10px] text-lg ${
                     index != 3 ? "border-b border-[#49494950]" : ""
                   }`}
                 >
@@ -56,7 +54,7 @@ const UserTodoSection = () => {
                     <div>{Helper.cutString(todo.title, 18)}</div>
                   </div>
                   <div className="flex items-center space-x-[15px] ">
-                    <div className="w-[200px] text-right text-[#49494950] text-[15px]">
+                    <div className="w-[200px] text-right text-[#49494950] text-base">
                       {Helper.formatDate(String(dateString))}
                     </div>
                   </div>

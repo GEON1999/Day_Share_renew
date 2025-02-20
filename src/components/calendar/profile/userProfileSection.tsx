@@ -36,26 +36,26 @@ const UserProfileSection = () => {
   };
 
   return (
-    <section className="flex justify-between space-x-20 items-center noto-sans-text">
+    <section className="flex justify-between lg:space-x-20 items-center noto-sans-text">
       <div className="flex flex-col items-center space-y-4">
         <img
           src={
             calendarUser?.user_profile?.img === "" ||
             calendarUser?.user_profile?.img === null
-              ? process.env.NEXT_PUBLIC_CALENDAR_IMG
+              ? process.env.NEXT_PUBLIC_PROFILE_IMG
               : calendarUser?.user_profile?.img
           }
           alt="user"
-          className="w-[150px] h-[150px] object-cover rounded-full bor shadow_box"
+          className="w-[80px] lg:w-[150px] h-[80px] lg:h-[150px] object-cover rounded-full bor shadow_box"
         />
         <button
           onClick={handleClickChat}
-          className="btn_hilight w-[150px] h-[37px] rounded-md bor"
+          className="btn_hilight w-[100px] lg:w-[150px] h-[25px] lg:h-[37px] rounded-md bor"
         >
           채팅하기
         </button>
       </div>
-      <div className="flex flex-col items-center space-y-5 text-[20px] w-[300px] ">
+      <div className="flex-col items-center space-y-5 text-lg hidden lg:flex lg:w-[300px] ">
         <div className="flex items-center justify-between w-full">
           <div className="w-[100px] flex items-center justify-between">
             <p>이름 </p>

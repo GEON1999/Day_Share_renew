@@ -19,15 +19,15 @@ const CalendarUserProfile = () => {
   );
 
   return (
-    <div className="main_container py-[30px]">
-      <h1 className="justify-center items-center flex text-[40px] mt-10">
+    <div className="main_container py-[10px] lg:py-[30px]">
+      <h1 className="justify-center items-center flex text-[25px] lg:text-[40px] mt-10">
         <span className=" bg_hilight px-1">
           {calendarUser?.user_profile?.name}
         </span>
         &nbsp;님의 프로필
       </h1>
-      <div className="flex justify-between mt-20">
-        <div className="flex flex-col  ">
+      <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start mt-[10px] lg:mt-20">
+        <div className="flex flex-col items-center lg:items-start ">
           {/* 유저 프로필 */}
           <UserProfileSection />
           {/* 유저 감정 */}

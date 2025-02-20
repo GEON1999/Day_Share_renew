@@ -17,7 +17,7 @@ const UserEmotion = () => {
   return (
     <section>
       <div
-        className={`flex justify-between w-[580px] bor rounded-[30px] px-10 mt-[50px] mb-[40px] shadow_box ${
+        className={`hidden lg:flex justify-between w-[580px] bor rounded-[30px] px-10 mt-[50px] mb-[40px] shadow_box ${
           calendarUser?.user_profile?.emotion === "EMPTY"
             ? "bg-white"
             : calendarUser?.user_profile?.emotion === "JOY"

@@ -106,7 +106,9 @@ const SideTodoSection = () => {
         )}
       </ul>
       {todoData?.todos && (
-        <TodoPagination total_count={todoData?.total_count} />
+        <div className="lg:mt-[20px]">
+          <TodoPagination total_count={todoData?.total_count} />
+        </div>
       )}
     </section>
   );
