@@ -84,6 +84,55 @@ const ModalContainer = ({
 
 - **자동 댓글 생성**: OpenAI API 기반 감정 분석 및 상황에 맞는 답변 제공
 - **안정성 우선**: deepseek 대비 안정적인 OpenAI API 채택
+- **일기 생성 프로세스**
+
+  1. **권한 검증 단계**
+
+     - `CalendarPermission` 테이블에서 사용자의 캘린더 접근 권한 확인
+
+  2. **다이어리 저장 처리**
+
+     ```python
+     db_diary = Diary(
+         title=diary.title,
+         content=diary.content,
+         date=date,
+         img=diary.img,
+         userId=current_user,
+         calendarId=calendar_id
+     )
+     db.add(db_diary)
+     db.commit()
+     ```
+
+  3. **백그라운드 작업 처리**
+
+     - 사용자 응답 지연 방지를 위한 비동기 처리
+     - AI 댓글 생성 및 FCM알림 발송 작업을 큐에 추가
+
+     ```python
+        DiaryService._enqueue_background_tasks(background_tasks, calendar_id, db_diary)
+        DiaryService._process_notifications(background_tasks, db, calendar_id, current_user, db_diary)
+     ```
+
+  4. **예외 처리 메커니즘**
+     - 예외 발생 시 로그 기록 및 에러 반환
+     ```python
+        except IntegrityError as e:
+            logger.error(f"데이터 무결성 오류: {str(e)}")
+            raise HTTPException(status_code=400, detail="잘못된 데이터 형식입니다.")
+
+        except SQLAlchemyError as e:
+            logger.error(f"데이터베이스 오류: {str(e)}")
+            raise HTTPException(status_code=503, detail="일시적인 시스템 오류가 발생했습니다.")
+
+        except HTTPException:
+            raise  # 이미 처리된 HTTP 예외는 상위로 전파
+
+        except Exception as e:
+            logger.critical(f"예상치 못한 오류: {str(e)}", exc_info=True)
+            raise HTTPException(status_code=500, detail="서버 내부 오류가 발생했습니다.")
+     ```
 
 ![일기 작성](./gif/diary.gif)
 
