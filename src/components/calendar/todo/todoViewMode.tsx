@@ -371,7 +371,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
                       />
                       {editingCommentId === comment.comment.id ? (
                         <form
-                          className="w-[250px] lg:w-[432px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
+                          className="w-[220px] lg:w-[432px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
                           onSubmit={editHandleSubmit(onEditSubmit)}
                         >
                           <input

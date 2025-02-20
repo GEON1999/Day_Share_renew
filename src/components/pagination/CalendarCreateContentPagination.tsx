@@ -24,7 +24,7 @@ const CalendarCreateContentPagination = ({ total_count }: any) => {
     router.push(`${pathName}?${params.toString()}`);
   };
   return (
-    <div className="pagination mr-[15px]">
+    <div className="pagination">
       <div>
         {Number(currentPage) <= 1 ? (
           <IconPrev_disabled className="pagination_btn_disabled" />

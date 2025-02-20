@@ -237,6 +237,10 @@
   .auth-link-btn {
     @apply text-[12px] lg:text-[15px] mt-[10px];
   }
+
+  .modal_btn {
+    @apply rounded-md lg:block flex justify-center items-center w-[40px] h-[25px] lg:w-[60px] lg:h-[35px];
+  }
 }
 
 /* Animation */

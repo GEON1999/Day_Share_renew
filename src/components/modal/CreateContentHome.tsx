@@ -76,7 +76,7 @@ const CreateContentHome = ({
                 </>
               )}
             </div>
-            <div className="absolute bottom-[10px] lg:bottom-[25px] left-[50%] translate-x-[-50%]">
+            <div className="flex justify-center mt-[10px] lg:mt-[20px]">
               <CalendarCreateContentPagination
                 total_count={calendarData?.total_calendars}
               />

@@ -337,7 +337,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                     <div className=" space-y-[2px] ">
                       {editingCommentId === comment.comment.id ? (
                         <form
-                          className="w-[300px] lg:w-[818px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
+                          className="w-[250px] lg:w-[818px] h-[74px] flex flex-col items-center rounded-md bor bg-white"
                           onSubmit={editHandleSubmit(onEditSubmit)}
                         >
                           <textarea
