@@ -148,10 +148,10 @@ const TodoViewMode = ({ setEditorMode }: any) => {
     });
   };
 
-  const handleClickDeleteComment = (userId: string) => {
-    if (sessionId === userId) {
+  const handleClickDeleteComment = (comment: any) => {
+    if (sessionId == comment.comment.userId) {
       deleteComment(
-        { calendarId: id, commentId: activeCommentId },
+        { calendarId: id, commentId: comment.comment.id },
         {
           onSuccess: (result) => {
             if (result) {
@@ -455,9 +455,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleClickDeleteComment(
-                                  comment.profile.userId
-                                );
+                                handleClickDeleteComment(comment);
                               }}
                               className="w-[55px] h-[50%]"
                             >
