@@ -51,12 +51,17 @@ const Calendar = ({}) => {
   } = useModalStore();
   const router = useRouter();
   const date = useSearch.useSearchDate();
+  const currentDate = date ? new Date(Number(date)) : null;
   const calendarId = useSearch.useSearchId();
   const clickedDate = date ? new Date(parseInt(date)) : null;
   const clickedDay = clickedDate ? clickedDate.getDate() : null;
   const today = new Date();
-  const [year, setYear] = useState(today.getFullYear());
-  const [month, setMonth] = useState(today.getMonth());
+  const [year, setYear] = useState(
+    currentDate?.getFullYear() ?? today.getFullYear()
+  );
+  const [month, setMonth] = useState(
+    currentDate?.getMonth() ?? today.getMonth()
+  );
   const calendar = generateCalendar(year, month);
 
   // calendarDetail을 가져오는 것 보다 100 ~ 200ms 빠른 LCP
