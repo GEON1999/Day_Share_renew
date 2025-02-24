@@ -81,7 +81,7 @@ const TodoList = ({}) => {
       >
         <div className="flex justify-between">
           <div className="flex items-center space-x-3">
-            <h1 className="text-xl">공유 일정</h1>
+            <h1 className="text_xl">공유 일정</h1>
             {contentType === StaticKeys.TODO ? (
               <IconAdd
                 onClick={handleAddBtn}
@@ -101,7 +101,7 @@ const TodoList = ({}) => {
         <div className="flex-grow overflow-hidden px-[25px] bor w-[300px] lg:w-[480px] h-[120px] lg:h-[140px] mt-[10px] rounded-md bg_deep_2 py-[5] lg:py-[10px] shadow_box">
           {todoData?.todos?.length === 0 || !todoData ? (
             <div className="flex justify-between items-center h-full px-[13px]">
-              <p className="text-[#2D2D2E] text-lg">
+              <p className="text-[#2D2D2E] text_lg">
                 일정이 없어요. 추가해 볼까요?
               </p>
               <IconEmptyTodo className="w-[134px] h-[162.36px] mt-12" />
@@ -112,7 +112,7 @@ const TodoList = ({}) => {
                 <div
                   onClick={() => handleClickTodo(todo.id)}
                   key={todo.id}
-                  className={`h-[40px] cur flex justify-between items-center py-[10px] text-lg ${
+                  className={`h-[40px] cur flex justify-between items-center py-[10px] text_lg ${
                     index != 2 ? "border-b border-[#49494950]" : ""
                   }`}
                 >

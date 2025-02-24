@@ -32,7 +32,7 @@ const DiaryList = () => {
     <div className={`${isCalendarDateModalOpen ? "block" : "hidden"} lg:block`}>
       <div className="flex justify-between">
         <div className="flex items-center space-x-3">
-          <h1 className="text-xl">공유 일기</h1>
+          <h1 className="text_xl">공유 일기</h1>
           {contentType === StaticKeys.DIARY ? (
             <IconAdd
               onClick={handleAddBtn}
@@ -53,7 +53,7 @@ const DiaryList = () => {
       <div className="mt-[10px] bg_deep_2 h-[390px] w-[300px] lg:h-[480px] lg:w-[480px] rounded-md shadow_box bor overflow-hidden px-[12px] lg:px-[25px] noto-sans-text">
         {diaryData?.diaries?.length === 0 || !diaryData ? (
           <div className="flex h-full flex-col items-center">
-            <p className="text-[#2D2D2E] text-lg">
+            <p className="text-[#2D2D2E] text_lg">
               <span className="relative top-[100px] lg:top-[130px] right-[45px]">
                 일기가...
               </span>
@@ -69,7 +69,7 @@ const DiaryList = () => {
             return (
               <div onClick={() => handleClickDiary(diary.id)} key={diary.id}>
                 <div
-                  className={`w-full h-[130px] lg:h-[160px] py-[10px] lg:py-[19px] text-lg flex justify-between cur ${
+                  className={`w-full h-[130px] lg:h-[160px] py-[10px] lg:py-[19px] text_lg flex justify-between cur ${
                     index != 2 ? "border-b border-[#49494950]" : ""
                   }`}
                 >
@@ -96,7 +96,7 @@ const DiaryList = () => {
                     >
                       {Helper.cutString(diary.title, diary.img ? 12 : 19)}
                     </p>
-                    <div className="flex space-x-3 text-base mt-3">
+                    <div className="flex space-x-3 text_base mt-3">
                       <div className="flex items-center space-x-2">
                         <IconHeart className="w-[15px] h-[15px] lg:w-[20px] lg:h-[20px] cur" />
                         <div>{diary.likeCount}</div>

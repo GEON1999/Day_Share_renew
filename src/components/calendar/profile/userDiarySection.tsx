@@ -28,7 +28,7 @@ const UserDiarySection = () => {
       <div className="">
         <div className="flex justify-between items-center lg:items-start">
           <div className="flex items-center space-x-3">
-            <h1 className="text-lg lg:text-2xl">
+            <h1 className="text_lg lg:text-2xl">
               {calendarUser?.user_profile?.name}님의 일기
             </h1>
           </div>
@@ -42,7 +42,7 @@ const UserDiarySection = () => {
         <div className="mt-[10px] bg_deep_2 h-[520px] lg:h-[640px] w-[300px] lg:w-[550px] rounded-md shadow_box bor overflow-hidden px-[25px] noto-sans-text">
           {calendarUser?.diaries?.length === 0 || !calendarUser?.diaries ? (
             <div className="flex h-full flex-col items-center">
-              <p className="text-[#2D2D2E] text-lg">
+              <p className="text-[#2D2D2E] text_lg">
                 <span className="relative top-[130px] right-[45px]">
                   작성하신 일기가
                 </span>
@@ -58,7 +58,7 @@ const UserDiarySection = () => {
               return (
                 <div onClick={() => handleClickDiary(diary.id)} key={diary.id}>
                   <div
-                    className={`w-full h-[130px] lg:h-[160px] py-[10px] lg:py-[19px] text-lg flex justify-between cur ${
+                    className={`w-full h-[130px] lg:h-[160px] py-[10px] lg:py-[19px] text_lg flex justify-between cur ${
                       index != 3 ? "border-b border-[#49494950]" : ""
                     }`}
                   >
@@ -85,7 +85,7 @@ const UserDiarySection = () => {
                       >
                         {Helper.cutString(diary.title, diary.img ? 12 : 19)}
                       </p>
-                      <div className="flex lg:space-x-3 text-base mt-1 lg:mt-3 text-[#49494950]">
+                      <div className="flex lg:space-x-3 text_base mt-1 lg:mt-3 text-[#49494950]">
                         {Helper.formatDate(diary.createdAt)} 등록
                       </div>
                     </div>

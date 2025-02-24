@@ -77,8 +77,8 @@ const SideUserList = ({ isSideOpen }: { isSideOpen: boolean }) => {
     >
       <div>
         <div className="flex items-center justify-between mb-[10px] mt-[4px] px-[18px]">
-          <h1 className="text-lg">참여</h1>
-          <p className="text-base noto-sans-text text-[#2D2D2E50]">
+          <h1 className="text_lg">참여</h1>
+          <p className="text_base noto-sans-text text-[#2D2D2E50]">
             {userList?.total_users}/000
           </p>
         </div>
@@ -99,7 +99,7 @@ const SideUserList = ({ isSideOpen }: { isSideOpen: boolean }) => {
                         : user.img
                     }
                   />
-                  <span className="ml-2 text-base noto-sans-text text-[#2D2D2E]">
+                  <span className="ml-2 text_base noto-sans-text text-[#2D2D2E]">
                     {user.name}
                   </span>
                   {user?.emotion === "EMPTY" ? null : (

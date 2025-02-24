@@ -85,7 +85,7 @@ const CalendarItem = memo(
             <div className="flex items-center space-x-1 mt-2  lg:mb-[23px]">
               <p
                 className={`${
-                  isEditMode ? "text-lg" : "text-[15px] lg:text-[23px]"
+                  isEditMode ? "text_lg" : "text-[15px] lg:text-[23px]"
                 }`}
               >
                 {calendar.name}

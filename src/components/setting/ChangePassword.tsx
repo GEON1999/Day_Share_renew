@@ -45,11 +45,11 @@ const ChangePassword = () => {
     <div className="main_container">
       <div className="flex w-full h-screen justify-center items-center flex-col ">
         <IconSetting onClick={handleSetting} className="w-5 h-5 cur" />
-        <h1 onClick={handleSetting} className="text-xl cur text-[#2D2D2E]">
+        <h1 onClick={handleSetting} className="text_xl cur text-[#2D2D2E]">
           설정
         </h1>
-        <span className="text-base font-satoshi font-[100] mt-[5px]">|</span>
-        <h1 className="text-lg noto-sans-text">비밀번호 변경</h1>
+        <span className="text_base font-satoshi font-[100] mt-[5px]">|</span>
+        <h1 className="text_lg noto-sans-text">비밀번호 변경</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center mt-[15px] lg:mt-[35px] noto-sans-text"
@@ -75,7 +75,7 @@ const ChangePassword = () => {
             required
             placeholder="새 비밀번호 확인"
           />
-          <div className="flex mt-[20px] lg:mt-[40px] text-lg noto-sans-text space-x-[10px]">
+          <div className="flex mt-[20px] lg:mt-[40px] text_lg noto-sans-text space-x-[10px]">
             <button
               onClick={handleSetting}
               type="button"

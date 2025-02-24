@@ -66,7 +66,7 @@ const CalendarImageSelect = ({
       >
         <IconX className="w-full h-full" />
       </div>
-      <h1 className="-mt-[15px] text-lg font-bold">달력 이미지 변경</h1>
+      <h1 className="-mt-[15px] text_lg font-bold">달력 이미지 변경</h1>
       <div className="flex justify-center flex-wrap gap-[15px] mt-[10px] lg:mt-[25px]">
         <div
           onClick={handleImageUpload}
@@ -96,13 +96,13 @@ const CalendarImageSelect = ({
       <div className="flex justify-center mt-[10px] lg:mt-[30px] space-x-[10px] text-[20px]">
         <button
           onClick={handleCancel}
-          className="bg-white w-[40px] h-[30px] text-lg lg:w-[60px] lg:h-[35px] bor rounded-md  hover:bg-[#EDEADF]"
+          className="bg-white w-[40px] h-[30px] text_lg lg:w-[60px] lg:h-[35px] bor rounded-md  hover:bg-[#EDEADF]"
         >
           취소
         </button>
         <button
           onClick={handleImageClick}
-          className="bg-[#F6BEBE] w-[40px] h-[30px] text-lg lg:w-[60px] lg:h-[35px] bor rounded-md  hover:bg-[#F69D9D]"
+          className="bg-[#F6BEBE] w-[40px] h-[30px] text_lg lg:w-[60px] lg:h-[35px] bor rounded-md  hover:bg-[#F69D9D]"
         >
           확인
         </button>

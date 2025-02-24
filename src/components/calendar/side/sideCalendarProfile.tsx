@@ -33,12 +33,12 @@ const SideCalendarProfile = ({ isOpen }: { isOpen: boolean }) => {
       />
       <IconCircleSetting
         onClick={handleClickSetting}
-        className={`w-[30px] h-[30px] absolute top-[208px] left-[187px] lg:top-[302px] lg:left-[203px] lg:block cur ${
+        className={`w-[30px] h-[30px] absolute top-[208px] left-[187px] lg:top-[320px] lg:left-[203px] lg:block cur ${
           isOpen ? "block" : "hidden"
         }`}
       />
       <p
-        className={`mt-[14px] text-lg lg:block ${isOpen ? "block" : "hidden"}`}
+        className={`mt-[14px] text_lg lg:block ${isOpen ? "block" : "hidden"}`}
       >
         {data?.name}
       </p>

@@ -146,7 +146,7 @@ function ImageCropComponent({ userImg, setUserImg }: any) {
           >
             <IconX className="w-full h-full" />
           </div>
-          <h2 className="text-lg noto-sans-text font-bold  mb-[30px] ml-[5px] -mt-[5px]">
+          <h2 className="text_lg noto-sans-text font-bold  mb-[30px] ml-[5px] -mt-[5px]">
             이미지 자르기
           </h2>
           <div className="px-[5px] flex justify-center items-center">

@@ -3,20 +3,22 @@ import Helper from "@/helper/Helper";
 import useSearch from "@/hooks/useSearch";
 import { IconAdd } from "@/icons";
 import ModalType from "@/keys/ModalType";
-import useUserQueries from "@/queries/user/useUserQueries";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ModalContainer from "@/components/modal/ModalContainer";
 import StaticKeys from "@/keys/StaticKeys";
+import { useQueryClient } from "@tanstack/react-query";
+import QueryKeys from "@/keys/QueryKeys";
 
 const DiarySection = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const currentDiaryPage = useSearch.useSearchDiaryPage();
 
-  const { data: diaryData } = useUserQueries.useGetUserDiaries(
-    `diary_page=${currentDiaryPage}`
-  );
+  const diaryData = useQueryClient().getQueryData<any>([
+    QueryKeys.GET_USER_DIARIES,
+    `diary_page=${currentDiaryPage}`,
+  ]);
 
   const handleClickDiary = (calId: number, diaryId: number) => {
     router.push(`/calendar/${calId}/diary/${diaryId}`);

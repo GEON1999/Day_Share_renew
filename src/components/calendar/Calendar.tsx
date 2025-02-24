@@ -141,7 +141,7 @@ const Calendar = ({}) => {
             : "block"
         } lg:block`}
       >
-        <h1 className="text-xl lg:mt-[54px]">
+        <h1 className="text_xl lg:mt-[54px]">
           {calendarBasic?.name ?? "달력"}
         </h1>
         <div className="flex justify-between w-[300px] lg:w-[1255px] mb-2">

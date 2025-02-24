@@ -72,7 +72,7 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
         <span className="text-[#999790] text-[16px]">|</span>
         <span
           onClick={() => setEditorMode(false)}
-          className="text-[#999790] text-base cur mt-[1px]"
+          className="text-[#999790] text_base cur mt-[1px]"
         >
           이전으로 돌아가기
         </span>
@@ -81,7 +81,7 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
         <div className="flex flex-col mt-[10px] lg:mt-[26px]">
           <input
             {...register("title")}
-            className="border w-[300px] lg:w-full h-[40px] outline-none rounded-md bg-transparent text-lg placeholder:opacity-50 px-5 mb-5 noto-sans-text"
+            className="border w-[300px] lg:w-full h-[40px] outline-none rounded-md bg-transparent text_lg placeholder:opacity-50 px-5 mb-5 noto-sans-text"
             placeholder="제목을 입력해주세요"
             defaultValue={data?.title}
           />
@@ -94,7 +94,7 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
           >
             <EditorContent
               editor={editor}
-              className="w-full h-[300px] lg:h-[595px] outline-none rounded bg-transparent text-lg py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"
+              className="w-full h-[300px] lg:h-[595px] outline-none rounded bg-transparent text_lg py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"
             />
           </div>
         </div>

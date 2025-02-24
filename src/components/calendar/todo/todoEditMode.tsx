@@ -84,14 +84,14 @@ const TodoEditMode = ({ setEditorMode }: any) => {
       >
         <IconX className="w-full h-full" />
       </div>
-      <h1 className="-mt-[10px] text-xl">일정 등록</h1>
+      <h1 className="-mt-[10px] text_xl">일정 등록</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col mt-[22px] justify-between h-[90%]"
       >
         <div>
           <div className="flex items-center space-x-[12px]">
-            <label htmlFor="title" className="text-lg">
+            <label htmlFor="title" className="text_lg">
               제목
             </label>
             <input
@@ -104,20 +104,20 @@ const TodoEditMode = ({ setEditorMode }: any) => {
               })}
               defaultValue={data?.title}
               type="text"
-              className="w-[220px] lg:w-[381px] h-[30px] text-base bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
+              className="w-[220px] lg:w-[381px] h-[30px] text_base bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
               placeholder="제목을 입력해 보세요."
             />
           </div>
-          <p className="text-base text-red mt-[10px]">
+          <p className="text_base text-red mt-[10px]">
             {errors.title?.message?.toString()}
           </p>
           <div className="flex flex-col lg:flex-row items-center my-[13px]">
             <div>
-              <label htmlFor="date" className="text-lg">
+              <label htmlFor="date" className="text_lg">
                 일시
               </label>
               <input
-                className="ml-[11px] lg:ml-[12px] w-[220px] lg:w-[124px] h-[30px] text-base bor rounded-md px-[8px] py-[6px] outline-none placeholder:text-[#C2BFBC] lg:mr-[8px] disabled cursor-not-allowed text-center"
+                className="ml-[11px] lg:ml-[12px] w-[220px] lg:w-[124px] h-[30px] text_base bor rounded-md px-[8px] py-[6px] outline-none placeholder:text-[#C2BFBC] lg:mr-[8px] disabled cursor-not-allowed text-center"
                 disabled
                 value={Helper.formatDateForTodoDetail(data?.date, true)}
               />
@@ -134,7 +134,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
                 allowClear={false}
                 placeholder="시작 시간"
               />
-              <p className="mx-[6px] text-lg font-medium font-satoshi">-</p>
+              <p className="mx-[6px] text_lg font-medium font-satoshi">-</p>
               <TimePicker
                 value={endTime}
                 format="A hh:mm"
@@ -157,13 +157,13 @@ const TodoEditMode = ({ setEditorMode }: any) => {
             </div>
           </div>
           <div className="flex items-start space-x-[12px]">
-            <label htmlFor="content" className="text-lg">
+            <label htmlFor="content" className="text_lg">
               설명
             </label>
             <textarea
               {...register("content", { required: true })}
               defaultValue={data?.content}
-              className="w-[220px] lg:w-[381px] h-[133px] text-base bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
+              className="w-[220px] lg:w-[381px] h-[133px] text_base bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
               placeholder="일정에 필요한 설명을 남겨보세요."
             />
           </div>

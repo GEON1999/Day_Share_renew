@@ -27,7 +27,7 @@ const CalendarDateModal = ({}) => {
     <div>
       <div className="flex flex-col w-[300px] lg:w-[480px] lg:h-[745px] text-[#2D2D2E] lg:mt-[93px]">
         <div className="flex flex-col mb-2 lg:hidden">
-          <h1 className="text-xl">{calendarBasic?.name ?? "달력"}</h1>
+          <h1 className="text_xl">{calendarBasic?.name ?? "달력"}</h1>
           <div className="flex justify-between items-center w-[300px] mb-2">
             <div className="flex w-[300px] items-center space-x-4 justify-between">
               <span className="text-[30px]">

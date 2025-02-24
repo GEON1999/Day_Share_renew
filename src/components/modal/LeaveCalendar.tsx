@@ -35,14 +35,14 @@ const LeaveCalendar = ({ setIsOpen }: any) => {
         >
           <IconX className="w-full h-full" />
         </div>
-        <h1 className="text-center mt-[5px] text-lg font-bold ">
+        <h1 className="text-center mt-[5px] text_lg font-bold ">
           정말 서버를 나가시겠습니까?
         </h1>
-        <p className="text-center text-base mt-[6px]">
+        <p className="text-center text_base mt-[6px]">
           서버를 나가시면 공유 달력 및 공유 일기등에 대한 <br />
           모든 정보가 삭제됩니다.
         </p>
-        <div className="flex mt-[15px]  text-lg space-x-[10px] mx-auto">
+        <div className="flex mt-[15px]  text_lg space-x-[10px] mx-auto">
           <button
             onClick={handleCancel}
             type="button"

@@ -244,7 +244,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
         className="flex items-center space-x-[10px] cur"
         onClick={handleClickCalendar}
       >
-        <p className="opacity-50 text-lg">{calendarData?.name}</p>
+        <p className="opacity-50 text_lg">{calendarData?.name}</p>
         <IconNextGray className="w-[5px] h-[10px]" />
       </div>
       <div className="flex justify-between items-center -mt-[5px]">
@@ -260,10 +260,10 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                 : calendarProfile?.img
             }
           />
-          <h1 className="text-lg mr-[10px]">
+          <h1 className="text_lg mr-[10px]">
             {calendarProfile?.name ?? "탈퇴한 유저"}
           </h1>
-          <p className="text-base text-[#969696]">
+          <p className="text_base text-[#969696]">
             {Helper.formatDateForContent(data?.createdAt)} 등록
           </p>
         </div>
@@ -283,7 +283,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       </div>
       <div className="flex flex-col space-y-2 mt-[10px] lg:mt-[26px] whitespace-pre-wrap">
         <div className="max-h-[700px] overflow-auto whitespace-pre-wrap">
-          <div className="text-lg [&_img]:max-w-[300px] lg:[&_img]:max-w-none [&_img]:w-full [&_img]:h-auto">
+          <div className="text_lg [&_img]:max-w-[300px] lg:[&_img]:max-w-none [&_img]:w-full [&_img]:h-auto">
             {diaryContent}
           </div>
         </div>
@@ -393,7 +393,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                         ref={(el) => {
                           menuRefs.current[comment.comment.id] = el;
                         }}
-                        className={`absolute right-[-59px] w-[55px] top-[17px] h-[60px] bor bg-white flex flex-col items-center justify-center  text-base rounded-md shadow_box z-99 ${
+                        className={`absolute right-[-59px] w-[55px] top-[17px] h-[60px] bor bg-white flex flex-col items-center justify-center  text_base rounded-md shadow_box z-99 ${
                           activeCommentId === comment.comment.id ? "" : "hidden"
                         }`}
                       >
@@ -436,14 +436,14 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                         : userData?.img
                     }
                   />
-                  <h1 className="text-base">{userData?.name}</h1>
+                  <h1 className="text_base">{userData?.name}</h1>
                 </div>
                 <div className="pr-1">
                   <textarea
                     {...commentRegister("content", {
                       required: "내용을 입력해 주세요.",
                     })}
-                    className="w-full px-[18px] h-[40px] lg:h-[64px] mt-[5px] outline-none rounded bg-transparent text-base placeholder:opacity-50 focus:outline-none resize-none"
+                    className="w-full px-[18px] h-[40px] lg:h-[64px] mt-[5px] outline-none rounded bg-transparent text_base placeholder:opacity-50 focus:outline-none resize-none"
                     placeholder="댓글을 남겨보세요."
                   />
                 </div>

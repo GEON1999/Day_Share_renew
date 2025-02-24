@@ -42,7 +42,7 @@ function LoginClientPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
         <IconLogo className="w-[120px] lg:w-[150px] h-[120px] lg:h-[150px]" />
         <div className="flex items-center flex-col mt-[45px]">
-          <div className="w-[300px] lg:w-[390px] h-[110px] text-lg">
+          <div className="w-[300px] lg:w-[390px] h-[110px] text_lg">
             <input
               className="auth-input-top"
               {...register("id")}

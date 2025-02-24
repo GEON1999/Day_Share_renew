@@ -19,9 +19,9 @@ const DeleteModal = ({
         >
           <IconX className="w-full h-full" />
         </div>
-        <h1 className="text-center mt-[5px] text-lg font-bold ">{title}</h1>
+        <h1 className="text-center mt-[5px] text_lg font-bold ">{title}</h1>
         <p className="text-center text-[15px] mt-[6px]">{msg}</p>
-        <div className="flex mt-[15px] text-lg space-x-[10px] mx-auto">
+        <div className="flex mt-[15px] text_lg space-x-[10px] mx-auto">
           <button
             onClick={() => setIsOpen(false)}
             type="button"

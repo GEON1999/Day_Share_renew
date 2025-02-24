@@ -29,7 +29,8 @@ const useSearchTodoId = () => {
 
 const useSearchQueryTodoId = () => {
   const searchParams = useSearchParams();
-  return searchParams.get("todoId");
+  const todoId = searchParams.get("todoId");
+  return todoId ? todoId : undefined;
 };
 
 const useSearchDiaryId = () => {

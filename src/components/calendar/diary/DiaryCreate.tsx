@@ -75,7 +75,7 @@ const DiaryCreate = () => {
             className="flex items-center space-x-[10px] cur"
             onClick={() => router.push(`/calendar/${id}?date=${date}`)}
           >
-            <p className="opacity-50 text-lg">{calendarData?.name}</p>
+            <p className="opacity-50 text_lg">{calendarData?.name}</p>
             <IconNextGray className="w-[5px] h-[10px]" />
           </div>
           <span className="text-[25px] lg:text-[30px] dodum-text">
@@ -88,7 +88,7 @@ const DiaryCreate = () => {
             <div className="flex flex-col mt-[10px] lg:mt-[26px]">
               <input
                 {...register("title")}
-                className="border w-[300px] lg:w-full h-[40px] outline-none rounded-md bg-transparent text-lg placeholder:opacity-50 px-5 mb-5"
+                className="border w-[300px] lg:w-full h-[40px] outline-none rounded-md bg-transparent text_lg placeholder:opacity-50 px-5 mb-5"
                 placeholder="제목을 입력해주세요"
               />
               <div className="relative">
@@ -100,7 +100,7 @@ const DiaryCreate = () => {
               >
                 <EditorContent
                   editor={editor}
-                  className="w-full h-[300px] lg:h-[595px] outline-none rounded bg-transparent text-lg py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"
+                  className="w-full h-[300px] lg:h-[595px] outline-none rounded bg-transparent text_lg py-[15px] px-[20px] placeholder:opacity-50 focus:outline-none focus:ring-0"
                 />
               </div>
             </div>

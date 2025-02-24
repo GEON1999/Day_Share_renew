@@ -70,7 +70,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               </div>
               <IconCircleSetting
                 onClick={handleClickSetting}
-                className={`w-[30px] h-[30px] cur transition-all duration-300 lg:mt-0 lg:absolute lg:top-[300px] lg:left-[160px] ${
+                className={`w-[30px] h-[30px] cur transition-all duration-300 lg:mt-0 lg:absolute lg:top-[316px] lg:left-[160px] ${
                   isOpen
                     ? "mt-0 absolute top-[185px] left-[145px]"
                     : "mt-[50px]"

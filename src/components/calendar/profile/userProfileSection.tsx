@@ -55,7 +55,7 @@ const UserProfileSection = () => {
           채팅하기
         </button>
       </div>
-      <div className="flex-col items-center space-y-5 text-lg hidden lg:flex lg:w-[300px] ">
+      <div className="flex-col items-center space-y-5 text_lg hidden lg:flex lg:w-[300px] ">
         <div className="flex items-center justify-between w-full">
           <div className="w-[100px] flex items-center justify-between">
             <p>이름 </p>

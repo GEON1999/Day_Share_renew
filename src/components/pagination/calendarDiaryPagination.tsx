@@ -32,7 +32,7 @@ const CalendarDiaryPagination = ({ total_count }: any) => {
           <IconPrev className="pagination_btn" onClick={handlePrevBtn} />
         )}
       </div>
-      <p className="text-[#2D2D2E] text-lg">{currentPage}</p>
+      <p className="text-[#2D2D2E] text_lg">{currentPage}</p>
       <div>
         {total_count <= Number(currentPage) * 3 ? (
           <IconNext_disabled className="pagination_btn_disabled" />

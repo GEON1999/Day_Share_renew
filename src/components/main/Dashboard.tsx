@@ -3,7 +3,6 @@ import DiarySection from "@/components/main/diarySection";
 import CalendarListSection from "./calendarListSection";
 import StatusSection from "./statusSection";
 import GreetingSection from "./greetingSection";
-
 const Dashboard = () => {
   return (
     <div className="main_container lg:py-[30px] flex flex-col items-center justify-center lg:block">

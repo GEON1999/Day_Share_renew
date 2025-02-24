@@ -159,7 +159,7 @@ const ClientPage = () => {
                         }`}
                       >
                         {!isMyMessage && (
-                          <span className="text-sm text-gray-300 mb-[2px]">
+                          <span className="text_sm text-gray-300 mb-[2px]">
                             {msg.name}
                           </span>
                         )}
