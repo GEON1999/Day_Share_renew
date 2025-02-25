@@ -196,6 +196,9 @@
     outline: none;
     padding: 0 19px;
     width: 300px;
+    border-top: 1.5px solid;
+    border-left: 1.5px solid;
+    border-right: 1.5px solid;
   }
 
   .auth-input-middle {
@@ -206,6 +209,8 @@
     outline: none;
     padding: 0 19px;
     width: 300px;
+    border-left: 1.5px solid;
+    border-right: 1.5px solid;
   }
 
   .auth-input-bottom {
@@ -216,6 +221,9 @@
     outline: none;
     padding: 0 19px;
     width: 300px;
+    border-left: 1.5px solid;
+    border-right: 1.5px solid;
+    border-bottom: 1.5px solid;
   }
 
   .auth-submit-btn {
@@ -637,6 +645,18 @@ input:-webkit-autofill:active {
 
   .auth-input {
     font-size: 15px;
+    width: 390px;
+  }
+
+  .auth-input-top {
+    width: 390px;
+  }
+
+  .auth-input-middle {
+    width: 390px;
+  }
+
+  .auth-input-bottom {
     width: 390px;
   }
 
