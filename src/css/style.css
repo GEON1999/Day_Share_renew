@@ -40,9 +40,8 @@
   }
 
   .side_todo_container {
-    border-bottom: 1px solid;
-    border-opacity: 50%;
-    border-top: 1px solid;
+    border-bottom: 1px solid rgba(73, 73, 73, 0.5);
+    border-top: 1px solid rgba(73, 73, 73, 0.5);
     display: flex;
     flex-direction: column;
     height: 330px;
