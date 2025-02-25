@@ -1,8 +1,8 @@
 <div align="center">
-  <a href="https://day-share.vercel.app/">
+  <a href="https://www.dayshare.site/">
     <img height="120" src="https://s3.ap-northeast-2.amazonaws.com/geon.com/logo_sm.png" />
     <br />
-    <a display="block" href="https://day-share.vercel.app/">DayShare 웹으로 이동</a>
+    <a display="block" href="https://www.dayshare.site/">DayShare 웹으로 이동</a>
   </a>
   <br />
   <br />
@@ -12,16 +12,20 @@
 ---
 
 ## 📚 목차
+
 - [팀원](#-팀원)
 - [미리보기](#-미리보기)
 - [기술스택](#기술스택)
 
 ---
+
 <a id="팀원"></a>
+
 ## 👥 팀원
-| **박건[개발자]** | **차민경[헤드 디자이너]** | **강보희[디자이너]** | **박예지[디자이너]** |
-| :------: |  :------: | :------: | :------: |
-| <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/profile+(1).jpg" height=200 width=150>  | <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/default.webp" height=200 width=150>  | <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/default.webp" height=200 width=150> <br/> | <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/default.webp" height=200 width=150>  |
+
+|                                         **박건[개발자]**                                          |                                   **차민경[헤드 디자이너]**                                    |                                         **강보희[디자이너]**                                         |                                      **박예지[디자이너]**                                      |
+| :-----------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: |
+| <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/profile+(1).jpg" height=200 width=150> | <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/default.webp" height=200 width=150> | <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/default.webp" height=200 width=150> <br/> | <img src="https://s3.ap-northeast-2.amazonaws.com/geon.com/default.webp" height=200 width=150> |
 
 <hr/>
 
@@ -123,7 +127,9 @@ const ModalContainer = ({
      ```
 
   4. **예외 처리 메커니즘**
+
      - 예외 발생 시 로그 기록 및 에러 반환
+
      ```python
         except IntegrityError as e:
             logger.error(f"데이터 무결성 오류: {str(e)}")
@@ -182,6 +188,7 @@ const ModalContainer = ({
 ---
 
 <a id="기술스택"></a>
+
 ## 🛠️ 기술 스택
 
 ### 프론트엔드
