@@ -1,7 +1,7 @@
 "use client";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState, useCallback, Suspense } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import TodoSection from "@/components/main/todoSection";
 import {
   IconCircleSetting,
@@ -12,8 +12,6 @@ import {
   IconTodo,
 } from "@/icons";
 import ProfileSection from "@/components/main/profileSection";
-import ProfileSectionFallback from "@/components/fallback/profileSectionFallback";
-import TodoSectionFallback from "@/components/fallback/todoSectionFallback";
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -67,9 +65,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 />
               </div>
 
-              <Suspense fallback={<ProfileSectionFallback isOpen={isOpen} />}>
-                <ProfileSection isOpen={isOpen} />
-              </Suspense>
+              <ProfileSection isOpen={isOpen} />
 
               <IconCircleSetting
                 onClick={handleClickSetting}
@@ -113,9 +109,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             />
           </div>
           <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
-            <Suspense fallback={<TodoSectionFallback />}>
-              <TodoSection />
-            </Suspense>
+            <TodoSection />
           </div>
         </div>
       </aside>
