@@ -1,8 +1,7 @@
 "use client";
-import useUserQueries from "@/queries/user/useUserQueries";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, Suspense } from "react";
 import TodoSection from "@/components/main/todoSection";
 import {
   IconCircleSetting,
@@ -12,24 +11,34 @@ import {
   IconLogo_sm,
   IconTodo,
 } from "@/icons";
-
+import ProfileSection from "@/components/main/profileSection";
+import ProfileSectionFallback from "@/components/fallback/profileSectionFallback";
+import TodoSectionFallback from "@/components/fallback/todoSectionFallback";
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const { data: userData } = useUserQueries.useGetUser();
 
-  const handleClickMain = () => router.push("/");
-  const handleClickSetting = () => router.push("/setting");
-  const handleLogout = async () => {
+  const handleClickMain = useCallback(() => router.push("/"), [router]);
+  const handleClickSetting = useCallback(
+    () => router.push("/setting"),
+    [router]
+  );
+
+  const handleLogout = useCallback(async () => {
     await signOut();
-  };
+  }, []);
+
+  const toggleSidebar = useCallback(() => setIsOpen(true), []);
 
   useEffect(() => {
-    if (isOpen) {
-      window.addEventListener("resize", () => {
-        window.innerWidth > 1024 ? setIsOpen(false) : null;
-      });
-    }
+    if (!isOpen) return;
+
+    const handleResize = () => {
+      if (window.innerWidth > 1024) setIsOpen(false);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isOpen]);
 
   return (
@@ -46,30 +55,25 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
                 <IconLogo
                   onClick={handleClickMain}
+                  aria-label="메인 페이지로 이동"
                   className="w-[80px] lg:w-[108px] h-[80px] lg:h-[108px] cur"
                 />
               </div>
               <div className={`${isOpen ? "hidden" : "block lg:hidden"}`}>
                 <IconLogo_sm
                   onClick={handleClickMain}
+                  aria-label="메인 페이지로 이동"
                   className="w-[25px] h-[25px] cur"
                 />
               </div>
-              <div
-                className={`${isOpen ? "hidden" : "block lg:hidden mt-[50px]"}`}
-              >
-                <img
-                  src={
-                    userData?.img === "" || !userData?.img
-                      ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                      : userData?.img
-                  }
-                  alt="profile"
-                  className="w-[30px] h-[30px] object-cover rounded-full bg-gray-200 bor"
-                />
-              </div>
+
+              <Suspense fallback={<ProfileSectionFallback isOpen={isOpen} />}>
+                <ProfileSection isOpen={isOpen} />
+              </Suspense>
+
               <IconCircleSetting
                 onClick={handleClickSetting}
+                aria-label="설정 페이지로 이동"
                 className={`w-[30px] h-[30px] cur transition-all duration-300 lg:mt-0 lg:absolute lg:top-[316px] lg:left-[160px] ${
                   isOpen
                     ? "mt-0 absolute top-[185px] left-[145px]"
@@ -77,27 +81,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 }`}
               />
             </div>
-            <div
-              className={`${
-                isOpen
-                  ? "flex flex-col items-center"
-                  : "hidden lg:flex flex-col items-center"
-              }`}
-            >
-              <img
-                src={
-                  userData?.img === "" || !userData?.img
-                    ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                    : userData?.img
-                }
-                alt="profile"
-                className="w-[100px] lg:w-[140px] h-[100px] lg:h-[140px] object-cover rounded-full bg-gray-200 bor mt-[10px] lg:mt-[36px] shadow_box"
-              />
-              <p className="text-[20px] mt-[8px]">{userData?.name}</p>
-            </div>
+
             <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
               <button
                 onClick={handleLogout}
+                aria-label="로그아웃"
                 className="btn_logout mt-[7px] lg:mt-[15px]"
               >
                 <IconExit className="w-5 h-5 cur" />
@@ -106,6 +94,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
             <IconExitMobile
               onClick={handleLogout}
+              aria-label="로그아웃"
               className={`${
                 isOpen
                   ? "hidden"
@@ -114,7 +103,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             />
 
             <IconTodo
-              onClick={() => setIsOpen(true)}
+              onClick={toggleSidebar}
+              aria-label="할 일 메뉴 열기"
               className={`${
                 isOpen
                   ? "hidden"
@@ -123,7 +113,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             />
           </div>
           <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
-            <TodoSection />
+            <Suspense fallback={<TodoSectionFallback />}>
+              <TodoSection />
+            </Suspense>
           </div>
         </div>
       </aside>
@@ -132,7 +124,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         {isOpen && (
           <div
             onClick={() => setIsOpen(false)}
-            className=" absolute inset-0 z-[50] cursor-default"
+            aria-label="사이드바 닫기"
+            className="absolute inset-0 z-[50] cursor-default"
           />
         )}
       </main>
