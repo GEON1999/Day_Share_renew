@@ -54,16 +54,16 @@ export default async function Home(req: any) {
   }`;
   const queries = `${chatRoomPage}&${chatRoomSize}`;
 
-  Promise.all([
-    await queryClient.prefetchQuery({
+  await Promise.all([
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],
       queryFn: () => getUser(accessToken),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CHAT_ROOMS, queries],
       queryFn: () => getChatRooms(accessToken, queries),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER_TODOS, todoPage],
       queryFn: () => getUserTodos(accessToken, todoPage),
     }),

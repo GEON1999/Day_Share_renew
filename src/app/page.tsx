@@ -66,24 +66,24 @@ export default async function Home(req: any) {
   const diaryPage = `diary_page=${req.searchParams.diary_page ?? "1"}`;
   const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
 
-  Promise.all([
-    await queryClient.prefetchQuery({
+  await Promise.all([
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],
       queryFn: () => getUser(accessToken),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER_TODOS, todoPage],
       queryFn: () => getUserTodos(accessToken, todoPage),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER_DIARIES, diaryPage],
       queryFn: () => getUserDiaries(accessToken, diaryPage),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_LIST, page],
       queryFn: () => getCalendarList(accessToken, page),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER_FAVORITE_TODO],
       queryFn: () => getUserFavoriteTodo(accessToken),
     }),

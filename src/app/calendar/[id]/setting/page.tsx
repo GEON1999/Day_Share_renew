@@ -60,20 +60,20 @@ export default async function Home(req: any) {
   const userPage = `user_page=${req.searchParams.user_page ?? "1"}`;
   const id = req.params.id;
 
-  Promise.all([
-    await queryClient.prefetchQuery({
+  await Promise.all([
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id, userPage],
       queryFn: () => getCalendarPermissionList(accessToken, id, userPage),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_BASIC, id],
       queryFn: () => getCalendarBasic(accessToken, id),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_INVITE_CODE, id],
       queryFn: () => getInviteCode(accessToken, id),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_USER_INFO, id],
       queryFn: () => getCalendarUserInfo(accessToken, id),
     }),

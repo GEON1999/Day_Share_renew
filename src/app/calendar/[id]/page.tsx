@@ -109,32 +109,32 @@ export default async function Home(req: any) {
 
   const id = req.params.id;
 
-  Promise.all([
-    await queryClient.prefetchQuery({
+  await Promise.all([
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_TODOS, id, todoPage],
       queryFn: () => useGetTodosByCalendarId(accessToken, id, todoPage),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_LIST, queries],
       queryFn: () => getCalendarList(accessToken, queries),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id, userPage],
       queryFn: () => getCalendarPermissionList(accessToken, id, userPage),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_DATES, id, timestamp],
       queryFn: () => getCalendarDates(accessToken, id, timestamp),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_TODOS, id, todoQueries],
       queryFn: () => getTodoDetail(accessToken, id, todoQueries),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_DIARIES, id, diaryQueries],
       queryFn: () => getDiaryDetail(accessToken, id, diaryQueries),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_BASIC, id],
       queryFn: () => getCalendarBasic(accessToken, id),
     }),

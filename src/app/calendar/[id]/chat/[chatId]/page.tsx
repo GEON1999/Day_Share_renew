@@ -61,21 +61,21 @@ export default async function Home(req: any) {
   const id = req.params.chatId;
   const userPage = `user_page=${req.searchParams.user_page ?? "1"}`;
 
-  Promise.all([
-    await queryClient.prefetchQuery({
+  await Promise.all([
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CHAT_MESSAGES, id],
       queryFn: () => getChatMessages(id, accessToken),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],
       queryFn: () => getUser(accessToken),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, calendarId, userPage],
       queryFn: () =>
         getCalendarPermissionList(accessToken, calendarId, userPage),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_BASIC, calendarId],
       queryFn: () => getCalendarBasic(accessToken, calendarId),
     }),

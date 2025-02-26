@@ -27,14 +27,6 @@ const getUserTodos = async (accessToken: any, query: string) => {
   return data;
 };
 
-const getCalendarList = async (accessToken: any, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_LIST(query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
   const accessToken = session?.accessToken;
@@ -47,12 +39,12 @@ export default async function Home(req: any) {
 
   const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
 
-  Promise.all([
-    await queryClient.prefetchQuery({
+  await Promise.all([
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],
       queryFn: () => getUser(accessToken),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER_TODOS, todoPage],
       queryFn: () => getUserTodos(accessToken, todoPage),
     }),

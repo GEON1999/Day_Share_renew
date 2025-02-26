@@ -94,32 +94,10 @@ export default async function Home(req: any) {
   const diaryId = req.params.diaryId;
   const query = `contentType=diary&contentId=${diaryId}`;
 
-  Promise.all([
-    await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_DIARY_DETAIL, id, diaryId],
-      queryFn: () => getDiaryDetail(accessToken, id, diaryId),
-    }),
-    await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id, userPage],
-      queryFn: () => getCalendarPermissionList(accessToken, id, userPage),
-    }),
-    await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_COMMENTS, id, query],
-      queryFn: () => getComments(accessToken, id, query),
-    }),
-    await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_LIKES, query],
-      queryFn: () => getLikes(accessToken, query),
-    }),
-    await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CALENDAR_BASIC, id],
-      queryFn: () => getCalendarBasic(accessToken, id),
-    }),
-    await queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CALENDAR_USER_INFO, id],
-      queryFn: () => getCalendarUserInfo(accessToken, id),
-    }),
-  ]);
+  await queryClient.prefetchQuery({
+    queryKey: [QueryKeys.GET_DIARY_DETAIL, id, diaryId],
+    queryFn: () => getDiaryDetail(accessToken, id, diaryId),
+  });
 
   const diaryDetail = queryClient.getQueryData([
     QueryKeys.GET_DIARY_DETAIL,
@@ -128,10 +106,32 @@ export default async function Home(req: any) {
   ]);
 
   const userId = `userId=${diaryDetail?.userId ?? 0}`;
-  await queryClient.prefetchQuery({
+  queryClient.prefetchQuery({
     queryKey: [QueryKeys.GET_CALENDAR_PROFILE, id, userId],
     queryFn: () => getCalendarProfile(accessToken, id, userId),
   });
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id, userPage],
+      queryFn: () => getCalendarPermissionList(accessToken, id, userPage),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_COMMENTS, id, query],
+      queryFn: () => getComments(accessToken, id, query),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_LIKES, query],
+      queryFn: () => getLikes(accessToken, query),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_CALENDAR_BASIC, id],
+      queryFn: () => getCalendarBasic(accessToken, id),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_CALENDAR_USER_INFO, id],
+      queryFn: () => getCalendarUserInfo(accessToken, id),
+    }),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

@@ -61,16 +61,16 @@ export default async function Home(req: any) {
   const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
   const query = `${diaryPage}&${todoPage}`;
 
-  Promise.all([
-    await queryClient.prefetchQuery({
+  await Promise.all([
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id, userPage],
       queryFn: () => getCalendarPermissionList(accessToken, id, userPage),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_BASIC, id],
       queryFn: () => getCalendarBasic(accessToken, id),
     }),
-    await queryClient.prefetchQuery({
+    queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_USER, id, profileId, query],
       queryFn: () => getCalendarUser(accessToken, id, profileId, query),
     }),
