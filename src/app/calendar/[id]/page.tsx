@@ -4,82 +4,14 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import QueryKeys from "@/keys/QueryKeys";
-import API from "@/server/API";
-import axios from "axios";
-import rqOption from "@/server/rqOption";
 import Helper from "@/helper/Helper";
 import ClientPage from "./clientPage";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-
-const useGetTodosByCalendarId = async (
-  accessToken: any,
-  id: string,
-  query: string
-) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_TODOS(id, query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarPermissionList = async (
-  accessToken: any,
-  id: string,
-  query: string
-) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id, query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarList = async (accessToken: any, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_LIST(query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarDates = async (
-  accessToken: any,
-  id: string,
-  query: string
-) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_DATES(id, query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getTodoDetail = async (accessToken: any, id: string, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_TODOS(id, query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getDiaryDetail = async (accessToken: any, id: string, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_DIARIES(id, query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarBasic = async (accessToken: any, id: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_BASIC(id)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
+import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
+import useTodoQueries from "@/queries/todo/useTodoQueries";
+import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
@@ -112,31 +44,34 @@ export default async function Home(req: any) {
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_TODOS, id, todoPage],
-      queryFn: () => useGetTodosByCalendarId(accessToken, id, todoPage),
+      queryFn: () =>
+        useTodoQueries.getTodosByCalendarId(id, todoPage, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_LIST, queries],
-      queryFn: () => getCalendarList(accessToken, queries),
+      queryFn: () => useCalendarQueries.getCalendarList(queries, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id, userPage],
-      queryFn: () => getCalendarPermissionList(accessToken, id, userPage),
+      queryFn: () =>
+        useCalendarQueries.getCalendarPermissionList(id, userPage, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_DATES, id, timestamp],
-      queryFn: () => getCalendarDates(accessToken, id, timestamp),
+      queryFn: () =>
+        useCalendarQueries.getCalendarDates(id, timestamp, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_TODOS, id, todoQueries],
-      queryFn: () => getTodoDetail(accessToken, id, todoQueries),
+      queryFn: () => useTodoQueries.getTodos(id, todoQueries, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_DIARIES, id, diaryQueries],
-      queryFn: () => getDiaryDetail(accessToken, id, diaryQueries),
+      queryFn: () => useDiaryQueries.getDiaries(id, diaryQueries, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_BASIC, id],
-      queryFn: () => getCalendarBasic(accessToken, id),
+      queryFn: () => useCalendarQueries.getCalendarBasic(id, accessToken),
     }),
   ]);
 

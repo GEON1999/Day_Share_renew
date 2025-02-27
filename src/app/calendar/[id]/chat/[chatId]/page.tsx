@@ -8,45 +8,9 @@ import ClientPage from "./clientPage";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import API from "@/server/API";
-import axios from "axios";
-import rqOption from "@/server/rqOption";
-
-const getChatMessages = async (chatId: string, accessToken: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CHAT_MESSAGES(chatId)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getUser = async (accessToken: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarPermissionList = async (
-  accessToken: any,
-  id: string,
-  query: string
-) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id, query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarBasic = async (accessToken: any, id: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_BASIC(id)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
+import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
+import useUserQueries from "@/queries/user/useUserQueries";
+import useChatQueries from "@/queries/chat/useChatQueries";
 
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
@@ -64,20 +28,25 @@ export default async function Home(req: any) {
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CHAT_MESSAGES, id],
-      queryFn: () => getChatMessages(id, accessToken),
+      queryFn: () => useChatQueries.getChatMessages(id, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],
-      queryFn: () => getUser(accessToken),
+      queryFn: () => useUserQueries.getUser(accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, calendarId, userPage],
       queryFn: () =>
-        getCalendarPermissionList(accessToken, calendarId, userPage),
+        useCalendarQueries.getCalendarPermissionList(
+          calendarId,
+          userPage,
+          accessToken
+        ),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_BASIC, calendarId],
-      queryFn: () => getCalendarBasic(accessToken, calendarId),
+      queryFn: () =>
+        useCalendarQueries.getCalendarBasic(calendarId, accessToken),
     }),
   ]);
 

@@ -4,81 +4,14 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import QueryKeys from "@/keys/QueryKeys";
-import API from "@/server/API";
-import axios from "axios";
-import rqOption from "@/server/rqOption";
 import ClientPage from "./clientPage";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-
-const getDiaryDetail = async (
-  accessToken: any,
-  id: string,
-  diaryId: string
-) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_DIARY_DETAIL(id, diaryId)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getComments = async (accessToken: any, id: string, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_COMMENTS(id, query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getLikes = async (accessToken: any, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_LIKES(query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarProfile = async (
-  accessToken: any,
-  id: string,
-  userId: string
-) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_PROFILE(id, userId)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarPermissionList = async (
-  accessToken: any,
-  id: string,
-  query: string
-) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id, query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarBasic = async (accessToken: any, id: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_BASIC(id)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarUserInfo = async (accessToken: any, id: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_USER_INFO(id)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
+import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
+import useDiaryQueries from "@/queries/diary/useDiaryQueries";
+import useCommentQueries from "@/queries/comment/useCommentQueries";
+import useLikeQueries from "@/queries/like/useLikeQueries";
 
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
@@ -96,7 +29,7 @@ export default async function Home(req: any) {
 
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.GET_DIARY_DETAIL, id, diaryId],
-    queryFn: () => getDiaryDetail(accessToken, id, diaryId),
+    queryFn: () => useDiaryQueries.getDiaryDetail(id, diaryId, accessToken),
   });
 
   const diaryDetail = queryClient.getQueryData([
@@ -108,28 +41,30 @@ export default async function Home(req: any) {
   const userId = `userId=${diaryDetail?.userId ?? 0}`;
   queryClient.prefetchQuery({
     queryKey: [QueryKeys.GET_CALENDAR_PROFILE, id, userId],
-    queryFn: () => getCalendarProfile(accessToken, id, userId),
+    queryFn: () =>
+      useCalendarQueries.getCalendarProfile(id, userId, accessToken),
   });
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id, userPage],
-      queryFn: () => getCalendarPermissionList(accessToken, id, userPage),
+      queryFn: () =>
+        useCalendarQueries.getCalendarPermissionList(id, userPage, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_COMMENTS, id, query],
-      queryFn: () => getComments(accessToken, id, query),
+      queryFn: () => useCommentQueries.getComments(id, query, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_LIKES, query],
-      queryFn: () => getLikes(accessToken, query),
+      queryFn: () => useLikeQueries.getLikes(query, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_BASIC, id],
-      queryFn: () => getCalendarBasic(accessToken, id),
+      queryFn: () => useCalendarQueries.getCalendarBasic(id, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_USER_INFO, id],
-      queryFn: () => getCalendarUserInfo(accessToken, id),
+      queryFn: () => useCalendarQueries.getCalendarUserInfo(id, accessToken),
     }),
   ]);
 

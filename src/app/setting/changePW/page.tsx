@@ -4,28 +4,11 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import QueryKeys from "@/keys/QueryKeys";
-import API from "@/server/API";
-import axios from "axios";
-import rqOption from "@/server/rqOption";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import ChangePasswordClientPage from "./clientPage";
-
-const getUser = async (accessToken: any) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-const getUserTodos = async (accessToken: any, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER_TODOS(query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
+import useUserQueries from "@/queries/user/useUserQueries";
 
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
@@ -42,11 +25,11 @@ export default async function Home(req: any) {
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],
-      queryFn: () => getUser(accessToken),
+      queryFn: () => useUserQueries.getUser(accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER_TODOS, todoPage],
-      queryFn: () => getUserTodos(accessToken, todoPage),
+      queryFn: () => useUserQueries.getUserTodos(todoPage, accessToken),
     }),
   ]);
 

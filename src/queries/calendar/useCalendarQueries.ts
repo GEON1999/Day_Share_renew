@@ -4,12 +4,18 @@ import Helper from "@/helper/Helper";
 import API from "@/server/API";
 import { useQuery } from "@tanstack/react-query";
 import QueryKeys from "@/keys/QueryKeys";
+import rqOption from "@/server/rqOption";
 
 // Get Calendar List
-const getCalendarList = async (query: string) => {
-  const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_LIST(query)
-  );
+const getCalendarList = async (query: string, accessToken?: any) => {
+  const url = Helper.CURRENT_BASE_URL() + API.GET_CALENDAR_LIST(query);
+
+  const config =
+    typeof window === "undefined"
+      ? rqOption.apiHeader(accessToken)
+      : { headers: { "Content-Type": "application/json" } };
+
+  const { data } = await axios.get(url, config);
   return data;
 };
 
@@ -21,10 +27,15 @@ const useGetCalendarList = (query: string) => {
 };
 
 // Get Calendar Select List
-const getCalendarSelectList = async () => {
-  const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_SELECT_LIST
-  );
+const getCalendarSelectList = async (accessToken?: any) => {
+  const url = Helper.CURRENT_BASE_URL() + API.GET_CALENDAR_SELECT_LIST;
+
+  const config =
+    typeof window === "undefined"
+      ? rqOption.apiHeader(accessToken)
+      : { headers: { "Content-Type": "application/json" } };
+
+  const { data } = await axios.get(url, config);
   return data;
 };
 
@@ -36,10 +47,20 @@ const useGetCalendarSelectList = () => {
 };
 
 // Get Calendar Dates
-const getCalendarDates = async (calendarId: string, query: string) => {
-  const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_DATES(calendarId, query)
-  );
+const getCalendarDates = async (
+  calendarId: string,
+  query: string,
+  accessToken?: any
+) => {
+  const url =
+    Helper.CURRENT_BASE_URL() + API.GET_CALENDAR_DATES(calendarId, query);
+
+  const config =
+    typeof window === "undefined"
+      ? rqOption.apiHeader(accessToken)
+      : { headers: { "Content-Type": "application/json" } };
+
+  const { data } = await axios.get(url, config);
   return data;
 };
 
@@ -51,10 +72,15 @@ const useGetCalendarDates = (calendarId: string, query: string) => {
 };
 
 // Get Calendar Basic Info
-const getCalendarBasic = async (calendarId: string) => {
-  const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_BASIC(calendarId)
-  );
+const getCalendarBasic = async (calendarId: string, accessToken?: any) => {
+  const url = Helper.CURRENT_BASE_URL() + API.GET_CALENDAR_BASIC(calendarId);
+
+  const config =
+    typeof window === "undefined"
+      ? rqOption.apiHeader(accessToken)
+      : { headers: { "Content-Type": "application/json" } };
+
+  const { data } = await axios.get(url, config);
   return data;
 };
 
@@ -66,10 +92,15 @@ const useGetCalendarBasic = (calendarId: string) => {
 };
 
 // Get Invite Code
-const getInviteCode = async (calendarId: string) => {
-  const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_INVITE_CODE(calendarId)
-  );
+const getInviteCode = async (calendarId: string, accessToken?: any) => {
+  const url = Helper.CURRENT_BASE_URL() + API.GET_INVITE_CODE(calendarId);
+
+  const config =
+    typeof window === "undefined"
+      ? rqOption.apiHeader(accessToken)
+      : { headers: { "Content-Type": "application/json" } };
+
+  const { data } = await axios.get(url, config);
   return data;
 };
 
@@ -81,10 +112,16 @@ const useGetInviteCode = (calendarId: string) => {
 };
 
 // Get Calendar User Info
-const getCalendarUserInfo = async (calendarId: string) => {
-  const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_USER_INFO(calendarId)
-  );
+const getCalendarUserInfo = async (calendarId: string, accessToken?: any) => {
+  const url =
+    Helper.CURRENT_BASE_URL() + API.GET_CALENDAR_USER_INFO(calendarId);
+
+  const config =
+    typeof window === "undefined"
+      ? rqOption.apiHeader(accessToken)
+      : { headers: { "Content-Type": "application/json" } };
+
+  const { data } = await axios.get(url, config);
   return data;
 };
 
@@ -96,10 +133,16 @@ const useGetCalendarUserInfo = (calendarId: string) => {
 };
 
 // Get Calendar Permission
-const getCalendarPermission = async (calendarId: string) => {
-  const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_PERMISSION(calendarId)
-  );
+const getCalendarPermission = async (calendarId: string, accessToken?: any) => {
+  const url =
+    Helper.CURRENT_BASE_URL() + API.GET_CALENDAR_PERMISSION(calendarId);
+
+  const config =
+    typeof window === "undefined"
+      ? rqOption.apiHeader(accessToken)
+      : { headers: { "Content-Type": "application/json" } };
+
+  const { data } = await axios.get(url, config);
   return data;
 };
 
@@ -111,10 +154,21 @@ const useGetCalendarPermission = (calendarId: string) => {
 };
 
 // Get Calendar Permission List
-const getCalendarPermissionList = async (calendarId: string, query: string) => {
-  const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_PERMISSION_LIST(calendarId, query)
-  );
+const getCalendarPermissionList = async (
+  calendarId: string,
+  query: string,
+  accessToken?: any
+) => {
+  const url =
+    Helper.CURRENT_BASE_URL() +
+    API.GET_CALENDAR_PERMISSION_LIST(calendarId, query);
+
+  const config =
+    typeof window === "undefined"
+      ? rqOption.apiHeader(accessToken)
+      : { headers: { "Content-Type": "application/json" } };
+
+  const { data } = await axios.get(url, config);
   return data;
 };
 
@@ -126,17 +180,27 @@ const useGetCalendarPermissionList = (calendarId: string, query: string) => {
 };
 
 // Get Calendar Profile
-const getCalendarProfile = async (calendarId: string, qeury: string) => {
-  const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_PROFILE(calendarId, qeury)
-  );
+const getCalendarProfile = async (
+  calendarId: string,
+  query: string,
+  accessToken?: any
+) => {
+  const url =
+    Helper.CURRENT_BASE_URL() + API.GET_CALENDAR_PROFILE(calendarId, query);
+
+  const config =
+    typeof window === "undefined"
+      ? rqOption.apiHeader(accessToken)
+      : { headers: { "Content-Type": "application/json" } };
+
+  const { data } = await axios.get(url, config);
   return data;
 };
 
-const useGetCalendarProfile = (calendarId: string, qeury: string) => {
+const useGetCalendarProfile = (calendarId: string, query: string) => {
   return useQuery({
-    queryKey: [QueryKeys.GET_CALENDAR_PROFILE, calendarId, qeury],
-    queryFn: () => getCalendarProfile(calendarId, qeury),
+    queryKey: [QueryKeys.GET_CALENDAR_PROFILE, calendarId, query],
+    queryFn: () => getCalendarProfile(calendarId, query),
   });
 };
 
@@ -144,11 +208,19 @@ const useGetCalendarProfile = (calendarId: string, qeury: string) => {
 const getCalendarUser = async (
   calendarId: string,
   userId: string,
-  query: string
+  query: string,
+  accessToken?: any
 ) => {
-  const { data } = await axios.get(
-    Helper.CURRENT_URL() + API.GET_CALENDAR_USER(calendarId, userId, query)
-  );
+  const url =
+    Helper.CURRENT_BASE_URL() +
+    API.GET_CALENDAR_USER(calendarId, userId, query);
+
+  const config =
+    typeof window === "undefined"
+      ? rqOption.apiHeader(accessToken)
+      : { headers: { "Content-Type": "application/json" } };
+
+  const { data } = await axios.get(url, config);
   return data;
 };
 
@@ -174,4 +246,14 @@ export default {
   useGetCalendarPermissionList,
   useGetCalendarProfile,
   useGetCalendarUser,
+  getCalendarList,
+  getCalendarSelectList,
+  getCalendarDates,
+  getCalendarBasic,
+  getInviteCode,
+  getCalendarUserInfo,
+  getCalendarPermission,
+  getCalendarPermissionList,
+  getCalendarProfile,
+  getCalendarUser,
 };

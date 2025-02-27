@@ -4,46 +4,11 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import QueryKeys from "@/keys/QueryKeys";
-import API from "@/server/API";
-import axios from "axios";
-import rqOption from "@/server/rqOption";
 import ClientPage from "./clientPage";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-
-const getCalendarPermissionList = async (
-  accessToken: any,
-  id: string,
-  query: string
-) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_PERMISSION_LIST(id, query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarBasic = async (accessToken: any, id: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_BASIC(id)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarUser = async (
-  accessToken: any,
-  id: string,
-  profileId: string,
-  query: string
-) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_USER(id, profileId, query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
+import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
@@ -64,15 +29,17 @@ export default async function Home(req: any) {
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_PERMISSION_LIST, id, userPage],
-      queryFn: () => getCalendarPermissionList(accessToken, id, userPage),
+      queryFn: () =>
+        useCalendarQueries.getCalendarPermissionList(id, userPage, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_BASIC, id],
-      queryFn: () => getCalendarBasic(accessToken, id),
+      queryFn: () => useCalendarQueries.getCalendarBasic(id, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_USER, id, profileId, query],
-      queryFn: () => getCalendarUser(accessToken, id, profileId, query),
+      queryFn: () =>
+        useCalendarQueries.getCalendarUser(id, profileId, query, accessToken),
     }),
   ]);
 

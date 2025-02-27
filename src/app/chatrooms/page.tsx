@@ -8,33 +8,8 @@ import ClientPage from "./clientPage";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import API from "@/server/API";
-import axios from "axios";
-import rqOption from "@/server/rqOption";
-
-const getUser = async (accessToken: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getUserTodos = async (accessToken: any, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER_TODOS(query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getChatRooms = async (accessToken: any, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CHAT_ROOMS(query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
+import useUserQueries from "@/queries/user/useUserQueries";
+import useChatQueries from "@/queries/chat/useChatQueries";
 
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
@@ -57,15 +32,15 @@ export default async function Home(req: any) {
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],
-      queryFn: () => getUser(accessToken),
+      queryFn: () => useUserQueries.getUser(accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CHAT_ROOMS, queries],
-      queryFn: () => getChatRooms(accessToken, queries),
+      queryFn: () => useChatQueries.getChatRooms(queries, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER_TODOS, todoPage],
-      queryFn: () => getUserTodos(accessToken, todoPage),
+      queryFn: () => useUserQueries.getUserTodos(todoPage, accessToken),
     }),
   ]);
 

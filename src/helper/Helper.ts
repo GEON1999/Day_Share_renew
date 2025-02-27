@@ -8,6 +8,12 @@ const CURRENT_URL = (): string => {
   return origin;
 };
 
+const CURRENT_BASE_URL = (): string | undefined => {
+  return typeof window !== "undefined"
+    ? window.location.origin
+    : process.env.BASE_URL;
+};
+
 type Query = {
   [key: string]: string | null | undefined;
 };
@@ -205,6 +211,7 @@ const cutString = (str: string, maxLength: number) => {
 
 export default {
   CURRENT_URL,
+  CURRENT_BASE_URL,
   queryToString,
   formatTime,
   formatDate,

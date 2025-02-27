@@ -5,52 +5,11 @@ import {
 } from "@tanstack/react-query";
 import ClientPage from "./clientPage";
 import QueryKeys from "@/keys/QueryKeys";
-import API from "@/server/API";
-import axios from "axios";
-import rqOption from "@/server/rqOption";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-
-const getUser = async (accessToken: any) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getUserTodos = async (accessToken: any, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER_TODOS(query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getUserDiaries = async (accessToken: any, queries: any) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER_DIARIES(queries)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getCalendarList = async (accessToken: any, query: string) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_CALENDAR_LIST(query)}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
-
-const getUserFavoriteTodo = async (accessToken: any) => {
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}${API.GET_USER_FAVORITE_TODO}`,
-    rqOption.apiHeader(accessToken)
-  );
-  return data;
-};
+import useUserQueries from "@/queries/user/useUserQueries";
+import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
@@ -69,23 +28,23 @@ export default async function Home(req: any) {
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],
-      queryFn: () => getUser(accessToken),
+      queryFn: () => useUserQueries.getUser(accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER_TODOS, todoPage],
-      queryFn: () => getUserTodos(accessToken, todoPage),
+      queryFn: () => useUserQueries.getUserTodos(todoPage, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER_DIARIES, diaryPage],
-      queryFn: () => getUserDiaries(accessToken, diaryPage),
+      queryFn: () => useUserQueries.getUserDiaries(diaryPage, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_LIST, page],
-      queryFn: () => getCalendarList(accessToken, page),
+      queryFn: () => useCalendarQueries.getCalendarList(page, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER_FAVORITE_TODO],
-      queryFn: () => getUserFavoriteTodo(accessToken),
+      queryFn: () => useUserQueries.getUserFavoriteTodo(accessToken),
     }),
   ]);
 
