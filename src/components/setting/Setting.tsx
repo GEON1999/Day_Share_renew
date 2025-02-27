@@ -1,6 +1,6 @@
 "use client";
 import useUserQueries from "@/queries/user/useUserQueries";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
@@ -56,13 +56,17 @@ const Setting = () => {
   };
 
   useEffect(() => {
-    if (errors.name) {
-      showAlert(errors.name?.message?.toString(), "error");
+    const errorMessage = errors.name?.message?.toString() || "";
+    if (errorMessage) {
+      showAlert(errorMessage, "error");
     }
-  }, [errors]);
+  }, [errors, showAlert]);
 
-  const handleChangePassword = () => router.push("/setting/changePW");
-  const handleDeleteUser = () => setIsOpen(true);
+  const handleChangePassword = useCallback(
+    () => router.push("/setting/changePW"),
+    [router]
+  );
+  const handleDeleteUser = useCallback(() => setIsOpen(true), []);
 
   return (
     <div className="main_container px-[20px]">

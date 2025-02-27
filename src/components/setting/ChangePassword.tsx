@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import useUserMutations from "@/queries/user/useUserMutations";
@@ -37,9 +37,9 @@ const ChangePassword = () => {
     });
   };
 
-  const handleSetting = () => {
+  const handleSetting = useCallback(() => {
     router.push("/setting");
-  };
+  }, [router]);
 
   return (
     <div className="main_container">
