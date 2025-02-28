@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { IconPrev, IconNext } from "@/icons";
+import { IconNext } from "@/icons";
 import { useRouter } from "next/navigation";
 import { slideData } from "@/app/data/slideData";
 
@@ -24,7 +24,7 @@ const Page = () => {
     <div className="relative flex flex-col items-center justify-center h-screen bg_depp">
       <div className="flex items-center justify-between w-[380px] lg:w-[1335px]">
         <button onClick={prevSlide} className="">
-          <IconPrev className="w-5 h-5 lg:w-6 lg:h-6" />
+          <IconNext className="w-5 h-5 lg:w-6 lg:h-6 transform rotate-180" />
         </button>
         <div className="overflow-hidden w-full">
           <div
@@ -36,11 +36,15 @@ const Page = () => {
                 key={idx}
                 className="flex flex-col items-center justify-center w-full flex-shrink-0 text-center"
               >
-                <img src={slide.img} alt={slide.alt} className="mx-auto" />
+                <img
+                  src={slide.img}
+                  alt={slide.alt}
+                  className={`mx-auto ${idx == 1 ? "mb-[20px]" : ""}`}
+                />
                 <h1 className="noto-sans-text text-[22px] lg:text-[50px] font-black">
                   {slide.title}
                 </h1>
-                <p className="noto-sans-text text-[18px] lg:text-[30px] font-medium mt-1">
+                <p className="noto-sans-text text-[18px] lg:text-[25px] font-medium mt-1">
                   {slide.text}
                 </p>
               </div>
@@ -63,7 +67,7 @@ const Page = () => {
       </div>
       <button
         onClick={handleStart}
-        className="w-[200px] h-[40px] lg:w-[276px] lg:h-[50px] text_lg bg-[#494949] rounded-full text-white font-black noto-sans-text mt-14"
+        className="w-[200px] h-[40px] lg:w-[276px] lg:h-[50px] lg:mt-16 text_lg bg-[#494949] rounded-full text-white font-black noto-sans-text mt-14"
       >
         시작하기
       </button>
