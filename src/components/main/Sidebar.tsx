@@ -21,7 +21,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   const router = useRouter();
 
-  const handleClickMain = useCallback(() => router.push("/"), [router]);
+  const handleClickMain = useCallback(() => router.push("/home"), [router]);
   const handleClickSetting = useCallback(
     () => router.push("/setting"),
     [router]

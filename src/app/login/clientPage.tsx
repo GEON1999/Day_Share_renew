@@ -17,12 +17,12 @@ function LoginClientPage() {
       redirect: false,
       id: formData.id,
       password: formData.password,
-      callbackUrl: "/",
+      callbackUrl: "/home",
       auto: isAutoLogin,
     });
     if (result?.ok) {
       showAlert("로그인에 성공했습니다.", "success");
-      router.push("/");
+      router.push("/home");
     } else if (result?.error) {
       showAlert("로그인에 실패했습니다.", "error");
     }
@@ -31,7 +31,7 @@ function LoginClientPage() {
   const handleKakao = async () => {
     await signIn("kakao", {
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl: "/home",
     });
   };
 

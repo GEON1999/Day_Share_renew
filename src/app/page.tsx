@@ -1,56 +1,84 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
-import ClientPage from "./clientPage";
-import QueryKeys from "@/keys/QueryKeys";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import useUserQueries from "@/queries/user/useUserQueries";
-import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
+"use client";
+import { useState } from "react";
+import { IconNext } from "@/icons";
+import { useRouter } from "next/navigation";
+import { slideData } from "@/app/data/slideData";
+import { useSession } from "next-auth/react";
 
-export default async function Home(req: any) {
-  const session = await getServerSession(authOptions);
-  const accessToken = session?.accessToken;
+const Page = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  if (!accessToken && !session?.user?.isAuto) {
-    return redirect("/login");
-  }
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? slideData.length - 1 : prev - 1));
+  };
 
-  const queryClient = new QueryClient();
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev === slideData.length - 1 ? 0 : prev + 1));
+  };
 
-  const page = `page=${req.searchParams.page ?? "1"}`;
-  const diaryPage = `diary_page=${req.searchParams.diary_page ?? "1"}`;
-  const todoPage = `todo_page=${req.searchParams.todo_page ?? "1"}`;
-
-  await Promise.all([
-    queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_USER],
-      queryFn: () => useUserQueries.getUser(accessToken),
-    }),
-    queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_USER_TODOS, todoPage],
-      queryFn: () => useUserQueries.getUserTodos(todoPage, accessToken),
-    }),
-    queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_USER_DIARIES, diaryPage],
-      queryFn: () => useUserQueries.getUserDiaries(diaryPage, accessToken),
-    }),
-    queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CALENDAR_LIST, page],
-      queryFn: () => useCalendarQueries.getCalendarList(page, accessToken),
-    }),
-    queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_USER_FAVORITE_TODO],
-      queryFn: () => useUserQueries.getUserFavoriteTodo(accessToken),
-    }),
-  ]);
+  const handleStart = () => {
+    if (session) {
+      router.push("/home");
+    } else {
+      router.push("/login");
+    }
+  };
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ClientPage />
-    </HydrationBoundary>
+    <div className="relative flex flex-col items-center justify-center h-screen bg_depp">
+      <div className="flex items-center justify-between w-[380px] lg:w-[1335px]">
+        <button onClick={prevSlide} className="">
+          <IconNext className="w-5 h-5 lg:w-6 lg:h-6 transform rotate-180" />
+        </button>
+        <div className="overflow-hidden w-full">
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          >
+            {slideData.map((slide, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col items-center justify-center w-full flex-shrink-0 text-center"
+              >
+                <img
+                  src={slide.img}
+                  alt={slide.alt}
+                  className={`mx-auto ${idx == 1 ? "mb-[20px]" : ""}`}
+                />
+                <h1 className="noto-sans-text text-[22px] lg:text-[50px] font-black">
+                  {slide.title}
+                </h1>
+                <p className="noto-sans-text text-[18px] lg:text-[25px] font-medium mt-1">
+                  {slide.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <button onClick={nextSlide} className="">
+          <IconNext className="w-5 h-5 lg:w-6 lg:h-6" />
+        </button>
+      </div>
+      <div className="flex items-center justify-center gap-[15px] mt-5">
+        {slideData.map((_, idx) => (
+          <div
+            key={idx}
+            className={`w-[8px] h-[8px] lg:w-[11px] lg:h-[11px] rounded-full ${
+              currentSlide === idx ? "bg-[#494949]" : "bg-[#494949]/50"
+            }`}
+          />
+        ))}
+      </div>
+      <button
+        onClick={handleStart}
+        className="w-[200px] h-[40px] lg:w-[276px] lg:h-[50px] lg:mt-16 text_lg bg-[#494949] rounded-full text-white font-black noto-sans-text mt-14"
+      >
+        시작하기
+      </button>
+    </div>
   );
-}
+};
+
+export default Page;

@@ -65,7 +65,7 @@ function SignupClientPage() {
   const handleKakao = async () => {
     await signIn("kakao", {
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl: "/home",
     });
   };
 

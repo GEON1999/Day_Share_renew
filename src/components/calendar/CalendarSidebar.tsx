@@ -26,7 +26,7 @@ const CalendarSidebar: React.FC<CalendarSidebarProps> = ({
   const router = useRouter();
   const calendarId = useSearch.useSearchId();
 
-  const handleClickMain = useCallback(() => router.push("/"), [router]);
+  const handleClickMain = useCallback(() => router.push("/home"), [router]);
   const handleClickSetting = useCallback(
     () => router.push(`/calendar/${calendarId}/setting`),
     [router, calendarId]

@@ -16,7 +16,7 @@ const LeaveCalendar = ({ setIsOpen }: any) => {
     leaveCalendar(id, {
       onSuccess: (result) => {
         showAlert("서버 탈퇴에 성공하였습니다.", "success");
-        router.push("/");
+        router.push("/home");
       },
       onError: (error) => {
         showAlert("서버 탈퇴에 실패하였습니다.", "error");
