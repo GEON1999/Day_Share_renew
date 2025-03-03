@@ -26,6 +26,13 @@ const Page = () => {
     }
   };
 
+  const handlePreview = () => {
+    window.open(
+      "https://geon1999.github.io/DayShare_product_detail/",
+      "_blank"
+    );
+  };
+
   return (
     <div className="relative flex flex-col items-center justify-center h-screen bg_depp">
       <div className="flex items-center justify-between w-[380px] lg:w-[1335px]">
@@ -71,12 +78,20 @@ const Page = () => {
           />
         ))}
       </div>
-      <button
-        onClick={handleStart}
-        className="w-[200px] h-[40px] lg:w-[276px] lg:h-[50px] lg:mt-16 text_lg bg-[#494949] rounded-full text-white font-black noto-sans-text mt-14"
-      >
-        시작하기
-      </button>
+      <div className="flex items-center justify-center gap-[15px] mt-5">
+        <button
+          onClick={handleStart}
+          className="w-[200px] h-[40px] lg:w-[276px] lg:h-[50px] lg:mt-16 text_lg bg-[#494949] rounded-full text-white font-black noto-sans-text mt-14"
+        >
+          시작하기
+        </button>
+        <button
+          onClick={handlePreview}
+          className="w-[200px] h-[40px] lg:w-[276px] lg:h-[50px] lg:mt-16 text_lg bg-[#ffffff] rounded-full text-[#494949] font-black noto-sans-text mt-14"
+        >
+          미리보기
+        </button>
+      </div>
     </div>
   );
 };
