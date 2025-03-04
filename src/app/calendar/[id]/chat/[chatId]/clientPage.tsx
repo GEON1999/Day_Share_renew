@@ -122,13 +122,10 @@ const ClientPage = () => {
                 const prevMessage = index > 0 ? messages[index - 1] : null;
 
                 const currentDate = new Date(
-                  new Date(msg.created_at ?? "").getTime() + 9 * 60 * 60 * 1000
+                  new Date(msg.created_at ?? "").getTime()
                 );
                 const prevDate = prevMessage
-                  ? new Date(
-                      new Date(prevMessage.created_at ?? "").getTime() +
-                        9 * 60 * 60 * 1000
-                    )
+                  ? new Date(new Date(prevMessage.created_at ?? "").getTime())
                   : null;
 
                 const showDateHeader =

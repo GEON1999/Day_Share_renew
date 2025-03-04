@@ -125,7 +125,7 @@ const formatTimeForTodoDetail = (start: string, end: string): string => {
 
 const formatDateForChat = (dateString: string): string => {
   const utcDate = new Date(dateString);
-  const korDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000);
+  const korDate = new Date(utcDate.getTime());
 
   const hours = korDate.getHours() % 12 || 12;
   const minutes = korDate.getMinutes().toString().padStart(2, "0");
