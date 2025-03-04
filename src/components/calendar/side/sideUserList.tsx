@@ -38,6 +38,7 @@ const SideUserList = ({ isSideOpen }: { isSideOpen: boolean }) => {
       { calendarId: id, userId: deleteUserId },
       {
         onSuccess: (result) => {
+          console.log(result);
           if (result) {
             showAlert("유저 추방에 성공하였습니다.", "success");
           } else {

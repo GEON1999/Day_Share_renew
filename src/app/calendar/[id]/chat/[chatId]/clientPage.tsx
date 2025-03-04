@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import useSearch from "@/hooks/useSearch";
 import useChatQueries from "@/queries/chat/useChatQueries";
 import useUserQueries from "@/queries/user/useUserQueries";
@@ -17,35 +17,45 @@ type ChatMessage = {
 
 const ClientPage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const messageEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const chatRoomId = useSearch.useSearchChatId();
-
+  const calendarId = useSearch.useSearchId();
   const { data: user } = useUserQueries.useGetUser();
 
   const { data: chatMessages, isLoading: isChatMessagesLoading } =
-    useChatQueries.useGetChatMessages(chatRoomId);
+    useChatQueries.useGetChatMessages(chatRoomId, calendarId);
 
-  useEffect(() => {
-    if (chatMessages) {
-      setMessages(chatMessages);
-      setTimeout(() => {
-        messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+  const [messages, setMessages] = useState<ChatMessage[]>(chatMessages);
+
+  const scrollToBottom = useCallback(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [chatMessages]);
+  }, []);
 
-  // 새 메시지가 추가될 때마다 스크롤을 맨 아래로 이동
   useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (chatMessages && !isChatMessagesLoading) {
+      setMessages(chatMessages);
+      const timer = setTimeout(() => {
+        scrollToBottom();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [chatMessages, isChatMessagesLoading, scrollToBottom]);
+
+  useEffect(() => {
+    if (messages && messages.length > 0) {
+      scrollToBottom();
+    }
+  }, [messages.length, scrollToBottom]);
 
   const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
     const ws = new WebSocket(
-      `${process.env.NEXT_PUBLIC_WS_URL}?chat_room_id=${chatRoomId}`
+      `${process.env.NEXT_PUBLIC_WS_URL}?chat_room_id=${chatRoomId}&calendar_id=${calendarId}`
     );
     wsRef.current = ws;
 
@@ -76,7 +86,6 @@ const ClientPage = () => {
   }, [chatRoomId]);
 
   const sendMessage = () => {
-    console.log(input);
     if (!input.trim()) return;
 
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
@@ -87,13 +96,27 @@ const ClientPage = () => {
       };
       wsRef.current.send(JSON.stringify(messagePayload));
       setInput("");
+
+      setTimeout(scrollToBottom, 100);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    // 한글 IME 조합 중인지 확인 (isComposing 또는 keyCode 229)
+    if (e.nativeEvent.isComposing || e.keyCode === 229) {
+      return; // 조합 중이면 아무 작업도 하지 않음
+    }
+
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
     }
   };
 
   return (
     <CalendarLayout>
       <div className="flex flex-col h-screen bg-[#FFFCF0] px-[6px]">
-        <div className="flex-1 overflow-y-auto p-4">
+        <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4">
           {isLoading ? (
             <div className="loading spinner " />
           ) : (
@@ -116,7 +139,6 @@ const ClientPage = () => {
                     )
                   : null;
 
-                // 날짜가 바뀌었는지 확인
                 const showDateHeader =
                   !prevDate ||
                   currentDate.getFullYear() !== prevDate.getFullYear() ||
@@ -124,7 +146,7 @@ const ClientPage = () => {
                   currentDate.getDate() !== prevDate.getDate();
 
                 return (
-                  <>
+                  <React.Fragment key={index}>
                     {showDateHeader && (
                       <div className="flex justify-center my-4">
                         <div className="bg-[#49494930] text-[#494949] text-xs px-3 py-1 my-[10px] rounded-full">
@@ -135,7 +157,6 @@ const ClientPage = () => {
                       </div>
                     )}
                     <div
-                      key={index}
                       className={`flex items-center mb-4 ${
                         isMyMessage ? "justify-end" : "justify-start"
                       }`}
@@ -184,12 +205,12 @@ const ClientPage = () => {
                         </div>
                       </div>
                     </div>
-                  </>
+                  </React.Fragment>
                 );
               })}
+              <div ref={messageEndRef} />
             </>
           )}
-          <div ref={messageEndRef} />
         </div>
 
         <div className="px-4 pb-4">
@@ -199,6 +220,7 @@ const ClientPage = () => {
                 <textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyPress}
                   placeholder="메시지를 입력하세요..."
                   className="w-full px-[18px] h-[64px] mt-[5px] outline-none rounded bg-transparent text-[15px] placeholder:opacity-50 focus:outline-none resize-none"
                 />

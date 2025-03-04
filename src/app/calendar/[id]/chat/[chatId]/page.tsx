@@ -27,8 +27,9 @@ export default async function Home(req: any) {
 
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: [QueryKeys.GET_CHAT_MESSAGES, id],
-      queryFn: () => useChatQueries.getChatMessages(id, accessToken),
+      queryKey: [QueryKeys.GET_CHAT_MESSAGES, id, calendarId],
+      queryFn: () =>
+        useChatQueries.getChatMessages(id, calendarId, accessToken),
     }),
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_USER],

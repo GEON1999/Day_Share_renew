@@ -209,7 +209,8 @@ const TOGGLE_LIKE = (query) => `/api/like${query ? `?${query}` : ""}`;
 const GET_CHAT_ROOM = (query) => `/api/chat/rooms${query ? `?${query}` : ""}`;
 
 // 채팅 조회
-const GET_CHAT_MESSAGES = (chatId) => `/api/chat/messages/${chatId}`;
+const GET_CHAT_MESSAGES = (chatId, calendarId) =>
+  `/api/chat/messages/${chatId}/calendarId/${calendarId}`;
 
 // 채팅룸 리스트 조회
 const GET_CHAT_ROOMS = (query) => `/api/chat/rooms${query ? `?${query}` : ""}`;

@@ -5,7 +5,10 @@ import rqOption from "@/server/rqOption";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
-export async function GET(req: any, res: { params: { chatId?: string } }) {
+export async function GET(
+  req: any,
+  res: { params: { chatId?: string; calendarId?: string } }
+) {
   const session = await getServerSession(authOptions);
   const accessToken = session?.accessToken;
 
@@ -17,6 +20,7 @@ export async function GET(req: any, res: { params: { chatId?: string } }) {
   }
 
   const chatId = res.params.chatId;
+  const calendarId = res.params.calendarId;
   if (!chatId) {
     return NextResponse.json(
       { error: "Failed to fetch data" },
@@ -26,7 +30,7 @@ export async function GET(req: any, res: { params: { chatId?: string } }) {
 
   try {
     const data = await axios.get(
-      `${process.env.BASE_URL}${API.GET_CHAT_MESSAGES(chatId)}`,
+      `${process.env.BASE_URL}${API.GET_CHAT_MESSAGES(chatId, calendarId)}`,
       rqOption.apiHeader(accessToken)
     );
 

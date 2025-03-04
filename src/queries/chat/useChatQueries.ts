@@ -13,8 +13,13 @@ const getChatRoom = async (queries: string) => {
   return data;
 };
 
-const getChatMessages = async (chatId: string, accessToken?: any) => {
-  const url = Helper.CURRENT_BASE_URL() + API.GET_CHAT_MESSAGES(chatId);
+const getChatMessages = async (
+  chatId: string,
+  calendarId: string,
+  accessToken?: any
+) => {
+  const url =
+    Helper.CURRENT_BASE_URL() + API.GET_CHAT_MESSAGES(chatId, calendarId);
   const config =
     typeof window === "undefined"
       ? rqOption.apiHeader(accessToken)
@@ -23,10 +28,10 @@ const getChatMessages = async (chatId: string, accessToken?: any) => {
   return data;
 };
 
-const useGetChatMessages = (chatId: string) => {
+const useGetChatMessages = (chatId: string, calendarId: string) => {
   return useQuery({
-    queryKey: [QueryKeys.GET_CHAT_MESSAGES, chatId],
-    queryFn: () => getChatMessages(chatId),
+    queryKey: [QueryKeys.GET_CHAT_MESSAGES, chatId, calendarId],
+    queryFn: () => getChatMessages(chatId, calendarId),
   });
 };
 
