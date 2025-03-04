@@ -6,7 +6,7 @@ import { slideData } from "@/app/data/slideData";
 import { useSession } from "next-auth/react";
 
 const Page = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -19,18 +19,17 @@ const Page = () => {
   };
 
   const handleStart = () => {
-    if (session) {
-      router.push("/home");
-    } else {
-      router.push("/login");
+    if (status === "authenticated") {
+      if (session) {
+        router.push("/home");
+      } else {
+        router.push("/login");
+      }
     }
   };
 
   const handlePreview = () => {
-    window.open(
-      "https://geon1999.github.io/DayShare_product_detail/",
-      "_blank"
-    );
+    router.push("/info");
   };
 
   return (

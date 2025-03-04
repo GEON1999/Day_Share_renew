@@ -45,3 +45,5 @@ fs.readdir(svgDirectory, (err, files) => {
     }
   });
 });
+
+// node updateSvgClasses.js
