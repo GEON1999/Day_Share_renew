@@ -20,7 +20,6 @@ const CreateContentHome = ({
   const currentPage = useSearch.useSearchCreateContentHomePage();
   const { data: calendarData, isLoading } =
     useCalendarQueries.useGetCalendarList(`page=${currentPage}`);
-  console.log("calendarData :", calendarData);
 
   const handleClickCalendar = (calendarId: number) => {
     router.push(

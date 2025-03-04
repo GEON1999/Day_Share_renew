@@ -28,7 +28,6 @@ const UserProfileSection = () => {
       `calendarId=${calendarId}&user_a=${session.data?.user?.id}&user_b=${profileId}`,
       {
         onSuccess: (data) => {
-          console.log("data :", data);
           router.push(`/calendar/${calendarId}/chat/${data.chat_room_id}`);
         },
       }

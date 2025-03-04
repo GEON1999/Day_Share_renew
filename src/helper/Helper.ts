@@ -169,7 +169,6 @@ const cleanContent = (content: any) => {
 const setAt = ({ startAt, endAt, startTime, endTime }: any) => {
   const startDate = new Date(Number(startAt));
   const endDate = new Date(Number(endAt));
-  console.log(startDate, endDate);
 
   const [startHours, startMinutes] = startTime.split(":");
   const [endHours, endMinutes] = endTime.split(":");

@@ -72,14 +72,6 @@ const ClientPage = () => {
       }
     };
 
-    ws.onclose = () => {
-      console.log("웹소켓 연결 종료");
-    };
-
-    ws.onerror = (error) => {
-      console.error("웹소켓 에러:", error);
-    };
-
     return () => {
       ws.close();
     };

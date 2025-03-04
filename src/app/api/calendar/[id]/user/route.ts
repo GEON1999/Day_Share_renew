@@ -52,7 +52,6 @@ export async function PUT(req: any, res: { params: { id?: string } }) {
   }
   const id = res.params.id;
   const body = await req.json();
-  console.log("body", body, id);
 
   try {
     const data = await axios.put(

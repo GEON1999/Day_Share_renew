@@ -20,7 +20,6 @@ const updateTodo = async ({ calendarId, todoId, body }: any) => {
     `${BASE_URL}${API.UPDATE_TODO(calendarId, todoId)}`,
     body
   );
-  console.log("result data", data);
   return data;
 };
 

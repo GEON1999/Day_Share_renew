@@ -43,7 +43,6 @@ function CalendarImgCrop({
   };
 
   const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
       reader.addEventListener("load", () => setSrc(reader.result as string));

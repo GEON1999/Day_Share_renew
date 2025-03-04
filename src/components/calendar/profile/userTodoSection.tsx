@@ -17,7 +17,6 @@ const UserTodoSection = () => {
     query
   );
 
-  console.log(calendarUser);
   return (
     <section className="w-[300px] lg:w-[580px] mt-[15px] lg:mt-0">
       <div className="relative">

@@ -18,11 +18,6 @@ export async function POST(req: any, res: { params: { id?: string } }) {
 
   const queries = `${req.nextUrl.searchParams.toString()}`;
 
-  console.log(
-    " `${process.env.BASE_URL}${API.GET_CHAT_ROOM(queries)}`, :",
-    `${process.env.BASE_URL}${API.GET_CHAT_ROOM(queries)}`
-  );
-
   try {
     const data = await axios.post(
       `${process.env.BASE_URL}${API.GET_CHAT_ROOM(queries)}`,

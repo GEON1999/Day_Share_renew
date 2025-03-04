@@ -37,7 +37,6 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
     const formData = { ...data, img: image };
     createCalendar(formData, {
       onSuccess: (result) => {
-        console.log("result:", result);
         if (result) {
           showAlert("달력이 생성되었습니다.", "success");
           window.location.reload();
@@ -58,7 +57,6 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
   const onInviteSubmit = (data: any) => {
     getInvtedCalendar(data.code, {
       onSuccess: (result) => {
-        console.log("result:", result);
         if (result) {
           showAlert("달력에 참가되었습니다.", "success");
           window.location.reload();

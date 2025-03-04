@@ -22,7 +22,6 @@ const TodoPagination = ({ total_count }: any) => {
     if (total_count <= Number(currentTodoPage) * 4) return;
     params.set("todo_page", String(Number(currentTodoPage) + 1));
 
-    console.log("params", params.toString());
     router.push(`${pathName}?${params.toString()}`);
   };
   return (

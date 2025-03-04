@@ -4,7 +4,6 @@ import API from "@/server/API";
 
 export async function POST(req: any) {
   const body = await req.json();
-  console.log("body", body);
 
   try {
     const data = await axios.post(`${process.env.BASE_URL}${API.SIGNUP}`, body);

@@ -46,7 +46,6 @@ const deleteUserFavoriteTodo = async () => {
 
 // update user calendar order
 const updateUserCalendarOrder = async (orders: any) => {
-  console.log("orders :", orders);
   const { data } = await axios.put(
     Helper.CURRENT_URL() + API.UPDATE_USER_CALENDAR_ORDER,
     orders
@@ -65,7 +64,6 @@ const updateUserPassword = async (body: any) => {
 
 // update user emotion
 const updateUserEmotion = async (body: any) => {
-  console.log(body);
   const { data } = await axios.put(
     Helper.CURRENT_URL() + API.UPDATE_USER_EMOTION,
     body

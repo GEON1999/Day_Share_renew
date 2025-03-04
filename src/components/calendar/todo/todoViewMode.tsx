@@ -108,7 +108,6 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   });
 
   const handleClickDeleteTodo = () => {
-    console.log(sessionId, data?.userId);
     if (sessionId === data?.userId) {
       setIsTodoModalOpen(true);
     } else {

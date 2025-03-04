@@ -73,7 +73,6 @@ export const authOptions = {
             return null;
           }
         } catch (e) {
-          console.log("error:", e);
           return NextResponse.redirect("/login");
         }
       },
