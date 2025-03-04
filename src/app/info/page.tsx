@@ -18,12 +18,12 @@ const Page = () => {
 
   const router = useRouter();
   const handleStart = () => {
-    if (status === "authenticated") {
-      if (session) {
-        router.push("/home");
-      } else {
-        router.push("/login");
-      }
+    if (status === "loading") {
+      return;
+    } else if (status === "authenticated") {
+      router.push("/home");
+    } else {
+      router.push("/login");
     }
   };
 
