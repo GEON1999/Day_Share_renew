@@ -1,5 +1,12 @@
 import TodoItem from "@/components/calendar/todoItem";
 import React from "react";
+import Helper from "@/helper/Helper";
+
+// 공휴일 인터페이스 정의
+interface Holiday {
+  date: string;
+  name: string;
+}
 
 const CalendarCell = React.memo(
   ({
@@ -11,6 +18,7 @@ const CalendarCell = React.memo(
     handleClickDate,
     clickedDay,
     getDayData,
+    holidays,
   }: any) => {
     if (!dateObj) return <td key={dayIndex} className="p-0"></td>;
 
@@ -27,15 +35,36 @@ const CalendarCell = React.memo(
       isToday = currentDateUTC.toISOString() === todayUTC.toISOString();
     }
 
+    // 공휴일 확인
+    const currentDateString = `${year}-${String(month + 1).padStart(
+      2,
+      "0"
+    )}-${String(day).padStart(2, "0")}`;
+    const holiday = holidays?.find(
+      (h: Holiday) => h.date === currentDateString
+    );
+    const isHolidayDate = !!holiday;
+
     const dayData = getDayData(day);
     const { diaryCount, todoCount, todoTitles } = dayData;
     const isClicked = clickedDay === day && currentMonth;
+    const koreanHoliday = Helper.getKoreanHolidays(holiday?.name);
+
+    const combinedTitles = [
+      ...(isHolidayDate && holiday
+        ? [{ title: koreanHoliday, isHoliday: true }]
+        : []),
+      ...todoTitles.map((title: string) => ({ title, isHoliday: false })),
+    ];
+
+    const displayTitles = combinedTitles.slice(0, 2);
+    const totalCount = combinedTitles.length;
 
     const dateStyle = `flex items-center justify-center w-[20px] h-[20px] lg:w-[30px] lg:h-[30px] text-[12px] lg:text-[18px] ${
-      currentMonth && dayIndex === 0
-        ? "text_red"
-        : !currentMonth && dayIndex === 0
-        ? "text_red opacity-40"
+      currentMonth && (dayIndex === 0 || isHolidayDate)
+        ? "text-[#E55A5A]"
+        : !currentMonth && (dayIndex === 0 || isHolidayDate)
+        ? "text-[#E55A5A] opacity-40"
         : !currentMonth && dayIndex !== 0
         ? "opacity-40"
         : ""
@@ -63,21 +92,27 @@ const CalendarCell = React.memo(
             ></div>
             <div
               className={`absolute w-[42.85px] lg:w-[89.86px] overflow-hidden -right-[0px] space-y-[5px] text-left text-[10px] lg:text-[13px] text-[#E55A5A] noto-sans-text ${
-                todoCount >= 2
+                totalCount >= 2
                   ? "top-[44px] lg:top-[52px]"
                   : "top-[44px] lg:top-[90px]"
               }`}
             >
               {currentMonth &&
-                todoTitles.map((title: string, index: number) => (
-                  <TodoItem
-                    key={index}
-                    title={title}
-                    isFirst={index === 0}
-                    todoCount={todoCount}
-                    index={index}
-                  />
-                ))}
+                displayTitles.map(
+                  (
+                    item: { title: string; isHoliday: boolean },
+                    index: number
+                  ) => (
+                    <TodoItem
+                      key={index}
+                      title={item.title}
+                      isFirst={index === 0}
+                      todoCount={totalCount}
+                      index={index}
+                      isHoliday={item.isHoliday}
+                    />
+                  )
+                )}
             </div>
           </div>
         </div>

@@ -10,6 +10,9 @@ import generateCalendar from "@/components/calendar/generateCalendar";
 import CalendarHeader from "@/components/calendar/calendarHeader";
 import CalendarNavigation from "@/components/calendar/calendarNavigation";
 import CalendarCell from "@/components/calendar/calednarCell";
+import { useQuery } from "@tanstack/react-query";
+import QueryKeys from "@/keys/QueryKeys";
+import { Holiday } from "@/utils/holidayUtils";
 
 const Calendar = () => {
   const {
@@ -32,6 +35,18 @@ const Calendar = () => {
   const [month, setMonth] = useState(
     currentDate?.getMonth() ?? today.getMonth()
   );
+
+  const { data: holidays = [] } = useQuery<Holiday[]>({
+    queryKey: [QueryKeys.GET_HOLIDAYS, year],
+    queryFn: async () => {
+      const response = await fetch(`/api/holidays?year=${year}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch holidays");
+      }
+      return response.json();
+    },
+    staleTime: 1000 * 60 * 60 * 24,
+  });
 
   const calendar = useMemo(() => generateCalendar(year, month), [year, month]);
 
@@ -165,6 +180,7 @@ const Calendar = () => {
                         handleClickDate={handleClickDate}
                         clickedDay={clickedDay}
                         getDayData={getDayData}
+                        holidays={holidays}
                       />
                     ))}
                   </tr>

@@ -7,12 +7,19 @@ const TodoItem = React.memo(
     isFirst,
     todoCount,
     index,
+    isHoliday = false,
   }: {
     title: string;
     isFirst: boolean;
     todoCount: number;
     index: number;
+    isHoliday?: boolean;
   }) => {
+    const bgColor = isHoliday ? "bg-[#E55A5A]" : "bg-[#F6BEBE]";
+    const bgColorLight = isHoliday ? "bg-[#E55A5A50]" : "bg-[#F6BEBE50]";
+    const textColor = isHoliday ? "text-[#E55A5A]" : "";
+    const textSize = isHoliday ? "text-[10px]" : "text-[10px] lg:text-[13px]";
+
     if (
       todoCount === 1 ||
       (todoCount === 2 && index === 0) ||
@@ -20,9 +27,13 @@ const TodoItem = React.memo(
     ) {
       return (
         <div className="h-[15px] lg:h-[33px] flex">
-          <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-          <div className="bg-[#F6BEBE50] w-full h-full pl-[3px] lg:pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
-            {Helper.cutString(title, 5)}
+          <div className={`${bgColor} w-[5px] h-full`}></div>
+          <div
+            className={`${bgColorLight} w-full h-full pl-[2px] lg:pl-[4px] flex items-center overflow-hidden whitespace-nowrap ${textColor} ${textSize}`}
+          >
+            {isHoliday
+              ? Helper.cutString(title, 8)
+              : Helper.cutString(title, 5)}
           </div>
         </div>
       );
@@ -31,9 +42,15 @@ const TodoItem = React.memo(
     if ((todoCount === 2 && index === 1) || (todoCount >= 3 && index === 1)) {
       return (
         <div className="h-[15px] lg:h-[33px] hidden lg:flex">
-          <div className="bg-[#F6BEBE] w-[5px] h-full"></div>
-          <div className="bg-[#F6BEBE50] w-full h-full pl-[3px] lg:pl-[7px] flex items-center overflow-hidden whitespace-nowrap">
-            {todoCount >= 3 ? `+${todoCount - 1}` : Helper.cutString(title, 5)}
+          <div className={`${bgColor} w-[5px] h-full`}></div>
+          <div
+            className={`${bgColorLight} w-full h-full pl-[2px] lg:pl-[4px] flex items-center overflow-hidden whitespace-nowrap ${textColor} ${textSize}`}
+          >
+            {isHoliday
+              ? Helper.cutString(title, 8)
+              : todoCount >= 3
+              ? `+${todoCount - 1}`
+              : Helper.cutString(title, 5)}
           </div>
         </div>
       );

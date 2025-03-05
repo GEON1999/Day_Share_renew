@@ -208,6 +208,17 @@ const cutString = (str: string, maxLength: number) => {
   return str.length > maxLength ? `${str.slice(0, maxLength)} ...` : str;
 };
 
+const getKoreanHolidays = (title: string) => {
+  if (!title) return "";
+
+  if (title.includes("쉬는 날")) {
+    // "쉬는 날 삼일절" -> "삼일절 대체공휴일"
+    const holidayName = title.replace("쉬는 날", "").trim();
+    return `${holidayName} 대체공휴일`;
+  }
+  return title;
+};
+
 export default {
   CURRENT_URL,
   CURRENT_BASE_URL,
@@ -229,4 +240,5 @@ export default {
   formatDateForTodoDetail,
   cutString,
   formatDateForChat,
+  getKoreanHolidays,
 };

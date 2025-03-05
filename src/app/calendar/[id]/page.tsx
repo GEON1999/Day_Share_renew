@@ -12,6 +12,8 @@ import { redirect } from "next/navigation";
 import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useTodoQueries from "@/queries/todo/useTodoQueries";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
+import axios from "axios";
+import { getKoreanHolidays } from "@/utils/holidayUtils";
 
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
@@ -40,6 +42,13 @@ export default async function Home(req: any) {
   const diaryQueries = `${date}&${diaryPage}`;
 
   const id = req.params.id;
+  const calendarId = encodeURIComponent(
+    "ko.south_korea#holiday@group.v.calendar.google.com"
+  );
+
+  const currentYear = new Date().getFullYear();
+
+  const holidays = await getKoreanHolidays(currentYear);
 
   await Promise.all([
     queryClient.prefetchQuery({
@@ -72,6 +81,11 @@ export default async function Home(req: any) {
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_BASIC, id],
       queryFn: () => useCalendarQueries.getCalendarBasic(id, accessToken),
+    }),
+    // 공휴일 정보 프리패칭 추가
+    queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_HOLIDAYS, currentYear],
+      queryFn: () => Promise.resolve(holidays),
     }),
   ]);
 
