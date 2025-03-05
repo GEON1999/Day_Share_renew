@@ -36,7 +36,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   const todoId = useSearch.useSearchQueryTodoId();
   const query = `contentType=todo&contentId=${todoId}`;
   const { showAlert } = useAlert();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const sessionId = Number(session?.user?.id);
 
   const menuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
@@ -108,6 +108,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   });
 
   const handleClickDeleteTodo = () => {
+    if (status === "loading") return;
     if (sessionId === data?.userId) {
       setIsTodoModalOpen(true);
     } else {
@@ -116,6 +117,10 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   };
 
   const onCommentSubmit = (data: any) => {
+    if (data.content === "") {
+      showAlert("댓글을 입력해주세요.", "error");
+      return;
+    }
     if (isCommentSubmit) return;
     setIsCommentSubmit(true);
     createComment(
@@ -148,6 +153,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   };
 
   const handleClickDeleteComment = (comment: any) => {
+    if (status === "loading") return;
     if (sessionId == comment.comment.userId) {
       deleteComment(
         { calendarId: id, commentId: comment.comment.id },
@@ -171,6 +177,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   };
 
   const handleEditorMode = () => {
+    if (status === "loading") return;
     if (sessionId === data?.userId) {
       setEditorMode(true);
     } else {
@@ -202,6 +209,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
   };
 
   const handleEditClick = (comment: any) => {
+    if (status === "loading") return;
     if (sessionId === comment.userId) {
       setEditingCommentId(comment.id);
       setActiveCommentId(null);

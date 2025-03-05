@@ -44,6 +44,14 @@ const TodoEditMode = ({ setEditorMode }: any) => {
     mutationFn: useTodoMutations.updateTodo,
   });
   const onSubmit = (formData: any) => {
+    if (formData.title === "") {
+      showAlert("제목을 입력해주세요.", "error");
+      return;
+    }
+    if (formData.title.length > 10) {
+      showAlert("제목은 10자 이하로 입력해주세요.", "error");
+      return;
+    }
     if (isSubmit) return;
     setIsSubmit(true);
     const startAtUTC = dayjs(startTime).format();
@@ -95,13 +103,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
               제목
             </label>
             <input
-              {...register("title", {
-                required: "제목을 입력해주세요.",
-                maxLength: {
-                  value: 10,
-                  message: "제목은 10자 이하로 입력해주세요.",
-                },
-              })}
+              {...register("title", {})}
               defaultValue={data?.title}
               type="text"
               className="w-[220px] lg:w-[381px] h-[30px] text_base bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
@@ -161,7 +163,7 @@ const TodoEditMode = ({ setEditorMode }: any) => {
               설명
             </label>
             <textarea
-              {...register("content", { required: true })}
+              {...register("content")}
               defaultValue={data?.content}
               className="w-[220px] lg:w-[381px] h-[133px] text_base bor rounded-md px-[10px] py-[6px] outline-none placeholder:text-[#C2BFBC]"
               placeholder="일정에 필요한 설명을 남겨보세요."
