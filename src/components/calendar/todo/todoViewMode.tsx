@@ -288,7 +288,7 @@ const TodoViewMode = ({ setEditorMode }: any) => {
                   {data?.content}
                 </p>
               </div>
-              <div className="border-l absolute left-[10px] top-[30px] h-[128px] w-[1px]" />
+              <div className="border-l absolute left-[10px] lg:left-[19px] top-[30px] h-[128px] w-[1px]" />
               <div className="flex items-center justify-between mt-[5px] px-[3px] lg:px-[10px] noto-sans-text">
                 <div className="flex items-center">
                   <img

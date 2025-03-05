@@ -99,7 +99,7 @@ const Page = () => {
             함께 쓰고 나누는 일기, 추억까지 함께하세요!
           </p>
           <img
-            src="/Images/todo_example.png"
+            src="/Images/diary_example.png"
             alt="diary_example"
             className="w-full max-w-[1420px] mt-[30px] lg:mt-[40px]"
           />
