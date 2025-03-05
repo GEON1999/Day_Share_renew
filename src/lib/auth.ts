@@ -72,8 +72,10 @@ export const authOptions = {
           } else {
             return null;
           }
-        } catch (e) {
-          return NextResponse.redirect("/login");
+        } catch (e: any) {
+          throw new Error(
+            e.response?.data?.detail?.message || "로그인에 실패했습니다."
+          );
         }
       },
     }),

@@ -34,7 +34,7 @@ function SignupClientPage() {
     }
     setIsSubmit(true);
     if (formData.password !== formData.password_check) {
-      alert("비밀번호가 일치하지 않습니다.");
+      showAlert("비밀번호가 일치하지 않습니다.", "error");
       return;
     }
     const submitData = {
@@ -49,7 +49,7 @@ function SignupClientPage() {
         router.push("/login");
         setIsSubmit(false);
       },
-      onError: () => {
+      onError: (e: any) => {
         showAlert("회원가입에 실패했습니다.", "error");
         setIsSubmit(false);
       },

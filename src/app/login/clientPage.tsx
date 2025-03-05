@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { IconCheck_o, IconCheck_x, IconKakao, IconLogo } from "@/icons";
 import { useAlert } from "@/components/alert/AlertContext";
@@ -11,6 +11,8 @@ function LoginClientPage() {
   const router = useRouter();
   const { handleSubmit, register } = useForm();
   const { showAlert } = useAlert();
+  const searchParams = useSearchParams();
+  const error = searchParams.get("error");
 
   const onSubmit = async (formData: any) => {
     const result = await signIn("credentials", {
@@ -24,7 +26,7 @@ function LoginClientPage() {
       showAlert("로그인에 성공했습니다.", "success");
       router.push("/home");
     } else if (result?.error) {
-      showAlert("로그인에 실패했습니다.", "error");
+      showAlert(result?.error, "error");
     }
   };
 
