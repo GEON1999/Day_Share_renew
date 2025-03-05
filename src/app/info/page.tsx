@@ -63,7 +63,7 @@ const Page = () => {
           )}
         </button>
         <img
-          src="/images/home.png"
+          src="/Images/home.png"
           alt="home"
           className="w-full max-w-[800px] lg:max-w-[1600px] mt-[50px] lg:mt-[100px]"
         />
@@ -80,7 +80,7 @@ const Page = () => {
             함께 일정을 등록하고 공유하며, 댓글로 소통해보세요!
           </p>
           <img
-            src="/images/todo_example.png"
+            src="/Images/todo_example.png"
             alt="todo_example"
             className="w-full max-w-[1420px] mt-[30px] lg:mt-[40px]"
           />
@@ -88,7 +88,7 @@ const Page = () => {
 
         <div className="flex flex-col items-center mt-[100px] lg:mt-[190px]">
           <img
-            src="/images/diary.png"
+            src="/Images/diary.png"
             alt="diary_icon"
             className="w-[45px] h-[38px] lg:w-[67.79px] lg:h-[56.49px]"
           />
@@ -99,7 +99,7 @@ const Page = () => {
             함께 쓰고 나누는 일기, 추억까지 함께하세요!
           </p>
           <img
-            src="/images/todo_example.png"
+            src="/Images/todo_example.png"
             alt="diary_example"
             className="w-full max-w-[1420px] mt-[30px] lg:mt-[40px]"
           />
@@ -114,7 +114,7 @@ const Page = () => {
             친구과 실시간으로 대화하며 일정도, 일상도 함께 나누세요
           </p>
           <img
-            src="/images/chat_example.png"
+            src="/Images/chat_example.png"
             alt="chat_example"
             className="w-full max-w-[1420px] mt-[30px] lg:mt-[40px]"
           />
@@ -142,7 +142,7 @@ const Page = () => {
           <div className="flex flex-col items-center transition-transform hover:scale-105">
             <div className="bg-[#FFF5F5] p-4 lg:p-6 rounded-2xl shadow-md">
               <img
-                src="/images/emotion_angry.png"
+                src="/Images/emotion_angry.png"
                 alt="emotion_angry"
                 className="w-[150px] h-[160px] md:w-[220px] md:h-[230px] lg:w-[280px] lg:h-[290px]"
               />
@@ -154,7 +154,7 @@ const Page = () => {
           <div className="flex flex-col items-center transition-transform hover:scale-105">
             <div className="bg-[#FFF5F5] p-4 lg:p-6 rounded-2xl shadow-md">
               <img
-                src="/images/emotion_joy.png"
+                src="/Images/emotion_joy.png"
                 alt="emotion_happy"
                 className="w-[150px] h-[160px] md:w-[220px] md:h-[230px] lg:w-[280px] lg:h-[290px]"
               />
@@ -166,7 +166,7 @@ const Page = () => {
           <div className="flex flex-col items-center transition-transform hover:scale-105">
             <div className="bg-[#FFF5F5] p-4 lg:p-6 rounded-2xl shadow-md">
               <img
-                src="/images/emotion_sad.png"
+                src="/Images/emotion_sad.png"
                 alt="emotion_sad"
                 className="w-[150px] h-[160px] md:w-[220px] md:h-[230px] lg:w-[280px] lg:h-[290px]"
               />
@@ -178,7 +178,7 @@ const Page = () => {
           <div className="flex flex-col items-center transition-transform hover:scale-105">
             <div className="bg-[#FFF5F5] p-4 lg:p-6 rounded-2xl shadow-md">
               <img
-                src="/images/emotion_normal.png"
+                src="/Images/emotion_normal.png"
                 alt="emotion_normal"
                 className="w-[150px] h-[160px] md:w-[220px] md:h-[230px] lg:w-[280px] lg:h-[290px]"
               />
@@ -198,7 +198,7 @@ const Page = () => {
         </p>
         <div className="mt-[30px] lg:mt-[40px] bg-[#FFF5F5] p-4 lg:p-8 rounded-2xl shadow-lg max-w-[1200px] w-full">
           <img
-            src="/images/daymate_example.png"
+            src="/Images/daymate_example.png"
             alt="daymate_example"
             className="w-full"
           />
@@ -208,7 +208,7 @@ const Page = () => {
       {/* 앱 소개 */}
       <section className="py-[100px] lg:py-[250px] bg-[#F1F1F1] w-full flex flex-col lg:flex-row justify-center items-center lg:space-x-[80px] px-4">
         <img
-          src="/images/phone.png"
+          src="/Images/phone.png"
           alt="phone"
           className="h-[400px] lg:h-[900px] mb-[50px] lg:mb-0"
         />
@@ -236,7 +236,7 @@ const Page = () => {
       {/* 팀원 소개 */}
       {/* <section className="py-[100px] bg-[#494949] w-full flex flex-col items-center">
         <h1 className="text-[40px] font-bold text-white">팀원 소개</h1>
-        <img src="/images/team.png" alt="team" className="" />
+        <img src="/Images/team.png" alt="team" className="" />
         
       </section> */}
     </div>
