@@ -49,6 +49,11 @@ const DiaryEditMode = ({ setEditorMode }: any) => {
       content: submitContent,
       img: thumnail ?? null,
     };
+    if (submitData.title === "") {
+      showAlert("제목을 입력해주세요.", "error");
+      setIsSubmit(false);
+      return;
+    }
     updateDiary(
       { calendarId: id, diaryId, body: submitData },
       {

@@ -42,6 +42,10 @@ const DiaryCreate = () => {
 
   const onSubmit = (formData: any) => {
     if (isSubmit) return;
+    if (formData?.title === "") {
+      showAlert("제목을 입력해주세요.", "error");
+      return;
+    }
     setIsSubmit(true);
     const thumnail = editor?.getHTML().split("<img")[1]?.split('"')[1];
     const submitContent = editor?.getHTML().replace(/<p><\/p>/g, "<p><br></p>");

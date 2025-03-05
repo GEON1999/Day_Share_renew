@@ -122,6 +122,10 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
   };
 
   const onCommentSubmit = (data: any) => {
+    if (data?.content === "") {
+      showAlert("댓글을 입력해주세요.", "error");
+      return;
+    }
     if (isCommentSubmit) return;
     setIsCommentSubmit(true);
     createComment(
@@ -365,10 +369,10 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                       ) : (
                         <div className="space-y-[5px] whitespace-pre-wrap">
                           <div className="flex items-center space-x-[10px]">
-                            <h1 className="font-bold">
+                            <h1 className="font-bold ">
                               {comment?.profile?.name}
                             </h1>
-                            <p className="opacity-50">
+                            <p className="opacity-50 text-[12px] lg:text-[16px]">
                               {Helper.formatDateForComment(
                                 comment?.comment?.createdAt
                               )}
@@ -440,9 +444,7 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
                 </div>
                 <div className="pr-1">
                   <textarea
-                    {...commentRegister("content", {
-                      required: "내용을 입력해 주세요.",
-                    })}
+                    {...commentRegister("content")}
                     className="w-full px-[18px] h-[40px] lg:h-[64px] mt-[5px] outline-none rounded bg-transparent text_base placeholder:opacity-50 focus:outline-none resize-none"
                     placeholder="댓글을 남겨보세요."
                   />

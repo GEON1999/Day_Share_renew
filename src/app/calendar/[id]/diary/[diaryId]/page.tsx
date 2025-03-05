@@ -12,6 +12,7 @@ import useCalendarQueries from "@/queries/calendar/useCalendarQueries";
 import useDiaryQueries from "@/queries/diary/useDiaryQueries";
 import useCommentQueries from "@/queries/comment/useCommentQueries";
 import useLikeQueries from "@/queries/like/useLikeQueries";
+import useUserQueries from "@/queries/user/useUserQueries";
 
 export default async function Home(req: any) {
   const session = await getServerSession(authOptions);
@@ -65,6 +66,10 @@ export default async function Home(req: any) {
     queryClient.prefetchQuery({
       queryKey: [QueryKeys.GET_CALENDAR_USER_INFO, id],
       queryFn: () => useCalendarQueries.getCalendarUserInfo(id, accessToken),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: [QueryKeys.GET_USER],
+      queryFn: () => useUserQueries.getUser(accessToken),
     }),
   ]);
 

@@ -130,6 +130,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
               className="w-[260px] lg:w-[300px] h-[50px] text-[20px] bor rounded-md p-3 outline-none my-[10px] text-center placeholder:text-[#C2BFBC]"
               type="text"
               placeholder="달력 이름"
+              {...register("name")}
             />
             <button
               type="submit"
@@ -163,7 +164,7 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
           >
             <input
               className="w-[260px] lg:w-[300px] h-[50px] text-[20px] bor rounded-md p-3 outline-none text-black my-[10px] text-center placeholder:text-[#C2BFBC]"
-              {...inviteRegister("code", { required: true })}
+              {...inviteRegister("code")}
               type="text"
               placeholder="초대코드"
             />
