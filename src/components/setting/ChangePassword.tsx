@@ -17,6 +17,10 @@ const ChangePassword = () => {
   });
 
   const onSubmit = async (formData: any) => {
+    if (formData.password === "" || formData.oldPassword === "") {
+      showAlert("비밀번호를 입력해주세요.", "error");
+      return;
+    }
     if (formData.password !== formData.password_check) {
       showAlert("비밀번호가 일치하지 않습니다.", "error");
       return;

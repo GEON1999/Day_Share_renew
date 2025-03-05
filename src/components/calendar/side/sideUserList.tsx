@@ -20,7 +20,7 @@ const SideUserList = ({ isSideOpen }: { isSideOpen: boolean }) => {
   const { showAlert } = useAlert();
 
   const { data: userData } = useGetUserQueries.useGetUser();
-  const { data: calendarUser } =
+  const { data: calendarUser, isLoading: calendarUserLoading } =
     useCalendarQueries.useGetCalendarPermission(id);
 
   const { data: userList, isLoading: userListLoading } =
@@ -57,6 +57,7 @@ const SideUserList = ({ isSideOpen }: { isSideOpen: boolean }) => {
       showAlert("자신은 추방할 수 없습니다.", "error");
       return;
     }
+    if (calendarUserLoading) return;
     if (calendarUser?.role !== "OWNER") {
       showAlert("추방 권한이 없습니다.", "error");
       return;

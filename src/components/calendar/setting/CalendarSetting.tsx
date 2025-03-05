@@ -11,63 +11,12 @@ import useCalendarMutations from "@/queries/calendar/useCalendarMutations";
 import ModalWrapper from "@/components/modal/ModalWrapper";
 import LeaveCalendar from "@/components/modal/LeaveCalendar";
 import { useAlert } from "@/components/alert/AlertContext";
+import InviteCodeSection from "@/components/calendar/setting/inviteCodeSection";
+import ProfileSection from "@/components/calendar/setting/profileSection";
 
-// 타입 정의
 interface CalendarFormData {
   name: string;
 }
-
-// 초대 코드 섹션 컴포넌트
-const InviteCodeSection = ({
-  inviteCode,
-  reloadInviteCode,
-  isInviteCodeSubmit,
-}: {
-  inviteCode?: { code: string };
-  reloadInviteCode: () => void;
-  isInviteCodeSubmit: boolean;
-}) => (
-  <div className="flex flex-col space-y-[3px] relative">
-    <label className="text_lg">초대코드</label>
-    <input
-      disabled
-      className="w-[260px] lg:w-[390px] h-[40px] lg:h-[50px] bor px-[19px] rounded-md focus:outline-none"
-      defaultValue={inviteCode?.code}
-      id="inviteCode"
-    />
-    <IconReload
-      className={`absolute right-[7px] lg:right-[16px] bottom-[10px] lg:bottom-[15px] w-[23px] h-[20px] ${
-        isInviteCodeSubmit ? "" : "cur"
-      }`}
-      onClick={reloadInviteCode}
-    />
-  </div>
-);
-
-// 서버 프로필 섹션 컴포넌트
-const ProfileSection = ({
-  calendarUserData,
-  handleChangeProfile,
-}: {
-  calendarUserData?: { name: string };
-  handleChangeProfile: () => void;
-}) => (
-  <div className="flex flex-col space-y-[3px] relative">
-    <label className="text_lg">서버 프로필</label>
-    <input
-      className="w-[260px] lg:w-[390px] h-[40px] lg:h-[50px] bor px-[19px] rounded-md focus:outline-none text-opacity-10 cursor-not-allowed bg-white"
-      defaultValue={calendarUserData?.name ?? ""}
-      disabled
-    />
-    <button
-      className="absolute right-[6px] lg:right-[16px] bottom-[5px] lg:bottom-[10px] w-[109px] h-[30px] cur rounded-full border-[0.8px] border-[#49494950] text_base hover:bg-[#49494910] hover:border-[#49494950]"
-      onClick={handleChangeProfile}
-      type="button"
-    >
-      프로필 변경
-    </button>
-  </div>
-);
 
 const CalendarSetting = () => {
   const router = useRouter();
