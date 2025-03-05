@@ -26,10 +26,10 @@ export async function POST(req: any) {
     );
 
     return NextResponse.json(data.data, { status: 200 });
-  } catch (error) {
-    console.error("API call error:", error);
+  } catch (error: any) {
+    console.error("API call error:", error?.response?.data);
     return NextResponse.json(
-      { error: "Failed to fetch data" },
+      { message: error?.response?.data?.detail?.message },
       { status: 500 }
     );
   }

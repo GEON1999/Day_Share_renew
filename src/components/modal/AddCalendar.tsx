@@ -37,15 +37,8 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
     const formData = { ...data, img: image };
     createCalendar(formData, {
       onSuccess: (result) => {
-        if (result) {
-          showAlert("달력이 생성되었습니다.", "success");
-          window.location.reload();
-        } else {
-          showAlert(
-            data?.data?.message ?? "달력 생성에 실패하였습니다.",
-            "error"
-          );
-        }
+        showAlert("달력이 생성되었습니다.", "success");
+        window.location.reload();
         setIsSubmit(false);
       },
       onError: () => {
@@ -55,17 +48,21 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
   };
 
   const onInviteSubmit = (data: any) => {
+    if (data?.code === "") {
+      showAlert("초대코드를 입력해주세요.", "error");
+      return;
+    }
     getInvtedCalendar(data.code, {
       onSuccess: (result) => {
-        if (result) {
-          showAlert("달력에 참가되었습니다.", "success");
-          window.location.reload();
-        } else {
-          showAlert(
-            data?.data?.message ?? "달력 참가에 실패하였습니다.",
-            "error"
-          );
-        }
+        console.log(result);
+        showAlert("달력에 참가되었습니다.", "success");
+        window.location.reload();
+      },
+      onError: (e: any) => {
+        showAlert(
+          e?.response?.data?.message ?? "초대코드를 확인해주세요.",
+          "error"
+        );
       },
     });
   };
@@ -131,7 +128,6 @@ const AddCalendarModal = ({ setIsOpen }: any) => {
             />
             <input
               className="w-[260px] lg:w-[300px] h-[50px] text-[20px] bor rounded-md p-3 outline-none my-[10px] text-center placeholder:text-[#C2BFBC]"
-              {...register("name", { required: true })}
               type="text"
               placeholder="달력 이름"
             />
