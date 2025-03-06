@@ -2,21 +2,21 @@
 
 import {
   IconLogoHoriz,
-  IconTodo,
   IconTodoNormal,
-  IconDiaryNormal,
   IconComment,
   IconLogo_sm,
 } from "@/icons";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { infoEmotionData } from "../data/infoEmotionData";
-import { TeamData } from "../data/teamData";
+import { infoEmotionData } from "@/app/data/infoEmotionData";
+import { TeamData } from "@/app/data/teamData";
+import { useAlert } from "@/components/alert/AlertContext";
+import { error } from "console";
 
 const Page = () => {
   const { data: session, status } = useSession();
-
+  const { showAlert } = useAlert();
   const router = useRouter();
   const handleStart = () => {
     if (status === "loading") {
@@ -33,6 +33,14 @@ const Page = () => {
       "https://apps.apple.com/kr/app/dayshare/id6651824394",
       "_blank"
     );
+  };
+
+  const handleEmailClick = (email: string, name: string, role: string) => {
+    if (email == "") {
+      showAlert("이메일이 없습니다.", "error");
+    } else {
+      window.location.href = `mailto:${email}?subject=안녕하세요,${role} ${name}님에게 문의드립니다.&body=안녕하세요, Day Share ${role} ${name}님에게 문의드립니다.%0A%0A`;
+    }
   };
 
   return (
@@ -201,24 +209,41 @@ const Page = () => {
       </section>
 
       {/* 팀원 소개 */}
-      <section className="py-[50px] lg:py-[100px] bg-[#494949] w-full flex flex-col items-center">
-        <h1 className="text-[28px] lg:text-[40px] font-bold text-white">
+      <section className="py-[50px] md:py-[80px] lg:py-[100px] bg-[#494949] w-full flex flex-col items-center">
+        <h1 className="text-[28px] md:text-[35px] lg:text-[40px] font-bold text-white">
           팀원 소개
         </h1>
-        <div className="flex flex-col justify-center items-center space-y-[40px] mt-[40px] lg:mt-[80px] px-4">
+        <div className="flex flex-col md:flex-row justify-center items-center space-y-[40px] md:space-y-0 md:space-x-[20px] mt-[40px] md:mt-[60px] lg:mt-[80px] px-4">
           {TeamData.map((team, index) => (
-            <div key={index} className="flex flex-col items-center relative ">
+            <div
+              key={index}
+              className="flex flex-col items-center relative cursor-pointer hover:scale-105 transition-transform duration-300"
+              onClick={() =>
+                handleEmailClick(team.email ?? "", team.name, team.role)
+              }
+              aria-label={`${team.name}에게 이메일 보내기`}
+              title={`${team.name}에게 이메일 보내기`}
+            >
               <div
-                className={`status_box transition-colors duration-300 shadow_box w-[280px] h-[300px] lg:w-[341px] lg:h-[358px] ${team.bg} hover:scale-105 cur`}
+                className={`status_box transition-colors duration-300 shadow_box w-[280px] h-[300px] md:w-[300px] md:h-[320px] lg:w-[341px] lg:h-[358px] ${team.bg}`}
               >
                 <img
                   src={team.image}
                   alt={team.name}
-                  className="w-[280px] h-[300px] lg:w-[341px] lg:h-[358px] absolute top-[25px] lg:top-[29px]"
+                  className="w-[280px] h-[300px] md:w-[300px] md:h-[320px] lg:w-[341px] lg:h-[358px] absolute top-[20px] md:top-[25px] lg:top-[29px]"
                 />
               </div>
-              <p className={`text_xl mt-[15px] ${team.color}`}>{team.name}</p>
-              <p className="text-white text_xl">{team.role}</p>
+              <p
+                className={`text-[18px] md:text-[20px] lg:text_xl mt-[15px] ${team.color}`}
+              >
+                {team.name}
+              </p>
+              <p className="text-white text-[18px] md:text-[20px] lg:text_xl">
+                {team.role}
+              </p>
+              <p className="text-white text-[14px] md:text-[16px] mt-1 opacity-70">
+                {team.email ?? "정보 없음"}
+              </p>
             </div>
           ))}
         </div>

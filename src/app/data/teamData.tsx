@@ -4,15 +4,17 @@ export interface TeamData {
   image: string;
   color: string;
   bg: string;
+  email?: string;
 }
 
 export const TeamData: TeamData[] = [
   {
     name: "박건",
-    role: "개발자",
+    role: "개발자 & 기획자",
     image: "/Images/team_1.png",
     color: "text-[#CDE4F9]",
     bg: "bg-[#CDE4F9]",
+    email: "phgst12@gmail.com",
   },
   {
     name: "차민경",
@@ -20,6 +22,7 @@ export const TeamData: TeamData[] = [
     image: "/Images/team_2.png",
     color: "text-[#FFF0A3]",
     bg: "bg-[#FFF0A3]",
+    email: "art4096@naver.com",
   },
   {
     name: "강보희",
