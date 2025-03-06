@@ -10,6 +10,8 @@ import {
   IconLogo,
   IconLogo_sm,
   IconTodo,
+  IconChat,
+  IconChatMobile,
 } from "@/icons";
 import ProfileSection from "@/components/main/profileSection";
 
@@ -26,7 +28,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
     () => router.push("/setting"),
     [router]
   );
-
+  const handleClickChat = useCallback(
+    () => router.push("/chatrooms"),
+    [router]
+  );
   const handleLogout = useCallback(async () => {
     await signOut();
   }, []);
@@ -68,26 +73,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
             />
           </div>
 
-          <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
-            <button
-              onClick={handleLogout}
-              aria-label="로그아웃"
-              className="btn_logout mt-[7px] lg:mt-[15px]"
-            >
-              <IconExit className="w-5 h-5 cur" />
-              <p>로그아웃</p>
-            </button>
-          </div>
-          <IconExitMobile
-            onClick={handleLogout}
-            aria-label="로그아웃"
-            className={`${
-              isOpen
-                ? "hidden"
-                : "cur w-[30px] h-[30px] rounded-full flex justify-center items-center lg:hidden mt-[50px]"
-            }`}
-          />
-
           <IconTodo
             onClick={toggleSidebar}
             aria-label="할 일 메뉴 열기"
@@ -101,6 +86,48 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
         <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
           <TodoSection />
         </div>
+        <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
+          <button
+            onClick={handleClickChat}
+            aria-label="채팅목록 페이지로 이동"
+            className="btn_logout mt-[7px] lg:mt-[15px]"
+          >
+            <IconChat
+              className={`w-5 h-5 cur transition-all duration-300    ${
+                isOpen ? "mt-0 " : ""
+              }`}
+            />
+            <p>채팅목록</p>
+          </button>
+        </div>
+        <IconChatMobile
+          onClick={handleClickChat}
+          aria-label="채팅목록 페이지로 이동"
+          className={`${
+            isOpen
+              ? "hidden"
+              : "cur w-[30px] h-[30px] rounded-full flex justify-center items-center lg:hidden mt-[50px]"
+          }`}
+        />
+        <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
+          <button
+            onClick={handleLogout}
+            aria-label="로그아웃"
+            className="btn_logout mt-[7px] lg:mt-[15px]"
+          >
+            <IconExit className="w-5 h-5 cur" />
+            <p>로그아웃</p>
+          </button>
+        </div>
+        <IconExitMobile
+          onClick={handleLogout}
+          aria-label="로그아웃"
+          className={`${
+            isOpen
+              ? "hidden"
+              : "cur w-[30px] h-[30px] rounded-full flex justify-center items-center lg:hidden mt-[50px]"
+          }`}
+        />
       </div>
     </aside>
   );

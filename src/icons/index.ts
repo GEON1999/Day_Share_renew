@@ -46,3 +46,5 @@ export { default as IconProfile } from "./profile.svg";
 export { default as IconBackspace } from "./backspace.svg";
 export { default as IconTodoNormal } from "./todo_n.svg";
 export { default as IconDiaryNormal } from "./diary_n.svg";
+export { default as IconChat } from "./chat.svg";
+export { default as IconChatMobile } from "./chat_m.svg";

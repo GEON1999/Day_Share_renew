@@ -22,16 +22,16 @@ const ChatPage = () => {
 
   return (
     <MainLayout>
-      <div className="flex flex-col h-screen bg-[#FFFCF0] p-[100px] justify-start items-center">
-        <div className="flex flex-col w-[800px] ">
+      <div className="flex flex-col h-screen bg-[#FFFCF0] py-15 px-5 lg:p-[100px] justify-start items-center">
+        <div className="flex flex-col w-full max-w-[800px]">
           {chatRooms.map((chatRoom: any, index: number) => {
             return (
               <div
                 key={chatRoom.chat_room.id}
-                className={`flex items-center border-b py-4 px-2 cur`}
+                className={`flex items-center border-b py-3 sm:py-4 px-2 cur`}
                 onClick={() => handleChatRoomClick(chatRoom.chat_room)}
               >
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2 sm:space-x-3 w-full">
                   <img
                     src={
                       chatRoom.user_info.img === "" ||
@@ -40,26 +40,28 @@ const ChatPage = () => {
                         : chatRoom.user_info.img
                     }
                     alt="Profile"
-                    className="w-[50px] h-[50px] rounded-full bor"
+                    className="w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full bor"
                   />
-                  <div className="flex flex-col">
-                    <div className="flex space-x-3 items-center">
-                      <div>{chatRoom.user_info.name}</div>
-                      <div className="text-xs text-[#49494950]">
+                  <div className="flex flex-col flex-1 overflow-hidden">
+                    <div className="flex space-x-2 sm:space-x-3 items-center">
+                      <div className="text-sm sm:text-base font-medium">
+                        {chatRoom.user_info.name}
+                      </div>
+                      <div className="text-[10px] sm:text-xs text-[#49494950]">
                         {Helper.formatDateForComment(
                           chatRoom.chat_room.updated_at
                         )}
                       </div>
                     </div>
-                    <div className="max-w-[400px] truncate">
-                      {chatRoom.last_message.content}
+                    <div className="max-w-full text-sm truncate">
+                      {chatRoom?.last_message?.content}
                     </div>
                   </div>
                 </div>
               </div>
             );
           })}
-          <div className="flex justify-center mt-10">
+          <div className="flex justify-center mt-6 sm:mt-10">
             <ChatRoomPagination total_count={chatRooms.length} />
           </div>
         </div>
