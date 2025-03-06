@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { infoEmotionData } from "../data/infoEmotionData";
+import { TeamData } from "../data/teamData";
 
 const Page = () => {
   const { data: session, status } = useSession();
@@ -139,54 +140,20 @@ const Page = () => {
         </p>
 
         <div className="flex flex-wrap justify-center mt-[40px] lg:mt-[70px] gap-4 lg:space-x-[20px]">
-          <div className="flex flex-col items-center transition-transform hover:scale-105">
-            <div className="bg-[#FFF5F5] p-4 lg:p-6 rounded-2xl shadow-md">
-              <img
-                src="/Images/emotion_angry.png"
-                alt="emotion_angry"
-                className="w-[150px] h-[160px] md:w-[220px] md:h-[230px] lg:w-[280px] lg:h-[290px]"
-              />
-            </div>
-            <p className="text-[22px] md:text-[28px] lg:text-[37px] mt-[10px] lg:mt-[15px] font-medium">
-              화나!!
-            </p>
-          </div>
-          <div className="flex flex-col items-center transition-transform hover:scale-105">
-            <div className="bg-[#FFF5F5] p-4 lg:p-6 rounded-2xl shadow-md">
-              <img
-                src="/Images/emotion_joy.png"
-                alt="emotion_happy"
-                className="w-[150px] h-[160px] md:w-[220px] md:h-[230px] lg:w-[280px] lg:h-[290px]"
-              />
-            </div>
-            <p className="text-[22px] md:text-[28px] lg:text-[37px] mt-[10px] lg:mt-[15px] font-medium">
-              좋아!
-            </p>
-          </div>
-          <div className="flex flex-col items-center transition-transform hover:scale-105">
-            <div className="bg-[#FFF5F5] p-4 lg:p-6 rounded-2xl shadow-md">
-              <img
-                src="/Images/emotion_sad.png"
-                alt="emotion_sad"
-                className="w-[150px] h-[160px] md:w-[220px] md:h-[230px] lg:w-[280px] lg:h-[290px]"
-              />
-            </div>
-            <p className="text-[22px] md:text-[28px] lg:text-[37px] mt-[10px] lg:mt-[15px] font-medium">
-              속상해..
-            </p>
-          </div>
-          <div className="flex flex-col items-center transition-transform hover:scale-105">
-            <div className="bg-[#FFF5F5] p-4 lg:p-6 rounded-2xl shadow-md">
-              <img
-                src="/Images/emotion_normal.png"
-                alt="emotion_normal"
-                className="w-[150px] h-[160px] md:w-[220px] md:h-[230px] lg:w-[280px] lg:h-[290px]"
-              />
-            </div>
-            <p className="text-[22px] md:text-[28px] lg:text-[37px] mt-[10px] lg:mt-[15px] font-medium">
-              그냥그래
-            </p>
-          </div>
+          {infoEmotionData.map((emotion: any) => {
+            return (
+              <div className="flex flex-col items-center transition-transform">
+                <img
+                  src={emotion.image}
+                  alt={emotion.name}
+                  className="w-[150px] h-[160px] md:w-[220px] md:h-[230px] lg:w-[280px] lg:h-[290px]"
+                />
+                <p className="text-[22px] md:text-[28px] lg:text-[37px] mt-[10px] lg:mt-[15px] font-medium">
+                  {emotion.name}
+                </p>
+              </div>
+            );
+          })}
         </div>
 
         <div className="h-[80px] lg:h-[115px] bg-black w-[1px] my-[40px] lg:my-[80px]" />
@@ -234,11 +201,28 @@ const Page = () => {
       </section>
 
       {/* 팀원 소개 */}
-      {/* <section className="py-[100px] bg-[#494949] w-full flex flex-col items-center">
-        <h1 className="text-[40px] font-bold text-white">팀원 소개</h1>
-        <img src="/Images/team.png" alt="team" className="" />
-        
-      </section> */}
+      <section className="py-[50px] lg:py-[100px] bg-[#494949] w-full flex flex-col items-center">
+        <h1 className="text-[28px] lg:text-[40px] font-bold text-white">
+          팀원 소개
+        </h1>
+        <div className="flex flex-col justify-center items-center space-y-[40px] mt-[40px] lg:mt-[80px] px-4">
+          {TeamData.map((team, index) => (
+            <div key={index} className="flex flex-col items-center relative ">
+              <div
+                className={`status_box transition-colors duration-300 shadow_box w-[280px] h-[300px] lg:w-[341px] lg:h-[358px] ${team.bg} hover:scale-105 cur`}
+              >
+                <img
+                  src={team.image}
+                  alt={team.name}
+                  className="w-[280px] h-[300px] lg:w-[341px] lg:h-[358px] absolute top-[25px] lg:top-[29px]"
+                />
+              </div>
+              <p className={`text_xl mt-[15px] ${team.color}`}>{team.name}</p>
+              <p className="text-white text_xl">{team.role}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
