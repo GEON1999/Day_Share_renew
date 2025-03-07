@@ -115,7 +115,9 @@ const TodoSection = () => {
       return (
         <div className="flex flex-col items-center">
           <IconEmptyTodo
-            className={"text-white h-[205.98px] w-[170px] mt-[10px]"}
+            className={
+              "text-white h-[150px] lg:h-[205.98px] w-[120px] lg:w-[170px] mt-[10px]"
+            }
           />
           <p className="mt-[7px]">일정이 없어요.</p>
           <p className="mt-[2px]">추가해 볼까요?</p>

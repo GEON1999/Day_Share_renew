@@ -90,7 +90,7 @@ const CalendarSidebar: React.FC<CalendarSidebarProps> = ({
 
           <button
             onClick={handleLogout}
-            className={`lg:flex hidden ${
+            className={`lg:flex  ${
               isOpen ? "flex" : "hidden"
             } btn_logout mt-[10px]`}
           >
