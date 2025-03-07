@@ -215,6 +215,10 @@ const GET_CHAT_MESSAGES = (chatId, calendarId) =>
 // 채팅룸 리스트 조회
 const GET_CHAT_ROOMS = (query) => `/api/chat/rooms${query ? `?${query}` : ""}`;
 
+// 캘린더 채팅룸 리스트 조회
+const GET_CALENDAR_CHAT_ROOMS = (calendarId, query) =>
+  `/api/calendar/${calendarId}/chatrooms${query ? `?${query}` : ""}`;
+
 // image upload API
 
 // 이미지 업로드
@@ -280,4 +284,5 @@ export default {
   GET_CHAT_ROOM,
   GET_CHAT_MESSAGES,
   GET_CHAT_ROOMS,
+  GET_CALENDAR_CHAT_ROOMS,
 };

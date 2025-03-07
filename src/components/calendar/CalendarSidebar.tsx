@@ -9,6 +9,8 @@ import {
   IconLogo,
   IconLogo_sm,
   IconProfile,
+  IconChat,
+  IconChatMobile,
 } from "@/icons";
 import SideCalendarProfile from "./side/sideCalendarProfile";
 import SideUserList from "./side/sideUserList";
@@ -35,6 +37,11 @@ const CalendarSidebar: React.FC<CalendarSidebarProps> = ({
     await signOut();
   }, []);
 
+  const handleClickChat = useCallback(
+    () => router.push(`/calendar/${calendarId}/chatrooms`),
+    [router, calendarId]
+  );
+
   return (
     <aside className="side_container shadow-side border-r-[1.5px] z-10">
       <div>
@@ -57,11 +64,35 @@ const CalendarSidebar: React.FC<CalendarSidebarProps> = ({
           <SideCalendarProfile isOpen={isOpen} />
           <SideUserList isSideOpen={isOpen} />
 
+          <div className={`${isOpen ? "block" : "hidden lg:block"}`}>
+            <button
+              onClick={handleClickChat}
+              aria-label="채팅목록 페이지로 이동"
+              className="btn_logout mt-[7px] lg:mt-[15px]"
+            >
+              <IconChat
+                className={`w-5 h-5 cur transition-all duration-300    ${
+                  isOpen ? "mt-0 " : ""
+                }`}
+              />
+              <p>채팅목록</p>
+            </button>
+          </div>
+          <IconChatMobile
+            onClick={handleClickChat}
+            aria-label="채팅목록 페이지로 이동"
+            className={`${
+              isOpen
+                ? "hidden"
+                : "cur w-[30px] h-[30px] rounded-full flex justify-center items-center lg:hidden mt-[50px]"
+            }`}
+          />
+
           <button
             onClick={handleLogout}
             className={`lg:flex hidden ${
               isOpen ? "flex" : "hidden"
-            } btn_logout mt-[10px] lg:mt-[27px]`}
+            } btn_logout mt-[10px]`}
           >
             <IconExit className="w-5 h-5 cur" />
             <p>로그아웃</p>

@@ -235,6 +235,31 @@ const useGetCalendarUser = (
   });
 };
 
+// Get Calendar Chat Rooms
+const getCalendarChatRooms = async (
+  calendarId: string,
+  query: string,
+  accessToken?: any
+) => {
+  const url =
+    Helper.CURRENT_BASE_URL() + API.GET_CALENDAR_CHAT_ROOMS(calendarId, query);
+
+  const config =
+    typeof window === "undefined"
+      ? rqOption.apiHeader(accessToken)
+      : { headers: { "Content-Type": "application/json" } };
+
+  const { data } = await axios.get(url, config);
+  return data;
+};
+
+const useGetCalendarChatRooms = (calendarId: string, query: string) => {
+  return useQuery({
+    queryKey: [QueryKeys.GET_CALENDAR_CHAT_ROOMS, calendarId, query],
+    queryFn: () => getCalendarChatRooms(calendarId, query),
+  });
+};
+
 export default {
   useGetCalendarList,
   useGetCalendarSelectList,
@@ -246,6 +271,7 @@ export default {
   useGetCalendarPermissionList,
   useGetCalendarProfile,
   useGetCalendarUser,
+  useGetCalendarChatRooms,
   getCalendarList,
   getCalendarSelectList,
   getCalendarDates,
@@ -256,4 +282,5 @@ export default {
   getCalendarPermissionList,
   getCalendarProfile,
   getCalendarUser,
+  getCalendarChatRooms,
 };

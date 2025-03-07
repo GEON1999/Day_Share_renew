@@ -27,38 +27,7 @@ export async function GET(req: any, res: { params: { id?: string } }) {
 
   try {
     const data = await axios.get(
-      `${process.env.BASE_URL}${API.GET_DIARIES(id, queries)}`,
-      rqOption.apiHeader(accessToken)
-    );
-
-    return NextResponse.json(data.data, { status: 200 });
-  } catch (error) {
-    console.error("API call error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch data" },
-      { status: 500 }
-    );
-  }
-}
-
-export async function POST(req: any, res: { params: { id?: string } }) {
-  const session = await getServerSession(authOptions);
-  const accessToken = session?.accessToken;
-
-  if (accessToken === undefined) {
-    return NextResponse.json(
-      { error: "Failed to fetch data" },
-      { status: 500 }
-    );
-  }
-  const id = res.params.id;
-  const body = await req.json();
-  const queries = `${req.nextUrl.searchParams.toString()}`;
-
-  try {
-    const data = await axios.post(
-      `${process.env.BASE_URL}${API.CREATE_DIARY(id, queries)}`,
-      body,
+      `${process.env.BASE_URL}${API.GET_CALENDAR_CHAT_ROOMS(id, queries)}`,
       rqOption.apiHeader(accessToken)
     );
 

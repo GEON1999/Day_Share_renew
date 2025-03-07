@@ -72,6 +72,9 @@ const GET_CHAT_ROOMS = "GET_CHAT_ROOMS";
 // 공휴일 조회
 const GET_HOLIDAYS = "GET_HOLIDAYS";
 
+// 캘린더 채팅룸 리스트 조회
+const GET_CALENDAR_CHAT_ROOMS = "GET_CALENDAR_CHAT_ROOMS";
+
 export default {
   GET_USER,
   GET_USER_TODOS,
@@ -97,4 +100,5 @@ export default {
   GET_CHAT_MESSAGES,
   GET_CHAT_ROOMS,
   GET_HOLIDAYS,
+  GET_CALENDAR_CHAT_ROOMS,
 };

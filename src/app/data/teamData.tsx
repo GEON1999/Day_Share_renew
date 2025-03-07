@@ -30,6 +30,7 @@ export const TeamData: TeamData[] = [
     image: "/Images/team_3.png",
     color: "text-[#E2FF9B]",
     bg: "bg-[#E2FF9B]",
+    email: "anxiw@naver.com",
   },
   {
     name: "박예지",
