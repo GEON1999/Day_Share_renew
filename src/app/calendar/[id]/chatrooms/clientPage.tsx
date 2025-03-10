@@ -17,10 +17,8 @@ const ClientPage = () => {
     `chat_room_page=${chatPage}&chat_room_size=${chatSize}`
   );
 
-  console.log(data);
-
   const handleChatRoomClick = (chatRoom: any) => {
-    router.push(`/calendar/${chatRoom.calendarId}/chat/${chatRoom.id}`);
+    router.push(`/calendar/${calendarId}/chat/${chatRoom.id}`);
   };
 
   return (
