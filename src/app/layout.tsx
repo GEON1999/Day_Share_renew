@@ -7,6 +7,7 @@ import withTheme from "./ConfigProvider";
 import localFont from "next/font/local";
 import { AlertProvider } from "@/components/alert/AlertContext";
 import Alert from "@/components/alert/Alert";
+import { Analytics } from "@vercel/analytics/react";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -75,6 +76,7 @@ export default function RootLayout({
             </AlertProvider>
           </Providers>
         </AuthSession>
+        <Analytics />
       </body>
     </html>
   );
