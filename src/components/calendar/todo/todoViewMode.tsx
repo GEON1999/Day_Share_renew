@@ -299,14 +299,17 @@ const TodoViewMode = ({ setEditorMode }: any) => {
               <div className="border-l absolute left-[10px] lg:left-[19px] top-[30px] h-[128px] w-[1px]" />
               <div className="flex items-center justify-between mt-[5px] px-[3px] lg:px-[10px] noto-sans-text">
                 <div className="flex items-center">
-                  <img
-                    src={
-                      calendarProfile?.img == "" || calendarProfile?.img == null
-                        ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                        : calendarProfile?.img
-                    }
-                    className="w-[20px] h-[20px] rounded-full bor object-cover"
-                  />
+                  <a href={`/calendar/${id}/profile/${calendarProfile?.id}`}>
+                    <img
+                      src={
+                        calendarProfile?.img == "" ||
+                        calendarProfile?.img == null
+                          ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                          : calendarProfile?.img
+                      }
+                      className="w-[20px] h-[20px] rounded-full bor object-cover"
+                    />
+                  </a>
                   <p className="text-[13px] lg:text-[20px] ml-[8px] mr-[12px]">
                     {calendarProfile?.name ?? "탈퇴한 유저"}
                   </p>
@@ -366,15 +369,19 @@ const TodoViewMode = ({ setEditorMode }: any) => {
                     className="flex justify-between items-start relative"
                   >
                     <div className="flex items-start space-x-[10px] lg:space-x-[15px]">
-                      <img
-                        className="w-[30px] h-[30px] lg:w-[45px] lg:h-[45px] rounded-full bor object-cover"
-                        src={
-                          comment?.profile?.img == "" ||
-                          comment?.profile?.img == null
-                            ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                            : comment?.profile?.img
-                        }
-                      />
+                      <a
+                        href={`/calendar/${id}/profile/${comment?.comment?.userId}`}
+                      >
+                        <img
+                          className="w-[30px] h-[30px] lg:w-[45px] lg:h-[45px] rounded-full bor object-cover"
+                          src={
+                            comment?.profile?.img == "" ||
+                            comment?.profile?.img == null
+                              ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                              : comment?.profile?.img
+                          }
+                        />
+                      </a>
                       {editingCommentId === comment.comment.id ? (
                         <form
                           className="w-[220px] lg:w-[432px] h-[74px] flex flex-col items-center rounded-md bor bg-white"

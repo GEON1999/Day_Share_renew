@@ -256,14 +256,16 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
       </div>
       <div className="flex items-center mt-3 justify-between">
         <div className="flex items-center">
-          <img
-            className="w-[20px] h-[20px] rounded-full bor mr-[8px] object-cover"
-            src={
-              calendarProfile?.img == "" || calendarProfile?.img == null
-                ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                : calendarProfile?.img
-            }
-          />
+          <a href={`/calendar/${id}/profile/${calendarProfile.id}`}>
+            <img
+              className="w-[20px] h-[20px] rounded-full bor mr-[8px] object-cover"
+              src={
+                calendarProfile?.img == "" || calendarProfile?.img == null
+                  ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                  : calendarProfile?.img
+              }
+            />
+          </a>
           <h1 className="text_lg mr-[10px]">
             {calendarProfile?.name ?? "탈퇴한 유저"}
           </h1>
@@ -321,23 +323,33 @@ const DiaryViewMode = ({ setEditorMode, editorMode }: any) => {
         <div className="mt-[13px]">
           <div className="space-y-3">
             {commentData?.map((comment: any) => {
+              console.log("comment", comment);
               return (
                 <div
                   key={comment.comment.id}
                   className="flex justify-between items-start relative"
                 >
                   <div className="flex items-start space-x-[10px] space-y-2">
-                    <img
-                      className={`w-[25px] h-[25px] lg:w-[45px] lg:h-[45px] mt-[10px] rounded-full object-cover ${
-                        comment?.profile?.id === 0 ? "" : "bor"
-                      }`}
-                      src={
-                        comment?.profile?.img == "" ||
-                        comment?.profile?.img == null
-                          ? process.env.NEXT_PUBLIC_PROFILE_IMG
-                          : comment?.profile?.img
+                    <a
+                      href={
+                        process.env.NEXT_PUBLIC_AI_ID ==
+                        comment?.comment?.userId
+                          ? undefined
+                          : `/calendar/${id}/profile/${comment?.comment?.userId}`
                       }
-                    />
+                    >
+                      <img
+                        className={`w-[25px] h-[25px] lg:w-[45px] lg:h-[45px] mt-[10px] rounded-full object-cover ${
+                          comment?.profile?.id === 0 ? "" : "bor"
+                        }`}
+                        src={
+                          comment?.profile?.img == "" ||
+                          comment?.profile?.img == null
+                            ? process.env.NEXT_PUBLIC_PROFILE_IMG
+                            : comment?.profile?.img
+                        }
+                      />
+                    </a>
                     <div className=" space-y-[2px] ">
                       {editingCommentId === comment.comment.id ? (
                         <form

@@ -23,9 +23,18 @@ export const authOptions = {
       clientId: process.env.KAKAO_CLIENT_ID!,
       clientSecret: process.env.KAKAO_CLIENT_SECRET!,
       profile(profile) {
+        // Extract name and image. Paths might vary based on Kakao API version and granted scopes.
+        // Common paths are profile.properties.nickname or profile.kakao_account.profile.nickname
+        const nickname =
+          profile.properties?.nickname ||
+          profile.kakao_account?.profile?.nickname;
+        const profileImage = profile.kakao_account?.profile?.profile_image_url;
+
         return {
-          id: String(profile.id),
-          isAuto: "false",
+          id: String(profile.id), // Ensure id is explicitly a string
+          name: nickname,
+          image: profileImage,
+          isAuto: "false", // Custom field as per existing code
         };
       },
     }),
@@ -143,36 +152,81 @@ export const authOptions = {
 
         // Kakao 로그인 시 추가 처리
         if (account.provider === "kakao") {
-          const social_id = user.id;
-          const img = user.image;
-          const name = user.name;
+          const socialIdFromProfile = user.id; // Should be string from profile func
+          const userNameFromProfile = user.name; // Should be populated from profile func
+          const userImageFromProfile = user.image; // Should be populated from profile func
 
-          const { data } = await axios.get(
-            `${process.env.BASE_URL}${API.SOCIAL_CHECK(social_id)}`
+          const socialIdString = String(socialIdFromProfile);
+
+          const { data: checkData } = await axios.get(
+            `${process.env.BASE_URL}${API.SOCIAL_CHECK(socialIdString)}`
           );
 
-          if (data?.isNew) {
-            const { data: signupData } = await axios.post(
-              `${process.env.BASE_URL}${API.SOCIAL_SIGNUP}`,
-              {
-                social_id: social_id,
-                img: img,
-                name: name,
-              }
-            );
-            if (signupData?.access_token) {
-              token.accessToken = signupData.access_token;
-              token.accessTokenExpires =
-                Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES;
+          if (checkData?.isNew) {
+            if (
+              !userNameFromProfile ||
+              typeof userNameFromProfile !== "string" ||
+              userNameFromProfile.trim() === ""
+            ) {
+              console.error(
+                "[Kakao Login Error] User name from Kakao profile is missing or invalid. Cannot proceed with social signup."
+              );
+              token.error = "KakaoProfileMissingName";
+              return token;
             }
-          } else if (data?.isNew === false) {
-            const { data: loginData } = await axios.get(
-              `${process.env.BASE_URL}${API.SOCIAL_LOGIN(social_id)}`
-            );
-            if (loginData?.access_token) {
-              token.accessToken = loginData.access_token;
-              token.accessTokenExpires =
-                Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES;
+
+            const signupPayload = {
+              social_id: socialIdString,
+              name: userNameFromProfile,
+              img: userImageFromProfile,
+            };
+
+            try {
+              const { data: signupData } = await axios.post(
+                `${process.env.BASE_URL}${API.SOCIAL_SIGNUP}`,
+                signupPayload
+              );
+              if (signupData?.access_token) {
+                token.accessToken = signupData.access_token;
+                token.accessTokenExpires =
+                  Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES;
+              } else {
+                console.error(
+                  "[Kakao Signup Error] Signup API call did not return access_token. Response:",
+                  signupData
+                );
+                token.error = "KakaoSignupFailedResponse";
+              }
+            } catch (e: any) {
+              console.error(
+                "[Kakao Signup Error] API call to /api/social/signup failed:",
+                e.response?.data || e.message,
+                e.stack
+              );
+              token.error = "KakaoSignupApiError";
+              if (e.response?.data?.detail) {
+                token.backendError = e.response.data.detail;
+              }
+            }
+          } else if (checkData?.isNew === false) {
+            try {
+              const { data: loginData } = await axios.get(
+                `${process.env.BASE_URL}${API.SOCIAL_LOGIN(socialIdString)}`
+              );
+              if (loginData?.access_token) {
+                token.accessToken = loginData.access_token;
+                token.accessTokenExpires =
+                  Date.now() + StaticKeys.ACCESS_TOKEN_EXPIRES;
+              } else {
+                token.error = "KakaoLoginFailedResponse";
+              }
+            } catch (e: any) {
+              console.error(
+                "[Kakao Login Error] API call to /api/social/login failed:",
+                e.response?.data || e.message,
+                e.stack
+              );
+              token.error = "KakaoLoginApiError";
             }
           }
           return token;
